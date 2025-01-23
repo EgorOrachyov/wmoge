@@ -50,12 +50,10 @@ namespace wmoge {
         [[nodiscard]] VkRenderPass render_pass() const { return m_render_pass; }
         [[nodiscard]] int          color_targets_count() const { return m_color_targets_count; }
         [[nodiscard]] bool         has_depth_stencil() const { return m_has_depth_stencil; }
-        [[nodiscard]] Size2i       get_size() const { return m_size; }
 
     private:
         GfxRenderPassDesc m_desc{};
-        VkRenderPass      m_render_pass = VK_NULL_HANDLE;
-        Size2i            m_size{0, 0};
+        VkRenderPass      m_render_pass         = VK_NULL_HANDLE;
         bool              m_has_depth_stencil   = false;
         int               m_color_targets_count = 0;
     };

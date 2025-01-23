@@ -60,18 +60,26 @@ namespace wmoge {
         RdgResource(RdgResourceId id, RdgResourceFlags flags, Strid name);
         ~RdgResource() override = default;
 
-        virtual Status allocate(class RdgPool& pool) { return StatusCode::NotImplemented; }
-        virtual Status release(class RdgPool& pool) { return StatusCode::NotImplemented; }
+        virtual void allocate(class RdgPool& pool) {}
+        virtual void release(class RdgPool& pool) {}
+
+        virtual bool is_texture() const { return false; }
+        virtual bool is_buffer() const { return false; }
+        virtual bool is_vertex() const { return false; }
+        virtual bool is_index() const { return false; }
+        virtual bool is_uniform() const { return false; }
+        virtual bool is_storage() const { return false; }
 
         void set_gfx(GfxResourceRef gfx) { m_gfx = std::move(gfx); }
-        bool needs_allocation() const { return m_flags.get(RdgResourceFlag::Pooled); }
+        bool is_pooled() const { return m_flags.get(RdgResourceFlag::Pooled); }
+        bool is_allocated() const { return m_gfx; }
 
         [[nodiscard]] const GfxResourceRef&   get_gfx() const { return m_gfx; }
         [[nodiscard]] const RdgResourceId&    get_id() const { return m_id; }
         [[nodiscard]] const RdgResourceFlags& get_flags() const { return m_flags; }
         [[nodiscard]] const Strid&            get_name() const { return m_name; }
 
-    private:
+    protected:
         GfxResourceRef   m_gfx;
         RdgResourceId    m_id;
         RdgResourceFlags m_flags;
@@ -87,7 +95,14 @@ namespace wmoge {
         RdgTexture(const GfxTextureRef& texture, RdgResourceId id);
         ~RdgTexture() override = default;
 
+        void allocate(class RdgPool& pool) override;
+        void release(class RdgPool& pool) override;
+
+        bool is_texture() const override { return true; }
+
         [[nodiscard]] const GfxTextureDesc& get_desc() const { return m_desc; }
+        [[nodiscard]] GfxTexture*           get_texture() const { return static_cast<GfxTexture*>(get_gfx().get()); }
+        [[nodiscard]] GfxTextureRef         get_texture_ref() const { return GfxTextureRef(static_cast<GfxTexture*>(get_gfx().get())); }
 
     private:
         GfxTextureDesc m_desc;
@@ -100,6 +115,8 @@ namespace wmoge {
         RdgBuffer(const GfxBufferRef& buffer, RdgResourceId id);
         ~RdgBuffer() override = default;
 
+        bool is_buffer() const override { return true; }
+
     private:
         GfxBufferDesc m_desc;
     };
@@ -110,6 +127,8 @@ namespace wmoge {
         using RdgBuffer::RdgBuffer;
 
         [[nodiscard]] GfxVertBuffer* get_buffer() const { return static_cast<GfxVertBuffer*>(get_gfx().get()); }
+
+        bool is_vertex() const override { return true; }
     };
 
     /** @brief Rdg index buffer resource */
@@ -118,6 +137,8 @@ namespace wmoge {
         using RdgBuffer::RdgBuffer;
 
         [[nodiscard]] GfxIndexBuffer* get_buffer() const { return static_cast<GfxIndexBuffer*>(get_gfx().get()); }
+
+        bool is_index() const override { return true; }
     };
 
     /** @brief Rdg uniform buffer resource */
@@ -126,6 +147,8 @@ namespace wmoge {
         using RdgBuffer::RdgBuffer;
 
         [[nodiscard]] GfxUniformBuffer* get_buffer() const { return static_cast<GfxUniformBuffer*>(get_gfx().get()); }
+
+        bool is_uniform() const override { return true; }
     };
 
     /** @brief Rdg storage buffer resource */
@@ -134,6 +157,8 @@ namespace wmoge {
         using RdgBuffer::RdgBuffer;
 
         [[nodiscard]] GfxStorageBuffer* get_buffer() const { return static_cast<GfxStorageBuffer*>(get_gfx().get()); }
+
+        bool is_storage() const override { return true; }
     };
 
 }// namespace wmoge

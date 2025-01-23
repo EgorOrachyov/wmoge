@@ -68,12 +68,12 @@ namespace wmoge {
         m_shaders_folder          = "engine/shaders";
         m_shaders_cache_path      = "cache/";
         m_active_platform         = m_gfx_driver->get_shader_platform();
-        m_compilation_enable      = true;
-        m_load_cache              = true;
-        m_save_cache              = true;
-        m_hot_reload_enable       = true;
-        m_hot_reload_on_change    = true;
-        m_hot_reload_on_trigger   = true;
+        m_compilation_enable      = false;
+        m_load_cache              = false;
+        m_save_cache              = false;
+        m_hot_reload_enable       = false;
+        m_hot_reload_on_change    = false;
+        m_hot_reload_on_trigger   = false;
         m_hot_reload_interval_sec = 5.0f;
         m_callback                = std::make_shared<Shader::Callback>([this](Shader* shader) { remove_shader(shader); });
 
@@ -205,7 +205,7 @@ namespace wmoge {
                     continue;
                 }
                 if (type == ShaderTypes::IMAGE2D) {
-                    space_builder.add_storage_image_2d(param.name);
+                    space_builder.add_storage_image_2d(param.name, param.qualifiers);
                     continue;
                 }
 
@@ -561,12 +561,12 @@ namespace wmoge {
     }
 
     void ShaderManager::validate_param_blocks(array_view<ShaderParamBlock*> param_blocks, const GfxCmdListRef& cmd_list) {
-        WG_PROFILE_CPU_GRC("ShaderManager::validate_param_blocks");
-        WG_PROFILE_GPU_SCOPE("ShaderManager::validate_param_blocks", cmd_list);
-
         if (param_blocks.empty()) {
             return;
         }
+
+        WG_PROFILE_CPU_GRC("ShaderManager::validate_param_blocks");
+        WG_PROFILE_GPU_SCOPE("ShaderManager::validate_param_blocks", cmd_list);
 
         buffered_vector<GfxBuffer*> buffers_for_barrier;
 

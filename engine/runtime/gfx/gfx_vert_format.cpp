@@ -59,8 +59,8 @@ namespace wmoge {
     }
     void GfxVertElements::add_vert_attribs(GfxVertAttribs attribs, GfxVertAttribs layout, int buffer, bool instanced) {
         assert(buffer < GfxLimits::MAX_VERT_BUFFERS);
-        assert(layout.bits.any());
-        assert(attribs.bits.any());
+        assert(layout.bits.any() || buffer == 0);
+        assert(attribs.bits.any() || buffer == 0);
         assert((attribs.bits & layout.bits) == attribs.bits);
 
         int stride = 0;

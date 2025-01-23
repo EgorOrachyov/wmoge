@@ -71,7 +71,7 @@ namespace wmoge {
             SpaceBuilder&  add_texture_2d_array(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler);
             SpaceBuilder&  add_texture_cube(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler);
             SpaceBuilder&  add_storage_buffer(Strid name, Strid type_struct);
-            SpaceBuilder&  add_storage_image_2d(Strid name);
+            SpaceBuilder&  add_storage_image_2d(Strid name, ShaderQualifiers qualifiers);
             ShaderBuilder& end_space();
 
         private:

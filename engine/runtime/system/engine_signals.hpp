@@ -25,46 +25,21 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "rdg_utils.hpp"
+#pragma once
 
-#include "gfx/gfx_driver.hpp"
-#include "grc/shader_manager.hpp"
-#include "profiler/profiler_cpu.hpp"
-#include "profiler/profiler_gpu.hpp"
+#include "core/signal.hpp"
 
 namespace wmoge {
 
-    void RdgUtils::update_buffer(RdgGraph& graph, const Strid& name, RdgVertBuffer* buffer, int offset, array_view<const std::uint8_t> data) {
-        WG_PROFILE_RDG_SCOPE("RdgUtils::update_buffer", graph);
-        auto data_capture = graph.make_upload_data(data);
-        graph.add_copy_pass(name, {})
-                .copy_destination(buffer)
-                .bind([=](RdgPassContext& context) {
-                    context.update_vert_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
-                    return WG_OK;
-                });
-    }
-
-    void RdgUtils::update_buffer(RdgGraph& graph, const Strid& name, RdgIndexBuffer* buffer, int offset, array_view<const std::uint8_t> data) {
-        WG_PROFILE_RDG_SCOPE("RdgUtils::update_buffer", graph);
-        auto data_capture = graph.make_upload_data(data);
-        graph.add_copy_pass(name, {})
-                .copy_destination(buffer)
-                .bind([=](RdgPassContext& context) {
-                    context.update_index_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
-                    return WG_OK;
-                });
-    }
-
-    void RdgUtils::update_buffer(RdgGraph& graph, const Strid& name, RdgStorageBuffer* buffer, int offset, array_view<const std::uint8_t> data) {
-        WG_PROFILE_RDG_SCOPE("RdgUtils::update_buffer", graph);
-        auto data_capture = graph.make_upload_data(data);
-        graph.add_copy_pass(name, {})
-                .copy_destination(buffer)
-                .bind([=](RdgPassContext& context) {
-                    context.update_storage_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
-                    return WG_OK;
-                });
-    }
+    /**
+     * @class EngineSignals
+     * @brief Signals called during engine execution
+     */
+    class EngineSignals {
+    public:
+        Signal<> begin_frame;
+        Signal<> debug_draw;
+        Signal<> end_frame;
+    };
 
 }// namespace wmoge

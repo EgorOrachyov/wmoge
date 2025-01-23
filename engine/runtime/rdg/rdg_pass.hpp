@@ -53,6 +53,8 @@ namespace wmoge {
         Color4f     color    = Color4f();
         bool        clear    = false;
         GfxRtOp     op       = GfxRtOp::LoadStore;
+        int         mip      = 0;
+        int         slice    = 0;
     };
 
     /** @brief Rdg pass depth stencil target info */
@@ -63,6 +65,22 @@ namespace wmoge {
         bool        clear_depth   = false;
         bool        clear_stencil = false;
         GfxRtOp     op            = GfxRtOp::LoadStore;
+        int         mip           = 0;
+        int         slice         = 0;
+    };
+
+    /** @brief Rdg pass os window target info */
+    struct RdgPassWindowTarget {
+        Ref<Window> window;
+        Color4f     color         = Color4f();
+        float       depth         = 1.0f;
+        int         stencil       = 0;
+        GfxRtOp     op_color      = GfxRtOp::LoadStore;
+        GfxRtOp     op_depth      = GfxRtOp::LoadStore;
+        GfxRtOp     op_stencil    = GfxRtOp::LoadStore;
+        bool        clear_color   = false;
+        bool        clear_depth   = false;
+        bool        clear_stencil = false;
     };
 
     /** @brief Rdg pass referenced resource for manual usage */
@@ -77,10 +95,11 @@ namespace wmoge {
      */
     class RdgPassContext {
     public:
-        RdgPassContext(GfxCmdListRef        cmd_list,
+        RdgPassContext(const GfxCmdListRef& cmd_list,
                        class GfxDriver*     driver,
                        class ShaderManager* shader_manager,
-                       class RdgGraph*      graph);
+                       class RdgGraph*      graph,
+                       const class RdgPass& pass);
 
         Status update_vert_buffer(GfxVertBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
         Status update_index_buffer(GfxIndexBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
@@ -89,15 +108,19 @@ namespace wmoge {
 
         Status validate_param_block(ShaderParamBlock* param_block);
 
+        void   begin_render_pass();
         Status bind_param_block(ShaderParamBlock* param_block);
         Status bind_pso_graphics(Shader* shader, const ShaderPermutation& permutation, const GfxVertElements& vert_elements);
+        Status bind_pso_graphics(Shader* shader, Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options, const GfxVertAttribs& attribs);
         Status bind_pso_compute(Shader* shader, const ShaderPermutation& permutation);
+        Status bind_pso_compute(Shader* shader, Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options);
         Status viewport(const Rect2i& viewport);
         Status bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset = 0);
         Status bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0);
         Status draw(int vertex_count, int base_vertex, int instance_count);
         Status draw_indexed(int index_count, int base_vertex, int instance_count);
         Status dispatch(Vec3i group_count);
+        void   end_render_pass();
 
         [[nodiscard]] const GfxCmdListRef& get_cmd_list() const { return m_cmd_list; }
         [[nodiscard]] class GfxDriver*     get_driver() const { return m_driver; }
@@ -105,10 +128,18 @@ namespace wmoge {
         [[nodiscard]] class RdgGraph*      get_graph() const { return m_graph; }
 
     private:
-        GfxCmdListRef        m_cmd_list;
+        const GfxCmdListRef& m_cmd_list;
+        const class RdgPass& m_pass;
         class GfxDriver*     m_driver         = nullptr;
         class ShaderManager* m_shader_manager = nullptr;
         class RdgGraph*      m_graph          = nullptr;
+
+        GfxRenderPassRef  m_render_pass_ref;
+        GfxFrameBufferRef m_frame_buffer_ref;
+
+        bool m_is_color_pass    = false;
+        bool m_use_frame_buffer = false;
+        bool m_use_window       = false;
     };
 
     /** @brief Rdg pass flags */
@@ -132,6 +163,8 @@ namespace wmoge {
         RdgPass& color_target(RdgTexture* target, const Color4f& clear_color);
         RdgPass& depth_target(RdgTexture* target);
         RdgPass& depth_target(RdgTexture* target, float clear_depth, int clear_stencil);
+        RdgPass& window_target(const Ref<Window>& window);
+        RdgPass& window_target(const Ref<Window>& window, const Color4f& clear_color);
         RdgPass& reference(RdgResource* resource, GfxAccess access);
         RdgPass& uniform(RdgBuffer* resource);
         RdgPass& reading(RdgBuffer* resource);
@@ -142,26 +175,38 @@ namespace wmoge {
         RdgPass& storage(RdgTexture* resource);
         RdgPass& bind(RdgPassCallback callback);
 
-        GfxRenderPassDesc make_render_pass_desc() const;
+        GfxRenderPassDesc            make_render_pass_desc() const;
+        GfxRenderPassDesc            make_render_pass_desc(const GfxWindowProps& props) const;
+        GfxFrameBufferDesc           make_framebuffer_desc(const Ref<GfxRenderPass>& render_pass) const;
+        GfxRenderPassBeginInfo       make_render_pass_begin_info(const GfxFrameBufferRef& frame_buffer) const;
+        GfxRenderPassWindowBeginInfo make_render_pass_window_begin_info(const Ref<GfxRenderPass>& render_pass) const;
 
-        [[nodiscard]] bool                   has_resource(RdgResource* r) const;
-        [[nodiscard]] const RdgPassFlags&    get_flags() const { return m_flags; }
-        [[nodiscard]] const RdgPassId&       get_id() const { return m_id; }
-        [[nodiscard]] const Strid&           get_name() const { return m_name; }
-        [[nodiscard]] const RdgPassCallback& get_callback() const { return m_callback; }
+        bool is_window_pass() const;
+        bool has_depth_target() const;
+
+        [[nodiscard]] bool                                 has_resource(RdgResource* r) const;
+        [[nodiscard]] const RdgPassFlags&                  get_flags() const { return m_flags; }
+        [[nodiscard]] const RdgPassId&                     get_id() const { return m_id; }
+        [[nodiscard]] const Strid&                         get_name() const { return m_name; }
+        [[nodiscard]] const RdgPassCallback&               get_callback() const { return m_callback; }
+        [[nodiscard]] array_view<const RdgPassColorTarget> get_color_targets() const { return m_color_targets; }
+        [[nodiscard]] const RdgPassDepthTarget&            get_depth_target() const { return m_depth_target; }
+        [[nodiscard]] const RdgPassWindowTarget&           get_window_target() const { return m_window_target; }
+        [[nodiscard]] array_view<const RdgPassResource>    get_resources() const { return m_resources; }
 
     private:
         friend RdgGraph;
 
         buffered_vector<RdgPassColorTarget, 6> m_color_targets;
-        buffered_vector<RdgPassDepthTarget, 1> m_depth_targets;
+        RdgPassDepthTarget                     m_depth_target;
+        RdgPassWindowTarget                    m_window_target;
         buffered_vector<RdgPassResource, 16>   m_resources;
         flat_set<RdgResource*>                 m_referenced;
-
-        RdgPassCallback m_callback;
-        RdgPassFlags    m_flags;
-        RdgPassId       m_id;
-        Strid           m_name;
+        Rect2i                                 m_area;
+        RdgPassCallback                        m_callback;
+        RdgPassFlags                           m_flags;
+        RdgPassId                              m_id;
+        Strid                                  m_name;
 
         class RdgGraph& m_graph;
     };

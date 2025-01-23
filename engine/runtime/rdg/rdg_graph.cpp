@@ -70,7 +70,7 @@ namespace wmoge {
 
     RdgTexture* RdgGraph::create_texture(const GfxTextureDesc& desc, Strid name) {
         Ref<RdgTexture> resource = make_ref<RdgTexture>(desc, next_res_id(), name);
-        add_resource(resource);
+        add_resource(resource, GfxAccess::None);
         return resource.get();
     }
 
@@ -78,9 +78,8 @@ namespace wmoge {
         if (RdgTexture* r = find_texture(texture)) {
             return r;
         }
-
         Ref<RdgTexture> resource = make_ref<RdgTexture>(texture, next_res_id());
-        add_resource(resource);
+        add_resource(resource, GfxAccess::TexureSample);
         return resource.get();
     }
 
@@ -94,7 +93,7 @@ namespace wmoge {
 
     RdgStorageBuffer* RdgGraph::create_storage_buffer(const GfxBufferDesc& desc, Strid name) {
         Ref<RdgStorageBuffer> resource = make_ref<RdgStorageBuffer>(desc, next_res_id(), name);
-        add_resource(resource);
+        add_resource(resource, GfxAccess::None);
         return resource.get();
     }
 
@@ -103,7 +102,7 @@ namespace wmoge {
             return r;
         }
         Ref<RdgStorageBuffer> resource = make_ref<RdgStorageBuffer>(buffer, next_res_id());
-        add_resource(resource);
+        add_resource(resource, GfxAccess::BufferRead);
         return resource.get();
     }
 
@@ -120,7 +119,7 @@ namespace wmoge {
             return r;
         }
         Ref<RdgVertBuffer> resource = make_ref<RdgVertBuffer>(buffer, next_res_id());
-        add_resource(resource);
+        add_resource(resource, GfxAccess::BufferRead);
         return resource.get();
     }
 
@@ -137,7 +136,7 @@ namespace wmoge {
             return r;
         }
         Ref<RdgIndexBuffer> resource = make_ref<RdgIndexBuffer>(buffer, next_res_id());
-        add_resource(resource);
+        add_resource(resource, GfxAccess::BufferRead);
         return resource.get();
     }
 
@@ -155,7 +154,9 @@ namespace wmoge {
 
     Ref<ShaderParamBlock> RdgGraph::make_param_block(Shader* shader, std::int16_t space_idx, const Strid& name) {
         assert(shader);
-        return make_ref<ShaderParamBlock>(*shader, space_idx, name);
+        Ref<ShaderParamBlock> param_block = make_ref<ShaderParamBlock>(*shader, space_idx, name);
+        m_param_blocks.push_back(param_block);
+        return param_block;
     }
 
     void RdgGraph::push_event(RdgProfileMark* mark, const std::string& data) {
@@ -181,13 +182,115 @@ namespace wmoge {
         return WG_OK;
     }
 
+    static GfxTexBarrierType rdg_access_to_barrier(GfxAccess access) {
+        switch (access) {
+            case GfxAccess::TexureSample:
+                return GfxTexBarrierType::Sampling;
+            case GfxAccess::RenderTarget:
+                return GfxTexBarrierType::RenderTarget;
+            case GfxAccess::ImageStore:
+                return GfxTexBarrierType::Storage;
+            case GfxAccess::CopySource:
+                return GfxTexBarrierType::CopySource;
+            case GfxAccess::CopyDestination:
+                return GfxTexBarrierType::CopyDestination;
+
+            default:
+                return GfxTexBarrierType::Undefined;
+        }
+    }
+
+    static void rdg_transition_resource(GfxCmdListRef& cmd_list, GfxAccess src, GfxAccess dst, RdgResource* resource) {
+        if (src == dst) {
+            return;
+        }
+
+        if (resource->is_vertex()) {
+            GfxBuffer* buffer = static_cast<RdgVertBuffer*>(resource)->get_buffer();
+            cmd_list->barrier_buffers({&buffer, 1});
+        }
+        if (resource->is_index()) {
+            GfxBuffer* buffer = static_cast<RdgIndexBuffer*>(resource)->get_buffer();
+            cmd_list->barrier_buffers({&buffer, 1});
+        }
+        if (resource->is_uniform()) {
+            GfxBuffer* buffer = static_cast<RdgUniformBuffer*>(resource)->get_buffer();
+            cmd_list->barrier_buffers({&buffer, 1});
+        }
+        if (resource->is_storage()) {
+            GfxBuffer* buffer = static_cast<RdgStorageBuffer*>(resource)->get_buffer();
+            cmd_list->barrier_buffers({&buffer, 1});
+        }
+        if (resource->is_texture()) {
+            GfxTexture* texture = static_cast<RdgTexture*>(resource)->get_texture();
+            cmd_list->barrier_images({&texture, 1}, rdg_access_to_barrier(src), rdg_access_to_barrier(dst));
+        }
+    }
+
     Status RdgGraph::execute(const RdgExecuteOptions& options) {
         WG_PROFILE_CPU_RDG("RdgGraph::execute");
+
+        const int num_passes    = m_next_pass_id.value;
+        const int num_resources = m_next_res_id.value;
+
+        std::vector<GfxAccess> resource_states(num_resources);
+        for (int i = 0; i < num_resources; i++) {
+            resource_states[i] = m_resources[i].src_access;
+        }
+
+        GfxCmdListRef cmd_list = m_driver->acquire_cmd_list(GfxQueueType::Graphics);
+        WG_PROFILE_GPU_BEGIN(cmd_list);
+
+        for (int i = 0; i < num_resources; i++) {
+            RdgResourceRef& resource = m_resources[i].resource;
+
+            if (resource->is_pooled() && !resource->is_allocated()) {
+                resource->allocate(*m_pool);
+            }
+        }
+
+        for (int i = 0; i < num_resources; i++) {
+            RdgResourceRef& resource = m_resources[i].resource;
+
+            if (resource->is_pooled() && !resource->is_allocated()) {
+                resource->allocate(*m_pool);
+            }
+        }
+
+        for (int pass_id = 0; pass_id < num_passes; pass_id++) {
+            const RdgPass& pass = m_passes[pass_id];
+            RdgPassContext context(cmd_list, m_driver, m_shader_manager, this, pass);
+
+            const array_view<const RdgPassResource> pass_resources = pass.get_resources();
+            for (int i = 0; i < static_cast<int>(pass_resources.size()); i++) {
+                const RdgPassResource& pass_resource  = pass_resources[i];
+                RdgResource*           resource       = pass_resource.resource;
+                GfxAccess&             current_access = resource_states[pass_resource.resource->get_id()];
+
+                rdg_transition_resource(cmd_list, current_access, pass_resource.access, resource);
+                current_access = pass_resource.access;
+            }
+
+            execute_pass(RdgPassId(pass_id), context);
+        }
+
+        for (int i = 0; i < num_resources; i++) {
+            RdgResourceRef& resource = m_resources[i].resource;
+
+            if (resource->is_pooled() && resource->is_allocated()) {
+                resource->release(*m_pool);
+            }
+        }
+
+        WG_PROFILE_GPU_END(cmd_list);
+        m_driver->submit_cmd_list(cmd_list);
 
         return WG_OK;
     }
 
     Status RdgGraph::execute_pass(RdgPassId pass_id, RdgPassContext& context) {
+        WG_PROFILE_CPU_RDG("RdgGraph::execute_pass");
+
         const RdgPass&     pass      = m_passes[pass_id];
         const RdgPassData& pass_data = m_passes_data[pass_id];
 
@@ -199,10 +302,11 @@ namespace wmoge {
 
         Status status;
         {
-            WG_PROFILE_CPU_RDG("RdgGraph::execute_pass");
             WG_PROFILE_GPU_SCOPE_WITH_DESC("RdgGraph::execute_pass", context.get_cmd_list(), pass.get_name().str());
 
+            context.get_cmd_list()->begin_label(pass.get_name());
             status = pass.get_callback()(context);
+            context.get_cmd_list()->end_label();
         }
 
         for (int i = 0; i < pass_data.events_to_end; i++) {
@@ -213,9 +317,12 @@ namespace wmoge {
         return status;
     }
 
-    void RdgGraph::add_resource(const RdgResourceRef& resource) {
+    void RdgGraph::add_resource(const RdgResourceRef& resource, GfxAccess src_access, GfxAccess dst_access) {
         assert(resource->get_id().value == m_resources.size());
-        m_resources.push_back(resource);
+        auto& resource_data      = m_resources.emplace_back();
+        resource_data.resource   = resource;
+        resource_data.src_access = src_access;
+        resource_data.dst_access = dst_access;
 
         if (resource->get_flags().get(RdgResourceFlag::Imported)) {
             m_resources_imported[resource->get_gfx().get()] = resource.get();

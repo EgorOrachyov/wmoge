@@ -83,6 +83,7 @@ namespace wmoge {
         class EcsRegistry*    ecs_registry();
         class GameManager*    game_manager();
         class EngineConfig*   engine_config();
+        class EngineSignals*  engine_signals();
 
     private:
         std::atomic_bool m_close_requested{false};
@@ -116,6 +117,7 @@ namespace wmoge {
         class ProfilerGpu*    m_profiler_gpu    = nullptr;
         class GameManager*    m_game_manager    = nullptr;
         class EngineConfig*   m_engine_config   = nullptr;
+        class EngineSignals*  m_engine_signals  = nullptr;
 
         bool m_exit_on_close = true;
     };

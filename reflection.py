@@ -38,7 +38,7 @@ includes_cpp = (
 
 namespace = "wmoge"
 
-files_list = ["aux_draw.shader", "canvas.shader"]
+files_list = ["aux_draw", "blit", "canvas", "fill"]
 
 types_map = {
     "vec2": "Vec2f",
@@ -204,8 +204,9 @@ def process_technique(builder, shader_technique):
     builder += f"struct Technique{to_camel_case(technique_name)} " + "{\n"
     builder += f'const Strid name = SID("{technique_name}");\n\n'
 
-    builder = process_options(builder, shader_technique["options"])
-    builder += "\n"
+    if "options" in shader_technique:
+        builder = process_options(builder, shader_technique["options"])
+        builder += "\n"
 
     for shader_pass in shader_technique["passes"]:
         builder = process_pass(builder, shader_pass)
@@ -293,6 +294,8 @@ def process_shader(builder_hpp, builder_cpp, shader):
         builder_hpp = process_technique(builder_hpp, shader_technique)
 
     builder_hpp += "Ref<Shader> shader;\n\n"
+    builder_hpp += "operator Shader*() const { return shader.get(); }\n\n"
+
     builder_hpp += f"Status load_from(Ref<Shader> s);\n"
 
     builder_cpp += f"Status {shader_class_name}::load_from(Ref<Shader> s) " + "{\n"
@@ -340,6 +343,8 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
+
+    files_list = [file + ".shader" for file in files_list]
 
     shaders = []
     for shader_file in files_list:

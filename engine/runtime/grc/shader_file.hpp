@@ -64,6 +64,7 @@ namespace wmoge {
         std::string       ui_name;
         std::string       ui_hint;
         ShaderBindingType binding = ShaderBindingType::None;
+        ShaderQualifiers  qualifiers;
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderFileParam) {
@@ -74,6 +75,7 @@ namespace wmoge {
         WG_RTTI_FIELD(ui_name, {RttiOptional});
         WG_RTTI_FIELD(ui_hint, {RttiOptional});
         WG_RTTI_FIELD(binding, {RttiOptional});
+        WG_RTTI_FIELD(qualifiers, {RttiOptional});
     }
     WG_RTTI_END;
 

@@ -33,62 +33,97 @@
 
 namespace wmoge {
 
+    template<typename Res, typename Desc, typename Entry, typename Factory>
+    Res& rdg_allocate_resource(std::vector<Entry>& pool, const Desc& desc, GfxDriver* driver, Factory&& factory) {
+        Entry* entry = nullptr;
+
+        auto query = std::find_if(pool.begin(), pool.end(), [&](const Entry& e) {
+            return !e.is_allocated && e.resource->desc().is_compatible(desc);
+        });
+
+        if (query != pool.end()) {
+            entry = &(*query);
+        } else {
+            entry = &pool.emplace_back();
+        }
+
+        if (!entry->resource) {
+            entry->resource = factory(desc);
+        }
+
+        entry->last_frame_used = driver->frame_number();
+        entry->is_allocated    = true;
+
+        return entry->resource;
+    }
+
+    template<typename Res, typename Entry>
+    void rdg_release_resource(const Res& res, std::vector<Entry>& pool) {
+        auto query = std::find_if(pool.begin(), pool.end(), [&](const Entry& e) {
+            return e.resource == res;
+        });
+
+        assert(query != pool.end());
+        assert(query->is_allocated);
+
+        query->is_allocated = false;
+    }
+
+    template<typename Entry>
+    void rdg_gc_resources(std::vector<Entry>& pool, std::size_t frame_number, std::size_t frames_before_gc) {
+        for (auto it = pool.begin(); it != pool.end();) {
+            if (it->last_frame_used + frames_before_gc < frame_number) {
+                it = pool.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    }
+
     RdgPool::RdgPool(GfxDriver* driver) {
         m_driver = driver;
     }
 
-    void RdgPool::update() {
+    void RdgPool::gc() {
         std::size_t frame_number = m_driver->frame_number();
 
-        for (auto it = m_texture_pool.begin(); it != m_texture_pool.end();) {
-            if (it->last_frame_used + m_frames_before_gc < frame_number) {
-                it = m_texture_pool.erase(it);
-            } else {
-                ++it;
-            }
-        }
+        rdg_gc_resources(m_texture_pool, frame_number, m_frames_before_gc);
+        rdg_gc_resources(m_uniform_buffer_pool, frame_number, m_frames_before_gc);
+        rdg_gc_resources(m_storage_buffer_pool, frame_number, m_frames_before_gc);
+    }
 
-        for (auto it = m_storage_buffer_pool.begin(); it != m_storage_buffer_pool.end();) {
-            if (it->last_frame_used + m_frames_before_gc < frame_number) {
-                it = m_storage_buffer_pool.erase(it);
-            } else {
-                ++it;
-            }
-        }
+    void RdgPool::set_frames_before_gc(int frames) {
+        m_frames_before_gc = frames;
     }
 
     GfxTextureRef RdgPool::allocate_texture(const GfxTextureDesc& desc) {
-        auto query = std::find_if(m_texture_pool.begin(), m_texture_pool.end(), [&](const PoolTexture& t) {
-            return t.resource->refs_count() == 1 && t.resource->desc().is_compatible(desc);
+        return rdg_allocate_resource<GfxTextureRef>(m_texture_pool, desc, m_driver, [&, this](const GfxTextureDesc& desc) {
+            return m_driver->make_texture(desc, SID("pool_texture"));
         });
+    }
 
-        if (query != m_texture_pool.end()) {
-            query->last_frame_used = m_driver->frame_number();
-            return query->resource;
-        }
+    void RdgPool::release_texture(const GfxTextureRef& texture) {
+        rdg_release_resource(texture, m_texture_pool);
+    }
 
-        PoolTexture& t    = m_texture_pool.emplace_back();
-        t.resource        = m_driver->make_texture(desc, SID("pool-texture"));
-        t.last_frame_used = m_driver->frame_number();
+    GfxUniformBufferRef RdgPool::allocate_uniform_buffer(const GfxBufferDesc& desc) {
+        return rdg_allocate_resource<GfxUniformBufferRef>(m_uniform_buffer_pool, desc, m_driver, [&, this](const GfxBufferDesc& desc) {
+            return m_driver->make_uniform_buffer(desc.size, desc.usage, SID("pool_buffer"));
+        });
+    }
 
-        return t.resource;
+    void RdgPool::release_uniform_buffer(const GfxUniformBufferRef& buffer) {
+        rdg_release_resource(buffer, m_uniform_buffer_pool);
     }
 
     GfxStorageBufferRef RdgPool::allocate_storage_buffer(const GfxBufferDesc& desc) {
-        auto query = std::find_if(m_storage_buffer_pool.begin(), m_storage_buffer_pool.end(), [&](const PoolStorageBuffer& b) {
-            return b.resource->refs_count() == 1 && b.resource->desc().is_compatible(desc);
+        return rdg_allocate_resource<GfxStorageBufferRef>(m_storage_buffer_pool, desc, m_driver, [&, this](const GfxBufferDesc& desc) {
+            return m_driver->make_storage_buffer(desc.size, desc.usage, SID("pool_buffer"));
         });
+    }
 
-        if (query != m_storage_buffer_pool.end()) {
-            query->last_frame_used = m_driver->frame_number();
-            return query->resource;
-        }
-
-        PoolStorageBuffer& t = m_storage_buffer_pool.emplace_back();
-        t.resource           = m_driver->make_storage_buffer(desc.size, desc.usage, SID("pool-buffer"));
-        t.last_frame_used    = m_driver->frame_number();
-
-        return t.resource;
+    void RdgPool::release_storage_buffer(const GfxStorageBufferRef& buffer) {
+        rdg_release_resource(buffer, m_storage_buffer_pool);
     }
 
 }// namespace wmoge

@@ -47,11 +47,63 @@ namespace wmoge {
 
             } ps_wire;
 
+            struct PassText {
+                const Strid name = SID("text");
+
+                operator Strid() const { return name; }
+
+            } ps_text;
+
             operator Strid() const { return name; }
 
         } tq_default;
 
         Ref<Shader> shader;
+
+        operator Shader*() const { return shader.get(); }
+
+        Status load_from(Ref<Shader> s);
+    };
+
+    /// @brief Auto-generated reflection for 'blit' shader
+    struct ShaderBlit {
+        struct ParamBlockDefault {
+            const Strid name = SID("default");
+
+            const Strid   inversegamma_name = SID("InverseGamma");
+            ShaderParamId inversegamma;
+
+            const Strid   imagetexture_name = SID("ImageTexture");
+            ShaderParamId imagetexture;
+
+            void load_from(const Ref<Shader>& s);
+        } pb_default;
+
+        struct TechniqueDefault {
+            const Strid name = SID("default");
+
+            struct Options {
+                const Strid               out_mode        = SID("OUT_MODE");
+                const ShaderOptionVariant out_mode_none   = {SID("OUT_MODE"), SID("NONE")};
+                const ShaderOptionVariant out_mode_srgb   = {SID("OUT_MODE"), SID("SRGB")};
+                const ShaderOptionVariant out_mode_linear = {SID("OUT_MODE"), SID("LINEAR")};
+
+            } options;
+
+            struct PassDefault {
+                const Strid name = SID("default");
+
+                operator Strid() const { return name; }
+
+            } ps_default;
+
+            operator Strid() const { return name; }
+
+        } tq_default;
+
+        Ref<Shader> shader;
+
+        operator Shader*() const { return shader.get(); }
 
         Status load_from(Ref<Shader> s);
     };
@@ -138,6 +190,47 @@ namespace wmoge {
         } tq_default;
 
         Ref<Shader> shader;
+
+        operator Shader*() const { return shader.get(); }
+
+        Status load_from(Ref<Shader> s);
+    };
+
+    /// @brief Auto-generated reflection for 'fill' shader
+    struct ShaderFill {
+        struct Constants {
+            static constexpr int GROUP_SIZE_DEFAULT = 8;
+        };
+
+        struct ParamBlockDefault {
+            const Strid name = SID("default");
+
+            const Strid   fillvalue_name = SID("FillValue");
+            ShaderParamId fillvalue;
+
+            const Strid   result_name = SID("Result");
+            ShaderParamId result;
+
+            void load_from(const Ref<Shader>& s);
+        } pb_default;
+
+        struct TechniqueDefault {
+            const Strid name = SID("default");
+
+            struct PassDefault {
+                const Strid name = SID("default");
+
+                operator Strid() const { return name; }
+
+            } ps_default;
+
+            operator Strid() const { return name; }
+
+        } tq_default;
+
+        Ref<Shader> shader;
+
+        operator Shader*() const { return shader.get(); }
 
         Status load_from(Ref<Shader> s);
     };

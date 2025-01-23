@@ -96,6 +96,7 @@ namespace wmoge {
         WG_PROFILE_CPU_GRC("Shader::fill_compiler_env");
 
         compiler_env.set_define(SID(GfxShaderPlatformGlslDefines[int(platform)]));
+        compiler_env.set_define(SID(GfxShaderPlatformApiNames[int(platform)]));
         compiler_env.set_define(SID("TECHNIQUE_IDX"), permutation.technique_idx);
         compiler_env.set_define(SID("PASS_IDX"), permutation.pass_idx);
 
@@ -154,8 +155,8 @@ namespace wmoge {
 
         stream << "shader=" << get_shader_name() << " ";
         stream << "perm=" << permutation.hash() << " ";
-        stream << "tech=" << permutation.technique_idx << " ";
-        stream << "pass=" << permutation.pass_idx << " ";
+        stream << "tech=" << m_reflection.techniques[permutation.technique_idx].name << " ";
+        stream << "pass=" << m_reflection.techniques[permutation.technique_idx].passes[permutation.pass_idx].name << " ";
         stream << "vf=" << permutation.vert_attribs.to_string() << " ";
         stream << "opts: ";
 
@@ -372,7 +373,7 @@ namespace wmoge {
         m_callback = std::move(callback);
     }
 
-    std::optional<ShaderPermutation> Shader::permutation(Strid technique, Strid pass, buffered_vector<ShaderOptionVariant> options, GfxVertAttribs attribs) {
+    std::optional<ShaderPermutation> Shader::permutation(Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options, GfxVertAttribs attribs) {
         auto t = find_technique(technique);
         if (!t) {
             return std::nullopt;

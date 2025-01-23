@@ -88,7 +88,7 @@ namespace wmoge {
                     to_copy = to_copy.transpose();
                 }
 
-                std::memcpy(ptr + offset, (const std::uint16_t*) &to_copy, size);
+                std::memcpy(ptr + offset, (const std::uint8_t*) &to_copy, size);
                 return WG_OK;
             }
 

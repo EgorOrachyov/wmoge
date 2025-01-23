@@ -111,6 +111,7 @@ namespace wmoge {
         std::array<Color4f, GfxLimits::MAX_COLOR_TARGETS> clear_color{};
         float                                             clear_depth   = 1.0f;
         int                                               clear_stencil = 0;
+        Rect2i                                            area;
         Strid                                             name;
     };
 
@@ -124,6 +125,7 @@ namespace wmoge {
         std::array<Color4f, GfxLimits::MAX_COLOR_TARGETS> clear_color{};
         float                                             clear_depth   = 1.0f;
         int                                               clear_stencil = 0;
+        Rect2i                                            area;
         Strid                                             name;
     };
 

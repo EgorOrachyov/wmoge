@@ -45,6 +45,7 @@ namespace wmoge {
         RdgPassColorTarget& t = m_color_targets.emplace_back();
         t.resource            = target;
         t.op                  = GfxRtOp::LoadStore;
+        m_area                = Rect2i{0, 0, target->get_desc().width, target->get_desc().height};
         return reference(target, GfxAccess::RenderTarget);
     }
 
@@ -54,26 +55,45 @@ namespace wmoge {
         t.op                  = GfxRtOp::ClearStore;
         t.color               = clear_color;
         t.clear               = true;
+        m_area                = Rect2i{0, 0, target->get_desc().width, target->get_desc().height};
         return reference(target, GfxAccess::RenderTarget);
     }
 
     RdgPass& RdgPass::depth_target(RdgTexture* target) {
-        assert(m_depth_targets.empty());
-        RdgPassDepthTarget& t = m_depth_targets.emplace_back();
+        RdgPassDepthTarget& t = m_depth_target;
         t.resource            = target;
         t.op                  = GfxRtOp::LoadStore;
+        m_area                = Rect2i{0, 0, target->get_desc().width, target->get_desc().height};
         return reference(target, GfxAccess::RenderTarget);
     }
 
     RdgPass& RdgPass::depth_target(RdgTexture* target, float clear_depth, int clear_stencil) {
-        RdgPassDepthTarget& t = m_depth_targets.emplace_back();
+        RdgPassDepthTarget& t = m_depth_target;
         t.resource            = target;
         t.op                  = GfxRtOp::ClearStore;
         t.depth               = clear_depth;
         t.stencil             = clear_stencil;
         t.clear_depth         = true;
         t.clear_stencil       = true;
+        m_area                = Rect2i{0, 0, target->get_desc().width, target->get_desc().height};
         return reference(target, GfxAccess::RenderTarget);
+    }
+
+    RdgPass& RdgPass::window_target(const Ref<Window>& window) {
+        RdgPassWindowTarget& t = m_window_target;
+        t.window               = window;
+        m_area                 = Rect2i{0, 0, window->fbo_width(), window->fbo_height()};
+        return *this;
+    }
+
+    RdgPass& RdgPass::window_target(const Ref<Window>& window, const Color4f& clear_color) {
+        RdgPassWindowTarget& t = m_window_target;
+        t.window               = window;
+        t.color                = clear_color;
+        t.clear_color          = true;
+        t.op_color             = GfxRtOp::ClearStore;
+        m_area                 = Rect2i{0, 0, window->fbo_width(), window->fbo_height()};
+        return *this;
     }
 
     RdgPass& RdgPass::reference(RdgResource* resource, GfxAccess access) {
@@ -129,21 +149,98 @@ namespace wmoge {
             desc.color_target_ops[i]  = m_color_targets[i].op;
         }
 
-        for (int i = 0; i < m_depth_targets.size(); i++) {
-            desc.depth_stencil_fmt = m_depth_targets[i].resource->get_desc().format;
-            desc.depth_op          = m_depth_targets[i].op;
-            desc.stencil_op        = m_depth_targets[i].op;
+        if (has_depth_target()) {
+            desc.depth_stencil_fmt = m_depth_target.resource->get_desc().format;
+            desc.depth_op          = m_depth_target.op;
+            desc.stencil_op        = m_depth_target.op;
         }
 
         return desc;
+    }
+
+    GfxRenderPassDesc RdgPass::make_render_pass_desc(const GfxWindowProps& props) const {
+        GfxRenderPassDesc desc;
+
+        desc.color_target_fmts[0] = props.color_format;
+        desc.color_target_ops[0]  = m_window_target.op_color;
+        desc.depth_stencil_fmt    = props.depth_stencil_format;
+        desc.depth_op             = m_window_target.op_depth;
+        desc.stencil_op           = m_window_target.op_stencil;
+
+        return desc;
+    }
+
+    GfxFrameBufferDesc RdgPass::make_framebuffer_desc(const Ref<GfxRenderPass>& render_pass) const {
+        GfxFrameBufferDesc desc;
+
+        for (int i = 0; i < m_color_targets.size(); i++) {
+            desc.color_targets[i].texture = GfxTextureRef(m_color_targets[i].resource->get_texture());
+            desc.color_targets[i].mip     = m_color_targets[i].mip;
+            desc.color_targets[i].slice   = m_color_targets[i].slice;
+        }
+
+        if (has_depth_target()) {
+            desc.depth_stencil_target.texture = GfxTextureRef(m_depth_target.resource->get_texture());
+            desc.depth_stencil_target.mip     = m_depth_target.mip;
+            desc.depth_stencil_target.slice   = m_depth_target.slice;
+        }
+
+        desc.render_pass = render_pass;
+
+        return desc;
+    }
+
+    GfxRenderPassBeginInfo RdgPass::make_render_pass_begin_info(const GfxFrameBufferRef& frame_buffer) const {
+        GfxRenderPassBeginInfo info;
+
+        info.name         = get_name();
+        info.frame_buffer = frame_buffer;
+        info.area         = m_area;
+
+        for (int i = 0; i < m_color_targets.size(); i++) {
+            info.clear_color[i] = m_color_targets[i].color;
+        }
+
+        if (has_depth_target()) {
+            info.clear_depth   = m_depth_target.depth;
+            info.clear_stencil = m_depth_target.stencil;
+        }
+
+        return info;
+    }
+
+    GfxRenderPassWindowBeginInfo RdgPass::make_render_pass_window_begin_info(const Ref<GfxRenderPass>& render_pass) const {
+        GfxRenderPassWindowBeginInfo info;
+
+        info.name           = get_name();
+        info.render_pass    = render_pass;
+        info.area           = m_area;
+        info.window         = m_window_target.window;
+        info.clear_color[0] = m_window_target.color;
+        info.clear_depth    = m_window_target.depth;
+        info.clear_stencil  = m_window_target.stencil;
+
+        return info;
+    }
+
+    bool RdgPass::is_window_pass() const {
+        return m_window_target.window;
+    }
+
+    bool RdgPass::has_depth_target() const {
+        return m_depth_target.resource;
     }
 
     bool RdgPass::has_resource(RdgResource* r) const {
         return m_referenced.find(r) != m_referenced.end();
     }
 
-    RdgPassContext::RdgPassContext(GfxCmdListRef cmd_list, GfxDriver* driver, ShaderManager* shader_manager, RdgGraph* graph)
-        : m_cmd_list(std::move(cmd_list)), m_driver(driver), m_shader_manager(shader_manager), m_graph(graph) {
+    RdgPassContext::RdgPassContext(const GfxCmdListRef& cmd_list, GfxDriver* driver, ShaderManager* shader_manager, RdgGraph* graph, const RdgPass& pass)
+        : m_cmd_list(cmd_list), m_driver(driver), m_shader_manager(shader_manager), m_graph(graph), m_pass(pass) {
+
+        m_is_color_pass    = m_pass.get_flags().get(RdgPassFlag::GraphicsPass);
+        m_use_frame_buffer = m_is_color_pass && !pass.is_window_pass();
+        m_use_window       = m_is_color_pass && pass.is_window_pass();
     }
 
     Status RdgPassContext::update_vert_buffer(GfxVertBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
@@ -171,6 +268,30 @@ namespace wmoge {
         return WG_OK;
     }
 
+    void RdgPassContext::begin_render_pass() {
+        assert(m_is_color_pass);
+        assert(m_use_frame_buffer || m_use_window);
+
+        if (m_use_frame_buffer) {
+            GfxRenderPassDesc rp_desc = m_pass.make_render_pass_desc();
+            m_render_pass_ref         = m_driver->make_render_pass(rp_desc);
+
+            GfxFrameBufferDesc fb_desc = m_pass.make_framebuffer_desc(m_render_pass_ref);
+            m_frame_buffer_ref         = m_driver->make_frame_buffer(fb_desc);
+
+            GfxRenderPassBeginInfo rp_info = m_pass.make_render_pass_begin_info(m_frame_buffer_ref);
+            get_cmd_list()->begin_render_pass(rp_info);
+        }
+
+        if (m_use_window) {
+            GfxRenderPassDesc rp_desc = m_pass.make_render_pass_desc(m_driver->get_window_props(m_pass.get_window_target().window));
+            m_render_pass_ref         = m_driver->make_render_pass(rp_desc);
+
+            GfxRenderPassWindowBeginInfo rp_info = m_pass.make_render_pass_window_begin_info(m_render_pass_ref);
+            get_cmd_list()->begin_render_pass(rp_info);
+        }
+    }
+
     Status RdgPassContext::bind_param_block(ShaderParamBlock* param_block) {
         WG_CHECKED(validate_param_block(param_block));
         m_cmd_list->bind_desc_set(param_block->get_gfx_set(), param_block->get_space());
@@ -188,6 +309,14 @@ namespace wmoge {
         return WG_OK;
     }
 
+    Status RdgPassContext::bind_pso_graphics(Shader* shader, Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options, const GfxVertAttribs& attribs) {
+        auto permutation = shader->permutation(technique, pass, options, attribs);
+        if (!permutation) {
+            return StatusCode::InvalidParameter;
+        }
+        return bind_pso_graphics(shader, *permutation, GfxVertElements::make(attribs));
+    }
+
     Status RdgPassContext::bind_pso_compute(Shader* shader, const ShaderPermutation& permutation) {
         GfxPsoComputeRef pso = m_shader_manager->get_or_create_pso_compute(shader, permutation);
         if (!pso) {
@@ -195,6 +324,14 @@ namespace wmoge {
         }
         m_cmd_list->bind_pso(pso);
         return WG_OK;
+    }
+
+    Status RdgPassContext::bind_pso_compute(Shader* shader, Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options) {
+        auto permutation = shader->permutation(technique, pass, options);
+        if (!permutation) {
+            return StatusCode::InvalidParameter;
+        }
+        return bind_pso_compute(shader, *permutation);
     }
 
     Status RdgPassContext::viewport(const Rect2i& viewport) {
@@ -225,6 +362,15 @@ namespace wmoge {
     Status RdgPassContext::dispatch(Vec3i group_count) {
         m_cmd_list->dispatch(group_count);
         return WG_OK;
+    }
+
+    void RdgPassContext::end_render_pass() {
+        assert(m_is_color_pass);
+        assert(m_use_frame_buffer || m_use_window);
+
+        if (m_is_color_pass) {
+            get_cmd_list()->end_render_pass();
+        }
     }
 
 }// namespace wmoge

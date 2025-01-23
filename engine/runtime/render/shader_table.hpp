@@ -49,11 +49,15 @@ namespace wmoge {
         Status load_shaders(class AssetManager* asset_manager);
 
         [[nodiscard]] const ShaderAuxDraw* aux_draw() const { return &m_aux_draw; }
+        [[nodiscard]] const ShaderBlit*    blit() const { return &m_blit; }
         [[nodiscard]] const ShaderCanvas*  canvas() const { return &m_canvas; }
+        [[nodiscard]] const ShaderFill*    fill() const { return &m_fill; }
 
     private:
         ShaderAuxDraw m_aux_draw;
+        ShaderBlit    m_blit;
         ShaderCanvas  m_canvas;
+        ShaderFill    m_fill;
     };
 
 }// namespace wmoge

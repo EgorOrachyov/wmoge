@@ -65,7 +65,7 @@ namespace wmoge {
             GfxQueryPoolDesc desc;
             desc.size = m_events_limit;
             desc.type = GfxQueryPoolType::Timestamp;
-            m_query_pools.emplace_back(m_driver->make_query_pool(desc, SID("gou-profiler-pool-" + std::to_string(m_pool_id++))));
+            m_query_pools.emplace_back(m_driver->make_query_pool(desc, SID("gpu-profiler-pool-" + std::to_string(m_pool_id++))));
         }
 
         GfxQueryPoolRef pool = m_query_pools.back();

@@ -83,7 +83,7 @@ namespace wmoge {
         std::optional<ShaderParamInfo*>  find_param(ShaderParamId id);
         ShaderParamId                    find_param_id(Strid name);
         void                             set_shader_callback(CallbackRef callback);
-        std::optional<ShaderPermutation> permutation(Strid technique, Strid pass, buffered_vector<ShaderOptionVariant> options = {}, GfxVertAttribs attribs = GfxVertAttribs());
+        std::optional<ShaderPermutation> permutation(Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options = {}, GfxVertAttribs attribs = GfxVertAttribs());
 
         [[nodiscard]] bool                    has_space(ShaderSpaceType space_type) const;
         [[nodiscard]] bool                    has_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) const;

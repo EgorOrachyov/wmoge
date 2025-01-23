@@ -23,15 +23,15 @@ structs:
 param_blocks:
   - name: default
     params:
-      - { name: ClipProjView, type: mat4, ui_name: "", ui_hint: "" }
-      - { name: InverseGamma, type: float, ui_name: "", ui_hint: "" }
-      - { name: GpuCanvasDrawCmdsBuffer, type: GpuCanvasDrawCmdsBuffer, binding: StorageBuffer, ui_name: "", ui_hint: "" }
+      - { name: ClipProjView, type: mat4 }
+      - { name: InverseGamma, type: float }
+      - { name: GpuCanvasDrawCmdsBuffer, type: GpuCanvasDrawCmdsBuffer, binding: StorageBuffer }
   - name: images_batch
     params:
-      - { name: Image0, type: sampler2D, value: White, ui_name: "", ui_hint: ""}
-      - { name: Image1, type: sampler2D, value: White, ui_name: "", ui_hint: ""}
-      - { name: Image2, type: sampler2D, value: White, ui_name: "", ui_hint: ""}
-      - { name: Image3, type: sampler2D, value: White, ui_name: "", ui_hint: ""}
+      - { name: Image0, type: sampler2D, value: White }
+      - { name: Image1, type: sampler2D, value: White }
+      - { name: Image2, type: sampler2D, value: White }
+      - { name: Image3, type: sampler2D, value: White }
 techniques:
   - name: default
     tags: []

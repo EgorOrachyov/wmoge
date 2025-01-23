@@ -252,10 +252,10 @@ namespace wmoge {
         }
 
         VkRect2D render_area{};
-        render_area.offset.x      = 0;
-        render_area.offset.y      = 0;
-        render_area.extent.width  = static_cast<uint32_t>(m_current_pass->get_size().x());
-        render_area.extent.height = static_cast<uint32_t>(m_current_pass->get_size().y());
+        render_area.offset.x      = pass_desc.area.x();
+        render_area.offset.y      = pass_desc.area.y();
+        render_area.extent.width  = pass_desc.area.z();
+        render_area.extent.height = pass_desc.area.w();
 
         VkRenderPassBeginInfo render_pass_info{};
         render_pass_info.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
@@ -290,6 +290,7 @@ namespace wmoge {
         rp_desc.clear_color   = pass_desc.clear_color;
         rp_desc.clear_depth   = pass_desc.clear_depth;
         rp_desc.clear_stencil = pass_desc.clear_stencil;
+        rp_desc.area          = pass_desc.area;
         rp_desc.name          = pass_desc.name;
 
         begin_render_pass(rp_desc);

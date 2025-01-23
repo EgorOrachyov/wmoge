@@ -27,6 +27,8 @@
 
 #include "rdg_resources.hpp"
 
+#include "rdg/rdg_pool.hpp"
+
 namespace wmoge {
 
     RdgResource::RdgResource(RdgResourceId id, RdgResourceFlags flags, Strid name) {
@@ -44,6 +46,15 @@ namespace wmoge {
         : RdgResource(id, RdgResourceFlags{RdgResourceFlag::Imported}, texture->name()) {
         m_desc = texture->desc();
         set_gfx(texture);
+    }
+
+    void RdgTexture::allocate(RdgPool& pool) {
+        m_gfx = pool.allocate_texture(m_desc);
+    }
+
+    void RdgTexture::release(RdgPool& pool) {
+        pool.release_texture(get_texture_ref());
+        m_gfx.reset();
     }
 
     RdgBuffer::RdgBuffer(const GfxBufferDesc& desc, RdgResourceId id, Strid name)

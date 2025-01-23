@@ -25,44 +25,60 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "rdg_utils.hpp"
+#include "shader_funcs.hpp"
 
-#include "gfx/gfx_driver.hpp"
-#include "grc/shader_manager.hpp"
 #include "profiler/profiler_cpu.hpp"
 #include "profiler/profiler_gpu.hpp"
 
 namespace wmoge {
 
-    void RdgUtils::update_buffer(RdgGraph& graph, const Strid& name, RdgVertBuffer* buffer, int offset, array_view<const std::uint8_t> data) {
-        WG_PROFILE_RDG_SCOPE("RdgUtils::update_buffer", graph);
-        auto data_capture = graph.make_upload_data(data);
-        graph.add_copy_pass(name, {})
-                .copy_destination(buffer)
-                .bind([=](RdgPassContext& context) {
-                    context.update_vert_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
+    void ShaderFuncs::fill(RdgGraph& graph, Strid name, RdgTexture* texture, Vec4f fill_value, ShaderTable* table) {
+        WG_PROFILE_RDG_SCOPE("ShaderFuncs::fill", graph);
+        graph.add_compute_pass(name)
+                .storage(texture)
+                .bind([fill_value, table, name, texture](RdgPassContext& context) {
+                    auto fill_shader = table->fill();
+
+                    bind_pso_compute(context, fill_shader, fill_shader->tq_default, fill_shader->tq_default.ps_default, {});
+
+                    auto param_block = make_param_block(context, fill_shader, name);
+                    param_block->set_var(fill_shader->pb_default.fillvalue, fill_value);
+                    param_block->set_var(fill_shader->pb_default.result, texture->get_texture_ref());
+                    context.bind_param_block(param_block);
+
+                    const int w = texture->get_desc().width;
+                    const int h = texture->get_desc().height;
+                    context.dispatch(GfxUtils::group_size(w, h, ShaderFill::Constants::GROUP_SIZE_DEFAULT));
+
                     return WG_OK;
                 });
     }
 
-    void RdgUtils::update_buffer(RdgGraph& graph, const Strid& name, RdgIndexBuffer* buffer, int offset, array_view<const std::uint8_t> data) {
-        WG_PROFILE_RDG_SCOPE("RdgUtils::update_buffer", graph);
-        auto data_capture = graph.make_upload_data(data);
-        graph.add_copy_pass(name, {})
-                .copy_destination(buffer)
-                .bind([=](RdgPassContext& context) {
-                    context.update_index_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
-                    return WG_OK;
-                });
-    }
+    void ShaderFuncs::blit(RdgGraph& graph, Strid name, const Ref<Window>& window, RdgTexture* source, ShaderTable* table) {
+        WG_PROFILE_RDG_SCOPE("ShaderFuncs::blit", graph);
+        graph.add_graphics_pass(name)
+                .window_target(window)
+                .sampling(source)
+                .bind([table, name, source, window](RdgPassContext& context) {
+                    auto blit_shader = table->blit();
 
-    void RdgUtils::update_buffer(RdgGraph& graph, const Strid& name, RdgStorageBuffer* buffer, int offset, array_view<const std::uint8_t> data) {
-        WG_PROFILE_RDG_SCOPE("RdgUtils::update_buffer", graph);
-        auto data_capture = graph.make_upload_data(data);
-        graph.add_copy_pass(name, {})
-                .copy_destination(buffer)
-                .bind([=](RdgPassContext& context) {
-                    context.update_storage_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
+                    auto param_block = make_param_block(context, blit_shader, name);
+                    param_block->set_var(blit_shader->pb_default.inversegamma, 1.0f / 2.0f);
+                    param_block->set_var(blit_shader->pb_default.imagetexture, source->get_texture_ref());
+                    context.validate_param_block(param_block);
+
+                    const int w = window->fbo_width();
+                    const int h = window->fbo_height();
+
+                    context.begin_render_pass();
+                    context.viewport(Rect2i{0, 0, w, h});
+
+                    bind_pso_graphics(context, blit_shader, blit_shader->tq_default, blit_shader->tq_default.ps_default, {}, {});
+
+                    context.bind_param_block(param_block);
+                    context.draw(3, 0, 1);
+                    context.end_render_pass();
+
                     return WG_OK;
                 });
     }

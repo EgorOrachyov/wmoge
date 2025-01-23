@@ -75,6 +75,15 @@ namespace wmoge {
             "PLATFORM_METAL_MACOS",
             "PLATFORM_MAX"};
 
+    static constexpr const char* GfxShaderPlatformApiNames[] = {
+            "API_NONE",
+            "API_VK",
+            "API_VK",
+            "API_VK",
+            "API_DX12",
+            "API_METAL",
+            "API_MAX"};
+
     static constexpr const char* GfxShaderPlatformFileName[] = {
             "none",
             "vk_linux",
@@ -148,7 +157,7 @@ namespace wmoge {
         GpuDedicated
     };
 
-    /** @brief Gfx genera buffer access */
+    /** @brief Gfx general buffer access */
     enum class GfxAccess {
         None,
         Uniform,
@@ -197,9 +206,9 @@ namespace wmoge {
         /** Texture can be used as render target color attachment */
         ColorTarget = 3,
         /** Texture can be used in compute shaders as storage image */
-        Storage = 3,
+        Storage = 4,
         /** Texture can be sampled within shader */
-        Sampling = 4
+        Sampling = 5
     };
 
     /** @brief Texture usage mask */

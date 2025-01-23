@@ -7,9 +7,9 @@ sources:
 param_blocks:
   - name: default
     params:
-      - { name: ClipProjView, type: mat4, ui_name: "", ui_hint: "" }
-      - { name: InverseGamma, type: float, ui_name: "", ui_hint: "" }
-      - { name: ImageTexture, type: sampler2D, value: White, ui_name: "", ui_hint: ""}
+      - { name: ClipProjView, type: mat4 }
+      - { name: InverseGamma, type: float }
+      - { name: ImageTexture, type: sampler2D, value: White }
 techniques:
   - name: default
     tags: []
@@ -22,7 +22,7 @@ techniques:
           prim_type: Triangles
           rs:
             poly_mode: Fill
-            cull_mode: Back
+            cull_mode: Disabled
           ds:
             depth_enable: false
             depth_write: false
@@ -38,3 +38,17 @@ techniques:
           ds:
             depth_enable: false
             depth_write: false
+          bs:
+            blending: false
+      - name: text
+        tags: []
+        state:
+          prim_type: Triangles
+          rs:
+            poly_mode: Fill
+            cull_mode: Disabled
+          ds:
+            depth_enable: false
+            depth_write: false
+          bs:
+            blending: true

@@ -412,6 +412,7 @@ namespace wmoge {
             auto vk_window = m_window_manager->get_or_create(cmd.get(), window);
             vk_window->acquire_next(cmd.get());
             cmd->barrier(vk_window->color()[vk_window->current()].get(), GfxTexBarrierType::Presentation, GfxTexBarrierType::RenderTarget);
+            cmd->barrier(vk_window->depth_stencil().get(), GfxTexBarrierType::Presentation, GfxTexBarrierType::RenderTarget);
             m_to_present.push_back(vk_window);
         }
 
@@ -485,6 +486,7 @@ namespace wmoge {
 
         for (auto& window : m_to_present) {
             cmd->barrier(window->color()[window->current()].get(), GfxTexBarrierType::RenderTarget, GfxTexBarrierType::Presentation);
+            cmd->barrier(window->depth_stencil().get(), GfxTexBarrierType::RenderTarget, GfxTexBarrierType::Presentation);
             queue_wait.push_back(window->acquire_semaphore());
             queue_signal.push_back(window->present_semaphore());
         }

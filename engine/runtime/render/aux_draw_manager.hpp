@@ -104,6 +104,13 @@ namespace wmoge {
             int                        vtx_offset = 0;
         };
 
+        enum AuxDataType {
+            Solid = 0,
+            Wire  = 1,
+            Text  = 2,
+            Count = 3
+        };
+
         void add_triangle_solid(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Vec4f& col);
         void add_triangle_solid(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Vec2f& uv0, const Vec2f& uv1, const Vec2f& uv2, const Vec4f& col);
         void add_triangle(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Vec4f& col);
@@ -112,7 +119,7 @@ namespace wmoge {
         void add_vert(const Vec3f& pos, const Vec4f& col);
         void add_vert(const Vec3f& pos, const Vec2f& uv, const Vec4f& col);
         void add_vert(const AuxDrawVert& vert);
-        void add_elem(bool solid, int texture_idx);
+        void add_elem(AuxDataType type, int texture_idx);
         void add_elem();
         void add_elem_solid();
         void add_elem_font();
@@ -122,8 +129,7 @@ namespace wmoge {
         static constexpr int MAX_SPLIT_STEP_CYLINDER = 8;
 
     private:
-        AuxData                  m_solid;
-        AuxData                  m_wire;
+        AuxData                  m_aux_data[Count];
         std::vector<AuxDrawVert> m_verts;
         Ref<Font>                m_font;
         Mat4x4f                  m_mat_vp;
@@ -142,7 +148,8 @@ namespace wmoge {
      */
     class AuxDrawManager final {
     public:
-        AuxDrawManager() = default;
+        AuxDrawManager();
+        ~AuxDrawManager();
 
         void draw_line(const Vec3f& from, const Vec3f& to, const Color4f& color, std::optional<float> lifetime);
         void draw_triangle(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Color4f& color, bool solid = true, std::optional<float> lifetime = std::nullopt);
@@ -167,8 +174,7 @@ namespace wmoge {
         std::deque<std::unique_ptr<struct AuxDrawPrimitive>>  m_storage;
         Ref<Font>                                             m_font;
         Vec2f                                                 m_screen_size;
-
-        mutable SpinMutex m_mutex;
+        SpinMutex                                             m_mutex;
     };
 
 }// namespace wmoge

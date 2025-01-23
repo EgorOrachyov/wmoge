@@ -29,6 +29,7 @@
 
 #include "io/stream_file.hpp"
 #include "io/tree_yaml.hpp"
+#include "render/shader_funcs.hpp"
 
 #include "assimp_plugin.hpp"
 #include "freetype_plugin.hpp"
@@ -93,22 +94,25 @@ public:
 
         GameApplication::on_init();
 
+        auto async_font  = m_engine->asset_manager()->load_async(SID("assets/fonts/consolas"));
         auto async_mesh  = m_engine->asset_manager()->load_async(SID("assets/mesh/suzanne"));
         auto async_tex2d = m_engine->asset_manager()->load_async(SID("assets/textures/dirt_mask"));
         // auto async_texCube = m_engine->asset_manager()->load_async(SID("assets/textures/skybox"));
 
+        async_font.wait_completed();
         async_mesh.wait_completed();
         async_tex2d.wait_completed();
         // async_texCube.wait_completed();
 
+        font  = async_font.result().cast<Font>();
         mesh  = async_mesh.result().cast<Mesh>();
         tex2d = async_tex2d.result().cast<Texture2d>();
         // texCube = async_texCube.result().cast<TextureCube>();
 
         auto scene_data = m_engine->asset_manager()->load(SID("assets/scenes/test_scene")).cast<SceneDataAsset>();
 
-        auto s = m_engine->game_manager()->make_scene(SID("test_scene"));
-        m_engine->scene_manager()->build_scene(s, scene_data->get_data());
+        scene = m_engine->game_manager()->make_scene(SID("test_scene"));
+        m_engine->scene_manager()->build_scene(scene, scene_data->get_data());
 
         shader = m_engine->asset_manager()->load(SID("engine/shaders/canvas")).cast<Shader>();
 
@@ -135,60 +139,53 @@ public:
         // WG_CHECKED(stream.open("canvas.reflection.bin", {FileOpenMode::Out, FileOpenMode::Binary}));
         // WG_ARCHIVE_WRITE(context, stream, shader->get_reflection());
 
+        aux_draw = std::make_unique<AuxDrawManager>();
+        rdg_pool = std::make_unique<RdgPool>(engine->gfx_driver());
+
         WG_LOG_INFO("init");
         return StatusCode::Ok;
     }
 
-    void debug_draw() {
-        WG_PROFILE_CPU_SCOPE(app, "TemplateApplication::debug_draw");
+    void on_debug_draw() override {
+        WG_PROFILE_CPU_SCOPE(app, "TemplateApplication::on_debug_draw");
 
-        Engine*        engine         = m_engine;
-        ShaderManager* shader_manager = engine->shader_manager();
+        Engine* engine = m_engine;
 
-        ShaderPermutation permutation;
-        permutation.technique_idx = 0;
-        permutation.pass_idx      = 0;
+        auto view = Math3d::look_at(Vec3f(0, 0, 0), Vec3f(0, 0, 1), Vec3f(0, 1, 0));
+        auto proj = Math3d::perspective(Math::deg_to_rad(90.0f), 128.0f / 72.0f, 0.001f, 1000.0f);
 
-        permutation.options.reset();
-        permutation.options.set(0);
+        aux_draw->set_screen_size(Vec2f(1280, 720));
+        aux_draw->set_font(font);
+        aux_draw->draw_text_2d("frame id: " + std::to_string(engine->time()->get_iteration()), Vec2f(10, 30), 20.0f, Color::WHITE4f);
+        aux_draw->draw_text_2d("scene: <" + scene->get_name().str() + ">", Vec2f(10, 10), 20.f, Color::YELLOW4f);
+        aux_draw->draw_box(Vec3f(0, 0, 8.0f), Vec3f(2, 2, 2), Color::RED4f, Quatf::rotation(Vec3f::axis_y(), angle));
+        aux_draw->draw_box(Vec3f(0, 0, 8.0f), Vec3f(2, 2, 2), Color::WHITE4f, Quatf::rotation(Vec3f::axis_y(), angle), false);
 
-        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        auto p1                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        Ref<Window> window = engine->window_manager()->get_primary_window();
+        RdgGraph    rdg_graph(rdg_pool.get(), engine->gfx_driver(), engine->shader_manager());
 
-        permutation.vert_attribs = {GfxVertAttrib::Pos2f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        auto p2                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        RdgTexture* color = rdg_graph.create_texture(GfxTextureDesc::make_2d(GfxFormat::RGBA8, 1280, 720, {GfxTexUsageFlag::ColorTarget, GfxTexUsageFlag::Sampling, GfxTexUsageFlag::Storage}), SIDDBG(""));
+        RdgTexture* depth = rdg_graph.create_texture(GfxTextureDesc::make_2d(GfxFormat::DEPTH32F_STENCIL8, 1280, 720, {GfxTexUsageFlag::DepthStencilTarget}), SIDDBG(""));
 
-        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Col04f};
-        auto p3                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        ShaderFuncs::fill(rdg_graph, SIDDBG("clear"), color, Color::BLACK4f, engine->shader_table());
+        aux_draw->flush(engine->time()->get_delta_time());
+        aux_draw->render(rdg_graph, color, depth, Rect2i{0, 0, 1280, 720}, 2.2f, proj * view, engine->shader_table(), engine->texture_manager());
+        ShaderFuncs::blit(rdg_graph, SIDDBG("blit"), window, color, engine->shader_table());
 
-        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
-        auto p4                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        rdg_graph.compile({});
+        rdg_graph.execute({});
 
-        permutation.options.reset();
-        permutation.options.set(1);
+        rdg_pool->gc();
 
-        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        auto p5                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
-
-        permutation.vert_attribs = {GfxVertAttrib::Pos2f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        auto p6                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
-
-        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Col04f};
-        auto p7                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
-
-        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
-        auto p8                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
-
-        static float angle       = 0.0f;
-        static int   frame_count = 0;
-
-        angle += 0.001f;
-        frame_count += 1;
+        angle += 0.01f;
     }
 
     Status on_shutdown() override {
         WG_PROFILE_CPU_SCOPE(app, "TemplateApplication::on_shutdown");
 
+        rdg_pool.reset();
+        aux_draw.reset();
+        font.reset();
         tex2d.reset();
         texCube.reset();
         shader.reset();
@@ -201,11 +198,15 @@ public:
         return StatusCode::Ok;
     }
 
-    Ref<Scene>       scene;
-    Ref<Texture2d>   tex2d;
-    Ref<TextureCube> texCube;
-    Ref<Mesh>        mesh;
-    Ref<Shader>      shader;
+    Ref<Scene>                      scene;
+    Ref<Texture2d>                  tex2d;
+    Ref<TextureCube>                texCube;
+    Ref<Mesh>                       mesh;
+    Ref<Shader>                     shader;
+    Ref<Font>                       font;
+    std::unique_ptr<AuxDrawManager> aux_draw;
+    std::unique_ptr<RdgPool>        rdg_pool;
+    float                           angle = 0.0f;
 };
 
 int main(int argc, const char* const* argv) {
@@ -227,13 +228,20 @@ int main(int argc, const char* const* argv) {
     cmd_line.line    = CmdLineUtil::to_string(argc, argv);
     cmd_line.args    = CmdLineUtil::to_vector(argc, argv);
 
-    GameApplicationConfig app_config;
-    app_config.name     = "test app";
+    ApplicationConfig app_config;
+    app_config.name     = "template game";
     app_config.ioc      = &ioc_containter;
     app_config.signals  = &app_signlas;
     app_config.cmd_line = &cmd_line;
-    app_config.plugins  = {std::make_shared<RuntimePlugin>(), std::make_shared<AssimpPlugin>(), std::make_shared<FreetypePlugin>()};
 
-    TemplateApplication app(app_config);
+    EngineApplicationConfig engine_app_config;
+    engine_app_config.app_config = &app_config;
+    engine_app_config.plugins    = {std::make_shared<RuntimePlugin>(), std::make_shared<AssimpPlugin>(), std::make_shared<FreetypePlugin>()};
+
+    GameApplicationConfig game_app_config;
+    game_app_config.app_config = &engine_app_config;
+    game_app_config.game_info  = "template game application";
+
+    TemplateApplication app(game_app_config);
     return app.run();
 }

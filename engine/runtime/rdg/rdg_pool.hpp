@@ -42,16 +42,22 @@ namespace wmoge {
     public:
         RdgPool(class GfxDriver* driver);
 
-        void update();
+        void gc();
 
+        void                set_frames_before_gc(int frames);
         GfxTextureRef       allocate_texture(const GfxTextureDesc& desc);
+        void                release_texture(const GfxTextureRef& texture);
+        GfxUniformBufferRef allocate_uniform_buffer(const GfxBufferDesc& desc);
+        void                release_uniform_buffer(const GfxUniformBufferRef& buffer);
         GfxStorageBufferRef allocate_storage_buffer(const GfxBufferDesc& desc);
+        void                release_storage_buffer(const GfxStorageBufferRef& buffer);
 
     private:
         template<typename ResourceType>
         struct PoolEntry {
             Ref<ResourceType> resource;
             std::size_t       last_frame_used = 0;
+            bool              is_allocated    = false;
         };
 
         using PoolTexture       = PoolEntry<GfxTexture>;

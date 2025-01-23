@@ -142,10 +142,11 @@ namespace wmoge {
         return *this;
     }
 
-    ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_storage_image_2d(Strid name) {
+    ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_storage_image_2d(Strid name, ShaderQualifiers qualifiers) {
         ShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name           = name;
         binding.binding        = ShaderBindingType::StorageImage2d;
+        binding.qualifiers     = qualifiers;
         return *this;
     }
 

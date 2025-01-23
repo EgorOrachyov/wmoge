@@ -82,7 +82,7 @@ namespace wmoge {
             m_stream << "writeonly";
         }
 
-        m_stream << ") image2D " << name.str() << ";\n";
+        m_stream << " image2D " << name.str() << ";\n";
     }
 
     void GlslBuilder::begin_storage_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers) {

@@ -28,7 +28,6 @@
 #pragma once
 
 #include "core/flat_map.hpp"
-#include "core/pool_vector.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/shader_manager.hpp"
 #include "rdg/rdg_pass.hpp"
@@ -113,26 +112,34 @@ namespace wmoge {
 
     private:
         Status        execute_pass(RdgPassId pass_id, RdgPassContext& context);
-        void          add_resource(const RdgResourceRef& resource);
+        void          add_resource(const RdgResourceRef& resource, GfxAccess src_access, GfxAccess dst_access = GfxAccess::None);
         RdgPassId     next_pass_id();
         RdgResourceId next_res_id();
+
+        using RdgEventId = int;
 
         struct RdgEvent {
             RdgProfileMark* mark;
             std::string     data;
         };
 
-        using RdgEventId = int;
-
         struct RdgPassData {
             std::vector<RdgEventId> events_to_begin;
             int                     events_to_end = 0;
         };
 
+        struct RdgResourceData {
+            RdgResourceRef resource;
+            GfxAccess      src_access = GfxAccess::None;
+            GfxAccess      dst_access = GfxAccess::None;
+        };
+
     private:
         flat_map<GfxResource*, RdgResource*> m_resources_imported;
-        pool_vector<RdgResourceRef>          m_resources;
-        pool_vector<RdgPass>                 m_passes;
+        std::vector<RdgResourceData>         m_resources;
+        std::vector<RdgPass>                 m_passes;
+        std::vector<RdgPassData>             m_passes_data;
+        std::vector<Ref<ShaderParamBlock>>   m_param_blocks;
         RdgPassId                            m_next_pass_id{0};
         RdgResourceId                        m_next_res_id{0};
         RdgPool*                             m_pool           = nullptr;
@@ -140,7 +147,6 @@ namespace wmoge {
         ShaderManager*                       m_shader_manager = nullptr;
         std::vector<RdgEvent>                m_events;
         std::vector<RdgEventId>              m_events_stack;
-        std::vector<RdgPassData>             m_passes_data;
     };
 
 }// namespace wmoge

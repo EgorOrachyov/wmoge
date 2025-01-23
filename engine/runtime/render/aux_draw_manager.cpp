@@ -467,14 +467,6 @@ namespace wmoge {
         textures.emplace_back(texture_manager->get_texture(DefaultTexture::White));
         textures.emplace_back(m_font->get_texture());
 
-        buffered_vector<Ref<ShaderParamBlock>> params_blocks;
-        for (const Ref<Texture>& texture : textures) {
-            auto param_block = graph.make_param_block(aux_draw->shader, 0, "aux_draw_params");
-            param_block->set_var(aux_draw->pb_default.clipprojview, graph.get_driver()->clip_matrix() * m_mat_vp);
-            param_block->set_var(aux_draw->pb_default.inversegamma, 1.0f / (gamma > 0.0f ? gamma : 2.2f));
-            param_block->set_var(aux_draw->pb_default.imagetexture, texture->get_texture());
-        }
-
         auto upload_data = [&](AuxData& aux_data) -> RdgVertBuffer* {
             if (aux_data.vtx_offset == 0) {
                 return nullptr;
@@ -485,12 +477,21 @@ namespace wmoge {
             return buffer;
         };
 
-        auto draw_elements = [&](AuxData& aux_data, RdgVertBuffer* buffer, const Strid& pass_name) {
+        auto draw_elements = [&](AuxData& aux_data, const Mat4x4f& vp, RdgVertBuffer* buffer, const Strid& pass_name) {
             if (aux_data.vtx_offset == 0) {
                 return;
             }
 
             assert(buffer);
+
+            buffered_vector<Ref<ShaderParamBlock>> params_blocks;
+            for (const Ref<Texture>& texture : textures) {
+                auto param_block = graph.make_param_block(aux_draw->shader, 0, SIDDBG("params_" + pass_name.str()));
+                param_block->set_var(aux_draw->pb_default.clipprojview, graph.get_driver()->clip_matrix() * vp);
+                param_block->set_var(aux_draw->pb_default.inversegamma, 1.0f / (gamma > 0.0f ? gamma : 2.2f));
+                param_block->set_var(aux_draw->pb_default.imagetexture, texture->get_texture());
+                params_blocks.push_back(param_block);
+            }
 
             graph.add_graphics_pass(SIDDBG("draw_batch_" + pass_name.str()))
                     .color_target(color)
@@ -501,29 +502,38 @@ namespace wmoge {
                         const ShaderPermutation permutation   = *aux_draw->shader->permutation(aux_draw->tq_default.name, pass_name, {aux_draw->tq_default.options.out_mode_linear}, attribs);
                         const GfxVertElements   vert_elements = GfxVertElements::make(attribs);
 
-                        WG_CHECKED(context.viewport(viewport));
-                        WG_CHECKED(context.bind_vert_buffer(buffer->get_buffer(), 0, 0));
-                        WG_CHECKED(context.bind_pso_graphics(aux_draw->shader, permutation, vert_elements));
+                        for (auto& param_block : params_blocks) {
+                            context.validate_param_block(param_block);
+                        }
+
+                        context.begin_render_pass();
+                        context.viewport(viewport);
+                        context.bind_pso_graphics(aux_draw->shader, permutation, vert_elements);
+                        context.bind_vert_buffer(buffer->get_buffer(), 0, 0);
 
                         std::optional<int> prev_texture;
 
                         for (const AuxDrawElem& elem : elems) {
                             if (!prev_texture || *prev_texture != elem.texture_idx) {
                                 prev_texture = elem.texture_idx;
-                                WG_CHECKED(context.bind_param_block(params_blocks[elem.texture_idx]));
+                                context.bind_param_block(params_blocks[elem.texture_idx]);
                             }
-                            WG_CHECKED(context.draw(elem.vtx_count, elem.vtx_offset, 1));
+                            context.draw(elem.vtx_count, elem.vtx_offset, 1);
                         }
+
+                        context.end_render_pass();
 
                         return WG_OK;
                     });
         };
 
-        RdgVertBuffer* buffer_triangles = upload_data(m_solid);
-        RdgVertBuffer* buffer_lines     = upload_data(m_wire);
+        RdgVertBuffer* buffer_solid = upload_data(m_aux_data[Solid]);
+        RdgVertBuffer* buffer_wire  = upload_data(m_aux_data[Wire]);
+        RdgVertBuffer* buffer_text  = upload_data(m_aux_data[Text]);
 
-        draw_elements(m_solid, buffer_triangles, aux_draw->tq_default.ps_solid);
-        draw_elements(m_wire, buffer_lines, aux_draw->tq_default.ps_wire);
+        draw_elements(m_aux_data[Solid], m_mat_vp, buffer_solid, aux_draw->tq_default.ps_solid);
+        draw_elements(m_aux_data[Wire], m_mat_vp, buffer_wire, aux_draw->tq_default.ps_wire);
+        draw_elements(m_aux_data[Text], Math3d::orthographic(0, m_screen_size.x(), 0, m_screen_size.y(), -100.0f, 100.0f), buffer_text, aux_draw->tq_default.ps_text);
     }
 
     void AuxDrawDevice::clear() {
@@ -534,8 +544,9 @@ namespace wmoge {
             data.vtx_offset = 0;
         };
 
-        clear_data(m_solid);
-        clear_data(m_wire);
+        for (int i = 0; i < Count; i++) {
+            clear_data(m_aux_data[i]);
+        }
     }
 
     void AuxDrawDevice::add_triangle_solid(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Vec4f& col) {
@@ -591,24 +602,24 @@ namespace wmoge {
     }
 
     void AuxDrawDevice::add_elem() {
-        add_elem(false, 0);
+        add_elem(Wire, 0);
     }
 
     void AuxDrawDevice::add_elem_solid() {
-        add_elem(true, 0);
+        add_elem(Solid, 0);
     }
 
     void AuxDrawDevice::add_elem_font() {
-        add_elem(true, 1);
+        add_elem(Text, 1);
     }
 
-    void AuxDrawDevice::add_elem(bool solid, int texture_idx) {
-        AuxData&  data      = solid ? m_solid : m_wire;
+    void AuxDrawDevice::add_elem(AuxDataType type, int texture_idx) {
+        AuxData&  data      = m_aux_data[type];
         const int offset    = data.vtx_offset;
         const int num_verts = static_cast<int>(m_verts.size());
 
-        if (data.verts.size() < data.vtx_offset) {
-            data.verts.resize(data.vtx_offset);
+        if (data.verts.size() < (offset + num_verts)) {
+            data.verts.resize(offset + num_verts);
         }
 
         for (int i = 0; i < num_verts; i++) {
@@ -766,6 +777,9 @@ namespace wmoge {
             device.draw_text(text, pos, size, color, project);
         }
     };
+
+    AuxDrawManager::AuxDrawManager()  = default;
+    AuxDrawManager::~AuxDrawManager() = default;
 
     void AuxDrawManager::draw_line(const Vec3f& from, const Vec3f& to, const Color4f& color, std::optional<float> lifetime) {
         auto line      = std::make_unique<AuxDrawLine>();

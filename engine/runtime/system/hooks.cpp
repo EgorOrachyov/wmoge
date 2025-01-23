@@ -35,7 +35,7 @@
 #include "platform/file_system.hpp"
 #include "platform/time.hpp"
 #include "profiler/profiler_capture.hpp"
-#include "system/application.hpp"
+#include "system/app.hpp"
 #include "system/console.hpp"
 #include "system/engine_config.hpp"
 

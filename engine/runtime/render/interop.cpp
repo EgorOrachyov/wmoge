@@ -21,6 +21,17 @@ namespace wmoge {
         return WG_OK;
     }
 
+    void ShaderBlit::ParamBlockDefault::load_from(const Ref<Shader>& shader) {
+        inversegamma = shader->find_param_id(inversegamma_name);
+        imagetexture = shader->find_param_id(imagetexture_name);
+    }
+
+    Status ShaderBlit::load_from(Ref<Shader> s) {
+        shader = std::move(s);
+        pb_default.load_from(shader);
+        return WG_OK;
+    }
+
     Status GpuCanvasDrawCmdData::reflect(class ShaderManager* sm) {
         ShaderStructRegister r(Strid("GpuCanvasDrawCmdData"), 80, sm);
         r.add_field(Strid("Transform0"), Strid("vec4"));
@@ -57,6 +68,17 @@ namespace wmoge {
         shader = std::move(s);
         pb_default.load_from(shader);
         pb_images_batch.load_from(shader);
+        return WG_OK;
+    }
+
+    void ShaderFill::ParamBlockDefault::load_from(const Ref<Shader>& shader) {
+        fillvalue = shader->find_param_id(fillvalue_name);
+        result    = shader->find_param_id(result_name);
+    }
+
+    Status ShaderFill::load_from(Ref<Shader> s) {
+        shader = std::move(s);
+        pb_default.load_from(shader);
         return WG_OK;
     }
 

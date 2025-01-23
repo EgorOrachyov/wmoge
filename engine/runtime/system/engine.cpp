@@ -59,10 +59,11 @@
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
-#include "system/application.hpp"
+#include "system/app.hpp"
 #include "system/console.hpp"
 #include "system/engine.hpp"
 #include "system/engine_config.hpp"
+#include "system/engine_signals.hpp"
 #include "system/plugin_manager.hpp"
 
 #include <cassert>
@@ -82,6 +83,7 @@ namespace wmoge {
         m_dll_manager    = m_ioc_container->resolve_value<DllManager>();
         m_plugin_manager = m_ioc_container->resolve_value<PluginManager>();
         m_engine_config  = m_ioc_container->resolve_value<EngineConfig>();
+        m_engine_signals = m_ioc_container->resolve_value<EngineSignals>();
 
         m_plugin_manager->setup();
 
@@ -165,14 +167,18 @@ namespace wmoge {
         }
 
         m_gfx_driver->begin_frame(m_frame_id, windows);
+        m_engine_signals->begin_frame.emit();
 
         m_texture_manager->flust_textures_upload();
         m_mesh_manager->flush_meshes_upload();
+
+        m_engine_signals->debug_draw.emit();
 
         m_profiler_gpu->resolve();
 
         m_window_manager->poll_events();
 
+        m_engine_signals->end_frame.emit();
         m_gfx_driver->end_frame(true);
 
         return WG_OK;
@@ -223,5 +229,6 @@ namespace wmoge {
     EcsRegistry*    Engine::ecs_registry() { return m_ecs_registry; }
     GameManager*    Engine::game_manager() { return m_game_manager; }
     EngineConfig*   Engine::engine_config() { return m_engine_config; }
+    EngineSignals*  Engine::engine_signals() { return m_engine_signals; }
 
 }// namespace wmoge

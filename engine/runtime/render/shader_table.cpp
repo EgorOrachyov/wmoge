@@ -62,7 +62,9 @@ namespace wmoge {
         };
 
         LOAD_SHADER(aux_draw);
+        LOAD_SHADER(blit);
         LOAD_SHADER(canvas);
+        LOAD_SHADER(fill);
 
         return WG_OK;
     }

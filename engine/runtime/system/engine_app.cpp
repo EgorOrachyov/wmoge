@@ -25,7 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "game_application.hpp"
+#include "engine_app.hpp"
 
 #include "asset/asset_manager.hpp"
 #include "audio/openal/al_engine.hpp"
@@ -63,6 +63,7 @@
 #include "system/console.hpp"
 #include "system/engine.hpp"
 #include "system/engine_config.hpp"
+#include "system/engine_signals.hpp"
 #include "system/plugin_manager.hpp"
 
 #include "asset/_rtti.hpp"
@@ -92,6 +93,7 @@ namespace wmoge {
         ioc->bind<ViewManager>();
         ioc->bind<ShaderTable>();
         ioc->bind<EngineConfig>();
+        ioc->bind<EngineSignals>();
         ioc->bind_by_ioc<DllManager>();
         ioc->bind_by_ioc<ProfilerCapture>();
         ioc->bind_by_ioc<Config>();
@@ -193,36 +195,41 @@ namespace wmoge {
         rtti_system();
     }
 
-    GameApplication::GameApplication(GameApplicationConfig& config) : Application(config), m_game_confing(config) {
+    EngineApplication::EngineApplication(EngineApplicationConfig& config) : Application(*config.app_config), m_engine_config(config) {
     }
 
-    Status GameApplication::on_register() {
+    Status EngineApplication::on_register() {
         bind_globals(m_config.ioc);
         bind_rtti(m_config.ioc);
 
         m_engine = m_config.ioc->resolve_value<Engine>();
 
         PluginManager* plugin_manager = m_config.ioc->resolve_value<PluginManager>();
-        plugin_manager->add(m_game_confing.plugins);
+        plugin_manager->add(m_engine_config.plugins);
+
+        EngineSignals* engine_signals = m_config.ioc->resolve_value<EngineSignals>();
+        engine_signals->debug_draw.bind([this]() {
+            on_debug_draw();
+        });
 
         return m_engine->setup();
     }
 
-    Status GameApplication::on_init() {
+    Status EngineApplication::on_init() {
         return m_engine->init();
     }
 
-    Status GameApplication::on_iteration() {
+    Status EngineApplication::on_iteration() {
         return m_engine->iteration();
     }
 
-    Status GameApplication::on_shutdown() {
+    Status EngineApplication::on_shutdown() {
         WG_CHECKED(m_engine->shutdown());
         WG_CHECKED(unbind_globals(m_config.ioc));
         return WG_OK;
     }
 
-    bool GameApplication::should_close() {
+    bool EngineApplication::should_close() {
         return m_engine->close_requested();
     }
 

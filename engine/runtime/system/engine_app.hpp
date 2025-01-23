@@ -25,46 +25,41 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "rdg_utils.hpp"
+#pragma once
 
-#include "gfx/gfx_driver.hpp"
-#include "grc/shader_manager.hpp"
-#include "profiler/profiler_cpu.hpp"
-#include "profiler/profiler_gpu.hpp"
+#include "system/app.hpp"
+#include "system/plugin.hpp"
 
 namespace wmoge {
 
-    void RdgUtils::update_buffer(RdgGraph& graph, const Strid& name, RdgVertBuffer* buffer, int offset, array_view<const std::uint8_t> data) {
-        WG_PROFILE_RDG_SCOPE("RdgUtils::update_buffer", graph);
-        auto data_capture = graph.make_upload_data(data);
-        graph.add_copy_pass(name, {})
-                .copy_destination(buffer)
-                .bind([=](RdgPassContext& context) {
-                    context.update_vert_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
-                    return WG_OK;
-                });
-    }
+    /**
+     * @class EngineApplicationConfig
+     * @brief Game app config
+    */
+    struct EngineApplicationConfig {
+        ApplicationConfig*     app_config;
+        std::vector<PluginPtr> plugins;
+    };
 
-    void RdgUtils::update_buffer(RdgGraph& graph, const Strid& name, RdgIndexBuffer* buffer, int offset, array_view<const std::uint8_t> data) {
-        WG_PROFILE_RDG_SCOPE("RdgUtils::update_buffer", graph);
-        auto data_capture = graph.make_upload_data(data);
-        graph.add_copy_pass(name, {})
-                .copy_destination(buffer)
-                .bind([=](RdgPassContext& context) {
-                    context.update_index_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
-                    return WG_OK;
-                });
-    }
+    /**
+     * @class EngineApplication
+     * @brief Base class for application to run stand-alone game
+    */
+    class EngineApplication : public Application {
+    public:
+        EngineApplication(EngineApplicationConfig& config);
 
-    void RdgUtils::update_buffer(RdgGraph& graph, const Strid& name, RdgStorageBuffer* buffer, int offset, array_view<const std::uint8_t> data) {
-        WG_PROFILE_RDG_SCOPE("RdgUtils::update_buffer", graph);
-        auto data_capture = graph.make_upload_data(data);
-        graph.add_copy_pass(name, {})
-                .copy_destination(buffer)
-                .bind([=](RdgPassContext& context) {
-                    context.update_storage_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
-                    return WG_OK;
-                });
-    }
+        Status on_register() override;
+        Status on_init() override;
+        Status on_iteration() override;
+        Status on_shutdown() override;
+        bool   should_close() override;
+
+        virtual void on_debug_draw() {}
+
+    protected:
+        EngineApplicationConfig& m_engine_config;
+        class Engine*            m_engine = nullptr;
+    };
 
 }// namespace wmoge

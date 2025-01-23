@@ -25,7 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "application.hpp"
+#include "app.hpp"
 
 #include "profiler/profiler_cpu.hpp"
 
