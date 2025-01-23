@@ -240,6 +240,9 @@ $(function() {
 <li>set_fov()
 : <a class="el" href="classwmoge_1_1Camera.html#ac92db7703bc234f1494cbe20862e1089">wmoge::Camera</a>
 </li>
+<li>set_frames_before_gc()
+: <a class="el" href="classwmoge_1_1RdgPool.html#a7abe7790b53bdfa8b40474dca9590cab">wmoge::RdgPool</a>
+</li>
 <li>set_gain()
 : <a class="el" href="classwmoge_1_1ALAudioPlayback.html#ad7dcbf8d67c8e05f494f2f4cbe2bc0a9">wmoge::ALAudioPlayback</a>
 , <a class="el" href="classwmoge_1_1AudioPlayback.html#ad17bd628ab7ac3cd6466578a5d9ce41b">wmoge::AudioPlayback</a>
@@ -450,7 +453,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1EntitySimpleFeatureTrait.html#afe61b5fc8c3b5b53e671003a98059128">wmoge::EntitySimpleFeatureTrait&lt; T, FeatureType, VectorType &gt;</a>
 </li>
 <li>Sha256()
-: <a class="el" href="structwmoge_1_1Sha256.html#a51bb9146a070dba9d7c6cbc2a8a79830">wmoge::Sha256</a>
+: <a class="el" href="structwmoge_1_1Sha256.html#abde7e6d9a04f5286f34ff4fadfb7595a">wmoge::Sha256</a>
 </li>
 <li>Sha256Builder()
 : <a class="el" href="classwmoge_1_1Sha256Builder.html#a0f6405176409e6e9ccb174d45b0eab2e">wmoge::Sha256Builder</a>
@@ -463,7 +466,9 @@ $(function() {
 </li>
 <li>shader
 : <a class="el" href="structwmoge_1_1ShaderAuxDraw.html#a10e31c6983f1aeb64fb569a09d61edeb">wmoge::ShaderAuxDraw</a>
+, <a class="el" href="structwmoge_1_1ShaderBlit.html#a8e9cc766084205e96f975b6d7c82234f">wmoge::ShaderBlit</a>
 , <a class="el" href="structwmoge_1_1ShaderCanvas.html#ad44490052f8431d6deaa2077dd13bab3">wmoge::ShaderCanvas</a>
+, <a class="el" href="structwmoge_1_1ShaderFill.html#aea17eb5d20c76027a98940c321cc39ae">wmoge::ShaderFill</a>
 , <a class="el" href="structwmoge_1_1ShaderModule.html#ae70a3319ae6eba608753a507f57b1319">wmoge::ShaderModule</a>
 </li>
 <li>shader_extends
@@ -540,7 +545,7 @@ $(function() {
 </li>
 <li>should_close()
 : <a class="el" href="classwmoge_1_1Application.html#a5c74992cb3f51707f0646130757e9fbf">wmoge::Application</a>
-, <a class="el" href="classwmoge_1_1GameApplication.html#ada06bdbfe241579e4372dc079728cd8f">wmoge::GameApplication</a>
+, <a class="el" href="classwmoge_1_1EngineApplication.html#a59a10ebfaf5bb541c11cb16d0ea905a6">wmoge::EngineApplication</a>
 </li>
 <li>shutdown()
 : <a class="el" href="classwmoge_1_1ALAudioEngine.html#a4990939775432b0074fee2d94038cf97">wmoge::ALAudioEngine</a>
@@ -616,6 +621,8 @@ $(function() {
 </li>
 <li>slice
 : <a class="el" href="structwmoge_1_1GfxTargetInfo.html#a806ec44c123471bddf388f1a6a5c9b33">wmoge::GfxTargetInfo</a>
+, <a class="el" href="structwmoge_1_1RdgPassColorTarget.html#a2f8c70d25e398e97cacac1b723498f91">wmoge::RdgPassColorTarget</a>
+, <a class="el" href="structwmoge_1_1RdgPassDepthTarget.html#a69de114b5a7630a8da013c52c663e07a">wmoge::RdgPassDepthTarget</a>
 </li>
 <li>SMALL_NUMBER_FLOAT32
 : <a class="el" href="classwmoge_1_1Math.html#a9e80a77825306dd47fbf5c8482c21d78">wmoge::Math</a>
@@ -624,7 +631,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Math.html#aba4d5475f7c4c72cd1299fc098dda644">wmoge::Math</a>
 </li>
 <li>smoother_step()
-: <a class="el" href="classwmoge_1_1Math.html#a98d9e444c66160df7b28e9c8df181367">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#a7497bd950c8aba43be857d2de86d3382">wmoge::Math</a>
 </li>
 <li>solid
 : <a class="el" href="structwmoge_1_1GmDebugMeshComponent.html#a4e4e430cc3f2d2b0cf4efcc84e89095a">wmoge::GmDebugMeshComponent</a>
@@ -744,10 +751,11 @@ $(function() {
 , <a class="el" href="structwmoge_1_1ShaderProgram.html#a88a8989072f39ca8736fba9a942035a6">wmoge::ShaderProgram</a>
 </li>
 <li>Status()
-: <a class="el" href="classwmoge_1_1Status.html#afea57d980d1f58d43e7374ecd288c831">wmoge::Status</a>
+: <a class="el" href="classwmoge_1_1Status.html#adc8e7c9baff2c85c985d90d1904746fc">wmoge::Status</a>
 </li>
 <li>stencil
 : <a class="el" href="structwmoge_1_1RdgPassDepthTarget.html#a8fa5bb081460fe581e20ff3d28f1366e">wmoge::RdgPassDepthTarget</a>
+, <a class="el" href="structwmoge_1_1RdgPassWindowTarget.html#a1d27f9a613906a20d915218d334bc235">wmoge::RdgPassWindowTarget</a>
 </li>
 <li>stencil_cmask
 : <a class="el" href="structwmoge_1_1DepthStencilState.html#aedf3c36c0eb2e48edae19b78bd76dc82">wmoge::DepthStencilState</a>
@@ -835,7 +843,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1UUID.html#a6a09d1ea43eae17a8c5839c583feb0ae">wmoge::UUID</a>
 </li>
 <li>Strid()
-: <a class="el" href="classwmoge_1_1Strid.html#a8425155ca19a8984cb3403aae527d954">wmoge::Strid</a>
+: <a class="el" href="classwmoge_1_1Strid.html#ac094412660e81006793b08f304b5b907">wmoge::Strid</a>
 </li>
 <li>stride
 : <a class="el" href="structwmoge_1_1GfxVertElement.html#a257b891a553278f9c4fdb40a68329dcb">wmoge::GfxVertElement</a>

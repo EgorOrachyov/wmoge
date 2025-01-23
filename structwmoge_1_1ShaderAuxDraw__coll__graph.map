@@ -1,11 +1,12 @@
 <map id="wmoge::ShaderAuxDraw" name="wmoge::ShaderAuxDraw">
-<area shape="rect" id="node1" title="Auto&#45;generated reflection for &#39;aux_draw&#39; shader." alt="" coords="896,244,1059,271"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault.html" title=" " alt="" coords="624,118,787,159"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1PassSolid.html" title=" " alt="" coords="329,53,524,94"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="32,117,129,144"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1PassWire.html" title=" " alt="" coords="331,118,522,159"/>
-<area shape="rect" id="node6" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1Options.html" title=" " alt="" coords="337,183,517,225"/>
-<area shape="rect" id="node7" href="$structwmoge_1_1ShaderAuxDraw_1_1ParamBlockDefault.html" title=" " alt="" coords="345,249,508,290"/>
-<area shape="rect" id="node8" href="$structwmoge_1_1SimpleId.html" title=" " alt="" coords="5,319,156,361"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="631,306,780,347"/>
+<area shape="rect" id="node1" title="Auto&#45;generated reflection for &#39;aux_draw&#39; shader." alt="" coords="896,311,1059,337"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault.html" title=" " alt="" coords="624,159,787,201"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1PassSolid.html" title=" " alt="" coords="329,59,524,101"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="32,155,129,181"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1PassText.html" title=" " alt="" coords="331,125,522,166"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1PassWire.html" title=" " alt="" coords="331,190,522,231"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1Options.html" title=" " alt="" coords="337,255,517,297"/>
+<area shape="rect" id="node8" href="$structwmoge_1_1ShaderAuxDraw_1_1ParamBlockDefault.html" title=" " alt="" coords="345,321,508,362"/>
+<area shape="rect" id="node9" href="$structwmoge_1_1SimpleId.html" title=" " alt="" coords="5,379,156,421"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="631,373,780,414"/>
 </map>

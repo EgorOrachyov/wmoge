@@ -97,6 +97,9 @@ $(function() {
 <li>gbuffer
 : <a class="el" href="structwmoge_1_1GraphicsPipelineAssets.html#a5bbae2e3723b25b04ac9d08d00f2e4c2">wmoge::GraphicsPipelineAssets</a>
 </li>
+<li>gc()
+: <a class="el" href="classwmoge_1_1RdgPool.html#a2016299289625103380f2cd058e95a68">wmoge::RdgPool</a>
+</li>
 <li>ge_pow2()
 : <a class="el" href="classwmoge_1_1Math.html#a2bd104f65793f4e7d47b679534e8bff9">wmoge::Math</a>
 </li>
@@ -357,6 +360,9 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Config.html#ab31715583fbee0eaea841a86c603caf5">wmoge::Config</a>
 , <a class="el" href="classwmoge_1_1ConfigFile.html#ab9abbf558ba3d8eb19b8be942ea771d4">wmoge::ConfigFile</a>
 </li>
+<li>get_color_targets()
+: <a class="el" href="classwmoge_1_1RdgPass.html#a9e0c051ccd3af598ec6c0898a0fbd6ea">wmoge::RdgPass</a>
+</li>
 <li>get_comp_func()
 : <a class="el" href="classwmoge_1_1VKDefs.html#ae8e388a087f9af18c0d9095266b19ca6">wmoge::VKDefs</a>
 </li>
@@ -378,7 +384,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1EcsRegistry.html#a5890a3fd8823c631793aadba14455761">wmoge::EcsRegistry</a>
 </li>
 <li>get_component_info()
-: <a class="el" href="classwmoge_1_1EcsRegistry.html#a8ffaba5928badeb9a7bf7aaf264e91df">wmoge::EcsRegistry</a>
+: <a class="el" href="classwmoge_1_1EcsRegistry.html#ae77c37afa25e75ce7aab8e0e50a63560">wmoge::EcsRegistry</a>
 </li>
 <li>get_component_pool()
 : <a class="el" href="classwmoge_1_1EcsRegistry.html#a7e000f0619dd956c979222dbca9c0b1f">wmoge::EcsRegistry</a>
@@ -427,6 +433,9 @@ $(function() {
 </li>
 <li>get_depth()
 : <a class="el" href="classwmoge_1_1Texture.html#ae9ac3eeaea606d6b2412f74fdb066cf4">wmoge::Texture</a>
+</li>
+<li>get_depth_target()
+: <a class="el" href="classwmoge_1_1RdgPass.html#aeed06233a3fc8a1a9a8fc000e9ec506d">wmoge::RdgPass</a>
 </li>
 <li>get_desc()
 : <a class="el" href="classwmoge_1_1GfxQueryPool.html#a837c010258df7b9aca7608c5230031f9">wmoge::GfxQueryPool</a>
@@ -1026,6 +1035,9 @@ $(function() {
 <li>get_requirements()
 : <a class="el" href="classwmoge_1_1Plugin.html#af965c903f22c78717c4c1781790a142d">wmoge::Plugin</a>
 </li>
+<li>get_resources()
+: <a class="el" href="classwmoge_1_1RdgPass.html#a3f6f09ddeb209f5ad45a422af635e54f">wmoge::RdgPass</a>
+</li>
 <li>get_result()
 : <a class="el" href="classwmoge_1_1GlslIncludeProcessor.html#a9d3da828c54e162c85065af42aba8d59">wmoge::GlslIncludeProcessor</a>
 </li>
@@ -1106,7 +1118,6 @@ $(function() {
 , <a class="el" href="classwmoge_1_1MeshPassList.html#ac6c5ad61b41690bce2f7f77f8c3422e0">wmoge::MeshPassList</a>
 , <a class="el" href="classwmoge_1_1PfxStorage.html#a5725416203f5fae97f6f9b9f4d9b4257">wmoge::PfxStorage</a>
 , <a class="el" href="classwmoge_1_1RenderQueue.html#a9d8d9cdec60626423a670f78d8333262">wmoge::RenderQueue</a>
-, <a class="el" href="classwmoge_1_1VKRenderPass.html#a1efac7e0a5c882a8f2e6de20568246b1">wmoge::VKRenderPass</a>
 </li>
 <li>get_slot()
 : <a class="el" href="classwmoge_1_1MeshBucketMap.html#a217438d074f5a46daf0653a1b89a7497">wmoge::MeshBucketMap</a>
@@ -1191,11 +1202,15 @@ $(function() {
 </li>
 <li>get_texture()
 : <a class="el" href="classwmoge_1_1Font.html#a3b4069135203b3cbbfefde9866e82b67">wmoge::Font</a>
+, <a class="el" href="classwmoge_1_1RdgTexture.html#a0d8ce60c2af8d20f9b4c5d12bac88eac">wmoge::RdgTexture</a>
 , <a class="el" href="classwmoge_1_1Texture.html#ad281a8732028925299e72480bac46d12">wmoge::Texture</a>
 , <a class="el" href="classwmoge_1_1TextureManager.html#a8915de7267b499dc018804f6a18f5b1d">wmoge::TextureManager</a>
 </li>
 <li>get_texture_gfx()
 : <a class="el" href="classwmoge_1_1TextureManager.html#ac62647398775982fbe214f1b7a33b4af">wmoge::TextureManager</a>
+</li>
+<li>get_texture_ref()
+: <a class="el" href="classwmoge_1_1RdgTexture.html#a7268f54de0e3724c5064db97c2bfa431">wmoge::RdgTexture</a>
 </li>
 <li>get_thread_id()
 : <a class="el" href="classwmoge_1_1ProfilerCpu.html#abbe4046c2002c938a0e680288f216377">wmoge::ProfilerCpu</a>
@@ -1269,7 +1284,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1RttiEnum.html#a6630c904d49a9e2c285991130e919819">wmoge::RttiEnum</a>
 </li>
 <li>get_var()
-: <a class="el" href="classwmoge_1_1ShaderParam.html#a8b2deb33a7cc2bdc0fd35d72adf10163">wmoge::ShaderParam</a>
+: <a class="el" href="classwmoge_1_1ShaderParam.html#ab94bda286c6c4b0969b31e17ee54dd00">wmoge::ShaderParam</a>
 , <a class="el" href="classwmoge_1_1ShaderParamBlock.html#a6d7d725a7b6e6a8626c387391e83a5f7">wmoge::ShaderParamBlock</a>
 </li>
 <li>get_vel2d()
@@ -1315,6 +1330,9 @@ $(function() {
 <li>get_window_props()
 : <a class="el" href="classwmoge_1_1GfxDriver.html#abcbf4eccba091c7d5a929a87054ed9d6">wmoge::GfxDriver</a>
 , <a class="el" href="classwmoge_1_1VKDriver.html#a56c793e97be77a9f6643cb9a983b4b5f">wmoge::VKDriver</a>
+</li>
+<li>get_window_target()
+: <a class="el" href="classwmoge_1_1RdgPass.html#a7b44ae71078e32a568a5741fedd1e880">wmoge::RdgPass</a>
 </li>
 <li>get_windows()
 : <a class="el" href="classwmoge_1_1GlfwWindowManager.html#a23c2115677740a4c6aa3936fde8e1166">wmoge::GlfwWindowManager</a>
@@ -1444,6 +1462,9 @@ $(function() {
 </li>
 <li>group_size()
 : <a class="el" href="structwmoge_1_1GfxUtils.html#a73fcc765f6678e8f43542c344a710875">wmoge::GfxUtils</a>
+</li>
+<li>GROUP_SIZE_DEFAULT
+: <a class="el" href="structwmoge_1_1ShaderFill_1_1Constants.html#a9f9fdce63026a9f669bd0df28c70a81a">wmoge::ShaderFill::Constants</a>
 </li>
 <li>guid()
 : <a class="el" href="classwmoge_1_1Joystick.html#adfc10fc5319c2057882998c118ba35ca">wmoge::Joystick</a>

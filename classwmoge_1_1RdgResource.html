@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classwmoge_1_1RdgResource-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::RdgResource Class Reference</div>  </div>
@@ -97,8 +98,12 @@ Collaboration diagram for wmoge::RdgResource:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1RdgResource__coll__graph.png" border="0" usemap="#awmoge_1_1RdgResource_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1RdgResource_coll__map" id="awmoge_1_1RdgResource_coll__map">
-<area shape="rect" title="Rdg resource base class." alt="" coords="5,80,153,107"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="24,5,135,32"/>
+<area shape="rect" title="Rdg resource base class." alt="" coords="297,115,445,141"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="45,5,156,32"/>
+<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="7,56,194,83"/>
+<area shape="rect" href="structwmoge_1_1SimpleId.html" title=" " alt="" coords="25,107,176,149"/>
+<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="52,173,149,200"/>
+<area shape="rect" href="structwmoge_1_1Mask.html" title=" " alt="" coords="5,225,196,266"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -108,14 +113,28 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ada6ec5039efbf765e6a46d67d38053a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dbac58da0f10b5d98667ccd80aec325"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a1dbac58da0f10b5d98667ccd80aec325">~RdgResource</a> () override=default</td></tr>
 <tr class="separator:a1dbac58da0f10b5d98667ccd80aec325"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81cff6bb9a648a16680d8a24309ea3b9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a81cff6bb9a648a16680d8a24309ea3b9">allocate</a> (class <a class="el" href="classwmoge_1_1RdgPool.html">RdgPool</a> &amp;pool)</td></tr>
-<tr class="separator:a81cff6bb9a648a16680d8a24309ea3b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a003667b7f7e94369a84fdc8a602018f6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a003667b7f7e94369a84fdc8a602018f6">release</a> (class <a class="el" href="classwmoge_1_1RdgPool.html">RdgPool</a> &amp;pool)</td></tr>
-<tr class="separator:a003667b7f7e94369a84fdc8a602018f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8c46672fed7139ef45d24e25db076a3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#aa8c46672fed7139ef45d24e25db076a3">allocate</a> (class <a class="el" href="classwmoge_1_1RdgPool.html">RdgPool</a> &amp;pool)</td></tr>
+<tr class="separator:aa8c46672fed7139ef45d24e25db076a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5215978240f37a8184489727bf414327"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a5215978240f37a8184489727bf414327">release</a> (class <a class="el" href="classwmoge_1_1RdgPool.html">RdgPool</a> &amp;pool)</td></tr>
+<tr class="separator:a5215978240f37a8184489727bf414327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a558c03394312cd4e881d23109f73ac04"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a558c03394312cd4e881d23109f73ac04">is_texture</a> () const</td></tr>
+<tr class="separator:a558c03394312cd4e881d23109f73ac04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c8922143261347b1dcbf1cf9f736d38"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a3c8922143261347b1dcbf1cf9f736d38">is_buffer</a> () const</td></tr>
+<tr class="separator:a3c8922143261347b1dcbf1cf9f736d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55b67c1fe026e04f057dbd719f7308f1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a55b67c1fe026e04f057dbd719f7308f1">is_vertex</a> () const</td></tr>
+<tr class="separator:a55b67c1fe026e04f057dbd719f7308f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7789ba815d378fb1bbc615d2383604df"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a7789ba815d378fb1bbc615d2383604df">is_index</a> () const</td></tr>
+<tr class="separator:a7789ba815d378fb1bbc615d2383604df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ac96b8cba9437187a7a7bef752a6a15"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a8ac96b8cba9437187a7a7bef752a6a15">is_uniform</a> () const</td></tr>
+<tr class="separator:a8ac96b8cba9437187a7a7bef752a6a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22d17f83415c6e9b499365a9eab4f945"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a22d17f83415c6e9b499365a9eab4f945">is_storage</a> () const</td></tr>
+<tr class="separator:a22d17f83415c6e9b499365a9eab4f945"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7209461328985be53f508b706c14eef5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a7209461328985be53f508b706c14eef5">set_gfx</a> (<a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a> gfx)</td></tr>
 <tr class="separator:a7209461328985be53f508b706c14eef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7b6a8026b7fd1a082d9b333d628d883"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#ad7b6a8026b7fd1a082d9b333d628d883">needs_allocation</a> () const</td></tr>
-<tr class="separator:ad7b6a8026b7fd1a082d9b333d628d883"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1631e2632443ff3058017733d35cb430"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a1631e2632443ff3058017733d35cb430">is_pooled</a> () const</td></tr>
+<tr class="separator:a1631e2632443ff3058017733d35cb430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee08e099af6b37a347618a753279833e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#aee08e099af6b37a347618a753279833e">is_allocated</a> () const</td></tr>
+<tr class="separator:aee08e099af6b37a347618a753279833e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97240a623d11cd8f33390859a7c4bbf6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a97240a623d11cd8f33390859a7c4bbf6">get_gfx</a> () const</td></tr>
 <tr class="separator:a97240a623d11cd8f33390859a7c4bbf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25704b6cf7680be1d93c75cf584abdfa"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a6f2d98496cd43282a8074fb212a30a4f">RdgResourceId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a25704b6cf7680be1d93c75cf584abdfa">get_id</a> () const</td></tr>
@@ -133,6 +152,17 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8cba5a36fdcba326be2592de7cffb146 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb7916425067c1d775930cf5e3f98ed7 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#afb7916425067c1d775930cf5e3f98ed7">refs_count</a> ()</td></tr>
 <tr class="separator:afb7916425067c1d775930cf5e3f98ed7 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ad202af278689ecc307986b3b25d8a8ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#ad202af278689ecc307986b3b25d8a8ee">m_gfx</a></td></tr>
+<tr class="separator:ad202af278689ecc307986b3b25d8a8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e69b7e027b300d1a922b249641c080b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a6f2d98496cd43282a8074fb212a30a4f">RdgResourceId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a4e69b7e027b300d1a922b249641c080b">m_id</a></td></tr>
+<tr class="separator:a4e69b7e027b300d1a922b249641c080b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28f8e5b285113b9e52418d5b4dd33957"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a30b1dbcef3cde00aef3cc5fd719355b5">RdgResourceFlags</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a28f8e5b285113b9e52418d5b4dd33957">m_flags</a></td></tr>
+<tr class="separator:a28f8e5b285113b9e52418d5b4dd33957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bd16e8536687d658c3b43c74c0e054d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a8bd16e8536687d658c3b43c74c0e054d">m_name</a></td></tr>
+<tr class="separator:a8bd16e8536687d658c3b43c74c0e054d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -205,8 +235,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a81cff6bb9a648a16680d8a24309ea3b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81cff6bb9a648a16680d8a24309ea3b9">&#9670;&nbsp;</a></span>allocate()</h2>
+<a id="aa8c46672fed7139ef45d24e25db076a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8c46672fed7139ef45d24e25db076a3">&#9670;&nbsp;</a></span>allocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +245,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::RdgResource::allocate </td>
+          <td class="memname">virtual void wmoge::RdgResource::allocate </td>
           <td>(</td>
           <td class="paramtype">class <a class="el" href="classwmoge_1_1RdgPool.html">RdgPool</a> &amp;&#160;</td>
           <td class="paramname"><em>pool</em></td><td>)</td>
@@ -228,6 +258,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgTexture.html#ad739ceeca7e604fb4441aa5547c693a1">wmoge::RdgTexture</a>.</p>
 
 </div>
 </div>
@@ -331,8 +363,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad7b6a8026b7fd1a082d9b333d628d883"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7b6a8026b7fd1a082d9b333d628d883">&#9670;&nbsp;</a></span>needs_allocation()</h2>
+<a id="aee08e099af6b37a347618a753279833e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee08e099af6b37a347618a753279833e">&#9670;&nbsp;</a></span>is_allocated()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -341,7 +373,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool wmoge::RdgResource::needs_allocation </td>
+          <td class="memname">bool wmoge::RdgResource::is_allocated </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -356,8 +388,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a003667b7f7e94369a84fdc8a602018f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a003667b7f7e94369a84fdc8a602018f6">&#9670;&nbsp;</a></span>release()</h2>
+<a id="a3c8922143261347b1dcbf1cf9f736d38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c8922143261347b1dcbf1cf9f736d38">&#9670;&nbsp;</a></span>is_buffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -366,7 +398,194 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::RdgResource::release </td>
+          <td class="memname">virtual bool wmoge::RdgResource::is_buffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgBuffer.html#ad3859e83457a523b0bb5ef720eecfb30">wmoge::RdgBuffer</a>.</p>
+
+</div>
+</div>
+<a id="a7789ba815d378fb1bbc615d2383604df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7789ba815d378fb1bbc615d2383604df">&#9670;&nbsp;</a></span>is_index()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wmoge::RdgResource::is_index </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgIndexBuffer.html#a57d3611c46f384d0e9dc024bb894b215">wmoge::RdgIndexBuffer</a>.</p>
+
+</div>
+</div>
+<a id="a1631e2632443ff3058017733d35cb430"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1631e2632443ff3058017733d35cb430">&#9670;&nbsp;</a></span>is_pooled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmoge::RdgResource::is_pooled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a22d17f83415c6e9b499365a9eab4f945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22d17f83415c6e9b499365a9eab4f945">&#9670;&nbsp;</a></span>is_storage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wmoge::RdgResource::is_storage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgStorageBuffer.html#a9a7479ffc0008c434356f5d5de5de6b6">wmoge::RdgStorageBuffer</a>.</p>
+
+</div>
+</div>
+<a id="a558c03394312cd4e881d23109f73ac04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a558c03394312cd4e881d23109f73ac04">&#9670;&nbsp;</a></span>is_texture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wmoge::RdgResource::is_texture </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgTexture.html#a279008935108a43a41518ae132ba2d73">wmoge::RdgTexture</a>.</p>
+
+</div>
+</div>
+<a id="a8ac96b8cba9437187a7a7bef752a6a15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ac96b8cba9437187a7a7bef752a6a15">&#9670;&nbsp;</a></span>is_uniform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wmoge::RdgResource::is_uniform </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgUniformBuffer.html#a27045d3402a854f5fa49a3782ea70993">wmoge::RdgUniformBuffer</a>.</p>
+
+</div>
+</div>
+<a id="a55b67c1fe026e04f057dbd719f7308f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55b67c1fe026e04f057dbd719f7308f1">&#9670;&nbsp;</a></span>is_vertex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wmoge::RdgResource::is_vertex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgVertBuffer.html#a1b2f0874a4c0a0ce49ccd40368d0cad3">wmoge::RdgVertBuffer</a>.</p>
+
+</div>
+</div>
+<a id="a5215978240f37a8184489727bf414327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5215978240f37a8184489727bf414327">&#9670;&nbsp;</a></span>release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void wmoge::RdgResource::release </td>
           <td>(</td>
           <td class="paramtype">class <a class="el" href="classwmoge_1_1RdgPool.html">RdgPool</a> &amp;&#160;</td>
           <td class="paramname"><em>pool</em></td><td>)</td>
@@ -379,6 +598,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgTexture.html#a981a69835642396f92e641063b0c72c5">wmoge::RdgTexture</a>.</p>
 
 </div>
 </div>
@@ -402,6 +623,95 @@ Additional Inherited Members</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a28f8e5b285113b9e52418d5b4dd33957"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28f8e5b285113b9e52418d5b4dd33957">&#9670;&nbsp;</a></span>m_flags</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a30b1dbcef3cde00aef3cc5fd719355b5">RdgResourceFlags</a> wmoge::RdgResource::m_flags</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad202af278689ecc307986b3b25d8a8ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad202af278689ecc307986b3b25d8a8ee">&#9670;&nbsp;</a></span>m_gfx</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a> wmoge::RdgResource::m_gfx</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e69b7e027b300d1a922b249641c080b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e69b7e027b300d1a922b249641c080b">&#9670;&nbsp;</a></span>m_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a6f2d98496cd43282a8074fb212a30a4f">RdgResourceId</a> wmoge::RdgResource::m_id</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8bd16e8536687d658c3b43c74c0e054d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bd16e8536687d658c3b43c74c0e054d">&#9670;&nbsp;</a></span>m_name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Strid.html">Strid</a> wmoge::RdgResource::m_name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
