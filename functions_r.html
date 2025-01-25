@@ -88,13 +88,19 @@ $(function() {
 </li>
 <li>RdgBuffer()
 : <a class="el" href="classwmoge_1_1RdgBuffer.html#a537d73063a6aa94ee5c1af59f23d3762">wmoge::RdgBuffer</a>
-, <a class="el" href="classwmoge_1_1RdgIndexBuffer.html#a14662eb3fdbc940cc1d24658b907aa0a">wmoge::RdgIndexBuffer</a>
+, <a class="el" href="classwmoge_1_1RdgIndexBuffer.html#a537d73063a6aa94ee5c1af59f23d3762">wmoge::RdgIndexBuffer</a>
 , <a class="el" href="classwmoge_1_1RdgStorageBuffer.html#a537d73063a6aa94ee5c1af59f23d3762">wmoge::RdgStorageBuffer</a>
 , <a class="el" href="classwmoge_1_1RdgUniformBuffer.html#a537d73063a6aa94ee5c1af59f23d3762">wmoge::RdgUniformBuffer</a>
-, <a class="el" href="classwmoge_1_1RdgVertBuffer.html#a14662eb3fdbc940cc1d24658b907aa0a">wmoge::RdgVertBuffer</a>
+, <a class="el" href="classwmoge_1_1RdgVertBuffer.html#a537d73063a6aa94ee5c1af59f23d3762">wmoge::RdgVertBuffer</a>
 </li>
 <li>RdgGraph()
-: <a class="el" href="classwmoge_1_1RdgGraph.html#a18c4f7892014d8e21998ba6d697db0f1">wmoge::RdgGraph</a>
+: <a class="el" href="classwmoge_1_1RdgGraph.html#a2a88df0d800afa585669ca91fa44871d">wmoge::RdgGraph</a>
+</li>
+<li>RdgIndexBuffer()
+: <a class="el" href="classwmoge_1_1RdgIndexBuffer.html#a03f3cb2080dd9a3a512053930f693623">wmoge::RdgIndexBuffer</a>
+</li>
+<li>RdgParamBlock()
+: <a class="el" href="classwmoge_1_1RdgParamBlock.html#aea377341cd4d1d69eca70e98b7db103f">wmoge::RdgParamBlock</a>
 </li>
 <li>RdgPass()
 : <a class="el" href="classwmoge_1_1RdgPass.html#af70451e1c65fb64a7ea736ed7795bc7c">wmoge::RdgPass</a>
@@ -114,8 +120,17 @@ $(function() {
 <li>RdgResource()
 : <a class="el" href="classwmoge_1_1RdgResource.html#ada6ec5039efbf765e6a46d67d38053a3">wmoge::RdgResource</a>
 </li>
+<li>RdgStorageBuffer()
+: <a class="el" href="classwmoge_1_1RdgStorageBuffer.html#a6d3e35cb54062f46b7f3abf0d98d7afc">wmoge::RdgStorageBuffer</a>
+</li>
 <li>RdgTexture()
-: <a class="el" href="classwmoge_1_1RdgTexture.html#a356111883bffeca792eb79bedaf009d5">wmoge::RdgTexture</a>
+: <a class="el" href="classwmoge_1_1RdgTexture.html#a156f9910cfa30ad527966fb4fd3fa5ef">wmoge::RdgTexture</a>
+</li>
+<li>RdgUniformBuffer()
+: <a class="el" href="classwmoge_1_1RdgUniformBuffer.html#a8fea69c93f4f1aa55382ec372586affd">wmoge::RdgUniformBuffer</a>
+</li>
+<li>RdgVertBuffer()
+: <a class="el" href="classwmoge_1_1RdgVertBuffer.html#a3e0c91e97f67c26f22908a4a63f37472">wmoge::RdgVertBuffer</a>
 </li>
 <li>reach_zero()
 : <a class="el" href="classwmoge_1_1RefCnt.html#a1acc2af3749653bfcc0d5e18374fbcef">wmoge::RefCnt</a>
@@ -200,7 +215,8 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Console.html#a11dc17fcc040f45298549a9f115dbcfe">wmoge::Console</a>
 </li>
 <li>release()
-: <a class="el" href="classwmoge_1_1RdgResource.html#a5215978240f37a8184489727bf414327">wmoge::RdgResource</a>
+: <a class="el" href="classwmoge_1_1RdgParamBlock.html#a94194db5556e4a26516a7cdc395b3873">wmoge::RdgParamBlock</a>
+, <a class="el" href="classwmoge_1_1RdgResource.html#a5215978240f37a8184489727bf414327">wmoge::RdgResource</a>
 , <a class="el" href="classwmoge_1_1RdgTexture.html#a981a69835642396f92e641063b0c72c5">wmoge::RdgTexture</a>
 , <a class="el" href="classwmoge_1_1Ref.html#a9f1e7c22f916529ae1c788cc7c65dd8d">wmoge::Ref&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TexturePool.html#a785befe37b11b84ed9da5cdfad61cdf1">wmoge::TexturePool</a>
@@ -213,6 +229,9 @@ $(function() {
 </li>
 <li>release_item()
 : <a class="el" href="classwmoge_1_1CullingManager.html#aabcae966c10951dcee8166cd2755d505">wmoge::CullingManager</a>
+</li>
+<li>release_param_block()
+: <a class="el" href="classwmoge_1_1RdgPool.html#a5bb3590d35f9d9c2d8eef6ea401cfe0b">wmoge::RdgPool</a>
 </li>
 <li>release_queue()
 : <a class="el" href="classwmoge_1_1VKDriver.html#a929aa81b9a426aeab361e16e45e88c0d">wmoge::VKDriver</a>
@@ -368,10 +387,11 @@ $(function() {
 <li>result()
 : <a class="el" href="classwmoge_1_1AsyncResult.html#af20161ae551d4632a1bf64ac65217ec1">wmoge::AsyncResult&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1AsyncState.html#a633b2c751511330ffbc43afdf06a39c3">wmoge::AsyncState&lt; T &gt;</a>
-, <a class="el" href="structwmoge_1_1ShaderFill_1_1ParamBlockDefault.html#aa091e5a9e85e3cdb771535d6a1ffc008">wmoge::ShaderFill::ParamBlockDefault</a>
+, <a class="el" href="structwmoge_1_1ShaderFill_1_1ParamBlockDefault_1_1Vars.html#a20e6bb48ba4b81d2e4b0702d6ded51d4">wmoge::ShaderFill::ParamBlockDefault::Vars</a>
+, <a class="el" href="structwmoge_1_1ShaderFill_1_1ParamBlockMetaDefault.html#a2bfe0ee63b018a06f60f1b2de93b0b35">wmoge::ShaderFill::ParamBlockMetaDefault</a>
 </li>
 <li>result_name
-: <a class="el" href="structwmoge_1_1ShaderFill_1_1ParamBlockDefault.html#ac7914eba6e9611d2c972d47ea8736c2f">wmoge::ShaderFill::ParamBlockDefault</a>
+: <a class="el" href="structwmoge_1_1ShaderFill_1_1ParamBlockMetaDefault.html#a53a4387a647d9becb507a299b7901585">wmoge::ShaderFill::ParamBlockMetaDefault</a>
 </li>
 <li>result_opt()
 : <a class="el" href="classwmoge_1_1AsyncResult.html#aa51ecb6b91544523f0a082c335565ffe">wmoge::AsyncResult&lt; T &gt;</a>
@@ -425,7 +445,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1TQuat.html#a6309c38fd56a94e9d14ecaa99f030378">wmoge::TQuat&lt; T &gt;</a>
 </li>
 <li>round()
-: <a class="el" href="classwmoge_1_1Math.html#a0441ebc1b40819568824bfd96975588c">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#a0149d60c4fb827eabe100488c64e4c8e">wmoge::Math</a>
 </li>
 <li>row()
 : <a class="el" href="classwmoge_1_1TMatMxN.html#a649375885182d689ccca34c311f01d3e">wmoge::TMatMxN&lt; T, M, N &gt;</a>

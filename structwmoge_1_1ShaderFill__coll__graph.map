@@ -1,9 +1,9 @@
 <map id="wmoge::ShaderFill" name="wmoge::ShaderFill">
-<area shape="rect" id="node1" title="Auto&#45;generated reflection for &#39;fill&#39; shader." alt="" coords="860,135,988,162"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1ShaderFill_1_1ParamBlockDefault.html" title=" " alt="" coords="322,59,457,100"/>
+<area shape="rect" id="node1" title="Auto&#45;generated reflection for &#39;fill&#39; shader." alt="" coords="871,135,999,162"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ShaderFill_1_1ParamBlockMetaDefault.html" title=" " alt="" coords="319,59,481,100"/>
 <area shape="rect" id="node3" href="$structwmoge_1_1SimpleId.html" title=" " alt="" coords="5,5,156,47"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="32,131,129,158"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1ShaderFill_1_1TechniqueDefault.html" title=" " alt="" coords="609,128,743,169"/>
-<area shape="rect" id="node6" href="$structwmoge_1_1ShaderFill_1_1TechniqueDefault_1_1PassDefault.html" title=" " alt="" coords="289,193,489,235"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="601,193,751,235"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1ShaderFill_1_1TechniqueDefault.html" title=" " alt="" coords="619,128,754,169"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1ShaderFill_1_1TechniqueDefault_1_1PassDefault.html" title=" " alt="" coords="300,193,500,235"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="612,193,761,235"/>
 </map>

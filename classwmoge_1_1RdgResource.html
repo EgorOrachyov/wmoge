@@ -83,14 +83,20 @@ Inheritance diagram for wmoge::RdgResource:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1RdgResource__inherit__graph.png" border="0" usemap="#awmoge_1_1RdgResource_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1RdgResource_inherit__map" id="awmoge_1_1RdgResource_inherit__map">
-<area shape="rect" title="Rdg resource base class." alt="" coords="164,107,312,133"/>
-<area shape="rect" href="classwmoge_1_1RdgBuffer.html" title="Rdg buffer resource." alt="" coords="365,81,491,108"/>
-<area shape="rect" href="classwmoge_1_1RdgTexture.html" title="Rdg texture resource." alt="" coords="360,132,496,159"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,107,116,133"/>
-<area shape="rect" href="classwmoge_1_1RdgIndexBuffer.html" title="Rdg index buffer resource." alt="" coords="551,5,710,32"/>
-<area shape="rect" href="classwmoge_1_1RdgStorageBuffer.html" title="Rdg storage buffer resource." alt="" coords="545,56,717,83"/>
-<area shape="rect" href="classwmoge_1_1RdgUniformBuffer.html" title="Rdg uniform buffer resource." alt="" coords="544,107,717,133"/>
-<area shape="rect" href="classwmoge_1_1RdgVertBuffer.html" title="Rdg vertex buffer resource." alt="" coords="555,157,706,184"/>
+<area shape="rect" title="Rdg resource base class." alt="" coords="164,315,312,341"/>
+<area shape="rect" href="classwmoge_1_1RdgBuffer.html" title="Rdg buffer resource." alt="" coords="379,107,505,133"/>
+<area shape="rect" href="classwmoge_1_1RdgParamBlock.html" title="Rdg param block resource." alt="" coords="360,315,524,341"/>
+<area shape="rect" href="classwmoge_1_1RdgTexture.html" title="Rdg texture resource." alt="" coords="374,365,510,392"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,315,116,341"/>
+<area shape="rect" href="classwmoge_1_1RdgIndexBuffer.html" title="Rdg index buffer resource." alt="" coords="581,5,739,32"/>
+<area shape="rect" href="classwmoge_1_1RdgStorageBuffer.html" title="Rdg storage buffer resource." alt="" coords="574,56,746,83"/>
+<area shape="rect" href="classwmoge_1_1RdgUniformBuffer.html" title="Rdg uniform buffer resource." alt="" coords="573,107,747,133"/>
+<area shape="rect" href="classwmoge_1_1RdgVertBuffer.html" title="Rdg vertex buffer resource." alt="" coords="585,157,735,184"/>
+<area shape="rect" href="classwmoge_1_1ShaderAuxDraw_1_1ParamBlockDefault.html" title=" " alt="" coords="579,209,741,250"/>
+<area shape="rect" href="classwmoge_1_1ShaderBlit_1_1ParamBlockDefault.html" title=" " alt="" coords="592,274,728,315"/>
+<area shape="rect" href="classwmoge_1_1ShaderCanvas_1_1ParamBlockDefault.html" title=" " alt="" coords="583,339,737,381"/>
+<area shape="rect" href="classwmoge_1_1ShaderCanvas_1_1ParamBlockImagesBatch.html" title=" " alt="" coords="572,405,748,446"/>
+<area shape="rect" href="classwmoge_1_1ShaderFill_1_1ParamBlockDefault.html" title=" " alt="" coords="593,470,727,511"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -98,12 +104,11 @@ Collaboration diagram for wmoge::RdgResource:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1RdgResource__coll__graph.png" border="0" usemap="#awmoge_1_1RdgResource_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1RdgResource_coll__map" id="awmoge_1_1RdgResource_coll__map">
-<area shape="rect" title="Rdg resource base class." alt="" coords="297,115,445,141"/>
+<area shape="rect" title="Rdg resource base class." alt="" coords="297,93,445,120"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="45,5,156,32"/>
-<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="7,56,194,83"/>
-<area shape="rect" href="structwmoge_1_1SimpleId.html" title=" " alt="" coords="25,107,176,149"/>
-<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="52,173,149,200"/>
-<area shape="rect" href="structwmoge_1_1Mask.html" title=" " alt="" coords="5,225,196,266"/>
+<area shape="rect" href="structwmoge_1_1SimpleId.html" title=" " alt="" coords="25,57,176,98"/>
+<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="52,123,149,149"/>
+<area shape="rect" href="structwmoge_1_1Mask.html" title=" " alt="" coords="5,174,196,215"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -111,14 +116,16 @@ Collaboration diagram for wmoge::RdgResource:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ada6ec5039efbf765e6a46d67d38053a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#ada6ec5039efbf765e6a46d67d38053a3">RdgResource</a> (<a class="el" href="namespacewmoge.html#a6f2d98496cd43282a8074fb212a30a4f">RdgResourceId</a> id, <a class="el" href="namespacewmoge.html#a30b1dbcef3cde00aef3cc5fd719355b5">RdgResourceFlags</a> flags, <a class="el" href="classwmoge_1_1Strid.html">Strid</a> name)</td></tr>
 <tr class="separator:ada6ec5039efbf765e6a46d67d38053a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1dbac58da0f10b5d98667ccd80aec325"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a1dbac58da0f10b5d98667ccd80aec325">~RdgResource</a> () override=default</td></tr>
-<tr class="separator:a1dbac58da0f10b5d98667ccd80aec325"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8c46672fed7139ef45d24e25db076a3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#aa8c46672fed7139ef45d24e25db076a3">allocate</a> (class <a class="el" href="classwmoge_1_1RdgPool.html">RdgPool</a> &amp;pool)</td></tr>
 <tr class="separator:aa8c46672fed7139ef45d24e25db076a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5215978240f37a8184489727bf414327"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a5215978240f37a8184489727bf414327">release</a> (class <a class="el" href="classwmoge_1_1RdgPool.html">RdgPool</a> &amp;pool)</td></tr>
 <tr class="separator:a5215978240f37a8184489727bf414327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f0a71888f1598ad77eef36b31b1fae7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a1f0a71888f1598ad77eef36b31b1fae7">get_gfx</a> () const</td></tr>
+<tr class="separator:a1f0a71888f1598ad77eef36b31b1fae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a558c03394312cd4e881d23109f73ac04"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a558c03394312cd4e881d23109f73ac04">is_texture</a> () const</td></tr>
 <tr class="separator:a558c03394312cd4e881d23109f73ac04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace7be77f6dbc04935e245b54067faf02"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#ace7be77f6dbc04935e245b54067faf02">is_param_block</a> () const</td></tr>
+<tr class="separator:ace7be77f6dbc04935e245b54067faf02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c8922143261347b1dcbf1cf9f736d38"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a3c8922143261347b1dcbf1cf9f736d38">is_buffer</a> () const</td></tr>
 <tr class="separator:a3c8922143261347b1dcbf1cf9f736d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55b67c1fe026e04f057dbd719f7308f1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a55b67c1fe026e04f057dbd719f7308f1">is_vertex</a> () const</td></tr>
@@ -129,14 +136,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8ac96b8cba9437187a7a7bef752a6a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22d17f83415c6e9b499365a9eab4f945"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a22d17f83415c6e9b499365a9eab4f945">is_storage</a> () const</td></tr>
 <tr class="separator:a22d17f83415c6e9b499365a9eab4f945"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7209461328985be53f508b706c14eef5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a7209461328985be53f508b706c14eef5">set_gfx</a> (<a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a> gfx)</td></tr>
-<tr class="separator:a7209461328985be53f508b706c14eef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1631e2632443ff3058017733d35cb430"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a1631e2632443ff3058017733d35cb430">is_pooled</a> () const</td></tr>
 <tr class="separator:a1631e2632443ff3058017733d35cb430"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee08e099af6b37a347618a753279833e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#aee08e099af6b37a347618a753279833e">is_allocated</a> () const</td></tr>
 <tr class="separator:aee08e099af6b37a347618a753279833e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97240a623d11cd8f33390859a7c4bbf6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a97240a623d11cd8f33390859a7c4bbf6">get_gfx</a> () const</td></tr>
-<tr class="separator:a97240a623d11cd8f33390859a7c4bbf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad20daf6e4ef8b2617c32d1593b66af8b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#ad20daf6e4ef8b2617c32d1593b66af8b">is_transitionable</a> () const</td></tr>
+<tr class="separator:ad20daf6e4ef8b2617c32d1593b66af8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25704b6cf7680be1d93c75cf584abdfa"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a6f2d98496cd43282a8074fb212a30a4f">RdgResourceId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a25704b6cf7680be1d93c75cf584abdfa">get_id</a> () const</td></tr>
 <tr class="separator:a25704b6cf7680be1d93c75cf584abdfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af52801cfa5c9936bbdfbeb5e9eb5bdda"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a30b1dbcef3cde00aef3cc5fd719355b5">RdgResourceFlags</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#af52801cfa5c9936bbdfbeb5e9eb5bdda">get_flags</a> () const</td></tr>
@@ -155,8 +160,6 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ad202af278689ecc307986b3b25d8a8ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#ad202af278689ecc307986b3b25d8a8ee">m_gfx</a></td></tr>
-<tr class="separator:ad202af278689ecc307986b3b25d8a8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e69b7e027b300d1a922b249641c080b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a6f2d98496cd43282a8074fb212a30a4f">RdgResourceId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a4e69b7e027b300d1a922b249641c080b">m_id</a></td></tr>
 <tr class="separator:a4e69b7e027b300d1a922b249641c080b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28f8e5b285113b9e52418d5b4dd33957"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a30b1dbcef3cde00aef3cc5fd719355b5">RdgResourceFlags</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgResource.html#a28f8e5b285113b9e52418d5b4dd33957">m_flags</a></td></tr>
@@ -209,31 +212,6 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1dbac58da0f10b5d98667ccd80aec325"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dbac58da0f10b5d98667ccd80aec325">&#9670;&nbsp;</a></span>~RdgResource()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">wmoge::RdgResource::~RdgResource </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa8c46672fed7139ef45d24e25db076a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa8c46672fed7139ef45d24e25db076a3">&#9670;&nbsp;</a></span>allocate()</h2>
@@ -259,7 +237,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgTexture.html#ad739ceeca7e604fb4441aa5547c693a1">wmoge::RdgTexture</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgParamBlock.html#a639b1cd52389d97db1e6fa6237cd5df7">wmoge::RdgParamBlock</a>, and <a class="el" href="classwmoge_1_1RdgTexture.html#ad739ceeca7e604fb4441aa5547c693a1">wmoge::RdgTexture</a>.</p>
 
 </div>
 </div>
@@ -288,8 +266,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a97240a623d11cd8f33390859a7c4bbf6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97240a623d11cd8f33390859a7c4bbf6">&#9670;&nbsp;</a></span>get_gfx()</h2>
+<a id="a1f0a71888f1598ad77eef36b31b1fae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f0a71888f1598ad77eef36b31b1fae7">&#9670;&nbsp;</a></span>get_gfx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -298,7 +276,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a>&amp; wmoge::RdgResource::get_gfx </td>
+          <td class="memname">virtual <a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a> wmoge::RdgResource::get_gfx </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -306,10 +284,12 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgStorageBuffer.html#a3b41a8f5ba3fe8fffaf5cbf80f7a8deb">wmoge::RdgStorageBuffer</a>, <a class="el" href="classwmoge_1_1RdgUniformBuffer.html#a6e93ca79c44fce62c5fc513d1fc57ffb">wmoge::RdgUniformBuffer</a>, <a class="el" href="classwmoge_1_1RdgIndexBuffer.html#ad85c483e4b4a88ba1231e66a00d18251">wmoge::RdgIndexBuffer</a>, <a class="el" href="classwmoge_1_1RdgVertBuffer.html#a956ed4d0ae04352114c30b6a8cc15908">wmoge::RdgVertBuffer</a>, and <a class="el" href="classwmoge_1_1RdgTexture.html#a86aee27b65f6fa9bb58180ea1f6852d6">wmoge::RdgTexture</a>.</p>
 
 </div>
 </div>
@@ -442,6 +422,33 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="ace7be77f6dbc04935e245b54067faf02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace7be77f6dbc04935e245b54067faf02">&#9670;&nbsp;</a></span>is_param_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wmoge::RdgResource::is_param_block </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgParamBlock.html#aefbb4646acec093c2412dbaaae980099">wmoge::RdgParamBlock</a>.</p>
+
+</div>
+</div>
 <a id="a1631e2632443ff3058017733d35cb430"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1631e2632443ff3058017733d35cb430">&#9670;&nbsp;</a></span>is_pooled()</h2>
 
@@ -518,6 +525,31 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented in <a class="el" href="classwmoge_1_1RdgTexture.html#a279008935108a43a41518ae132ba2d73">wmoge::RdgTexture</a>.</p>
+
+</div>
+</div>
+<a id="ad20daf6e4ef8b2617c32d1593b66af8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad20daf6e4ef8b2617c32d1593b66af8b">&#9670;&nbsp;</a></span>is_transitionable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmoge::RdgResource::is_transitionable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -599,33 +631,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgTexture.html#a981a69835642396f92e641063b0c72c5">wmoge::RdgTexture</a>.</p>
-
-</div>
-</div>
-<a id="a7209461328985be53f508b706c14eef5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7209461328985be53f508b706c14eef5">&#9670;&nbsp;</a></span>set_gfx()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::RdgResource::set_gfx </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a>&#160;</td>
-          <td class="paramname"><em>gfx</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Reimplemented in <a class="el" href="classwmoge_1_1RdgParamBlock.html#a94194db5556e4a26516a7cdc395b3873">wmoge::RdgParamBlock</a>, and <a class="el" href="classwmoge_1_1RdgTexture.html#a981a69835642396f92e641063b0c72c5">wmoge::RdgTexture</a>.</p>
 
 </div>
 </div>
@@ -641,28 +647,6 @@ Additional Inherited Members</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="namespacewmoge.html#a30b1dbcef3cde00aef3cc5fd719355b5">RdgResourceFlags</a> wmoge::RdgResource::m_flags</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad202af278689ecc307986b3b25d8a8ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad202af278689ecc307986b3b25d8a8ee">&#9670;&nbsp;</a></span>m_gfx</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#aabf3a02722349dfc98f449dc9869aa4e">GfxResourceRef</a> wmoge::RdgResource::m_gfx</td>
         </tr>
       </table>
   </td>

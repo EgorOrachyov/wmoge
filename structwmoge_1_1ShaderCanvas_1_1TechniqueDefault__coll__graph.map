@@ -1,6 +1,6 @@
 <map id="wmoge::ShaderCanvas::TechniqueDefault" name="wmoge::ShaderCanvas::TechniqueDefault">
-<area shape="rect" id="node1" title=" " alt="" coords="479,45,633,86"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1ShaderCanvas_1_1TechniqueDefault_1_1PassDefault.html" title=" " alt="" coords="212,37,367,93"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,52,103,79"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1ShaderCanvas_1_1TechniqueDefault_1_1Options.html" title=" " alt="" coords="212,117,367,173"/>
+<area shape="rect" id="node1" title=" " alt="" coords="513,53,668,94"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ShaderCanvas_1_1TechniqueDefault_1_1PassDefault.html" title=" " alt="" coords="247,45,401,101"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,60,103,87"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1ShaderCanvas_1_1TechniqueDefault_1_1Options.html" title=" " alt="" coords="247,125,401,181"/>
 </map>

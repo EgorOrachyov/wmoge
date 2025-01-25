@@ -99,6 +99,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac83d3e281073f1ac643f69c913e8d04f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5fabd750d7f45f8b6f03eec27fd38ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPool.html#ae5fabd750d7f45f8b6f03eec27fd38ef">release_storage_buffer</a> (const <a class="el" href="namespacewmoge.html#a23ca2caa7d95ccb8e01704a6afb84c11">GfxStorageBufferRef</a> &amp;buffer)</td></tr>
 <tr class="separator:ae5fabd750d7f45f8b6f03eec27fd38ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53587354121565e3e55bf63d33a4edd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#ad6393b940ba475fa5bf7ba0b25fe1dfb">ShaderParamBlockRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPool.html#a53587354121565e3e55bf63d33a4edd3">allocate_param_block</a> (const <a class="el" href="structwmoge_1_1ShaderParamBlockDesc.html">ShaderParamBlockDesc</a> &amp;desc)</td></tr>
+<tr class="separator:a53587354121565e3e55bf63d33a4edd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bb3590d35f9d9c2d8eef6ea401cfe0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPool.html#a5bb3590d35f9d9c2d8eef6ea401cfe0b">release_param_block</a> (const <a class="el" href="namespacewmoge.html#ad6393b940ba475fa5bf7ba0b25fe1dfb">ShaderParamBlockRef</a> &amp;param_block)</td></tr>
+<tr class="separator:a5bb3590d35f9d9c2d8eef6ea401cfe0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pool used to allocate temporary resources for rdg graph execution and reuse them between frames. </p>
@@ -122,6 +126,24 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a53587354121565e3e55bf63d33a4edd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53587354121565e3e55bf63d33a4edd3">&#9670;&nbsp;</a></span>allocate_param_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#ad6393b940ba475fa5bf7ba0b25fe1dfb">ShaderParamBlockRef</a> wmoge::RdgPool::allocate_param_block </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1ShaderParamBlockDesc.html">ShaderParamBlockDesc</a> &amp;&#160;</td>
+          <td class="paramname"><em>desc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac83d3e281073f1ac643f69c913e8d04f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac83d3e281073f1ac643f69c913e8d04f">&#9670;&nbsp;</a></span>allocate_storage_buffer()</h2>
 
@@ -186,6 +208,24 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void wmoge::RdgPool::gc </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5bb3590d35f9d9c2d8eef6ea401cfe0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bb3590d35f9d9c2d8eef6ea401cfe0b">&#9670;&nbsp;</a></span>release_param_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RdgPool::release_param_block </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#ad6393b940ba475fa5bf7ba0b25fe1dfb">ShaderParamBlockRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>param_block</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
