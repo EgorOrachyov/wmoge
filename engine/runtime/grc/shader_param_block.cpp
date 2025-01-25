@@ -41,6 +41,10 @@
 
 namespace wmoge {
 
+    bool ShaderParamBlockDesc::is_compatible(const ShaderParamBlockDesc& other) const {
+        return shader == other.shader && space_idx == other.space_idx;
+    }
+
     struct ShaderParamAccess {
         ShaderParamAccess(ShaderParamBlock& provider) : provider(provider) {}
 
@@ -430,6 +434,13 @@ namespace wmoge {
     }
     std::optional<ShaderParamInfo*> ShaderParamBlock::find_param(ShaderParamId id) const {
         return m_shader ? m_shader->find_param(id) : std::nullopt;
+    }
+
+    ShaderParamBlockDesc ShaderParamBlock::desc() const {
+        ShaderParamBlockDesc d;
+        d.shader    = m_shader;
+        d.space_idx = m_space;
+        return d;
     }
 
 }// namespace wmoge

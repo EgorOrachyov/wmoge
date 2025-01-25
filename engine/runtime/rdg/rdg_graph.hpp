@@ -30,40 +30,16 @@
 #include "core/flat_map.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/shader_manager.hpp"
+#include "grc/texture_manager.hpp"
 #include "rdg/rdg_pass.hpp"
 #include "rdg/rdg_pool.hpp"
 #include "rdg/rdg_resources.hpp"
 
+#include <functional>
 #include <memory>
 #include <vector>
 
 namespace wmoge {
-
-    /** @brief Rdg mark for graph profiling */
-    struct RdgProfileMark {
-        RdgProfileMark(std::string name,
-                       Strid       category,
-                       Strid       function,
-                       Strid       file,
-                       std::size_t line);
-
-        std::string name;
-        Strid       category;
-        Strid       function;
-        Strid       file;
-        std::size_t line;
-
-        std::unique_ptr<struct ProfilerCpuMark> mark_cpu;
-        std::unique_ptr<struct ProfilerGpuMark> mark_gpu;
-    };
-
-    /** @brief Rdg scope for graph profiling */
-    struct RdgProfileScope {
-        RdgProfileScope(RdgProfileMark& mark, const std::string& data, class RdgGraph& graph);
-        ~RdgProfileScope();
-
-        class RdgGraph& graph;
-    };
 
     /** @brief Rdg graph compilation options */
     struct RdgCompileOptions {
@@ -79,7 +55,7 @@ namespace wmoge {
     */
     class RdgGraph {
     public:
-        RdgGraph(RdgPool* pool, GfxDriver* driver, ShaderManager* shader_manager);
+        RdgGraph(RdgPool* pool, GfxDriver* driver, ShaderManager* shader_manager, TextureManager* texture_manager);
 
         RdgPass& add_pass(Strid name, RdgPassFlags flags = {});
         RdgPass& add_compute_pass(Strid name, RdgPassFlags flags = {});
@@ -97,18 +73,20 @@ namespace wmoge {
         RdgVertBuffer*    find_vert_buffer(const GfxVertBufferRef& buffer);
         RdgIndexBuffer*   import_index_buffer(const GfxIndexBufferRef& buffer);
         RdgIndexBuffer*   find_index_buffer(const GfxIndexBufferRef& buffer);
+        RdgParamBlock*    create_param_block(const std::function<RdgParamBlockRef(RdgResourceId)>& factory);
 
         Ref<Data>             make_upload_data(array_view<const std::uint8_t> buffer);
         Ref<ShaderParamBlock> make_param_block(Shader* shader, std::int16_t space_idx, const Strid& name);
 
-        void push_event(RdgProfileMark* mark, const std::string& data);
+        void push_event(struct RdgProfileMark* mark, const std::string& data);
         void pop_event();
 
         Status compile(const RdgCompileOptions& options);
         Status execute(const RdgExecuteOptions& options);
 
-        [[nodiscard]] GfxDriver*     get_driver() const { return m_driver; }
-        [[nodiscard]] ShaderManager* get_shader_manager() const { return m_shader_manager; }
+        [[nodiscard]] GfxDriver*      get_driver() const { return m_driver; }
+        [[nodiscard]] ShaderManager*  get_shader_manager() const { return m_shader_manager; }
+        [[nodiscard]] Ref<GfxSampler> get_sampler(DefaultSampler sampler);
 
     private:
         Status        execute_pass(RdgPassId pass_id, RdgPassContext& context);
@@ -119,8 +97,8 @@ namespace wmoge {
         using RdgEventId = int;
 
         struct RdgEvent {
-            RdgProfileMark* mark;
-            std::string     data;
+            struct RdgProfileMark* mark;
+            std::string            data;
         };
 
         struct RdgPassData {
@@ -142,23 +120,12 @@ namespace wmoge {
         std::vector<Ref<ShaderParamBlock>>   m_param_blocks;
         RdgPassId                            m_next_pass_id{0};
         RdgResourceId                        m_next_res_id{0};
-        RdgPool*                             m_pool           = nullptr;
-        GfxDriver*                           m_driver         = nullptr;
-        ShaderManager*                       m_shader_manager = nullptr;
+        RdgPool*                             m_pool            = nullptr;
+        GfxDriver*                           m_driver          = nullptr;
+        ShaderManager*                       m_shader_manager  = nullptr;
+        TextureManager*                      m_texture_manager = nullptr;
         std::vector<RdgEvent>                m_events;
         std::vector<RdgEventId>              m_events_stack;
     };
 
 }// namespace wmoge
-
-#define WG_PROFILE_RDG_MARK(var, system, name)                                                      \
-    static RdgProfileMark var {                                                                     \
-        std::string(name), SID(#system), SID(__FUNCTION__), SID(__FILE__), std::size_t { __LINE__ } \
-    }
-
-#define WG_PROFILE_RDG_SCOPE_WITH_DESC(name, graph, system, desc) \
-    WG_PROFILE_RDG_MARK(__wg_auto_mark_rdg, system, name);        \
-    RdgProfileScope __wg_auto_scope_gpu(__wg_auto_mark_rdg, desc, graph)
-
-#define WG_PROFILE_RDG_SCOPE(name, graph) \
-    WG_PROFILE_RDG_SCOPE_WITH_DESC(name, graph, gpurdg, "")

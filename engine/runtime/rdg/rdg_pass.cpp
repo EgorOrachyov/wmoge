@@ -136,6 +136,10 @@ namespace wmoge {
         return reference(resource, GfxAccess::ImageStore);
     }
 
+    RdgPass& RdgPass::params(RdgParamBlock* resource) {
+        return reference(resource, GfxAccess::None);
+    }
+
     RdgPass& RdgPass::bind(RdgPassCallback callback) {
         m_callback = std::move(callback);
         return *this;
@@ -223,6 +227,14 @@ namespace wmoge {
         return info;
     }
 
+    bool RdgPass::is_manual() const {
+        return m_flags.get(RdgPassFlag::Manual);
+    }
+
+    bool RdgPass::is_graphics() const {
+        return m_flags.get(RdgPassFlag::GraphicsPass);
+    }
+
     bool RdgPass::is_window_pass() const {
         return m_window_target.window;
     }
@@ -293,7 +305,6 @@ namespace wmoge {
     }
 
     Status RdgPassContext::bind_param_block(ShaderParamBlock* param_block) {
-        WG_CHECKED(validate_param_block(param_block));
         m_cmd_list->bind_desc_set(param_block->get_gfx_set(), param_block->get_space());
         return WG_OK;
     }

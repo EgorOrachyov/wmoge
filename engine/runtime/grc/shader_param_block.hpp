@@ -45,6 +45,14 @@
 
 namespace wmoge {
 
+    /** @brief Desc with common param block specs for allocation */
+    struct ShaderParamBlockDesc {
+        [[nodiscard]] bool is_compatible(const ShaderParamBlockDesc& other) const;
+
+        Shader*      shader    = nullptr;
+        std::int16_t space_idx = 0;
+    };
+
     /**
      * @class ShaderParamBlock
      * @brief Holds params set which can be bound to a shader for drawing
@@ -120,6 +128,8 @@ namespace wmoge {
         [[nodiscard]] GfxDescSetResources*            get_gfx_resources(std::int16_t space_idx);
         [[nodiscard]] std::optional<ShaderParamInfo*> find_param(ShaderParamId id) const;
 
+        [[nodiscard]] ShaderParamBlockDesc desc() const;
+
     private:
         void dirty_buffers() { m_dirty_buffers = 1; }
         void dirty_set() { m_dirty_set = 1; }
@@ -134,5 +144,7 @@ namespace wmoge {
         std::int8_t                   m_dirty_buffers = 1;
         std::int8_t                   m_dirty_set     = 1;
     };
+
+    using ShaderParamBlockRef = Ref<ShaderParamBlock>;
 
 }// namespace wmoge

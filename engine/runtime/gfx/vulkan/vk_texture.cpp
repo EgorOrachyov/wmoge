@@ -170,10 +170,8 @@ namespace wmoge {
             if (m_desc.usages.get(GfxTexUsageFlag::ColorTarget)) {
                 layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
             }
-            if (m_desc.usages.get(GfxTexUsageFlag::DepthTarget)) {
-                layout = VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
-            }
-            if (m_desc.usages.get(GfxTexUsageFlag::DepthStencilTarget)) {
+            if (m_desc.usages.get(GfxTexUsageFlag::DepthTarget) ||
+                m_desc.usages.get(GfxTexUsageFlag::DepthStencilTarget)) {
                 layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
             }
         }

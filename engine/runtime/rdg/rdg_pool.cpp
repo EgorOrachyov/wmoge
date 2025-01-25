@@ -37,8 +37,10 @@ namespace wmoge {
     Res& rdg_allocate_resource(std::vector<Entry>& pool, const Desc& desc, GfxDriver* driver, Factory&& factory) {
         Entry* entry = nullptr;
 
+        const auto frame_number = driver->frame_number();
+
         auto query = std::find_if(pool.begin(), pool.end(), [&](const Entry& e) {
-            return !e.is_allocated && e.resource->desc().is_compatible(desc);
+            return !e.is_allocated && (e.last_frame_used < frame_number) && e.resource->desc().is_compatible(desc);
         });
 
         if (query != pool.end()) {
@@ -51,7 +53,7 @@ namespace wmoge {
             entry->resource = factory(desc);
         }
 
-        entry->last_frame_used = driver->frame_number();
+        entry->last_frame_used = frame_number;
         entry->is_allocated    = true;
 
         return entry->resource;
@@ -90,6 +92,7 @@ namespace wmoge {
         rdg_gc_resources(m_texture_pool, frame_number, m_frames_before_gc);
         rdg_gc_resources(m_uniform_buffer_pool, frame_number, m_frames_before_gc);
         rdg_gc_resources(m_storage_buffer_pool, frame_number, m_frames_before_gc);
+        rdg_gc_resources(m_shader_param_block_pool, frame_number, m_frames_before_gc);
     }
 
     void RdgPool::set_frames_before_gc(int frames) {
@@ -98,7 +101,7 @@ namespace wmoge {
 
     GfxTextureRef RdgPool::allocate_texture(const GfxTextureDesc& desc) {
         return rdg_allocate_resource<GfxTextureRef>(m_texture_pool, desc, m_driver, [&, this](const GfxTextureDesc& desc) {
-            return m_driver->make_texture(desc, SID("pool_texture"));
+            return m_driver->make_texture(desc, SIDDBG("pool_texture"));
         });
     }
 
@@ -108,7 +111,7 @@ namespace wmoge {
 
     GfxUniformBufferRef RdgPool::allocate_uniform_buffer(const GfxBufferDesc& desc) {
         return rdg_allocate_resource<GfxUniformBufferRef>(m_uniform_buffer_pool, desc, m_driver, [&, this](const GfxBufferDesc& desc) {
-            return m_driver->make_uniform_buffer(desc.size, desc.usage, SID("pool_buffer"));
+            return m_driver->make_uniform_buffer(desc.size, desc.usage, SIDDBG("pool_buffer"));
         });
     }
 
@@ -118,12 +121,22 @@ namespace wmoge {
 
     GfxStorageBufferRef RdgPool::allocate_storage_buffer(const GfxBufferDesc& desc) {
         return rdg_allocate_resource<GfxStorageBufferRef>(m_storage_buffer_pool, desc, m_driver, [&, this](const GfxBufferDesc& desc) {
-            return m_driver->make_storage_buffer(desc.size, desc.usage, SID("pool_buffer"));
+            return m_driver->make_storage_buffer(desc.size, desc.usage, SIDDBG("pool_buffer"));
         });
     }
 
     void RdgPool::release_storage_buffer(const GfxStorageBufferRef& buffer) {
         rdg_release_resource(buffer, m_storage_buffer_pool);
+    }
+
+    ShaderParamBlockRef RdgPool::allocate_param_block(const ShaderParamBlockDesc& desc) {
+        return rdg_allocate_resource<ShaderParamBlockRef>(m_shader_param_block_pool, desc, m_driver, [&, this](const ShaderParamBlockDesc& desc) {
+            return make_ref<ShaderParamBlock>(*desc.shader, desc.space_idx, SIDDBG("pool_block"));
+        });
+    }
+
+    void RdgPool::release_param_block(const ShaderParamBlockRef& param_block) {
+        rdg_release_resource(param_block, m_shader_param_block_pool);
     }
 
 }// namespace wmoge

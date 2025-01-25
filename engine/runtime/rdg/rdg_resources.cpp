@@ -45,16 +45,38 @@ namespace wmoge {
     RdgTexture::RdgTexture(const GfxTextureRef& texture, RdgResourceId id)
         : RdgResource(id, RdgResourceFlags{RdgResourceFlag::Imported}, texture->name()) {
         m_desc = texture->desc();
-        set_gfx(texture);
+        m_gfx  = texture;
     }
 
     void RdgTexture::allocate(RdgPool& pool) {
         m_gfx = pool.allocate_texture(m_desc);
+        m_flags.set(RdgResourceFlag::Allocated, true);
     }
 
     void RdgTexture::release(RdgPool& pool) {
         pool.release_texture(get_texture_ref());
         m_gfx.reset();
+        m_flags.set(RdgResourceFlag::Allocated, false);
+    }
+
+    RdgParamBlock::RdgParamBlock(Shader* shader, std::int16_t space_idx, RdgResourceId id, Strid name)
+        : RdgResource(id, RdgResourceFlags{RdgResourceFlag::Pooled, RdgResourceFlag::NoTransitions}, name) {
+        m_shader    = shader;
+        m_space_idx = space_idx;
+    }
+
+    void RdgParamBlock::allocate(RdgPool& pool) {
+        ShaderParamBlockDesc desc;
+        desc.shader    = m_shader;
+        desc.space_idx = m_space_idx;
+        m_ptr          = pool.allocate_param_block(desc);
+        m_flags.set(RdgResourceFlag::Allocated, true);
+    }
+
+    void RdgParamBlock::release(RdgPool& pool) {
+        pool.release_param_block(get_param_block_ref());
+        m_ptr.reset();
+        m_flags.set(RdgResourceFlag::Allocated, false);
     }
 
     RdgBuffer::RdgBuffer(const GfxBufferDesc& desc, RdgResourceId id, Strid name)
@@ -62,10 +84,24 @@ namespace wmoge {
         m_desc = desc;
     }
 
-    RdgBuffer::RdgBuffer(const GfxBufferRef& buffer, RdgResourceId id)
-        : RdgResource(id, RdgResourceFlags{RdgResourceFlag::Imported}, buffer->name()) {
-        m_desc = buffer->desc();
-        set_gfx(buffer);
+    RdgVertBuffer::RdgVertBuffer(const GfxVertBufferRef& buffer, RdgResourceId id)
+        : RdgBuffer(buffer->desc(), id, buffer->name()) {
+        m_gfx = buffer;
+    }
+
+    RdgIndexBuffer::RdgIndexBuffer(const GfxIndexBufferRef& buffer, RdgResourceId id)
+        : RdgBuffer(buffer->desc(), id, buffer->name()) {
+        m_gfx = buffer;
+    }
+
+    RdgUniformBuffer::RdgUniformBuffer(const GfxUniformBufferRef& buffer, RdgResourceId id)
+        : RdgBuffer(buffer->desc(), id, buffer->name()) {
+        m_gfx = buffer;
+    }
+
+    RdgStorageBuffer::RdgStorageBuffer(const GfxStorageBufferRef& buffer, RdgResourceId id)
+        : RdgBuffer(buffer->desc(), id, buffer->name()) {
+        m_gfx = buffer;
     }
 
 }// namespace wmoge

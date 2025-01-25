@@ -33,8 +33,7 @@
 #include "gfx/gfx_driver.hpp"
 #include "gpu/gpu_utils.hpp"
 #include "math/math_utils3d.hpp"
-#include "profiler/profiler_cpu.hpp"
-#include "profiler/profiler_gpu.hpp"
+#include "rdg/rdg_profiling.hpp"
 #include "rdg/rdg_utils.hpp"
 #include "render/shader_table.hpp"
 
@@ -493,7 +492,7 @@ namespace wmoge {
                 params_blocks.push_back(param_block);
             }
 
-            graph.add_graphics_pass(SIDDBG("draw_batch_" + pass_name.str()))
+            graph.add_graphics_pass(SIDDBG("draw_batch_" + pass_name.str()), {RdgPassFlag::Manual})
                     .color_target(color)
                     .depth_target(depth)
                     .reading(buffer)
@@ -531,9 +530,9 @@ namespace wmoge {
         RdgVertBuffer* buffer_wire  = upload_data(m_aux_data[Wire]);
         RdgVertBuffer* buffer_text  = upload_data(m_aux_data[Text]);
 
-        draw_elements(m_aux_data[Solid], m_mat_vp, buffer_solid, aux_draw->tq_default.ps_solid);
-        draw_elements(m_aux_data[Wire], m_mat_vp, buffer_wire, aux_draw->tq_default.ps_wire);
-        draw_elements(m_aux_data[Text], Math3d::orthographic(0, m_screen_size.x(), 0, m_screen_size.y(), -100.0f, 100.0f), buffer_text, aux_draw->tq_default.ps_text);
+        draw_elements(m_aux_data[Solid], m_mat_vp, buffer_solid, aux_draw->tq_default.ps_solid.pass_name);
+        draw_elements(m_aux_data[Wire], m_mat_vp, buffer_wire, aux_draw->tq_default.ps_wire.pass_name);
+        draw_elements(m_aux_data[Text], Math3d::orthographic(0, m_screen_size.x(), 0, m_screen_size.y(), -100.0f, 100.0f), buffer_text, aux_draw->tq_default.ps_text.pass_name);
     }
 
     void AuxDrawDevice::clear() {

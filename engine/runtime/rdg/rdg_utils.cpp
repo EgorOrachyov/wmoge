@@ -29,8 +29,7 @@
 
 #include "gfx/gfx_driver.hpp"
 #include "grc/shader_manager.hpp"
-#include "profiler/profiler_cpu.hpp"
-#include "profiler/profiler_gpu.hpp"
+#include "rdg/rdg_profiling.hpp"
 
 namespace wmoge {
 

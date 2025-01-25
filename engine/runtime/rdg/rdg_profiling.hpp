@@ -27,54 +27,41 @@
 
 #pragma once
 
-#include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_texture.hpp"
-#include "grc/shader_param_block.hpp"
-
-#include <vector>
+#include "profiler/profiler_cpu.hpp"
+#include "profiler/profiler_gpu.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class RdgPool
-     * @brief Pool used to allocate temporary resources for rdg graph execution and reuse them between frames
-    */
-    class RdgPool {
-    public:
-        RdgPool(class GfxDriver* driver);
+    /** @brief Rdg mark for graph profiling */
+    struct RdgProfileMark {
+        RdgProfileMark(std::string name,
+                       Strid       category,
+                       Strid       function,
+                       Strid       file,
+                       std::size_t line);
 
-        void gc();
+        ProfilerCpuMark mark_cpu;
+        ProfilerGpuMark mark_gpu;
+    };
 
-        void                set_frames_before_gc(int frames);
-        GfxTextureRef       allocate_texture(const GfxTextureDesc& desc);
-        void                release_texture(const GfxTextureRef& texture);
-        GfxUniformBufferRef allocate_uniform_buffer(const GfxBufferDesc& desc);
-        void                release_uniform_buffer(const GfxUniformBufferRef& buffer);
-        GfxStorageBufferRef allocate_storage_buffer(const GfxBufferDesc& desc);
-        void                release_storage_buffer(const GfxStorageBufferRef& buffer);
-        ShaderParamBlockRef allocate_param_block(const ShaderParamBlockDesc& desc);
-        void                release_param_block(const ShaderParamBlockRef& param_block);
+    /** @brief Rdg scope for graph profiling */
+    struct RdgProfileScope {
+        RdgProfileScope(RdgProfileMark& mark, const std::string& data, class RdgGraph& graph);
+        ~RdgProfileScope();
 
-    private:
-        template<typename ResourceType>
-        struct PoolEntry {
-            Ref<ResourceType> resource;
-            std::size_t       last_frame_used = 0;
-            bool              is_allocated    = false;
-        };
-
-        using PoolTexture          = PoolEntry<GfxTexture>;
-        using PoolUniformBuffer    = PoolEntry<GfxUniformBuffer>;
-        using PoolStorageBuffer    = PoolEntry<GfxStorageBuffer>;
-        using PoolShaderParamBlock = PoolEntry<ShaderParamBlock>;
-
-        std::vector<PoolTexture>          m_texture_pool;
-        std::vector<PoolUniformBuffer>    m_uniform_buffer_pool;
-        std::vector<PoolStorageBuffer>    m_storage_buffer_pool;
-        std::vector<PoolShaderParamBlock> m_shader_param_block_pool;
-
-        class GfxDriver* m_driver           = nullptr;
-        int              m_frames_before_gc = 4;
+        class RdgGraph& graph;
     };
 
 }// namespace wmoge
+
+#define WG_PROFILE_RDG_MARK(var, system, name)                                                      \
+    static RdgProfileMark var {                                                                     \
+        std::string(name), SID(#system), SID(__FUNCTION__), SID(__FILE__), std::size_t { __LINE__ } \
+    }
+
+#define WG_PROFILE_RDG_SCOPE_WITH_DESC(name, graph, system, desc) \
+    WG_PROFILE_RDG_MARK(__wg_auto_mark_rdg, system, name);        \
+    RdgProfileScope __wg_auto_scope_gpu(__wg_auto_mark_rdg, desc, graph)
+
+#define WG_PROFILE_RDG_SCOPE(name, graph) \
+    WG_PROFILE_RDG_SCOPE_WITH_DESC(name, graph, gpurdg, "")

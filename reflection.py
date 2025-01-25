@@ -30,7 +30,7 @@ import argparse
 
 header = "// auto generated file\n\n#pragma once\n"
 
-includes_hpp = '#include "grc/shader.hpp"\n'
+includes_hpp = '#include "grc/shader.hpp"\n#include "grc/shader_param_block.hpp"\n#include "rdg/rdg_resources.hpp"\n'
 
 includes_cpp = (
     '#include "grc/shader_manager.hpp"\n#include "grc/shader_reflection.hpp"\n'
@@ -183,16 +183,16 @@ def process_options(builder, options):
     return builder
 
 
-def process_pass(builder, shader_pass):
+def process_pass(builder, shader_pass, technique_name):
     pass_name = shader_pass["name"]
 
     builder += f"struct Pass{to_camel_case(pass_name)} " + "{\n"
-    builder += f'const Strid name = SID("{pass_name}");\n\n'
+    builder += f'const Strid pass_name = SID("{pass_name}");\n'
+    builder += f'const Strid technique_name = SID("{technique_name}");\n'
+    builder += "\n"
 
     if "options" in shader_pass:
         builder = process_options(builder, shader_pass["options"])
-
-    builder += "operator Strid() const { return name; }\n\n"
 
     builder += "}" + f" ps_{pass_name};\n\n"
     return builder
@@ -209,21 +209,18 @@ def process_technique(builder, shader_technique):
         builder += "\n"
 
     for shader_pass in shader_technique["passes"]:
-        builder = process_pass(builder, shader_pass)
-
-    builder += "operator Strid() const { return name; }\n\n"
+        builder = process_pass(builder, shader_pass, technique_name)
 
     builder += "}" + f" tq_{technique_name};\n\n"
     return builder
 
 
-def process_param(builder_hpp, builder_cpp, param):
+def process_param_meta(builder_hpp, builder_cpp, param):
     param_name = param["name"]
     param_name_lower = param_name.lower()
 
     builder_hpp += f'const Strid {param_name_lower}_name = SID("{param_name}");\n'
     builder_hpp += f"ShaderParamId {param_name_lower};\n"
-    builder_hpp += "\n"
 
     builder_cpp += (
         f"{param_name_lower} = shader->find_param_id({param_name_lower}_name);\n"
@@ -232,12 +229,12 @@ def process_param(builder_hpp, builder_cpp, param):
     return builder_hpp, builder_cpp
 
 
-def process_param_block(builder_hpp, builder_cpp, param_block, shader_class_name):
+def process_param_block_meta(builder_hpp, builder_cpp, param_block, shader_class_name):
     param_block_name = param_block["name"]
-    param_block_class_name = f"ParamBlock{to_camel_case(param_block_name)}"
+    param_block_class_name = f"ParamBlockMeta{to_camel_case(param_block_name)}"
 
     builder_hpp += f"struct {param_block_class_name} " + "{\n"
-    builder_hpp += f'const Strid name = SID("{param_block_name}");\n\n'
+    builder_hpp += f'const Strid name = SID("{param_block_name}");\n'
 
     builder_cpp += (
         f"void {shader_class_name}::{param_block_class_name}::load_from(const Ref<Shader>& shader) "
@@ -245,12 +242,103 @@ def process_param_block(builder_hpp, builder_cpp, param_block, shader_class_name
     )
 
     for param in param_block["params"]:
-        builder_hpp, builder_cpp = process_param(builder_hpp, builder_cpp, param)
+        builder_hpp, builder_cpp = process_param_meta(builder_hpp, builder_cpp, param)
 
     builder_cpp += "}\n\n"
-    builder_hpp += "void load_from(const Ref<Shader>& s);\n"
+    builder_hpp += "\nvoid load_from(const Ref<Shader>& s);\n"
 
     builder_hpp += "}" + f" pb_{param_block_name};\n\n"
+    return builder_hpp, builder_cpp
+
+
+def process_param(builder_hpp, builder_cpp, param, param_block_name):
+    param_name = param["name"]
+    param_type = param["type"]
+    param_name_lower = param_name.lower()
+    param_binding = None
+    param_name_ref = f"m_shader_cls->pb_{param_block_name}.{param_name_lower}"
+    param_elements = None
+    param_array = ""
+
+    if "binding" in param:
+        param_binding = param["binding"]
+
+    if "elements" in param:
+        param_elements = param["elements"]
+        param_array = f"[{param_elements}]"
+
+    assert param_elements is None
+
+    decl = []
+
+    if param_type in types_map and param_binding is None:
+        decl.append((types_map[param_type], param_name_lower, ""))
+    elif param_type in types_map and param_binding:
+        if param_binding == "StorageBuffer":
+            decl.append(("RdgStorageBuffer*", param_name_lower, "->get_buffer_ref()"))
+        elif param_binding == "UniformBuffer":
+            decl.append(("RdgUniformBuffer*", param_name_lower, "->get_buffer_ref()"))
+    else:
+        if "sampler" in param_type:
+            decl.append(("RdgTexture*", param_name_lower, "->get_texture_ref()"))
+            decl.append(("Ref<GfxSampler>", f"{param_name_lower}_sampler", ""))
+        else:
+            decl.append(("RdgTexture*", param_name_lower, "->get_texture_ref()"))
+
+    for d in decl:
+        builder_hpp += f"{d[0]} {d[1]}{param_array};\n"
+
+    for d in decl:
+        if param_elements is None:
+            builder_cpp += f"m_ptr->set_var({param_name_ref}, vars.{d[1]}{d[2]});\n"
+        else:
+            for i in range(param_elements):
+                builder_cpp += (
+                    f"m_ptr->set_var({param_name_ref}[{i}], vars.{d[1]}[{i}]{d[2]});\n"
+                )
+
+    return builder_hpp, builder_cpp
+
+
+def process_param_block(builder_hpp, builder_cpp, param_block, shader_class_name, idx):
+    param_block_name = param_block["name"]
+    param_block_class_name = f"ParamBlock{to_camel_case(param_block_name)}"
+
+    builder_hpp += f"class {param_block_class_name} : public RdgParamBlock" + "{\n"
+    builder_hpp += "public:\n"
+    builder_hpp += f"{param_block_class_name}(const {shader_class_name}* shader_cls, RdgResourceId id);\n\n"
+
+    builder_cpp += (
+        f"{shader_class_name}::{param_block_class_name}::{param_block_class_name}"
+        + f"(const {shader_class_name}* shader_cls, RdgResourceId id)\n"
+    )
+
+    builder_cpp += f': RdgParamBlock(shader_cls->shader.get(), {idx}, id, SIDDBG("{param_block_name.lower()}"))'
+    builder_cpp += "{\n"
+    builder_cpp += "m_shader_cls = shader_cls;\n"
+    builder_cpp += "}\n\n"
+
+    builder_cpp += (
+        f"void {shader_class_name}::{param_block_class_name}::pack() " + "{\n"
+    )
+
+    builder_hpp += "struct Vars {\n"
+
+    for param in param_block["params"]:
+        builder_hpp, builder_cpp = process_param(
+            builder_hpp, builder_cpp, param, param_block_name
+        )
+
+    builder_hpp += "} vars;\n"
+    builder_hpp += "\n"
+
+    builder_cpp += "}\n\n"
+
+    builder_hpp += f"void pack() override;\n\n"
+    builder_hpp += "private:\n"
+    builder_hpp += f"const {shader_class_name}* m_shader_cls;\n"
+
+    builder_hpp += "};\n\n"
     return builder_hpp, builder_cpp
 
 
@@ -285,8 +373,11 @@ def process_shader(builder_hpp, builder_cpp, shader):
     if "constants" in shader:
         builder_hpp = process_constants(builder_hpp, shader["constants"])
 
-    for param_block in shader["param_blocks"]:
+    for idx, param_block in enumerate(shader["param_blocks"]):
         builder_hpp, builder_cpp = process_param_block(
+            builder_hpp, builder_cpp, param_block, shader_class_name, idx
+        )
+        builder_hpp, builder_cpp = process_param_block_meta(
             builder_hpp, builder_cpp, param_block, shader_class_name
         )
 
@@ -294,8 +385,6 @@ def process_shader(builder_hpp, builder_cpp, shader):
         builder_hpp = process_technique(builder_hpp, shader_technique)
 
     builder_hpp += "Ref<Shader> shader;\n\n"
-    builder_hpp += "operator Shader*() const { return shader.get(); }\n\n"
-
     builder_hpp += f"Status load_from(Ref<Shader> s);\n"
 
     builder_cpp += f"Status {shader_class_name}::load_from(Ref<Shader> s) " + "{\n"

@@ -3,20 +3,36 @@
 #pragma once
 
 #include "grc/shader.hpp"
+#include "grc/shader_param_block.hpp"
+#include "rdg/rdg_resources.hpp"
 
 namespace wmoge {
 
     /// @brief Auto-generated reflection for 'aux_draw' shader
     struct ShaderAuxDraw {
-        struct ParamBlockDefault {
-            const Strid name = SID("default");
+        class ParamBlockDefault : public RdgParamBlock {
+        public:
+            ParamBlockDefault(const ShaderAuxDraw* shader_cls, RdgResourceId id);
 
+            struct Vars {
+                RdgTexture*     clipprojview;
+                float           inversegamma;
+                RdgTexture*     imagetexture;
+                Ref<GfxSampler> imagetexture_sampler;
+            } vars;
+
+            void pack() override;
+
+        private:
+            const ShaderAuxDraw* m_shader_cls;
+        };
+
+        struct ParamBlockMetaDefault {
+            const Strid   name              = SID("default");
             const Strid   clipprojview_name = SID("ClipProjView");
             ShaderParamId clipprojview;
-
             const Strid   inversegamma_name = SID("InverseGamma");
             ShaderParamId inversegamma;
-
             const Strid   imagetexture_name = SID("ImageTexture");
             ShaderParamId imagetexture;
 
@@ -34,45 +50,52 @@ namespace wmoge {
             } options;
 
             struct PassSolid {
-                const Strid name = SID("solid");
-
-                operator Strid() const { return name; }
+                const Strid pass_name      = SID("solid");
+                const Strid technique_name = SID("default");
 
             } ps_solid;
 
             struct PassWire {
-                const Strid name = SID("wire");
-
-                operator Strid() const { return name; }
+                const Strid pass_name      = SID("wire");
+                const Strid technique_name = SID("default");
 
             } ps_wire;
 
             struct PassText {
-                const Strid name = SID("text");
-
-                operator Strid() const { return name; }
+                const Strid pass_name      = SID("text");
+                const Strid technique_name = SID("default");
 
             } ps_text;
-
-            operator Strid() const { return name; }
 
         } tq_default;
 
         Ref<Shader> shader;
-
-        operator Shader*() const { return shader.get(); }
 
         Status load_from(Ref<Shader> s);
     };
 
     /// @brief Auto-generated reflection for 'blit' shader
     struct ShaderBlit {
-        struct ParamBlockDefault {
-            const Strid name = SID("default");
+        class ParamBlockDefault : public RdgParamBlock {
+        public:
+            ParamBlockDefault(const ShaderBlit* shader_cls, RdgResourceId id);
 
+            struct Vars {
+                float           inversegamma;
+                RdgTexture*     imagetexture;
+                Ref<GfxSampler> imagetexture_sampler;
+            } vars;
+
+            void pack() override;
+
+        private:
+            const ShaderBlit* m_shader_cls;
+        };
+
+        struct ParamBlockMetaDefault {
+            const Strid   name              = SID("default");
             const Strid   inversegamma_name = SID("InverseGamma");
             ShaderParamId inversegamma;
-
             const Strid   imagetexture_name = SID("ImageTexture");
             ShaderParamId imagetexture;
 
@@ -91,19 +114,14 @@ namespace wmoge {
             } options;
 
             struct PassDefault {
-                const Strid name = SID("default");
-
-                operator Strid() const { return name; }
+                const Strid pass_name      = SID("default");
+                const Strid technique_name = SID("default");
 
             } ps_default;
-
-            operator Strid() const { return name; }
 
         } tq_default;
 
         Ref<Shader> shader;
-
-        operator Shader*() const { return shader.get(); }
 
         Status load_from(Ref<Shader> s);
     };
@@ -135,33 +153,63 @@ namespace wmoge {
             static constexpr int MAX_IMAGES = 4;
         };
 
-        struct ParamBlockDefault {
-            const Strid name = SID("default");
+        class ParamBlockDefault : public RdgParamBlock {
+        public:
+            ParamBlockDefault(const ShaderCanvas* shader_cls, RdgResourceId id);
 
+            struct Vars {
+                RdgTexture*       clipprojview;
+                float             inversegamma;
+                RdgStorageBuffer* gpucanvasdrawcmdsbuffer;
+            } vars;
+
+            void pack() override;
+
+        private:
+            const ShaderCanvas* m_shader_cls;
+        };
+
+        struct ParamBlockMetaDefault {
+            const Strid   name              = SID("default");
             const Strid   clipprojview_name = SID("ClipProjView");
             ShaderParamId clipprojview;
-
             const Strid   inversegamma_name = SID("InverseGamma");
             ShaderParamId inversegamma;
-
             const Strid   gpucanvasdrawcmdsbuffer_name = SID("GpuCanvasDrawCmdsBuffer");
             ShaderParamId gpucanvasdrawcmdsbuffer;
 
             void load_from(const Ref<Shader>& s);
         } pb_default;
 
-        struct ParamBlockImagesBatch {
-            const Strid name = SID("images_batch");
+        class ParamBlockImagesBatch : public RdgParamBlock {
+        public:
+            ParamBlockImagesBatch(const ShaderCanvas* shader_cls, RdgResourceId id);
 
+            struct Vars {
+                RdgTexture*     image0;
+                Ref<GfxSampler> image0_sampler;
+                RdgTexture*     image1;
+                Ref<GfxSampler> image1_sampler;
+                RdgTexture*     image2;
+                Ref<GfxSampler> image2_sampler;
+                RdgTexture*     image3;
+                Ref<GfxSampler> image3_sampler;
+            } vars;
+
+            void pack() override;
+
+        private:
+            const ShaderCanvas* m_shader_cls;
+        };
+
+        struct ParamBlockMetaImagesBatch {
+            const Strid   name        = SID("images_batch");
             const Strid   image0_name = SID("Image0");
             ShaderParamId image0;
-
             const Strid   image1_name = SID("Image1");
             ShaderParamId image1;
-
             const Strid   image2_name = SID("Image2");
             ShaderParamId image2;
-
             const Strid   image3_name = SID("Image3");
             ShaderParamId image3;
 
@@ -179,19 +227,14 @@ namespace wmoge {
             } options;
 
             struct PassDefault {
-                const Strid name = SID("default");
-
-                operator Strid() const { return name; }
+                const Strid pass_name      = SID("default");
+                const Strid technique_name = SID("default");
 
             } ps_default;
-
-            operator Strid() const { return name; }
 
         } tq_default;
 
         Ref<Shader> shader;
-
-        operator Shader*() const { return shader.get(); }
 
         Status load_from(Ref<Shader> s);
     };
@@ -202,12 +245,25 @@ namespace wmoge {
             static constexpr int GROUP_SIZE_DEFAULT = 8;
         };
 
-        struct ParamBlockDefault {
-            const Strid name = SID("default");
+        class ParamBlockDefault : public RdgParamBlock {
+        public:
+            ParamBlockDefault(const ShaderFill* shader_cls, RdgResourceId id);
 
+            struct Vars {
+                Vec4f       fillvalue;
+                RdgTexture* result;
+            } vars;
+
+            void pack() override;
+
+        private:
+            const ShaderFill* m_shader_cls;
+        };
+
+        struct ParamBlockMetaDefault {
+            const Strid   name           = SID("default");
             const Strid   fillvalue_name = SID("FillValue");
             ShaderParamId fillvalue;
-
             const Strid   result_name = SID("Result");
             ShaderParamId result;
 
@@ -218,19 +274,14 @@ namespace wmoge {
             const Strid name = SID("default");
 
             struct PassDefault {
-                const Strid name = SID("default");
-
-                operator Strid() const { return name; }
+                const Strid pass_name      = SID("default");
+                const Strid technique_name = SID("default");
 
             } ps_default;
-
-            operator Strid() const { return name; }
 
         } tq_default;
 
         Ref<Shader> shader;
-
-        operator Shader*() const { return shader.get(); }
 
         Status load_from(Ref<Shader> s);
     };

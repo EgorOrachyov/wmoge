@@ -36,6 +36,8 @@
 #include "grc/shader.hpp"
 #include "grc/shader_param_block.hpp"
 
+#include <functional>
+
 namespace wmoge {
 
     /** @brief Rdg resource usage flag */
@@ -43,6 +45,7 @@ namespace wmoge {
         Imported,
         Pooled,
         Allocated,
+        NoTransitions
     };
 
     /** @brief Rdg resource flags mask */
@@ -58,29 +61,27 @@ namespace wmoge {
     class RdgResource : public RefCnt {
     public:
         RdgResource(RdgResourceId id, RdgResourceFlags flags, Strid name);
-        ~RdgResource() override = default;
 
-        virtual void allocate(class RdgPool& pool) {}
-        virtual void release(class RdgPool& pool) {}
+        virtual void           allocate(class RdgPool& pool) {}
+        virtual void           release(class RdgPool& pool) {}
+        virtual GfxResourceRef get_gfx() const { return nullptr; }
+        virtual bool           is_texture() const { return false; }
+        virtual bool           is_param_block() const { return false; }
+        virtual bool           is_buffer() const { return false; }
+        virtual bool           is_vertex() const { return false; }
+        virtual bool           is_index() const { return false; }
+        virtual bool           is_uniform() const { return false; }
+        virtual bool           is_storage() const { return false; }
 
-        virtual bool is_texture() const { return false; }
-        virtual bool is_buffer() const { return false; }
-        virtual bool is_vertex() const { return false; }
-        virtual bool is_index() const { return false; }
-        virtual bool is_uniform() const { return false; }
-        virtual bool is_storage() const { return false; }
-
-        void set_gfx(GfxResourceRef gfx) { m_gfx = std::move(gfx); }
         bool is_pooled() const { return m_flags.get(RdgResourceFlag::Pooled); }
-        bool is_allocated() const { return m_gfx; }
+        bool is_allocated() const { return m_flags.get(RdgResourceFlag::Allocated); }
+        bool is_transitionable() const { return !m_flags.get(RdgResourceFlag::NoTransitions); }
 
-        [[nodiscard]] const GfxResourceRef&   get_gfx() const { return m_gfx; }
         [[nodiscard]] const RdgResourceId&    get_id() const { return m_id; }
         [[nodiscard]] const RdgResourceFlags& get_flags() const { return m_flags; }
         [[nodiscard]] const Strid&            get_name() const { return m_name; }
 
     protected:
-        GfxResourceRef   m_gfx;
         RdgResourceId    m_id;
         RdgResourceFlags m_flags;
         Strid            m_name;
@@ -93,31 +94,54 @@ namespace wmoge {
     public:
         RdgTexture(const GfxTextureDesc& desc, RdgResourceId id, Strid name);
         RdgTexture(const GfxTextureRef& texture, RdgResourceId id);
-        ~RdgTexture() override = default;
 
-        void allocate(class RdgPool& pool) override;
-        void release(class RdgPool& pool) override;
-
-        bool is_texture() const override { return true; }
+        void           allocate(class RdgPool& pool) override;
+        void           release(class RdgPool& pool) override;
+        GfxResourceRef get_gfx() const override { return m_gfx; }
+        bool           is_texture() const override { return true; }
 
         [[nodiscard]] const GfxTextureDesc& get_desc() const { return m_desc; }
-        [[nodiscard]] GfxTexture*           get_texture() const { return static_cast<GfxTexture*>(get_gfx().get()); }
-        [[nodiscard]] GfxTextureRef         get_texture_ref() const { return GfxTextureRef(static_cast<GfxTexture*>(get_gfx().get())); }
+        [[nodiscard]] GfxTexture*           get_texture() const { return m_gfx.get(); }
+        [[nodiscard]] const GfxTextureRef&  get_texture_ref() const { return m_gfx; }
 
     private:
         GfxTextureDesc m_desc;
+        GfxTextureRef  m_gfx;
     };
+
+    using RdgTextureRef = Ref<RdgTexture>;
+
+    /** @brief Rdg param block resource */
+    class RdgParamBlock : public RdgResource {
+    public:
+        RdgParamBlock(Shader* shader, std::int16_t space_idx, RdgResourceId id, Strid name);
+
+        void         allocate(class RdgPool& pool) override;
+        void         release(class RdgPool& pool) override;
+        bool         is_param_block() const override { return true; }
+        virtual void pack() {}
+
+        [[nodiscard]] ShaderParamBlock*            get_param_block() const { return m_ptr.get(); }
+        [[nodiscard]] const Ref<ShaderParamBlock>& get_param_block_ref() const { return m_ptr; }
+        [[nodiscard]] Shader*                      get_shader() const { return m_shader; }
+        [[nodiscard]] std::int16_t                 get_space_idx() const { return m_space_idx; }
+
+    protected:
+        Ref<ShaderParamBlock> m_ptr;
+        Shader*               m_shader;
+        std::int16_t          m_space_idx;
+    };
+
+    using RdgParamBlockRef = Ref<RdgParamBlock>;
 
     /** @brief Rdg buffer resource */
     class RdgBuffer : public RdgResource {
     public:
         RdgBuffer(const GfxBufferDesc& desc, RdgResourceId id, Strid name);
-        RdgBuffer(const GfxBufferRef& buffer, RdgResourceId id);
-        ~RdgBuffer() override = default;
 
         bool is_buffer() const override { return true; }
 
-    private:
+    protected:
         GfxBufferDesc m_desc;
     };
 
@@ -125,40 +149,64 @@ namespace wmoge {
     class RdgVertBuffer : public RdgBuffer {
     public:
         using RdgBuffer::RdgBuffer;
+        RdgVertBuffer(const GfxVertBufferRef& buffer, RdgResourceId id);
 
-        [[nodiscard]] GfxVertBuffer* get_buffer() const { return static_cast<GfxVertBuffer*>(get_gfx().get()); }
+        GfxResourceRef get_gfx() const override { return m_gfx; }
+        bool           is_vertex() const override { return true; }
 
-        bool is_vertex() const override { return true; }
+        [[nodiscard]] GfxVertBuffer*          get_buffer() const { return m_gfx.get(); }
+        [[nodiscard]] const GfxVertBufferRef& get_buffer_ref() const { return m_gfx; }
+
+    private:
+        GfxVertBufferRef m_gfx;
     };
 
     /** @brief Rdg index buffer resource */
     class RdgIndexBuffer : public RdgBuffer {
     public:
         using RdgBuffer::RdgBuffer;
+        RdgIndexBuffer(const GfxIndexBufferRef& buffer, RdgResourceId id);
 
-        [[nodiscard]] GfxIndexBuffer* get_buffer() const { return static_cast<GfxIndexBuffer*>(get_gfx().get()); }
+        GfxResourceRef get_gfx() const override { return m_gfx; }
+        bool           is_index() const override { return true; }
 
-        bool is_index() const override { return true; }
+        [[nodiscard]] GfxIndexBuffer*          get_buffer() const { return m_gfx.get(); }
+        [[nodiscard]] const GfxIndexBufferRef& get_buffer_ref() const { return m_gfx; }
+
+    private:
+        GfxIndexBufferRef m_gfx;
     };
 
     /** @brief Rdg uniform buffer resource */
     class RdgUniformBuffer : public RdgBuffer {
     public:
         using RdgBuffer::RdgBuffer;
+        RdgUniformBuffer(const GfxUniformBufferRef& buffer, RdgResourceId id);
 
-        [[nodiscard]] GfxUniformBuffer* get_buffer() const { return static_cast<GfxUniformBuffer*>(get_gfx().get()); }
+        GfxResourceRef get_gfx() const override { return m_gfx; }
+        bool           is_uniform() const override { return true; }
 
-        bool is_uniform() const override { return true; }
+        [[nodiscard]] GfxUniformBuffer*          get_buffer() const { return m_gfx.get(); }
+        [[nodiscard]] const GfxUniformBufferRef& get_buffer_ref() const { return m_gfx; }
+
+    private:
+        GfxUniformBufferRef m_gfx;
     };
 
     /** @brief Rdg storage buffer resource */
     class RdgStorageBuffer : public RdgBuffer {
     public:
         using RdgBuffer::RdgBuffer;
+        RdgStorageBuffer(const GfxStorageBufferRef& buffer, RdgResourceId id);
 
-        [[nodiscard]] GfxStorageBuffer* get_buffer() const { return static_cast<GfxStorageBuffer*>(get_gfx().get()); }
+        GfxResourceRef get_gfx() const override { return m_gfx; }
+        bool           is_storage() const override { return true; }
 
-        bool is_storage() const override { return true; }
+        [[nodiscard]] GfxStorageBuffer*          get_buffer() const { return m_gfx.get(); }
+        [[nodiscard]] const GfxStorageBufferRef& get_buffer_ref() const { return m_gfx; }
+
+    private:
+        GfxStorageBufferRef m_gfx;
     };
 
 }// namespace wmoge

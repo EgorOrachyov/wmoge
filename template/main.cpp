@@ -162,7 +162,7 @@ public:
         aux_draw->draw_box(Vec3f(0, 0, 8.0f), Vec3f(2, 2, 2), Color::WHITE4f, Quatf::rotation(Vec3f::axis_y(), angle), false);
 
         Ref<Window> window = engine->window_manager()->get_primary_window();
-        RdgGraph    rdg_graph(rdg_pool.get(), engine->gfx_driver(), engine->shader_manager());
+        RdgGraph    rdg_graph(rdg_pool.get(), engine->gfx_driver(), engine->shader_manager(), engine->texture_manager());
 
         RdgTexture* color = rdg_graph.create_texture(GfxTextureDesc::make_2d(GfxFormat::RGBA8, 1280, 720, {GfxTexUsageFlag::ColorTarget, GfxTexUsageFlag::Sampling, GfxTexUsageFlag::Storage}), SIDDBG(""));
         RdgTexture* depth = rdg_graph.create_texture(GfxTextureDesc::make_2d(GfxFormat::DEPTH32F_STENCIL8, 1280, 720, {GfxTexUsageFlag::DepthStencilTarget}), SIDDBG(""));

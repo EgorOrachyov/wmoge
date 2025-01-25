@@ -27,58 +27,53 @@
 
 #include "shader_funcs.hpp"
 
-#include "profiler/profiler_cpu.hpp"
-#include "profiler/profiler_gpu.hpp"
+#include "rdg/rdg_profiling.hpp"
 
 namespace wmoge {
 
     void ShaderFuncs::fill(RdgGraph& graph, Strid name, RdgTexture* texture, Vec4f fill_value, ShaderTable* table) {
         WG_PROFILE_RDG_SCOPE("ShaderFuncs::fill", graph);
+
+        ShaderFill::ParamBlockDefault::Vars params;
+        params.fillvalue  = fill_value;
+        params.result     = texture;
+        auto* param_block = create_param_block<ShaderFill::ParamBlockDefault>(graph, params, table->fill());
+
+        const Vec2i size = {texture->get_desc().width, texture->get_desc().height};
+
         graph.add_compute_pass(name)
                 .storage(texture)
-                .bind([fill_value, table, name, texture](RdgPassContext& context) {
+                .params(param_block)
+                .bind([table, size, param_block](RdgPassContext& context) {
                     auto fill_shader = table->fill();
-
-                    bind_pso_compute(context, fill_shader, fill_shader->tq_default, fill_shader->tq_default.ps_default, {});
-
-                    auto param_block = make_param_block(context, fill_shader, name);
-                    param_block->set_var(fill_shader->pb_default.fillvalue, fill_value);
-                    param_block->set_var(fill_shader->pb_default.result, texture->get_texture_ref());
-                    context.bind_param_block(param_block);
-
-                    const int w = texture->get_desc().width;
-                    const int h = texture->get_desc().height;
-                    context.dispatch(GfxUtils::group_size(w, h, ShaderFill::Constants::GROUP_SIZE_DEFAULT));
-
+                    bind_pso_compute(context, fill_shader, fill_shader->tq_default.ps_default, {});
+                    bind_param_block(context, param_block);
+                    context.dispatch(GfxUtils::group_size(size.x(), size.y(), ShaderFill::Constants::GROUP_SIZE_DEFAULT));
                     return WG_OK;
                 });
     }
 
     void ShaderFuncs::blit(RdgGraph& graph, Strid name, const Ref<Window>& window, RdgTexture* source, ShaderTable* table) {
         WG_PROFILE_RDG_SCOPE("ShaderFuncs::blit", graph);
+
+        ShaderBlit::ParamBlockDefault::Vars params;
+        params.inversegamma         = 1.0f / 2.2f;
+        params.imagetexture         = source;
+        params.imagetexture_sampler = graph.get_sampler(DefaultSampler::Default);
+        auto* param_block           = create_param_block<ShaderBlit::ParamBlockDefault>(graph, params, table->blit());
+
+        const Vec2i size = {window->fbo_width(), window->fbo_height()};
+
         graph.add_graphics_pass(name)
                 .window_target(window)
                 .sampling(source)
-                .bind([table, name, source, window](RdgPassContext& context) {
+                .params(param_block)
+                .bind([table, size, param_block](RdgPassContext& context) {
                     auto blit_shader = table->blit();
-
-                    auto param_block = make_param_block(context, blit_shader, name);
-                    param_block->set_var(blit_shader->pb_default.inversegamma, 1.0f / 2.0f);
-                    param_block->set_var(blit_shader->pb_default.imagetexture, source->get_texture_ref());
-                    context.validate_param_block(param_block);
-
-                    const int w = window->fbo_width();
-                    const int h = window->fbo_height();
-
-                    context.begin_render_pass();
-                    context.viewport(Rect2i{0, 0, w, h});
-
-                    bind_pso_graphics(context, blit_shader, blit_shader->tq_default, blit_shader->tq_default.ps_default, {}, {});
-
-                    context.bind_param_block(param_block);
+                    context.viewport(Rect2i{0, 0, size.x(), size.y()});
+                    bind_pso_graphics(context, blit_shader, blit_shader->tq_default.ps_default, {}, {});
+                    bind_param_block(context, param_block);
                     context.draw(3, 0, 1);
-                    context.end_render_pass();
-
                     return WG_OK;
                 });
     }

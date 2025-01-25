@@ -41,40 +41,53 @@ namespace wmoge {
      */
     class ShaderFuncs {
     public:
-        template<typename ShaderType>
-        static Ref<ShaderParamBlock> make_param_block(RdgGraph& graph, ShaderType* shader, Strid name, std::int16_t space_idx = 0);
+        template<typename ParamBlockType, typename ShaderType>
+        static ParamBlockType* create_param_block(RdgGraph& graph, ShaderType* shader);
 
-        template<typename ShaderType>
-        static Ref<ShaderParamBlock> make_param_block(RdgPassContext& context, ShaderType* shader, Strid name, std::int16_t space_idx = 0);
+        template<typename ParamBlockType, typename ShaderType>
+        static ParamBlockType* create_param_block(RdgGraph& graph, typename ParamBlockType::Vars vars, ShaderType* shader);
 
-        template<typename ShaderType>
-        static void bind_pso_graphics(RdgPassContext& context, ShaderType* shader, Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options, const GfxVertAttribs& attribs);
+        template<typename ShaderType, typename PassType>
+        static void bind_pso_graphics(RdgPassContext& context, ShaderType* shader, const PassType& pass, const buffered_vector<ShaderOptionVariant>& options, const GfxVertAttribs& attribs);
 
-        template<typename ShaderType>
-        static void bind_pso_compute(RdgPassContext& context, ShaderType* shader, Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options);
+        template<typename ShaderType, typename PassType>
+        static void bind_pso_compute(RdgPassContext& context, ShaderType* shader, const PassType& pass, const buffered_vector<ShaderOptionVariant>& options);
+
+        template<typename ParamBlockType>
+        static void bind_param_block(RdgPassContext& context, ParamBlockType* param_block);
 
         static void fill(RdgGraph& graph, Strid name, RdgTexture* texture, Vec4f fill_value, ShaderTable* table);
+
         static void blit(RdgGraph& graph, Strid name, const Ref<Window>& window, RdgTexture* source, ShaderTable* table);
     };
 
-    template<typename ShaderType>
-    inline Ref<ShaderParamBlock> ShaderFuncs::make_param_block(RdgGraph& graph, ShaderType* shader, Strid name, std::int16_t space_idx) {
-        return graph.make_param_block(shader->shader.get(), space_idx, name);
+    template<typename ParamBlockType, typename ShaderType>
+    inline ParamBlockType* ShaderFuncs::create_param_block(RdgGraph& graph, ShaderType* shader) {
+        return static_cast<ParamBlockType*>(graph.create_param_block([shader](RdgResourceId id) {
+            return make_ref<ParamBlockType>(shader, id);
+        }));
     }
 
-    template<typename ShaderType>
-    inline Ref<ShaderParamBlock> ShaderFuncs::make_param_block(RdgPassContext& context, ShaderType* shader, Strid name, std::int16_t space_idx) {
-        return context.get_graph()->make_param_block(shader->shader.get(), space_idx, name);
+    template<typename ParamBlockType, typename ShaderType>
+    inline ParamBlockType* ShaderFuncs::create_param_block(RdgGraph& graph, typename ParamBlockType::Vars vars, ShaderType* shader) {
+        auto* param_block = create_param_block<ParamBlockType, ShaderType>(graph, shader);
+        param_block->vars = std::move(vars);
+        return param_block;
     }
 
-    template<typename ShaderType>
-    inline void ShaderFuncs::bind_pso_graphics(RdgPassContext& context, ShaderType* shader, Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options, const GfxVertAttribs& attribs) {
-        context.bind_pso_graphics(shader->shader.get(), technique, pass, options, attribs);
+    template<typename ShaderType, typename PassType>
+    inline void ShaderFuncs::bind_pso_graphics(RdgPassContext& context, ShaderType* shader, const PassType& pass, const buffered_vector<ShaderOptionVariant>& options, const GfxVertAttribs& attribs) {
+        context.bind_pso_graphics(shader->shader.get(), pass.technique_name, pass.pass_name, options, attribs);
     }
 
-    template<typename ShaderType>
-    inline void ShaderFuncs::bind_pso_compute(RdgPassContext& context, ShaderType* shader, Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options) {
-        context.bind_pso_compute(shader->shader.get(), technique, pass, options);
+    template<typename ShaderType, typename PassType>
+    inline void ShaderFuncs::bind_pso_compute(RdgPassContext& context, ShaderType* shader, const PassType& pass, const buffered_vector<ShaderOptionVariant>& options) {
+        context.bind_pso_compute(shader->shader.get(), pass.technique_name, pass.pass_name, options);
+    }
+
+    template<typename ParamBlockType>
+    inline void ShaderFuncs::bind_param_block(RdgPassContext& context, ParamBlockType* param_block) {
+        context.bind_param_block(param_block->get_param_block());
     }
 
 }// namespace wmoge

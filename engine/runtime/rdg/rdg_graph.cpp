@@ -31,15 +31,17 @@
 #include "core/log.hpp"
 #include "profiler/profiler_cpu.hpp"
 #include "profiler/profiler_gpu.hpp"
+#include "rdg/rdg_profiling.hpp"
 
 #include <cassert>
 
 namespace wmoge {
 
-    RdgGraph::RdgGraph(RdgPool* pool, GfxDriver* driver, ShaderManager* shader_manager) {
-        m_pool           = pool;
-        m_driver         = driver;
-        m_shader_manager = shader_manager;
+    RdgGraph::RdgGraph(RdgPool* pool, GfxDriver* driver, ShaderManager* shader_manager, TextureManager* texture_manager) {
+        m_pool            = pool;
+        m_driver          = driver;
+        m_shader_manager  = shader_manager;
+        m_texture_manager = texture_manager;
     }
 
     RdgPass& RdgGraph::add_pass(Strid name, RdgPassFlags flags) {
@@ -146,6 +148,12 @@ namespace wmoge {
             return dynamic_cast<RdgIndexBuffer*>(q->second);
         }
         return nullptr;
+    }
+
+    RdgParamBlock* RdgGraph::create_param_block(const std::function<RdgParamBlockRef(RdgResourceId)>& factory) {
+        Ref<RdgParamBlock> resource = factory(next_res_id());
+        add_resource(resource, GfxAccess::None);
+        return resource.get();
     }
 
     Ref<Data> RdgGraph::make_upload_data(array_view<const std::uint8_t> buffer) {
@@ -267,8 +275,15 @@ namespace wmoge {
                 RdgResource*           resource       = pass_resource.resource;
                 GfxAccess&             current_access = resource_states[pass_resource.resource->get_id()];
 
-                rdg_transition_resource(cmd_list, current_access, pass_resource.access, resource);
-                current_access = pass_resource.access;
+                if (resource->is_transitionable()) {
+                    rdg_transition_resource(cmd_list, current_access, pass_resource.access, resource);
+                    current_access = pass_resource.access;
+                }
+                if (resource->is_param_block()) {
+                    RdgParamBlock* param_block = static_cast<RdgParamBlock*>(resource);
+                    param_block->pack();
+                    context.validate_param_block(param_block->get_param_block());
+                }
             }
 
             execute_pass(RdgPassId(pass_id), context);
@@ -288,6 +303,10 @@ namespace wmoge {
         return WG_OK;
     }
 
+    Ref<GfxSampler> RdgGraph::get_sampler(DefaultSampler sampler) {
+        return m_texture_manager->get_sampler(sampler);
+    }
+
     Status RdgGraph::execute_pass(RdgPassId pass_id, RdgPassContext& context) {
         WG_PROFILE_CPU_RDG("RdgGraph::execute_pass");
 
@@ -296,8 +315,8 @@ namespace wmoge {
 
         for (const RdgEventId event_id : pass_data.events_to_begin) {
             const RdgEvent& event = m_events[event_id];
-            ProfilerCpu::instance()->begin_event(event.mark->mark_cpu.get(), event.data);
-            ProfilerGpu::instance()->begin_event(event.mark->mark_gpu.get(), event.data, context.get_cmd_list());
+            ProfilerCpu::instance()->begin_event(&event.mark->mark_cpu, event.data);
+            ProfilerGpu::instance()->begin_event(&event.mark->mark_gpu, event.data, context.get_cmd_list());
         }
 
         Status status;
@@ -305,7 +324,17 @@ namespace wmoge {
             WG_PROFILE_GPU_SCOPE_WITH_DESC("RdgGraph::execute_pass", context.get_cmd_list(), pass.get_name().str());
 
             context.get_cmd_list()->begin_label(pass.get_name());
+
+            if (!pass.is_manual() && pass.is_graphics()) {
+                context.begin_render_pass();
+            }
+
             status = pass.get_callback()(context);
+
+            if (!pass.is_manual() && pass.is_graphics()) {
+                context.end_render_pass();
+            }
+
             context.get_cmd_list()->end_label();
         }
 
@@ -339,20 +368,6 @@ namespace wmoge {
         auto id = m_next_res_id;
         ++m_next_res_id;
         return id;
-    }
-
-    RdgProfileScope::RdgProfileScope(RdgProfileMark& mark, const std::string& data, RdgGraph& graph) : graph(graph) {
-        graph.push_event(&mark, data);
-    }
-
-    RdgProfileScope::~RdgProfileScope() {
-        graph.pop_event();
-    }
-
-    RdgProfileMark::RdgProfileMark(std::string name, Strid category, Strid function, Strid file, std::size_t line)
-        : name(std::move(name)), category(category), function(function), file(file), line(line) {
-        mark_cpu = std::make_unique<ProfilerCpuMark>(ProfilerCpuMark{this->name, this->category, this->function, this->file, this->line});
-        mark_gpu = std::make_unique<ProfilerGpuMark>(ProfilerGpuMark{this->name, this->category, this->function, this->file, this->line});
     }
 
 }// namespace wmoge

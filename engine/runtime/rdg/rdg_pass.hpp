@@ -44,7 +44,8 @@ namespace wmoge {
         ComputePass,
         GraphicsPass,
         MaterialPass,
-        CopyPass
+        CopyPass,
+        Manual
     };
 
     /** @brief Rdg pass color target info */
@@ -173,6 +174,7 @@ namespace wmoge {
         RdgPass& copy_destination(RdgBuffer* resource);
         RdgPass& sampling(RdgTexture* resource);
         RdgPass& storage(RdgTexture* resource);
+        RdgPass& params(RdgParamBlock* resource);
         RdgPass& bind(RdgPassCallback callback);
 
         GfxRenderPassDesc            make_render_pass_desc() const;
@@ -181,6 +183,8 @@ namespace wmoge {
         GfxRenderPassBeginInfo       make_render_pass_begin_info(const GfxFrameBufferRef& frame_buffer) const;
         GfxRenderPassWindowBeginInfo make_render_pass_window_begin_info(const Ref<GfxRenderPass>& render_pass) const;
 
+        bool is_manual() const;
+        bool is_graphics() const;
         bool is_window_pass() const;
         bool has_depth_target() const;
 
