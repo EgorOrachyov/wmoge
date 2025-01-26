@@ -1,6 +1,6 @@
 set(GAME_NAME template)
 set(GAME_APP_ICON_RESOURCE "${CMAKE_CURRENT_SOURCE_DIR}/wmoge.rc")
-set(GAME_DEPENDENCIES wmoge assimp_plugin freetype_plugin runtime_plugin)
+set(GAME_DEPENDENCIES wmoge assimp_plugin freetype_plugin imgui_plugin runtime_plugin)
 set(GAME_SOURCES main.cpp)
 
 wmoge_game(${GAME_NAME} 

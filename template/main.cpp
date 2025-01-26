@@ -33,6 +33,7 @@
 
 #include "assimp_plugin.hpp"
 #include "freetype_plugin.hpp"
+#include "imgui_plugin.hpp"
 #include "runtime_plugin.hpp"
 
 namespace wmoge {
@@ -239,7 +240,11 @@ int main(int argc, const char* const* argv) {
 
     EngineApplicationConfig engine_app_config;
     engine_app_config.app_config = &app_config;
-    engine_app_config.plugins    = {std::make_shared<RuntimePlugin>(), std::make_shared<AssimpPlugin>(), std::make_shared<FreetypePlugin>()};
+    engine_app_config.plugins    = {
+            std::make_shared<RuntimePlugin>(),
+            std::make_shared<AssimpPlugin>(),
+            std::make_shared<FreetypePlugin>(),
+            std::make_shared<ImguiPlugin>()};
 
     GameApplicationConfig game_app_config;
     game_app_config.app_config = &engine_app_config;

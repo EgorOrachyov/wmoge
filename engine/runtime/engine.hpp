@@ -226,4 +226,10 @@
 #include "system/plugin.hpp"
 #include "system/plugin_manager.hpp"
 
+#include "ui/ui_factory.hpp"
+#include "ui/ui_manager.hpp"
+#include "ui/ui_style.hpp"
+#include "ui/ui_widget.hpp"
+#include "ui/ui_widgets.hpp"
+
 #include "game/game_manager.hpp"

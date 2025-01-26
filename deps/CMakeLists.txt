@@ -130,3 +130,6 @@ set(ALSOFT_INSTALL_UTILS OFF CACHE BOOL "" FORCE)
 set(ALSOFT_UPDATE_BUILD_VERSION OFF CACHE BOOL "" FORCE)
 set(LIBTYPE "STATIC" CACHE STRING "" FORCE)
 add_subdirectory(openal_soft)
+
+# ImGui for ui backend
+add_subdirectory(imgui)
