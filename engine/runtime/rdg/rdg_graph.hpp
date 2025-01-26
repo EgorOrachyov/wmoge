@@ -57,6 +57,8 @@ namespace wmoge {
     public:
         RdgGraph(RdgPool* pool, GfxDriver* driver, ShaderManager* shader_manager, TextureManager* texture_manager);
 
+        void clear();
+
         RdgPass& add_pass(Strid name, RdgPassFlags flags = {});
         RdgPass& add_compute_pass(Strid name, RdgPassFlags flags = {});
         RdgPass& add_graphics_pass(Strid name, RdgPassFlags flags = {});
@@ -89,6 +91,7 @@ namespace wmoge {
         [[nodiscard]] Ref<GfxSampler> get_sampler(DefaultSampler sampler);
 
     private:
+        Status        prepare_pass(RdgPassId pass_id, RdgPassContext& context);
         Status        execute_pass(RdgPassId pass_id, RdgPassContext& context);
         void          add_resource(const RdgResourceRef& resource, GfxAccess src_access, GfxAccess dst_access = GfxAccess::None);
         RdgPassId     next_pass_id();
@@ -126,6 +129,7 @@ namespace wmoge {
         TextureManager*                      m_texture_manager = nullptr;
         std::vector<RdgEvent>                m_events;
         std::vector<RdgEventId>              m_events_stack;
+        std::vector<GfxAccess>               m_resource_states;
     };
 
 }// namespace wmoge

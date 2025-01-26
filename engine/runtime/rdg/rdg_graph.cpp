@@ -44,6 +44,19 @@ namespace wmoge {
         m_texture_manager = texture_manager;
     }
 
+    void RdgGraph::clear() {
+        WG_PROFILE_CPU_RDG("RdgGraph::clear");
+        m_next_res_id.value  = 0;
+        m_next_pass_id.value = 0;
+        m_resources_imported.clear();
+        m_resources.clear();
+        m_passes.clear();
+        m_passes_data.clear();
+        m_param_blocks.clear();
+        m_events.clear();
+        m_events_stack.clear();
+    }
+
     RdgPass& RdgGraph::add_pass(Strid name, RdgPassFlags flags) {
         RdgPass&     pass      = m_passes.emplace_back(*this, name, next_pass_id(), flags);
         RdgPassData& pass_data = m_passes_data.emplace_back();
@@ -208,7 +221,7 @@ namespace wmoge {
         }
     }
 
-    static void rdg_transition_resource(GfxCmdListRef& cmd_list, GfxAccess src, GfxAccess dst, RdgResource* resource) {
+    static void rdg_transition_resource(const GfxCmdListRef& cmd_list, GfxAccess src, GfxAccess dst, RdgResource* resource) {
         if (src == dst) {
             return;
         }
@@ -241,9 +254,9 @@ namespace wmoge {
         const int num_passes    = m_next_pass_id.value;
         const int num_resources = m_next_res_id.value;
 
-        std::vector<GfxAccess> resource_states(num_resources);
+        m_resource_states.resize(num_resources);
         for (int i = 0; i < num_resources; i++) {
-            resource_states[i] = m_resources[i].src_access;
+            m_resource_states[i] = m_resources[i].src_access;
         }
 
         GfxCmdListRef cmd_list = m_driver->acquire_cmd_list(GfxQueueType::Graphics);
@@ -266,26 +279,9 @@ namespace wmoge {
         }
 
         for (int pass_id = 0; pass_id < num_passes; pass_id++) {
-            const RdgPass& pass = m_passes[pass_id];
-            RdgPassContext context(cmd_list, m_driver, m_shader_manager, this, pass);
+            RdgPassContext context(cmd_list, m_driver, m_shader_manager, this, m_passes[pass_id]);
 
-            const array_view<const RdgPassResource> pass_resources = pass.get_resources();
-            for (int i = 0; i < static_cast<int>(pass_resources.size()); i++) {
-                const RdgPassResource& pass_resource  = pass_resources[i];
-                RdgResource*           resource       = pass_resource.resource;
-                GfxAccess&             current_access = resource_states[pass_resource.resource->get_id()];
-
-                if (resource->is_transitionable()) {
-                    rdg_transition_resource(cmd_list, current_access, pass_resource.access, resource);
-                    current_access = pass_resource.access;
-                }
-                if (resource->is_param_block()) {
-                    RdgParamBlock* param_block = static_cast<RdgParamBlock*>(resource);
-                    param_block->pack();
-                    context.validate_param_block(param_block->get_param_block());
-                }
-            }
-
+            prepare_pass(RdgPassId(pass_id), context);
             execute_pass(RdgPassId(pass_id), context);
         }
 
@@ -307,9 +303,36 @@ namespace wmoge {
         return m_texture_manager->get_sampler(sampler);
     }
 
-    Status RdgGraph::execute_pass(RdgPassId pass_id, RdgPassContext& context) {
-        WG_PROFILE_CPU_RDG("RdgGraph::execute_pass");
+    Status RdgGraph::prepare_pass(RdgPassId pass_id, RdgPassContext& context) {
+        WG_PROFILE_CPU_RDG("RdgGraph::prepare_pass");
 
+        const RdgPass& pass = m_passes[pass_id];
+
+        buffered_vector<ShaderParamBlock*> param_blocks;
+
+        const array_view<const RdgPassResource> pass_resources = pass.get_resources();
+        for (int i = 0; i < static_cast<int>(pass_resources.size()); i++) {
+            const RdgPassResource& pass_resource  = pass_resources[i];
+            RdgResource*           resource       = pass_resource.resource;
+            GfxAccess&             current_access = m_resource_states[pass_resource.resource->get_id()];
+
+            if (resource->is_transitionable()) {
+                rdg_transition_resource(context.get_cmd_list(), current_access, pass_resource.access, resource);
+                current_access = pass_resource.access;
+            }
+            if (resource->is_param_block()) {
+                RdgParamBlock* param_block = static_cast<RdgParamBlock*>(resource);
+                param_block->pack();
+                param_blocks.push_back(param_block->get_param_block());
+            }
+        }
+
+        m_shader_manager->validate_param_blocks(param_blocks, context.get_cmd_list());
+
+        return WG_OK;
+    }
+
+    Status RdgGraph::execute_pass(RdgPassId pass_id, RdgPassContext& context) {
         const RdgPass&     pass      = m_passes[pass_id];
         const RdgPassData& pass_data = m_passes_data[pass_id];
 
@@ -321,6 +344,7 @@ namespace wmoge {
 
         Status status;
         {
+            WG_PROFILE_CPU_RDG("RdgGraph::execute_pass");
             WG_PROFILE_GPU_SCOPE_WITH_DESC("RdgGraph::execute_pass", context.get_cmd_list(), pass.get_name().str());
 
             context.get_cmd_list()->begin_label(pass.get_name());

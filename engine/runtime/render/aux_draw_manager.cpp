@@ -35,6 +35,7 @@
 #include "math/math_utils3d.hpp"
 #include "rdg/rdg_profiling.hpp"
 #include "rdg/rdg_utils.hpp"
+#include "render/shader_funcs.hpp"
 #include "render/shader_table.hpp"
 
 #include <algorithm>
@@ -483,45 +484,36 @@ namespace wmoge {
 
             assert(buffer);
 
-            buffered_vector<Ref<ShaderParamBlock>> params_blocks;
+            buffered_vector<RdgParamBlock*> params_blocks;
             for (const Ref<Texture>& texture : textures) {
-                auto param_block = graph.make_param_block(aux_draw->shader, 0, SIDDBG("params_" + pass_name.str()));
-                param_block->set_var(aux_draw->pb_default.clipprojview, graph.get_driver()->clip_matrix() * vp);
-                param_block->set_var(aux_draw->pb_default.inversegamma, 1.0f / (gamma > 0.0f ? gamma : 2.2f));
-                param_block->set_var(aux_draw->pb_default.imagetexture, texture->get_texture());
-                params_blocks.push_back(param_block);
+                ShaderAuxDraw::ParamBlockDefault::Vars params;
+                params.clipprojview         = graph.get_driver()->clip_matrix() * vp;
+                params.inversegamma         = 1.0f / (gamma > 0.0f ? gamma : 2.2f);
+                params.imagetexture         = graph.import_texture(texture->get_texture());
+                params.imagetexture_sampler = graph.get_sampler(DefaultSampler::Linear);
+                params_blocks.push_back(ShaderFuncs::create_param_block<ShaderAuxDraw::ParamBlockDefault>(graph, params, aux_draw));
             }
 
-            graph.add_graphics_pass(SIDDBG("draw_batch_" + pass_name.str()), {RdgPassFlag::Manual})
+            graph.add_graphics_pass(SIDDBG("draw_batch_" + pass_name.str()))
                     .color_target(color)
                     .depth_target(depth)
                     .reading(buffer)
+                    .params(params_blocks)
                     .bind([viewport, params_blocks, elems = aux_data.elems, buffer, aux_draw, pass_name](RdgPassContext& context) {
-                        const GfxVertAttribs    attribs       = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
-                        const ShaderPermutation permutation   = *aux_draw->shader->permutation(aux_draw->tq_default.name, pass_name, {aux_draw->tq_default.options.out_mode_linear}, attribs);
-                        const GfxVertElements   vert_elements = GfxVertElements::make(attribs);
-
-                        for (auto& param_block : params_blocks) {
-                            context.validate_param_block(param_block);
-                        }
-
-                        context.begin_render_pass();
                         context.viewport(viewport);
-                        context.bind_pso_graphics(aux_draw->shader, permutation, vert_elements);
-                        context.bind_vert_buffer(buffer->get_buffer(), 0, 0);
-
+                        context.bind_pso_graphics(aux_draw->shader,
+                                                  aux_draw->tq_default.name, pass_name,
+                                                  {aux_draw->tq_default.options.out_mode_linear},
+                                                  {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f});
+                        context.bind_vert_buffer(buffer->get_buffer());
                         std::optional<int> prev_texture;
-
                         for (const AuxDrawElem& elem : elems) {
                             if (!prev_texture || *prev_texture != elem.texture_idx) {
                                 prev_texture = elem.texture_idx;
-                                context.bind_param_block(params_blocks[elem.texture_idx]);
+                                ShaderFuncs::bind_param_block(context, params_blocks[elem.texture_idx]);
                             }
                             context.draw(elem.vtx_count, elem.vtx_offset, 1);
                         }
-
-                        context.end_render_pass();
-
                         return WG_OK;
                     });
         };

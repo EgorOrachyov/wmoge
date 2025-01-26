@@ -139,8 +139,9 @@ public:
         // WG_CHECKED(stream.open("canvas.reflection.bin", {FileOpenMode::Out, FileOpenMode::Binary}));
         // WG_ARCHIVE_WRITE(context, stream, shader->get_reflection());
 
-        aux_draw = std::make_unique<AuxDrawManager>();
-        rdg_pool = std::make_unique<RdgPool>(engine->gfx_driver());
+        aux_draw  = std::make_unique<AuxDrawManager>();
+        rdg_pool  = std::make_unique<RdgPool>(engine->gfx_driver());
+        rdg_graph = std::make_unique<RdgGraph>(rdg_pool.get(), engine->gfx_driver(), engine->shader_manager(), engine->texture_manager());
 
         WG_LOG_INFO("init");
         return StatusCode::Ok;
@@ -162,18 +163,18 @@ public:
         aux_draw->draw_box(Vec3f(0, 0, 8.0f), Vec3f(2, 2, 2), Color::WHITE4f, Quatf::rotation(Vec3f::axis_y(), angle), false);
 
         Ref<Window> window = engine->window_manager()->get_primary_window();
-        RdgGraph    rdg_graph(rdg_pool.get(), engine->gfx_driver(), engine->shader_manager(), engine->texture_manager());
 
-        RdgTexture* color = rdg_graph.create_texture(GfxTextureDesc::make_2d(GfxFormat::RGBA8, 1280, 720, {GfxTexUsageFlag::ColorTarget, GfxTexUsageFlag::Sampling, GfxTexUsageFlag::Storage}), SIDDBG(""));
-        RdgTexture* depth = rdg_graph.create_texture(GfxTextureDesc::make_2d(GfxFormat::DEPTH32F_STENCIL8, 1280, 720, {GfxTexUsageFlag::DepthStencilTarget}), SIDDBG(""));
+        RdgTexture* color = rdg_graph->create_texture(GfxTextureDesc::make_2d(GfxFormat::RGBA8, 1280, 720, {GfxTexUsageFlag::ColorTarget, GfxTexUsageFlag::Sampling, GfxTexUsageFlag::Storage}), SIDDBG(""));
+        RdgTexture* depth = rdg_graph->create_texture(GfxTextureDesc::make_2d(GfxFormat::DEPTH32F_STENCIL8, 1280, 720, {GfxTexUsageFlag::DepthStencilTarget}), SIDDBG(""));
 
-        ShaderFuncs::fill(rdg_graph, SIDDBG("clear"), color, Color::BLACK4f, engine->shader_table());
+        ShaderFuncs::fill(*rdg_graph, SIDDBG("clear"), color, Color::BLACK4f, engine->shader_table());
         aux_draw->flush(engine->time()->get_delta_time());
-        aux_draw->render(rdg_graph, color, depth, Rect2i{0, 0, 1280, 720}, 2.2f, proj * view, engine->shader_table(), engine->texture_manager());
-        ShaderFuncs::blit(rdg_graph, SIDDBG("blit"), window, color, engine->shader_table());
+        aux_draw->render(*rdg_graph, color, depth, Rect2i{0, 0, 1280, 720}, 2.2f, proj * view, engine->shader_table(), engine->texture_manager());
+        ShaderFuncs::blit(*rdg_graph, SIDDBG("blit"), window, color, engine->shader_table());
 
-        rdg_graph.compile({});
-        rdg_graph.execute({});
+        rdg_graph->compile({});
+        rdg_graph->execute({});
+        rdg_graph->clear();
 
         rdg_pool->gc();
 
@@ -183,6 +184,7 @@ public:
     Status on_shutdown() override {
         WG_PROFILE_CPU_SCOPE(app, "TemplateApplication::on_shutdown");
 
+        rdg_graph.reset();
         rdg_pool.reset();
         aux_draw.reset();
         font.reset();
@@ -206,6 +208,7 @@ public:
     Ref<Font>                       font;
     std::unique_ptr<AuxDrawManager> aux_draw;
     std::unique_ptr<RdgPool>        rdg_pool;
+    std::unique_ptr<RdgGraph>       rdg_graph;
     float                           angle = 0.0f;
 };
 

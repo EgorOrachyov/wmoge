@@ -140,6 +140,13 @@ namespace wmoge {
         return reference(resource, GfxAccess::None);
     }
 
+    RdgPass& RdgPass::params(array_view<RdgParamBlock*> resources) {
+        for (auto resource : resources) {
+            reference(resource, GfxAccess::None);
+        }
+        return *this;
+    }
+
     RdgPass& RdgPass::bind(RdgPassCallback callback) {
         m_callback = std::move(callback);
         return *this;

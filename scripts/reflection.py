@@ -41,6 +41,8 @@ namespace = "wmoge"
 files_list = ["aux_draw", "blit", "canvas", "fill"]
 
 types_map = {
+    "float": "float",
+    "int": "int",
     "vec2": "Vec2f",
     "vec3": "Vec3f",
     "vec4": "Vec4f",
@@ -50,11 +52,14 @@ types_map = {
     "uvec2": "Vec2u",
     "uvec3": "Vec3u",
     "uvec4": "Vec4u",
-    "int": "int",
-    "float": "float",
+    "mat2": "Mat2x2f",
+    "mat3": "Mat3x4f",
+    "mat4": "Mat4x4f",
 }
 
 types_size = {
+    "float": 4,
+    "int": 4,
     "vec2": 8,
     "vec3": 12,
     "vec4": 16,
@@ -64,8 +69,9 @@ types_size = {
     "uvec2": 8,
     "uvec3": 12,
     "uvec4": 16,
-    "int": 4,
-    "float": 4,
+    "mat2": 4 * 2 * 2,
+    "mat3": 4 * 3 * 3,
+    "mat4": 4 * 3 * 3,
 }
 
 reflectable = []
@@ -168,16 +174,15 @@ def process_option(builder, option):
             + "};\n"
         )
 
-    builder += "\n"
     return builder
 
 
 def process_options(builder, options):
-    builder += "struct Options {\n"
+    builder += "struct Options {"
 
     for option in options:
-        builder = process_option(builder, option)
         builder += "\n"
+        builder = process_option(builder, option)
 
     builder += "} options;\n"
     return builder
@@ -189,12 +194,12 @@ def process_pass(builder, shader_pass, technique_name):
     builder += f"struct Pass{to_camel_case(pass_name)} " + "{\n"
     builder += f'const Strid pass_name = SID("{pass_name}");\n'
     builder += f'const Strid technique_name = SID("{technique_name}");\n'
-    builder += "\n"
 
     if "options" in shader_pass:
+        builder += "\n"
         builder = process_options(builder, shader_pass["options"])
 
-    builder += "}" + f" ps_{pass_name};\n\n"
+    builder += "}" + f" ps_{pass_name};\n"
     return builder
 
 
@@ -202,13 +207,14 @@ def process_technique(builder, shader_technique):
     technique_name = shader_technique["name"]
 
     builder += f"struct Technique{to_camel_case(technique_name)} " + "{\n"
-    builder += f'const Strid name = SID("{technique_name}");\n\n'
+    builder += f'const Strid name = SID("{technique_name}");\n'
 
     if "options" in shader_technique:
-        builder = process_options(builder, shader_technique["options"])
         builder += "\n"
+        builder = process_options(builder, shader_technique["options"])
 
     for shader_pass in shader_technique["passes"]:
+        builder += "\n"
         builder = process_pass(builder, shader_pass, technique_name)
 
     builder += "}" + f" tq_{technique_name};\n\n"

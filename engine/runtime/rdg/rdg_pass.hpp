@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/flat_set.hpp"
 #include "core/mask.hpp"
@@ -116,7 +117,7 @@ namespace wmoge {
         Status bind_pso_compute(Shader* shader, const ShaderPermutation& permutation);
         Status bind_pso_compute(Shader* shader, Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options);
         Status viewport(const Rect2i& viewport);
-        Status bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset = 0);
+        Status bind_vert_buffer(GfxVertBuffer* buffer, int index = 0, int offset = 0);
         Status bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0);
         Status draw(int vertex_count, int base_vertex, int instance_count);
         Status draw_indexed(int index_count, int base_vertex, int instance_count);
@@ -175,6 +176,7 @@ namespace wmoge {
         RdgPass& sampling(RdgTexture* resource);
         RdgPass& storage(RdgTexture* resource);
         RdgPass& params(RdgParamBlock* resource);
+        RdgPass& params(array_view<RdgParamBlock*> resources);
         RdgPass& bind(RdgPassCallback callback);
 
         GfxRenderPassDesc            make_render_pass_desc() const;

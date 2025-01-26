@@ -15,7 +15,7 @@ namespace wmoge {
             ParamBlockDefault(const ShaderAuxDraw* shader_cls, RdgResourceId id);
 
             struct Vars {
-                RdgTexture*     clipprojview;
+                Mat4x4f         clipprojview;
                 float           inversegamma;
                 RdgTexture*     imagetexture;
                 Ref<GfxSampler> imagetexture_sampler;
@@ -46,27 +46,22 @@ namespace wmoge {
                 const Strid               out_mode        = SID("OUT_MODE");
                 const ShaderOptionVariant out_mode_srgb   = {SID("OUT_MODE"), SID("SRGB")};
                 const ShaderOptionVariant out_mode_linear = {SID("OUT_MODE"), SID("LINEAR")};
-
             } options;
 
             struct PassSolid {
                 const Strid pass_name      = SID("solid");
                 const Strid technique_name = SID("default");
-
             } ps_solid;
 
             struct PassWire {
                 const Strid pass_name      = SID("wire");
                 const Strid technique_name = SID("default");
-
             } ps_wire;
 
             struct PassText {
                 const Strid pass_name      = SID("text");
                 const Strid technique_name = SID("default");
-
             } ps_text;
-
         } tq_default;
 
         Ref<Shader> shader;
@@ -110,15 +105,12 @@ namespace wmoge {
                 const ShaderOptionVariant out_mode_none   = {SID("OUT_MODE"), SID("NONE")};
                 const ShaderOptionVariant out_mode_srgb   = {SID("OUT_MODE"), SID("SRGB")};
                 const ShaderOptionVariant out_mode_linear = {SID("OUT_MODE"), SID("LINEAR")};
-
             } options;
 
             struct PassDefault {
                 const Strid pass_name      = SID("default");
                 const Strid technique_name = SID("default");
-
             } ps_default;
-
         } tq_default;
 
         Ref<Shader> shader;
@@ -158,7 +150,7 @@ namespace wmoge {
             ParamBlockDefault(const ShaderCanvas* shader_cls, RdgResourceId id);
 
             struct Vars {
-                RdgTexture*       clipprojview;
+                Mat4x4f           clipprojview;
                 float             inversegamma;
                 RdgStorageBuffer* gpucanvasdrawcmdsbuffer;
             } vars;
@@ -223,15 +215,12 @@ namespace wmoge {
                 const Strid               out_mode        = SID("OUT_MODE");
                 const ShaderOptionVariant out_mode_srgb   = {SID("OUT_MODE"), SID("SRGB")};
                 const ShaderOptionVariant out_mode_linear = {SID("OUT_MODE"), SID("LINEAR")};
-
             } options;
 
             struct PassDefault {
                 const Strid pass_name      = SID("default");
                 const Strid technique_name = SID("default");
-
             } ps_default;
-
         } tq_default;
 
         Ref<Shader> shader;
@@ -276,9 +265,7 @@ namespace wmoge {
             struct PassDefault {
                 const Strid pass_name      = SID("default");
                 const Strid technique_name = SID("default");
-
             } ps_default;
-
         } tq_default;
 
         Ref<Shader> shader;

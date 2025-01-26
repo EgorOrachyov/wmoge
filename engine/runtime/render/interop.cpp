@@ -15,7 +15,7 @@ namespace wmoge {
     }
 
     void ShaderAuxDraw::ParamBlockDefault::pack() {
-        m_ptr->set_var(m_shader_cls->pb_default.clipprojview, vars.clipprojview->get_texture_ref());
+        m_ptr->set_var(m_shader_cls->pb_default.clipprojview, vars.clipprojview);
         m_ptr->set_var(m_shader_cls->pb_default.inversegamma, vars.inversegamma);
         m_ptr->set_var(m_shader_cls->pb_default.imagetexture, vars.imagetexture->get_texture_ref());
         m_ptr->set_var(m_shader_cls->pb_default.imagetexture, vars.imagetexture_sampler);
@@ -80,7 +80,7 @@ namespace wmoge {
     }
 
     void ShaderCanvas::ParamBlockDefault::pack() {
-        m_ptr->set_var(m_shader_cls->pb_default.clipprojview, vars.clipprojview->get_texture_ref());
+        m_ptr->set_var(m_shader_cls->pb_default.clipprojview, vars.clipprojview);
         m_ptr->set_var(m_shader_cls->pb_default.inversegamma, vars.inversegamma);
         m_ptr->set_var(m_shader_cls->pb_default.gpucanvasdrawcmdsbuffer, vars.gpucanvasdrawcmdsbuffer->get_buffer_ref());
     }
