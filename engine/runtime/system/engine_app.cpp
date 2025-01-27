@@ -65,6 +65,7 @@
 #include "system/engine_config.hpp"
 #include "system/engine_signals.hpp"
 #include "system/plugin_manager.hpp"
+#include "ui/ui_manager.hpp"
 
 #include "asset/_rtti.hpp"
 #include "audio/_rtti.hpp"
@@ -124,15 +125,19 @@ namespace wmoge {
             return std::make_shared<ShaderTaskManager>(num_workers);
         });
 
+        ioc->bind_by_factory<GlfwInput>([ioc]() {
+            GlfwWindowManager* window_manager = ioc->resolve_value<GlfwWindowManager>();
+            return window_manager->input();
+        });
+
         ioc->bind_by_factory<GlfwWindowManager>([ioc]() {
             const bool vsync      = true;
             const bool client_api = false;
             return std::make_shared<GlfwWindowManager>(vsync, client_api);
         });
 
-        ioc->bind_by_factory<GlfwInput>([ioc]() {
-            GlfwWindowManager* window_manager = ioc->resolve_value<GlfwWindowManager>();
-            return window_manager->input();
+        ioc->bind_by_factory<WindowManager>([ioc]() {
+            return std::shared_ptr<WindowManager>(ioc->resolve_value<GlfwWindowManager>(), [](auto p) {});
         });
 
         ioc->bind_by_factory<VKDriver>([ioc]() {
@@ -157,6 +162,7 @@ namespace wmoge {
 
     static Status unbind_globals(IocContainer* ioc) {
         ioc->unbind<GameManager>();
+        ioc->unbind<UiManager>();
         ioc->unbind<ViewManager>();
         ioc->unbind<SceneManager>();
         ioc->unbind<PsoCache>();

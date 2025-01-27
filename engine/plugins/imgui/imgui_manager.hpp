@@ -25,53 +25,31 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "plugin_manager.hpp"
+#pragma once
 
-#include "core/ioc_container.hpp"
-#include "core/log.hpp"
+#include "gfx/gfx_driver.hpp"
+#include "imgui_driver.hpp"
+#include "imgui_platform.hpp"
+#include "platform/window_manager.hpp"
+#include "ui/ui_manager.hpp"
+
+#include <memory>
 
 namespace wmoge {
 
-    void PluginManager::setup(IocContainer* ioc) {
-        for (auto& plugin : m_plugins) {
-            for (auto& dep : plugin->get_requirements()) {
-                if (m_plugins_loaded.find(dep) == m_plugins_loaded.end()) {
-                    WG_LOG_ERROR("plugin name=" << plugin->get_name() << " dep=" << dep << " not loaded");
-                }
-            }
+    class ImguiManager : public UiManager {
+    public:
+        ImguiManager(WindowManager* window_manager, GfxDriver* driver);
+        ~ImguiManager() override;
 
-            plugin->on_register(ioc);
-            m_plugins_loaded.insert(plugin->get_name());
-        }
+        void update() override;
+        void render(const GfxCmdListRef& cmd_list) override;
 
-        WG_LOG_INFO("register plugins");
-    }
+    private:
+        std::unique_ptr<ImguiPlatform> m_platform;
+        std::unique_ptr<ImguiDriver>   m_driver;
 
-    void PluginManager::init() {
-        for (auto& plugin : m_plugins) {
-            plugin->on_init();
-        }
-
-        WG_LOG_INFO("init plugins");
-    }
-
-    void PluginManager::shutdown() {
-        for (auto& plugin : m_plugins) {
-            plugin->on_shutdown();
-        }
-
-        WG_LOG_INFO("shutdown plugins");
-    }
-
-    void PluginManager::add(PluginPtr plugin) {
-        m_plugins_id[plugin->get_name()] = int(m_plugins.size());
-        m_plugins.push_back(std::move(plugin));
-    }
-
-    void PluginManager::add(const std::vector<PluginPtr>& plugins) {
-        for (auto& plugin : plugins) {
-            add(plugin);
-        }
-    }
+        bool m_show_demo_window = true;
+    };
 
 }// namespace wmoge

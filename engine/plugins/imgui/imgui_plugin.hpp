@@ -40,7 +40,11 @@ namespace wmoge {
         ImguiPlugin();
         ~ImguiPlugin() override = default;
 
-        Status on_register() override;
+        Status on_register(IocContainer* ioc) override;
+        Status on_shutdown() override;
+
+    private:
+        IocContainer* m_ioc = nullptr;
     };
 
 }// namespace wmoge

@@ -95,6 +95,7 @@ namespace wmoge {
         void          query_results(const GfxQueryPoolRef& query_pool, array_view<std::uint64_t> buffer) override;
         void          query_callibration(std::uint64_t& gpu_time, std::uint64_t& gpu_freq) override;
         void          end_frame(bool swap_buffers) override;
+        void          wait_idle() override;
 
         const GfxDeviceCaps& device_caps() const override { return m_device_caps; }
         const Strid&         driver_name() const override { return m_driver_name; }

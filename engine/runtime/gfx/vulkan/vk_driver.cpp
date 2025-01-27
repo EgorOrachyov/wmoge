@@ -409,10 +409,10 @@ namespace wmoge {
         Ref<VKCmdList> cmd = acquire_cmd_list(GfxQueueType::Graphics).cast<VKCmdList>();
 
         for (auto& window : windows) {
-            auto vk_window = m_window_manager->get_or_create(cmd.get(), window);
-            vk_window->acquire_next(cmd.get());
-            cmd->barrier(vk_window->color()[vk_window->current()].get(), GfxTexBarrierType::Presentation, GfxTexBarrierType::RenderTarget);
-            cmd->barrier(vk_window->depth_stencil().get(), GfxTexBarrierType::Presentation, GfxTexBarrierType::RenderTarget);
+            auto vk_window = m_window_manager->get_or_create(window);
+            vk_window->acquire_next();
+            cmd->barrier(vk_window->color()[vk_window->current()].get(), GfxTexBarrierType::Undefined, GfxTexBarrierType::RenderTarget);
+            cmd->barrier(vk_window->depth_stencil().get(), GfxTexBarrierType::Undefined, GfxTexBarrierType::RenderTarget);
             m_to_present.push_back(vk_window);
         }
 
@@ -523,10 +523,16 @@ namespace wmoge {
         m_to_present.clear();
     }
 
+    void VKDriver::wait_idle() {
+        WG_PROFILE_CPU_VULKAN("VKDriver::wait_idle");
+
+        vkDeviceWaitIdle(m_device);
+    }
+
     GfxWindowProps VKDriver::get_window_props(const Ref<Window>& window) const {
         WG_PROFILE_CPU_VULKAN("VKDriver::get_window_props");
 
-        Ref<VKWindow> vk_window = m_window_manager->get(window);
+        Ref<VKWindow> vk_window = m_window_manager->get_or_create(window);
         if (!vk_window || vk_window->color().empty()) {
             return GfxWindowProps{};
         }

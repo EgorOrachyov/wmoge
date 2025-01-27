@@ -27,8 +27,24 @@
 
 #pragma once
 
-#include "backends/imgui_impl_vulkan.h"
+#include "gfx/gfx_driver.hpp"
+#include "gfx/gfx_render_pass.hpp"
+#include "imgui_driver.hpp"
+#include "platform/window.hpp"
 
 namespace wmoge {
+
+    class ImguiDriverVulkan : public ImguiDriver {
+    public:
+        ImguiDriverVulkan(const Ref<Window>& window, GfxDriver* driver);
+        ~ImguiDriverVulkan() override;
+
+        void new_frame() override;
+        void render(const GfxCmdListRef& cmd_list) override;
+
+    private:
+        GfxRenderPassRef m_render_pass;
+        Ref<Window>      m_window;
+    };
 
 }// namespace wmoge

@@ -27,6 +27,15 @@
 
 #pragma once
 
+#include "gfx/gfx_cmd_list.hpp"
+
 namespace wmoge {
+
+    class ImguiDriver {
+    public:
+        virtual ~ImguiDriver()                             = default;
+        virtual void new_frame()                           = 0;
+        virtual void render(const GfxCmdListRef& cmd_list) = 0;
+    };
 
 }// namespace wmoge

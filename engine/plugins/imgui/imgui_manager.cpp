@@ -25,52 +25,56 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "plugin_manager.hpp"
+#include "imgui_manager.hpp"
 
-#include "core/ioc_container.hpp"
-#include "core/log.hpp"
+#include "imgui.h"
+#include "imgui_driver_vulkan.hpp"
+#include "imgui_platform_glfw.hpp"
 
 namespace wmoge {
 
-    void PluginManager::setup(IocContainer* ioc) {
-        for (auto& plugin : m_plugins) {
-            for (auto& dep : plugin->get_requirements()) {
-                if (m_plugins_loaded.find(dep) == m_plugins_loaded.end()) {
-                    WG_LOG_ERROR("plugin name=" << plugin->get_name() << " dep=" << dep << " not loaded");
-                }
-            }
+    ImguiManager::ImguiManager(WindowManager* window_manager, GfxDriver* driver) {
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO();
+        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;// Enable Keyboard Controls
+        io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable Gamepad Controls
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;    // Enable Docking
+        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;  // Enable Multi-Viewport / Platform Windows
+        ImGui::StyleColorsDark();
 
-            plugin->on_register(ioc);
-            m_plugins_loaded.insert(plugin->get_name());
+        if (window_manager->get_type() == WindowManagerType::Glfw) {
+            m_platform = std::make_unique<ImguiPlatformGlfw>(window_manager->get_primary_window(), driver);
+        }
+        if (driver->get_gfx_type() == GfxType::Vulkan) {
+            m_driver = std::make_unique<ImguiDriverVulkan>(window_manager->get_primary_window(), driver);
         }
 
-        WG_LOG_INFO("register plugins");
+        assert(m_platform);
+        assert(m_driver);
     }
 
-    void PluginManager::init() {
-        for (auto& plugin : m_plugins) {
-            plugin->on_init();
-        }
-
-        WG_LOG_INFO("init plugins");
+    ImguiManager::~ImguiManager() {
+        m_driver.reset();
+        m_platform.reset();
+        ImGui::DestroyContext();
     }
 
-    void PluginManager::shutdown() {
-        for (auto& plugin : m_plugins) {
-            plugin->on_shutdown();
-        }
+    void ImguiManager::update() {
+        m_driver->new_frame();
+        m_platform->new_frame();
+        ImGui::NewFrame();
 
-        WG_LOG_INFO("shutdown plugins");
+        // tmp
+        if (m_show_demo_window)
+            ImGui::ShowDemoWindow(&m_show_demo_window);
     }
 
-    void PluginManager::add(PluginPtr plugin) {
-        m_plugins_id[plugin->get_name()] = int(m_plugins.size());
-        m_plugins.push_back(std::move(plugin));
-    }
-
-    void PluginManager::add(const std::vector<PluginPtr>& plugins) {
-        for (auto& plugin : plugins) {
-            add(plugin);
+    void ImguiManager::render(const GfxCmdListRef& cmd_list) {
+        ImGui::Render();
+        m_driver->render(cmd_list);
+        if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+            ImGui::UpdatePlatformWindows();
+            ImGui::RenderPlatformWindowsDefault();
         }
     }
 

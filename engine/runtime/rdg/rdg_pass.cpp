@@ -223,13 +223,13 @@ namespace wmoge {
     GfxRenderPassWindowBeginInfo RdgPass::make_render_pass_window_begin_info(const Ref<GfxRenderPass>& render_pass) const {
         GfxRenderPassWindowBeginInfo info;
 
-        info.name           = get_name();
-        info.render_pass    = render_pass;
-        info.area           = m_area;
-        info.window         = m_window_target.window;
-        info.clear_color[0] = m_window_target.color;
-        info.clear_depth    = m_window_target.depth;
-        info.clear_stencil  = m_window_target.stencil;
+        info.name          = get_name();
+        info.render_pass   = render_pass;
+        info.area          = m_area;
+        info.window        = m_window_target.window;
+        info.clear_color   = m_window_target.color;
+        info.clear_depth   = m_window_target.depth;
+        info.clear_stencil = m_window_target.stencil;
 
         return info;
     }

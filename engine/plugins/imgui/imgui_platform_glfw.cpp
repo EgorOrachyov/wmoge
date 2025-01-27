@@ -25,9 +25,27 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-// implementation sources
-#include "backends/imgui_impl_glfw.cpp"
+#include "imgui_platform_glfw.hpp"
+
+#include "backends/imgui_impl_glfw.h"
+#include "platform/glfw/glfw_window.hpp"
 
 namespace wmoge {
+
+    ImguiPlatformGlfw::ImguiPlatformGlfw(const Ref<Window>& window, GfxDriver* gfx_driver) {
+        GlfwWindow* glfw_window = dynamic_cast<GlfwWindow*>(window.get());
+
+        if (gfx_driver->get_gfx_type() == GfxType::Vulkan) {
+            ImGui_ImplGlfw_InitForVulkan(glfw_window->handle(), true);
+        }
+    }
+
+    ImguiPlatformGlfw::~ImguiPlatformGlfw() {
+        ImGui_ImplGlfw_Shutdown();
+    }
+
+    void ImguiPlatformGlfw::new_frame() {
+        ImGui_ImplGlfw_NewFrame();
+    }
 
 }// namespace wmoge

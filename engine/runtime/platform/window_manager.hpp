@@ -34,6 +34,12 @@
 
 namespace wmoge {
 
+    /** @brief Type of window manager */
+    enum class WindowManagerType {
+        None = 0,
+        Glfw = 1
+    };
+
     /** @brief Type of window changes */
     enum class WindowNotification {
         Minimized,
@@ -69,6 +75,7 @@ namespace wmoge {
         virtual Ref<Window>                     create_window(const WindowInfo& window_info) = 0;
         virtual Ref<Window>                     get_window(const Strid& window_id)           = 0;
         virtual const std::vector<WindowEvent>& get_window_events()                          = 0;
+        virtual WindowManagerType               get_type()                                   = 0;
     };
 
 }// namespace wmoge

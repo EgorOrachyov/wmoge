@@ -39,7 +39,7 @@ namespace wmoge {
         m_requirements = {};
     }
 
-    Status RuntimePlugin::on_register() {
+    Status RuntimePlugin::on_register(IocContainer*) {
         rtti_runtime();
 
         WG_LOG_INFO("init runtime plugin");

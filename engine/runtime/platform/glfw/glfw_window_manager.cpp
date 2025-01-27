@@ -170,6 +170,10 @@ namespace wmoge {
         return m_events;
     }
 
+    WindowManagerType GlfwWindowManager::get_type() {
+        return WindowManagerType::Glfw;
+    }
+
     void GlfwWindowManager::clear_events() {
         m_events.clear();
     }

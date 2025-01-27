@@ -226,6 +226,7 @@ namespace wmoge {
         WG_PROFILE_CPU_VULKAN("VKCmdList::begin_render_pass");
 
         assert(!m_in_render_pass);
+        assert(pass_desc.frame_buffer);
 
         m_in_render_pass         = true;
         m_pipeline_bound_compute = false;
@@ -270,28 +271,33 @@ namespace wmoge {
     void VKCmdList::begin_render_pass(const GfxRenderPassWindowBeginInfo& pass_desc) {
         WG_PROFILE_CPU_VULKAN("VKCmdList::begin_render_pass");
 
-        Ref<VKWindow> vk_window = m_driver.window_manager()->get_or_create(this, pass_desc.window);
+        assert(pass_desc.render_pass);
+        assert(pass_desc.window);
+
+        Ref<VKWindow> vk_window = m_driver.window_manager()->get(pass_desc.window);
         assert(vk_window);
 
         const auto target_name = pass_desc.window->id();
         const auto target_id   = vk_window->current();
 
         GfxFrameBufferDesc fb_desc{};
-        fb_desc.color_targets[0].texture     = vk_window->color()[target_id];
-        fb_desc.color_targets[0].mip         = 0;
-        fb_desc.color_targets[0].slice       = 0;
-        fb_desc.depth_stencil_target.texture = vk_window->depth_stencil();
-        fb_desc.depth_stencil_target.mip     = 0;
-        fb_desc.depth_stencil_target.slice   = 0;
-        fb_desc.render_pass                  = pass_desc.render_pass;
+        fb_desc.render_pass              = pass_desc.render_pass;
+        fb_desc.color_targets[0].texture = vk_window->color()[target_id];
+        fb_desc.color_targets[0].mip     = 0;
+        fb_desc.color_targets[0].slice   = 0;
+        if (pass_desc.render_pass->desc().depth_stencil_fmt != GfxFormat::Unknown) {
+            fb_desc.depth_stencil_target.texture = vk_window->depth_stencil();
+            fb_desc.depth_stencil_target.mip     = 0;
+            fb_desc.depth_stencil_target.slice   = 0;
+        }
 
         GfxRenderPassBeginInfo rp_desc{};
-        rp_desc.frame_buffer  = vk_window->get_or_create_frame_buffer(fb_desc, SIDDBG(target_name.str() + " id=" + std::to_string(target_id)));
-        rp_desc.clear_color   = pass_desc.clear_color;
-        rp_desc.clear_depth   = pass_desc.clear_depth;
-        rp_desc.clear_stencil = pass_desc.clear_stencil;
-        rp_desc.area          = pass_desc.area;
-        rp_desc.name          = pass_desc.name;
+        rp_desc.frame_buffer   = vk_window->get_or_create_frame_buffer(fb_desc, SIDDBG(target_name.str() + " id=" + std::to_string(target_id)));
+        rp_desc.clear_color[0] = pass_desc.clear_color;
+        rp_desc.clear_depth    = pass_desc.clear_depth;
+        rp_desc.clear_stencil  = pass_desc.clear_stencil;
+        rp_desc.area           = pass_desc.area;
+        rp_desc.name           = pass_desc.name;
 
         begin_render_pass(rp_desc);
     }

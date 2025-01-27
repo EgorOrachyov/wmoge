@@ -22,6 +22,7 @@ target_link_libraries(wmoge_headers INTERFACE yamc)
 # engine (platform) dependencies, which are also visible to the engine users
 target_link_libraries(wmoge_headers INTERFACE glfw)
 target_link_libraries(wmoge_headers INTERFACE volk)
+target_link_libraries(wmoge_headers INTERFACE vma)
 
 # generic functions to setup target
 wmoge_target_iface_defs(wmoge_headers)
@@ -48,6 +49,5 @@ target_link_libraries(wmoge PRIVATE lua_static)
 target_link_libraries(wmoge PRIVATE LuaBridge)
 
 # vulkan rendering backend related dependencies, private
-target_link_libraries(wmoge PRIVATE vma)
 target_link_libraries(wmoge PRIVATE glslang)
 target_link_libraries(wmoge PRIVATE SPIRV)

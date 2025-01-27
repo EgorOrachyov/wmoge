@@ -95,6 +95,7 @@ namespace wmoge {
         virtual void          query_results(const GfxQueryPoolRef& query_pool, array_view<std::uint64_t> buffer) = 0;
         virtual void          query_callibration(std::uint64_t& gpu_time, std::uint64_t& gpu_freq)               = 0;
         virtual void          end_frame(bool swap_buffers = true)                                                = 0;
+        virtual void          wait_idle()                                                                        = 0;
 
         [[nodiscard]] virtual const GfxDeviceCaps& device_caps() const                               = 0;
         [[nodiscard]] virtual const Strid&         driver_name() const                               = 0;

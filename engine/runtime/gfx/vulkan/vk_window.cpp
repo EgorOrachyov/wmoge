@@ -59,12 +59,12 @@ namespace wmoge {
         vkDestroySurfaceKHR(m_driver.instance(), m_surface, nullptr);
     }
 
-    void VKWindow::init(VKCmdList* cmd) {
+    void VKWindow::init() {
         WG_PROFILE_CPU_VULKAN("VKWindow::init");
 
         create_image_semaphores();
         select_properties();
-        create_swapchain(cmd);
+        create_swapchain();
     }
 
     void VKWindow::get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const {
@@ -145,7 +145,7 @@ namespace wmoge {
         m_vsync       = VK_PRESENT_MODE_FIFO_KHR;
     }
 
-    void VKWindow::create_swapchain(VKCmdList* cmd) {
+    void VKWindow::create_swapchain() {
         WG_PROFILE_CPU_VULKAN("VKWindow::create_swapchain");
 
         WG_VK_CHECK(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_driver.phys_device(), m_surface, &m_capabilities))
@@ -163,17 +163,17 @@ namespace wmoge {
             m_extent.height     = Math::clamp(height, min_extent.height, max_extent.height);
         }
 
-        uint32_t imageCount = 3;
+        m_image_count = 3;
         if (m_capabilities.maxImageCount > 0) {
-            imageCount = Math::clamp(imageCount, m_capabilities.minImageCount, m_capabilities.maxImageCount);
+            m_image_count = Math::clamp(m_image_count, m_capabilities.minImageCount, m_capabilities.maxImageCount);
         } else {
-            imageCount = Math::max(imageCount, m_capabilities.minImageCount);
+            m_image_count = Math::max(m_image_count, m_capabilities.minImageCount);
         }
 
         VkSwapchainCreateInfoKHR create_info{};
         create_info.sType                 = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
         create_info.surface               = m_surface;
-        create_info.minImageCount         = imageCount;
+        create_info.minImageCount         = m_image_count;
         create_info.imageFormat           = m_surface_format.format;
         create_info.imageColorSpace       = m_surface_format.colorSpace;
         create_info.imageExtent           = m_extent;
@@ -193,7 +193,7 @@ namespace wmoge {
         WG_VK_CHECK(vkCreateSwapchainKHR(m_driver.device(), &create_info, nullptr, &new_swapchain));
         WG_VK_NAME(m_driver.device(), new_swapchain, VK_OBJECT_TYPE_SWAPCHAIN_KHR, m_window->id().str());
 
-        WG_LOG_INFO("create swapchain " << m_window->id() << " " << m_extent.width << "x" << m_extent.height << " images=" << imageCount);
+        WG_LOG_INFO("create swapchain " << m_window->id() << " " << m_extent.width << "x" << m_extent.height << " images=" << m_image_count);
 
         release_swapchain();
         m_swapchain = new_swapchain;
@@ -208,14 +208,12 @@ namespace wmoge {
         for (uint32_t i = 0; i < color_image_count; i++) {
             m_color_targets[i] = make_ref<VKTexture>(m_driver);
             m_color_targets[i]->create_2d(width(), height(), color_images[i], m_surface_format.format, m_window->id());
-            cmd->barrier(m_color_targets[i].get(), GfxTexBarrierType::Undefined, GfxTexBarrierType::Presentation);
         }
 
         GfxTexUsages depth_stencil_usages;
         depth_stencil_usages.set(GfxTexUsageFlag::DepthStencilTarget);
         m_depth_stencil_target = make_ref<VKTexture>(m_driver);
         m_depth_stencil_target->create_2d(width(), height(), 1, GfxFormat::DEPTH24_STENCIL8, depth_stencil_usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, m_window->id());
-        cmd->barrier(m_depth_stencil_target.get(), GfxTexBarrierType::Undefined, GfxTexBarrierType::Presentation);
 
         m_requested_extent = m_extent;
         m_version += 1;
@@ -234,13 +232,13 @@ namespace wmoge {
         }
     }
 
-    void VKWindow::recreate_swapchain(VKCmdList* cmd) {
+    void VKWindow::recreate_swapchain() {
         WG_PROFILE_CPU_VULKAN("VKWindow::recreate_swapchain");
 
         // ensure that window resources are no more used
         WG_VK_CHECK(vkDeviceWaitIdle(m_driver.device()));
         // recreate (release called internally)
-        create_swapchain(cmd);
+        create_swapchain();
     }
 
     void VKWindow::check_requested_size() {
@@ -248,14 +246,14 @@ namespace wmoge {
         m_requested_extent.height = m_window->fbo_height();
     }
 
-    void VKWindow::acquire_next(VKCmdList* cmd) {
+    void VKWindow::acquire_next() {
         WG_PROFILE_CPU_VULKAN("VKWindow::acquire_next");
 
         check_requested_size();
 
         if (m_requested_extent.width != m_extent.width ||
             m_requested_extent.height != m_extent.height) {
-            recreate_swapchain(cmd);
+            recreate_swapchain();
         }
 
         m_semaphore_index = (m_semaphore_index + 1) % GfxLimits::FRAMES_IN_FLIGHT;
@@ -268,7 +266,7 @@ namespace wmoge {
             if (vk_result == VK_SUCCESS) {
                 break;
             } else if (vk_result == VK_ERROR_OUT_OF_DATE_KHR || vk_result == VK_SUBOPTIMAL_KHR) {
-                recreate_swapchain(cmd);
+                recreate_swapchain();
                 break;
             } else {
                 WG_LOG_ERROR("failed to acquired next image");
@@ -281,7 +279,7 @@ namespace wmoge {
         m_factory = init_info.factory;
     }
 
-    Ref<VKWindow> VKWindowManager::get_or_create(VKCmdList* cmd, const Ref<Window>& window) {
+    Ref<VKWindow> VKWindowManager::get_or_create(const Ref<Window>& window) {
         WG_PROFILE_CPU_VULKAN("VKWindowManager::get_or_create");
 
         auto query = m_windows.find(window->id());
@@ -293,7 +291,7 @@ namespace wmoge {
         WG_VK_CHECK(m_factory(m_driver.instance(), window, surface));
 
         auto vk_window = make_ref<VKWindow>(window, surface, m_driver);
-        vk_window->init(cmd);
+        vk_window->init();
 
         m_windows[window->id()] = vk_window;
         return vk_window;

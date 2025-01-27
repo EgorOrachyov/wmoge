@@ -29,6 +29,9 @@
 
 #include "_rtti.hpp"
 #include "core/log.hpp"
+#include "gfx/gfx_driver.hpp"
+#include "imgui_manager.hpp"
+#include "platform/window_manager.hpp"
 
 namespace wmoge {
 
@@ -39,10 +42,28 @@ namespace wmoge {
         m_requirements = {};
     }
 
-    Status ImguiPlugin::on_register() {
+    Status ImguiPlugin::on_register(IocContainer* ioc) {
         rtti_imgui();
 
+        m_ioc = ioc;
+
+        ioc->bind_by_factory<ImguiManager>([ioc]() {
+            WindowManager* window_manager = ioc->resolve_value<WindowManager>();
+            GfxDriver*     driver         = ioc->resolve_value<GfxDriver>();
+            return std::make_shared<ImguiManager>(window_manager, driver);
+        });
+
+        ioc->bind_by_factory<UiManager>([ioc]() {
+            return std::shared_ptr<UiManager>(ioc->resolve_value<ImguiManager>(), [](auto p) {});
+        });
+
         WG_LOG_INFO("init imgui plugin");
+
+        return WG_OK;
+    }
+
+    Status ImguiPlugin::on_shutdown() {
+        m_ioc->unbind<ImguiManager>();
 
         return WG_OK;
     }

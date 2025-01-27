@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "core/ioc_container.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
@@ -45,7 +46,7 @@ namespace wmoge {
     public:
         virtual ~Plugin() = default;
 
-        virtual Status on_register() { return WG_OK; }
+        virtual Status on_register(IocContainer* ioc) { return WG_OK; }
         virtual Status on_init() { return WG_OK; }
         virtual Status on_shutdown() { return WG_OK; }
 

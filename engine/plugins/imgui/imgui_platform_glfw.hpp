@@ -27,8 +27,18 @@
 
 #pragma once
 
-#include "backends/imgui_impl_glfw.h"
+#include "gfx/gfx_driver.hpp"
+#include "imgui_platform.hpp"
+#include "platform/window.hpp"
 
 namespace wmoge {
+
+    class ImguiPlatformGlfw : public ImguiPlatform {
+    public:
+        ImguiPlatformGlfw(const Ref<Window>& window, GfxDriver* driver);
+        ~ImguiPlatformGlfw() override;
+
+        void new_frame() override;
+    };
 
 }// namespace wmoge

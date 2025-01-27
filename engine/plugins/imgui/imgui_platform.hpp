@@ -29,4 +29,10 @@
 
 namespace wmoge {
 
+    class ImguiPlatform {
+    public:
+        virtual ~ImguiPlatform() = default;
+        virtual void new_frame() = 0;
+    };
+
 }// namespace wmoge

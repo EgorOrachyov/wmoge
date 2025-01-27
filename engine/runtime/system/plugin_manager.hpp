@@ -45,7 +45,7 @@ namespace wmoge {
     public:
         PluginManager() = default;
 
-        void setup();
+        void setup(IocContainer* ioc);
         void init();
         void shutdown();
 

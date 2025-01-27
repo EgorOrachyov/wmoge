@@ -40,7 +40,7 @@ namespace wmoge {
         m_requirements = {};
     }
 
-    Status FreetypePlugin::on_register() {
+    Status FreetypePlugin::on_register(IocContainer*) {
         rtti_freetype();
 
         WG_LOG_INFO("init freetype plugin");

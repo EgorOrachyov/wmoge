@@ -120,13 +120,13 @@ namespace wmoge {
      * @brief Info to start render pass in window
     */
     struct GfxRenderPassWindowBeginInfo {
-        GfxRenderPassRef                                  render_pass;
-        Ref<Window>                                       window;
-        std::array<Color4f, GfxLimits::MAX_COLOR_TARGETS> clear_color{};
-        float                                             clear_depth   = 1.0f;
-        int                                               clear_stencil = 0;
-        Rect2i                                            area;
-        Strid                                             name;
+        GfxRenderPassRef render_pass;
+        Ref<Window>      window;
+        Color4f          clear_color{};
+        float            clear_depth   = 1.0f;
+        int              clear_stencil = 0;
+        Rect2i           area;
+        Strid            name;
     };
 
 }// namespace wmoge

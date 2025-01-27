@@ -59,6 +59,7 @@ namespace wmoge {
         Ref<Window>                                                     create_window(const WindowInfo& window_info) override;
         Ref<Window>                                                     get_window(const Strid& window_id) override;
         const std::vector<WindowEvent>&                                 get_window_events() override;
+        WindowManagerType                                               get_type() override;
         void                                                            clear_events();
         std::shared_ptr<GlfwInput>                                      input();
         Ref<GlfwWindow>                                                 get(GLFWwindow* hnd);

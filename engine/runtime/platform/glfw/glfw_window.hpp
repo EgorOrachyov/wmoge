@@ -55,6 +55,8 @@ namespace wmoge {
         const Strid&       id() const override;
         const std::string& title() const override;
 
+        [[nodiscard]] GLFWwindow* handle() const { return m_hnd; }
+
     private:
         friend class GlfwWindowManager;
 

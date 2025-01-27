@@ -59,8 +59,8 @@ namespace wmoge {
         VKWindow(Ref<Window> window, VkSurfaceKHR surface, class VKDriver& driver);
         ~VKWindow() override;
 
-        void                init(class VKCmdList* cmd);
-        void                acquire_next(class VKCmdList* cmd);
+        void                init();
+        void                acquire_next();
         void                get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const;
         Ref<GfxFrameBuffer> get_or_create_frame_buffer(const GfxFrameBufferDesc& desc, const Strid& name);
 
@@ -75,13 +75,15 @@ namespace wmoge {
         [[nodiscard]] int      width() const { return int(m_extent.width); }
         [[nodiscard]] int      height() const { return int(m_extent.height); }
         [[nodiscard]] uint32_t current() const { return m_current; }
+        [[nodiscard]] uint32_t min_image_count() const { return m_capabilities.minImageCount; }
+        [[nodiscard]] uint32_t image_count() const { return m_image_count; }
 
     private:
         void create_image_semaphores();
         void select_properties();
-        void create_swapchain(class VKCmdList* cmd);
+        void create_swapchain();
         void release_swapchain();
-        void recreate_swapchain(class VKCmdList* cmd);
+        void recreate_swapchain();
         void check_requested_size();
 
     private:
@@ -103,6 +105,7 @@ namespace wmoge {
 
         flat_map<GfxFrameBufferDesc, Ref<GfxFrameBuffer>> m_frame_buffers;
 
+        uint32_t m_image_count     = 0;
         uint32_t m_current         = 0;
         int      m_version         = -1;
         int      m_semaphore_index = 0;
@@ -119,7 +122,7 @@ namespace wmoge {
     public:
         VKWindowManager(const VKInitInfo& init_info, class VKDriver& driver);
 
-        [[nodiscard]] Ref<VKWindow> get_or_create(class VKCmdList* cmd, const Ref<Window>& window);
+        [[nodiscard]] Ref<VKWindow> get_or_create(const Ref<Window>& window);
         [[nodiscard]] Ref<VKWindow> get(const Ref<Window>& window);
 
     private:

@@ -40,7 +40,7 @@ namespace wmoge {
         AssimpPlugin();
         ~AssimpPlugin() override = default;
 
-        Status on_register() override;
+        Status on_register(IocContainer* ioc) override;
     };
 
 }// namespace wmoge

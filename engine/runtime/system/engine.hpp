@@ -80,6 +80,7 @@ namespace wmoge {
         class AudioEngine*    audio_engine();
         class RenderEngine*   render_engine();
         class ViewManager*    view_manager();
+        class UiManager*      ui_manager();
         class EcsRegistry*    ecs_registry();
         class GameManager*    game_manager();
         class EngineConfig*   engine_config();
@@ -112,6 +113,7 @@ namespace wmoge {
         class AudioEngine*    m_audio_engine    = nullptr;
         class RenderEngine*   m_render_engine   = nullptr;
         class ViewManager*    m_view_manager    = nullptr;
+        class UiManager*      m_ui_manager      = nullptr;
         class EcsRegistry*    m_ecs_registry    = nullptr;
         class IocContainer*   m_ioc_container   = nullptr;
         class ProfilerGpu*    m_profiler_gpu    = nullptr;

@@ -65,6 +65,7 @@
 #include "system/engine_config.hpp"
 #include "system/engine_signals.hpp"
 #include "system/plugin_manager.hpp"
+#include "ui/ui_manager.hpp"
 
 #include <cassert>
 
@@ -85,7 +86,7 @@ namespace wmoge {
         m_engine_config  = m_ioc_container->resolve_value<EngineConfig>();
         m_engine_signals = m_ioc_container->resolve_value<EngineSignals>();
 
-        m_plugin_manager->setup();
+        m_plugin_manager->setup(m_ioc_container);
 
         return WG_OK;
     }
@@ -129,6 +130,7 @@ namespace wmoge {
         m_ecs_registry    = m_ioc_container->resolve_value<EcsRegistry>();
         m_scene_manager   = m_ioc_container->resolve_value<SceneManager>();
         m_view_manager    = m_ioc_container->resolve_value<ViewManager>();
+        m_ui_manager      = m_ioc_container->resolve_value<UiManager>();
         m_game_manager    = m_ioc_container->resolve_value<GameManager>();
 
         m_shader_manager = m_ioc_container->resolve_value<ShaderManager>();
@@ -174,6 +176,12 @@ namespace wmoge {
 
         m_engine_signals->debug_draw.emit();
 
+        auto cmd_list = m_gfx_driver->acquire_cmd_list();
+        m_ui_manager->update();
+        m_ui_manager->render(cmd_list);
+        m_gfx_driver->submit_cmd_list(cmd_list);
+        cmd_list.reset();
+
         m_profiler_gpu->resolve();
 
         m_window_manager->poll_events();
@@ -187,6 +195,7 @@ namespace wmoge {
     Status Engine::shutdown() {
         WG_PROFILE_CPU_SYSTEM("Engine::shutdown");
 
+        m_gfx_driver->wait_idle();
         m_plugin_manager->shutdown();
         m_task_manager->shutdown();
         m_console->shutdown();
@@ -226,6 +235,7 @@ namespace wmoge {
     AudioEngine*    Engine::audio_engine() { return m_audio_engine; }
     RenderEngine*   Engine::render_engine() { return m_render_engine; }
     ViewManager*    Engine::view_manager() { return m_view_manager; }
+    UiManager*      Engine::ui_manager() { return m_ui_manager; }
     EcsRegistry*    Engine::ecs_registry() { return m_ecs_registry; }
     GameManager*    Engine::game_manager() { return m_game_manager; }
     EngineConfig*   Engine::engine_config() { return m_engine_config; }

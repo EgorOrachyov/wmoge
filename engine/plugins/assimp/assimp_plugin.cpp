@@ -40,7 +40,7 @@ namespace wmoge {
         m_requirements = {};
     }
 
-    Status AssimpPlugin::on_register() {
+    Status AssimpPlugin::on_register(IocContainer*) {
         rtti_assimp();
 
         WG_LOG_INFO("init assimp plugin");

@@ -27,6 +27,16 @@
 
 #pragma once
 
+#include "gfx/gfx_cmd_list.hpp"
+
 namespace wmoge {
 
-}
+    class UiManager {
+    public:
+        virtual ~UiManager() = default;
+
+        virtual void update()                              = 0;
+        virtual void render(const GfxCmdListRef& cmd_list) = 0;
+    };
+
+}// namespace wmoge
