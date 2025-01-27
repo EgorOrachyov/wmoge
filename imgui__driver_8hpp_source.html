@@ -98,9 +98,24 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__cmd__list_8hpp.html">gfx/gfx_cmd_list.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classwmoge_1_1ImguiDriver.html">   34</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1ImguiDriver.html">ImguiDriver</a> {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classwmoge_1_1ImguiDriver.html#a723352b94771b2d30c7859ca2c1f09ac">   36</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1ImguiDriver.html#a723352b94771b2d30c7859ca2c1f09ac">~ImguiDriver</a>()                             = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classwmoge_1_1ImguiDriver.html#a544acda51f604af6120e0ceebbd7ff16">   37</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1ImguiDriver.html#a544acda51f604af6120e0ceebbd7ff16">new_frame</a>()                           = 0;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classwmoge_1_1ImguiDriver.html#aebb7bc4c9367b63c93c5041a55a17e56">   38</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1ImguiDriver.html#aebb7bc4c9367b63c93c5041a55a17e56">render</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1Ref.html">GfxCmdListRef</a>&amp; cmd_list) = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    };</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="aclasswmoge_1_1ImguiDriver_html"><div class="ttname"><a href="classwmoge_1_1ImguiDriver.html">wmoge::ImguiDriver</a></div><div class="ttdef"><b>Definition:</b> imgui_driver.hpp:34</div></div>
+<div class="ttc" id="aclasswmoge_1_1ImguiDriver_html_a544acda51f604af6120e0ceebbd7ff16"><div class="ttname"><a href="classwmoge_1_1ImguiDriver.html#a544acda51f604af6120e0ceebbd7ff16">wmoge::ImguiDriver::new_frame</a></div><div class="ttdeci">virtual void new_frame()=0</div></div>
+<div class="ttc" id="aclasswmoge_1_1ImguiDriver_html_a723352b94771b2d30c7859ca2c1f09ac"><div class="ttname"><a href="classwmoge_1_1ImguiDriver.html#a723352b94771b2d30c7859ca2c1f09ac">wmoge::ImguiDriver::~ImguiDriver</a></div><div class="ttdeci">virtual ~ImguiDriver()=default</div></div>
+<div class="ttc" id="aclasswmoge_1_1ImguiDriver_html_aebb7bc4c9367b63c93c5041a55a17e56"><div class="ttname"><a href="classwmoge_1_1ImguiDriver.html#aebb7bc4c9367b63c93c5041a55a17e56">wmoge::ImguiDriver::render</a></div><div class="ttdeci">virtual void render(const GfxCmdListRef &amp;cmd_list)=0</div></div>
+<div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
+<div class="ttc" id="agfx__cmd__list_8hpp_html"><div class="ttname"><a href="gfx__cmd__list_8hpp.html">gfx_cmd_list.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
