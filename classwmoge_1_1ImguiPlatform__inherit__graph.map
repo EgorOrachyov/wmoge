@@ -1,4 +1,4 @@
 <map id="wmoge::ImguiPlatform" name="wmoge::ImguiPlatform">
-<area shape="rect" id="node1" title=" " alt="" coords="19,5,170,32"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ImguiPlatformGlfw.html" title=" " alt="" coords="5,80,184,107"/>
+<area shape="rect" id="node1" title="Interface for imgui platform (os and window system) integration." alt="" coords="19,5,170,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiPlatformGlfw.html" title="Implementation for GLFW based platform." alt="" coords="5,80,184,107"/>
 </map>

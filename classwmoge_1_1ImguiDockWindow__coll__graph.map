@@ -1,0 +1,12 @@
+<map id="wmoge::ImguiDockWindow" name="wmoge::ImguiDockWindow">
+<area shape="rect" id="node1" title=" " alt="" coords="227,441,405,468"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="227,351,405,392"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UiDockWindow.html" title=" " alt="" coords="149,275,307,301"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1UiWindow.html" title=" " alt="" coords="163,185,293,212"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="5,89,136,115"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="15,5,126,32"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="160,81,309,123"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1ImguiElement.html" title=" " alt="" coords="332,275,481,301"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1ImguiManager.html" title="Implementation of ui manager fom imgui backend." alt="" coords="331,185,483,212"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1UiManager.html" title="Interface for ui sub&#45;system." alt="" coords="340,89,473,115"/>
+</map>

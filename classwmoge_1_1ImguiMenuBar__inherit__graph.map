@@ -1,0 +1,8 @@
+<map id="wmoge::ImguiMenuBar" name="wmoge::ImguiMenuBar">
+<area shape="rect" id="node1" title=" " alt="" coords="78,319,233,345"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="66,229,245,271"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UiMenuBar.html" title=" " alt="" coords="5,155,140,181"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="7,80,138,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="17,5,128,32"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1ImguiElement.html" title=" " alt="" coords="165,155,314,181"/>
+</map>

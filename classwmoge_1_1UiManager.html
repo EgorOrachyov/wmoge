@@ -73,14 +73,17 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Interface for ui sub-system.  
+ <a href="classwmoge_1_1UiManager.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="ui__manager_8hpp_source.html">ui_manager.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for wmoge::UiManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1UiManager__inherit__graph.png" border="0" usemap="#awmoge_1_1UiManager_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1UiManager_inherit__map" id="awmoge_1_1UiManager_inherit__map">
-<area shape="rect" title=" " alt="" coords="15,5,148,32"/>
-<area shape="rect" href="classwmoge_1_1ImguiManager.html" title=" " alt="" coords="5,80,157,107"/>
+<area shape="rect" title="Interface for ui sub&#45;system." alt="" coords="15,5,148,32"/>
+<area shape="rect" href="classwmoge_1_1ImguiManager.html" title="Implementation of ui manager fom imgui backend." alt="" coords="5,80,157,107"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -88,12 +91,18 @@ Inheritance diagram for wmoge::UiManager:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad1ec5cd4a2b8edb6ca6d851d4c121c2a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#ad1ec5cd4a2b8edb6ca6d851d4c121c2a">~UiManager</a> ()=default</td></tr>
 <tr class="separator:ad1ec5cd4a2b8edb6ca6d851d4c121c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ffab910a1575243fa7f481261100afd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a3ffab910a1575243fa7f481261100afd">provide_window</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiMainWindow.html">UiMainWindow</a> &gt; window)=0</td></tr>
+<tr class="separator:a3ffab910a1575243fa7f481261100afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a178316e31f8e5ca95b8267d6abc4061b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a178316e31f8e5ca95b8267d6abc4061b">update</a> ()=0</td></tr>
 <tr class="separator:a178316e31f8e5ca95b8267d6abc4061b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1394f958959703f5e8fa7a5d42d0c7cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a1394f958959703f5e8fa7a5d42d0c7cc">render</a> (const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;cmd_list)=0</td></tr>
 <tr class="separator:a1394f958959703f5e8fa7a5d42d0c7cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c84e1635976d60aa00abaf12bd2f320"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1UiFactory.html">UiFactory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a9c84e1635976d60aa00abaf12bd2f320">get_factory</a> ()=0</td></tr>
+<tr class="separator:a9c84e1635976d60aa00abaf12bd2f320"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Interface for ui sub-system. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad1ec5cd4a2b8edb6ca6d851d4c121c2a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad1ec5cd4a2b8edb6ca6d851d4c121c2a">&#9670;&nbsp;</a></span>~UiManager()</h2>
 
@@ -120,6 +129,61 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9c84e1635976d60aa00abaf12bd2f320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c84e1635976d60aa00abaf12bd2f320">&#9670;&nbsp;</a></span>get_factory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1UiFactory.html">UiFactory</a>* wmoge::UiManager::get_factory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#a6c1d95c411601b975ef2322b868ec858">wmoge::ImguiManager</a>.</p>
+
+</div>
+</div>
+<a id="a3ffab910a1575243fa7f481261100afd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ffab910a1575243fa7f481261100afd">&#9670;&nbsp;</a></span>provide_window()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void wmoge::UiManager::provide_window </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiMainWindow.html">UiMainWindow</a> &gt;&#160;</td>
+          <td class="paramname"><em>window</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#aec32aa15b2bf803096589f654fc00496">wmoge::ImguiManager</a>.</p>
+
+</div>
+</div>
 <a id="a1394f958959703f5e8fa7a5d42d0c7cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1394f958959703f5e8fa7a5d42d0c7cc">&#9670;&nbsp;</a></span>render()</h2>
 

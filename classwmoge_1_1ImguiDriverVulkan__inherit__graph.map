@@ -1,4 +1,4 @@
 <map id="wmoge::ImguiDriverVulkan" name="wmoge::ImguiDriverVulkan">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,181,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ImguiDriver.html" title=" " alt="" coords="25,5,161,32"/>
+<area shape="rect" id="node1" title="Driver implementation for vulkan imgui driver." alt="" coords="5,80,181,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiDriver.html" title="Base class for imgui video drive API integration." alt="" coords="25,5,161,32"/>
 </map>

@@ -1,3 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1RenderScene.html" title="Render Engine side scene representation with cached GPU data." alt="" coords="5,5,153,32"/>
+<area shape="rect" id="node1" href="$structwmoge_1_1RenderParams.html" title="Params passed to draw a particular object." alt="" coords="5,5,161,32"/>
 </map>

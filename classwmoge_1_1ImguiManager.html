@@ -67,11 +67,15 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classwmoge_1_1ImguiManager-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::ImguiManager Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of ui manager fom imgui backend.  
+ <a href="classwmoge_1_1ImguiManager.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="imgui__manager_8hpp_source.html">imgui_manager.hpp</a>&gt;</code></p>
 <div class="dynheader">
@@ -79,8 +83,8 @@ Inheritance diagram for wmoge::ImguiManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1ImguiManager__inherit__graph.png" border="0" usemap="#awmoge_1_1ImguiManager_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1ImguiManager_inherit__map" id="awmoge_1_1ImguiManager_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,80,157,107"/>
-<area shape="rect" href="classwmoge_1_1UiManager.html" title=" " alt="" coords="15,5,148,32"/>
+<area shape="rect" title="Implementation of ui manager fom imgui backend." alt="" coords="5,80,157,107"/>
+<area shape="rect" href="classwmoge_1_1UiManager.html" title="Interface for ui sub&#45;system." alt="" coords="15,5,148,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -88,8 +92,8 @@ Collaboration diagram for wmoge::ImguiManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1ImguiManager__coll__graph.png" border="0" usemap="#awmoge_1_1ImguiManager_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1ImguiManager_coll__map" id="awmoge_1_1ImguiManager_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,157,107"/>
-<area shape="rect" href="classwmoge_1_1UiManager.html" title=" " alt="" coords="15,5,148,32"/>
+<area shape="rect" title="Implementation of ui manager fom imgui backend." alt="" coords="5,80,157,107"/>
+<area shape="rect" href="classwmoge_1_1UiManager.html" title="Interface for ui sub&#45;system." alt="" coords="15,5,148,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -99,15 +103,32 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a013cf1e7a0bc8e2014742a160a869f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98adf615b7e2ec2d3a33fd2315541ea6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#a98adf615b7e2ec2d3a33fd2315541ea6">~ImguiManager</a> () override</td></tr>
 <tr class="separator:a98adf615b7e2ec2d3a33fd2315541ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec32aa15b2bf803096589f654fc00496"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#aec32aa15b2bf803096589f654fc00496">provide_window</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiMainWindow.html">UiMainWindow</a> &gt; window) override</td></tr>
+<tr class="separator:aec32aa15b2bf803096589f654fc00496"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a579065c7938b72e9065926c37bac6545"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#a579065c7938b72e9065926c37bac6545">update</a> () override</td></tr>
 <tr class="separator:a579065c7938b72e9065926c37bac6545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6165919cc3de64058e4ff9699a7a074e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#a6165919cc3de64058e4ff9699a7a074e">render</a> (const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;cmd_list) override</td></tr>
 <tr class="separator:a6165919cc3de64058e4ff9699a7a074e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c1d95c411601b975ef2322b868ec858"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiFactory.html">UiFactory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#a6c1d95c411601b975ef2322b868ec858">get_factory</a> () override</td></tr>
+<tr class="separator:a6c1d95c411601b975ef2322b868ec858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cae46024e56b89aa489aeff58070189"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#a0cae46024e56b89aa489aeff58070189">is_docking_enable</a> () const</td></tr>
+<tr class="separator:a0cae46024e56b89aa489aeff58070189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaf19c46fec49c01a8e10e63b9695021"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#afaf19c46fec49c01a8e10e63b9695021">is_viewports_enable</a> () const</td></tr>
+<tr class="separator:afaf19c46fec49c01a8e10e63b9695021"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1UiManager"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1UiManager')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1UiManager.html">wmoge::UiManager</a></td></tr>
 <tr class="memitem:ad1ec5cd4a2b8edb6ca6d851d4c121c2a inherit pub_methods_classwmoge_1_1UiManager"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#ad1ec5cd4a2b8edb6ca6d851d4c121c2a">~UiManager</a> ()=default</td></tr>
 <tr class="separator:ad1ec5cd4a2b8edb6ca6d851d4c121c2a inherit pub_methods_classwmoge_1_1UiManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:aed7fb8f14a25691eb4d8660e1c5c14d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#aed7fb8f14a25691eb4d8660e1c5c14d9">process_main_window</a> (<a class="el" href="classwmoge_1_1ImguiProcessContext.html">ImguiProcessContext</a> &amp;context)</td></tr>
+<tr class="separator:aed7fb8f14a25691eb4d8660e1c5c14d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a825f0edf03f01836347dea9cce7e2d9d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#a825f0edf03f01836347dea9cce7e2d9d">dispatch_actions</a> (<a class="el" href="classwmoge_1_1ImguiProcessContext.html">ImguiProcessContext</a> &amp;context)</td></tr>
+<tr class="separator:a825f0edf03f01836347dea9cce7e2d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of ui manager fom imgui backend. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a013cf1e7a0bc8e2014742a160a869f86"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a013cf1e7a0bc8e2014742a160a869f86">&#9670;&nbsp;</a></span>ImguiManager()</h2>
 
@@ -162,6 +183,163 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a825f0edf03f01836347dea9cce7e2d9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a825f0edf03f01836347dea9cce7e2d9d">&#9670;&nbsp;</a></span>dispatch_actions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::ImguiManager::dispatch_actions </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1ImguiProcessContext.html">ImguiProcessContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c1d95c411601b975ef2322b868ec858"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c1d95c411601b975ef2322b868ec858">&#9670;&nbsp;</a></span>get_factory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1UiFactory.html">UiFactory</a> * wmoge::ImguiManager::get_factory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classwmoge_1_1UiManager.html#a9c84e1635976d60aa00abaf12bd2f320">wmoge::UiManager</a>.</p>
+
+</div>
+</div>
+<a id="a0cae46024e56b89aa489aeff58070189"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cae46024e56b89aa489aeff58070189">&#9670;&nbsp;</a></span>is_docking_enable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmoge::ImguiManager::is_docking_enable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afaf19c46fec49c01a8e10e63b9695021"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaf19c46fec49c01a8e10e63b9695021">&#9670;&nbsp;</a></span>is_viewports_enable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmoge::ImguiManager::is_viewports_enable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aed7fb8f14a25691eb4d8660e1c5c14d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed7fb8f14a25691eb4d8660e1c5c14d9">&#9670;&nbsp;</a></span>process_main_window()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::ImguiManager::process_main_window </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1ImguiProcessContext.html">ImguiProcessContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aec32aa15b2bf803096589f654fc00496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec32aa15b2bf803096589f654fc00496">&#9670;&nbsp;</a></span>provide_window()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::ImguiManager::provide_window </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiMainWindow.html">UiMainWindow</a> &gt;&#160;</td>
+          <td class="paramname"><em>window</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classwmoge_1_1UiManager.html#a3ffab910a1575243fa7f481261100afd">wmoge::UiManager</a>.</p>
+
+</div>
+</div>
 <a id="a6165919cc3de64058e4ff9699a7a074e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6165919cc3de64058e4ff9699a7a074e">&#9670;&nbsp;</a></span>render()</h2>
 
