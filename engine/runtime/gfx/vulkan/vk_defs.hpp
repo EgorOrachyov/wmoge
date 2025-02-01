@@ -185,6 +185,8 @@ namespace wmoge {
                     return VK_ATTACHMENT_LOAD_OP_LOAD;
                 case GfxRtOp::ClearStore:
                     return VK_ATTACHMENT_LOAD_OP_CLEAR;
+                case GfxRtOp::DiscardStore:
+                    return VK_ATTACHMENT_LOAD_OP_DONT_CARE;
                 default:
                     return VK_ATTACHMENT_LOAD_OP_LOAD;
             }
@@ -195,6 +197,8 @@ namespace wmoge {
                 case GfxRtOp::LoadStore:
                     return VK_ATTACHMENT_STORE_OP_STORE;
                 case GfxRtOp::ClearStore:
+                    return VK_ATTACHMENT_STORE_OP_STORE;
+                case GfxRtOp::DiscardStore:
                     return VK_ATTACHMENT_STORE_OP_STORE;
                 default:
                     return VK_ATTACHMENT_STORE_OP_STORE;

@@ -29,4 +29,11 @@
 
 namespace wmoge {
 
-}
+    /**
+     * @class UiStyle
+     * @brief Storage for parameters for ui elements display
+     */
+    class UiStyle {
+    };
+
+}// namespace wmoge

@@ -144,6 +144,31 @@ public:
         rdg_pool  = std::make_unique<RdgPool>(engine->gfx_driver());
         rdg_graph = std::make_unique<RdgGraph>(rdg_pool.get(), engine->gfx_driver(), engine->shader_manager(), engine->texture_manager());
 
+        auto* ui_factory = engine->ui_manager()->get_factory();
+        auto  menu_bar   = ui_factory->make_menu_bar();
+        {
+            auto menu_file = ui_factory->make_menu("File");
+            {
+                auto g1 = ui_factory->make_menu_group();
+                g1->add_item(ui_factory->make_menu_action("Open Scene", []() {}));
+
+                auto g2 = ui_factory->make_menu_group();
+                g2->add_item(ui_factory->make_menu_action("Open Project", []() {}));
+
+                menu_file->add_group(g1);
+                menu_file->add_group(g2);
+            }
+            menu_bar->add_menu(menu_file);
+
+            auto menu_help = ui_factory->make_menu("Help");
+            {
+            }
+            menu_bar->add_menu(menu_help);
+        }
+
+        auto main_window = ui_factory->make_main_window("main", menu_bar);
+        engine->ui_manager()->provide_window(main_window);
+
         WG_LOG_INFO("init");
         return StatusCode::Ok;
     }

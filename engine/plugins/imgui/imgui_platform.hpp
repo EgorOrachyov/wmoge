@@ -29,6 +29,10 @@
 
 namespace wmoge {
 
+    /**
+     * @class ImguiPlatform
+     * @brief Interface for imgui platform (os and window system) integration
+     */
     class ImguiPlatform {
     public:
         virtual ~ImguiPlatform() = default;

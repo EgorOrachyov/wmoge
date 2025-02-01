@@ -27,28 +27,59 @@
 
 #pragma once
 
-#include "gfx/gfx_driver.hpp"
-#include "gfx/gfx_render_pass.hpp"
-#include "imgui_driver.hpp"
-#include "platform/window.hpp"
+#include "imgui_element.hpp"
+#include "ui/ui_element.hpp"
+#include "ui/ui_elements.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class ImguiDriverVulkan
-     * @brief Driver implementation for vulkan imgui driver
-     */
-    class ImguiDriverVulkan : public ImguiDriver {
+    class ImguiMenuAction : public ImguiElementBase<UiMenuAction> {
     public:
-        ImguiDriverVulkan(const Ref<Window>& window, GfxDriver* driver);
-        ~ImguiDriverVulkan() override;
+        ImguiMenuAction(ImguiManager* manager, std::string name, UiOnClick callback);
 
-        void new_frame() override;
-        void render(const GfxCmdListRef& cmd_list) override;
+        void process(ImguiProcessContext& context) override;
+    };
+
+    class ImguiMenuGroup : public ImguiElementBase<UiMenuGroup> {
+    public:
+        ImguiMenuGroup(ImguiManager* manager);
+
+        void process(ImguiProcessContext& context) override;
+    };
+
+    class ImguiMenu : public ImguiElementBase<UiMenu> {
+    public:
+        ImguiMenu(ImguiManager* manager, std::string name);
+
+        void process(ImguiProcessContext& context) override;
+    };
+
+    class ImguiMenuBar : public ImguiElementBase<UiMenuBar> {
+    public:
+        ImguiMenuBar(ImguiManager* manager);
+
+        void process(ImguiProcessContext& context) override;
+    };
+
+    class ImguiMainWindow : public ImguiElementBase<UiMainWindow> {
+    public:
+        ImguiMainWindow(ImguiManager* manager, std::string name, Ref<UiMenuBar> menu_bar);
+
+        void process(ImguiProcessContext& context) override;
 
     private:
-        GfxRenderPassRef m_render_pass;
-        Ref<Window>      m_window;
+        std::string m_dock_space_name = "main_window_dock_space";
+        bool        m_fullscreen      = true;
+        bool        m_padding         = false;
+        bool        m_open            = true;
+        bool        m_no_background   = true;
+    };
+
+    class ImguiDockWindow : public ImguiElementBase<UiDockWindow> {
+    public:
+        ImguiDockWindow(ImguiManager* manager, std::string name);
+
+        void process(ImguiProcessContext& context) override;
     };
 
 }// namespace wmoge

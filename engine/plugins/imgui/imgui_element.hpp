@@ -27,28 +27,51 @@
 
 #pragma once
 
-#include "gfx/gfx_driver.hpp"
-#include "gfx/gfx_render_pass.hpp"
-#include "imgui_driver.hpp"
-#include "platform/window.hpp"
+#include <functional>
 
 namespace wmoge {
 
-    /**
-     * @class ImguiDriverVulkan
-     * @brief Driver implementation for vulkan imgui driver
-     */
-    class ImguiDriverVulkan : public ImguiDriver {
-    public:
-        ImguiDriverVulkan(const Ref<Window>& window, GfxDriver* driver);
-        ~ImguiDriverVulkan() override;
+    class ImguiManager;
 
-        void new_frame() override;
-        void render(const GfxCmdListRef& cmd_list) override;
+    /**
+     * @class
+     * @brief
+     */
+    class ImguiProcessContext {
+    public:
+        ImguiProcessContext() = default;
+
+        void add_action(std::function<void()> action);
+        void exec_actions();
 
     private:
-        GfxRenderPassRef m_render_pass;
-        Ref<Window>      m_window;
+        std::vector<std::function<void()>> m_actions;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class ImguiElement {
+    public:
+        ImguiElement(ImguiManager* manager);
+        virtual ~ImguiElement() = default;
+
+        virtual void process(ImguiProcessContext& context) {}
+
+    protected:
+        ImguiManager* m_manager;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    template<typename UiBaseClass>
+    class ImguiElementBase : public UiBaseClass, public ImguiElement {
+    public:
+        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
+        ~ImguiElementBase() override = default;
     };
 
 }// namespace wmoge

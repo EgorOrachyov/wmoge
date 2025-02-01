@@ -27,6 +27,17 @@
 
 #pragma once
 
+#include "core/ref.hpp"
+
 namespace wmoge {
 
-}
+    /**
+     * @class UiElement
+     * @brief Base class for all ui elements
+     */
+    class UiElement : public RefCnt {
+    public:
+        virtual ~UiElement() = default;
+    };
+
+}// namespace wmoge

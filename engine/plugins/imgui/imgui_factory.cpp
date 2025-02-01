@@ -25,30 +25,37 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "imgui_factory.hpp"
 
-#include "gfx/gfx_driver.hpp"
-#include "gfx/gfx_render_pass.hpp"
-#include "imgui_driver.hpp"
-#include "platform/window.hpp"
+#include "imgui_elements.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class ImguiDriverVulkan
-     * @brief Driver implementation for vulkan imgui driver
-     */
-    class ImguiDriverVulkan : public ImguiDriver {
-    public:
-        ImguiDriverVulkan(const Ref<Window>& window, GfxDriver* driver);
-        ~ImguiDriverVulkan() override;
+    ImguiFactory::ImguiFactory(ImguiManager* manager) : m_manager(manager) {
+    }
 
-        void new_frame() override;
-        void render(const GfxCmdListRef& cmd_list) override;
+    Ref<UiMenuAction> ImguiFactory::make_menu_action(std::string name, UiOnClick callback) {
+        return make_ref<ImguiMenuAction>(m_manager, std::move(name), std::move(callback));
+    }
 
-    private:
-        GfxRenderPassRef m_render_pass;
-        Ref<Window>      m_window;
-    };
+    Ref<UiMenuGroup> ImguiFactory::make_menu_group() {
+        return make_ref<ImguiMenuGroup>(m_manager);
+    }
+
+    Ref<UiMenu> ImguiFactory::make_menu(std::string name) {
+        return make_ref<ImguiMenu>(m_manager, std::move(name));
+    }
+
+    Ref<UiMenuBar> ImguiFactory::make_menu_bar() {
+        return make_ref<ImguiMenuBar>(m_manager);
+    }
+
+    Ref<UiMainWindow> ImguiFactory::make_main_window(std::string name, Ref<UiMenuBar> menu_bar) {
+        return make_ref<ImguiMainWindow>(m_manager, std::move(name), std::move(menu_bar));
+    }
+
+    Ref<UiDockWindow> ImguiFactory::make_dock_window(std::string name) {
+        return make_ref<ImguiDockWindow>(m_manager, std::move(name));
+    }
 
 }// namespace wmoge

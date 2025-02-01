@@ -28,15 +28,22 @@
 #pragma once
 
 #include "gfx/gfx_cmd_list.hpp"
+#include "ui/ui_factory.hpp"
 
 namespace wmoge {
 
+    /**
+     * @class UiManager
+     * @brief Interface for ui sub-system
+     */
     class UiManager {
     public:
         virtual ~UiManager() = default;
 
-        virtual void update()                              = 0;
-        virtual void render(const GfxCmdListRef& cmd_list) = 0;
+        virtual void       provide_window(Ref<UiMainWindow> window) = 0;
+        virtual void       update()                                 = 0;
+        virtual void       render(const GfxCmdListRef& cmd_list)    = 0;
+        virtual UiFactory* get_factory()                            = 0;
     };
 
 }// namespace wmoge

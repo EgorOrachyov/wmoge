@@ -414,7 +414,8 @@ namespace wmoge {
     /** @brief Option on render target in render pass */
     enum class GfxRtOp : int {
         LoadStore,
-        ClearStore
+        ClearStore,
+        DiscardStore
     };
 
     /** @brief Expected language of shaders */

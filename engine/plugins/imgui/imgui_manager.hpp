@@ -29,6 +29,8 @@
 
 #include "gfx/gfx_driver.hpp"
 #include "imgui_driver.hpp"
+#include "imgui_element.hpp"
+#include "imgui_factory.hpp"
 #include "imgui_platform.hpp"
 #include "platform/window_manager.hpp"
 #include "ui/ui_manager.hpp"
@@ -37,17 +39,35 @@
 
 namespace wmoge {
 
+    /**
+     * @class ImguiManager
+     * @brief Implementation of ui manager fom imgui backend
+     */
     class ImguiManager : public UiManager {
     public:
         ImguiManager(WindowManager* window_manager, GfxDriver* driver);
         ~ImguiManager() override;
 
-        void update() override;
-        void render(const GfxCmdListRef& cmd_list) override;
+        void       provide_window(Ref<UiMainWindow> window) override;
+        void       update() override;
+        void       render(const GfxCmdListRef& cmd_list) override;
+        UiFactory* get_factory() override;
+
+        [[nodiscard]] bool is_docking_enable() const { return m_docking_enable; }
+        [[nodiscard]] bool is_viewports_enable() const { return m_viewports_enable; }
+
+    protected:
+        void process_main_window(ImguiProcessContext& context);
+        void dispatch_actions(ImguiProcessContext& context);
 
     private:
         std::unique_ptr<ImguiPlatform> m_platform;
         std::unique_ptr<ImguiDriver>   m_driver;
+        std::unique_ptr<ImguiFactory>  m_factory;
+        Ref<UiMainWindow>              m_main_window;
+
+        bool m_docking_enable   = true;
+        bool m_viewports_enable = true;
 
         bool m_show_demo_window = true;
     };

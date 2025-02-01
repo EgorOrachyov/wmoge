@@ -25,30 +25,20 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include "gfx/gfx_driver.hpp"
-#include "gfx/gfx_render_pass.hpp"
-#include "imgui_driver.hpp"
-#include "platform/window.hpp"
+#include "ui_elements.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class ImguiDriverVulkan
-     * @brief Driver implementation for vulkan imgui driver
-     */
-    class ImguiDriverVulkan : public ImguiDriver {
-    public:
-        ImguiDriverVulkan(const Ref<Window>& window, GfxDriver* driver);
-        ~ImguiDriverVulkan() override;
+    void UiMenuGroup::add_item(Ref<UiMenuItem> item) {
+        m_items.emplace_back(std::move(item));
+    }
 
-        void new_frame() override;
-        void render(const GfxCmdListRef& cmd_list) override;
+    void UiMenu::add_group(Ref<UiMenuGroup> group) {
+        m_groups.emplace_back(std::move(group));
+    }
 
-    private:
-        GfxRenderPassRef m_render_pass;
-        Ref<Window>      m_window;
-    };
+    void UiMenuBar::add_menu(Ref<UiMenu> menu) {
+        m_menus.emplace_back(std::move(menu));
+    }
 
 }// namespace wmoge

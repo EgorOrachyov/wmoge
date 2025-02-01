@@ -31,6 +31,10 @@
 
 namespace wmoge {
 
+    /**
+     * @class ImguiDriver
+     * @brief Base class for imgui video drive API integration
+     */
     class ImguiDriver {
     public:
         virtual ~ImguiDriver()                             = default;

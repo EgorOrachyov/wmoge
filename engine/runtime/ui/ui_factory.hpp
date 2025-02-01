@@ -27,6 +27,26 @@
 
 #pragma once
 
+#include "ui/ui_element.hpp"
+#include "ui/ui_elements.hpp"
+#include "ui/ui_style.hpp"
+
 namespace wmoge {
 
-}
+    /**
+     * @class UiFactory
+     * @brief Abstract factory for ui elemenets construction
+     */
+    class UiFactory {
+    public:
+        virtual ~UiFactory() = default;
+
+        virtual Ref<UiMenuAction> make_menu_action(std::string name, UiOnClick callback)      = 0;
+        virtual Ref<UiMenuGroup>  make_menu_group()                                           = 0;
+        virtual Ref<UiMenu>       make_menu(std::string name)                                 = 0;
+        virtual Ref<UiMenuBar>    make_menu_bar()                                             = 0;
+        virtual Ref<UiMainWindow> make_main_window(std::string name, Ref<UiMenuBar> menu_bar) = 0;
+        virtual Ref<UiDockWindow> make_dock_window(std::string name)                          = 0;
+    };
+
+}// namespace wmoge

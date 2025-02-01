@@ -33,6 +33,10 @@
 
 namespace wmoge {
 
+    /**
+     * @class ImguiPlatformGlfw
+     * @brief Implementation for GLFW based platform
+     */
     class ImguiPlatformGlfw : public ImguiPlatform {
     public:
         ImguiPlatformGlfw(const Ref<Window>& window, GfxDriver* driver);

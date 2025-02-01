@@ -25,30 +25,22 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include "gfx/gfx_driver.hpp"
-#include "gfx/gfx_render_pass.hpp"
-#include "imgui_driver.hpp"
-#include "platform/window.hpp"
+#include "imgui_element.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class ImguiDriverVulkan
-     * @brief Driver implementation for vulkan imgui driver
-     */
-    class ImguiDriverVulkan : public ImguiDriver {
-    public:
-        ImguiDriverVulkan(const Ref<Window>& window, GfxDriver* driver);
-        ~ImguiDriverVulkan() override;
+    void ImguiProcessContext::add_action(std::function<void()> action) {
+        m_actions.push_back(std::move(action));
+    }
 
-        void new_frame() override;
-        void render(const GfxCmdListRef& cmd_list) override;
+    void ImguiProcessContext::exec_actions() {
+        for (const auto& action : m_actions) {
+            action();
+        }
+    }
 
-    private:
-        GfxRenderPassRef m_render_pass;
-        Ref<Window>      m_window;
-    };
+    ImguiElement::ImguiElement(ImguiManager* manager)
+        : m_manager(manager) {
+    }
 
 }// namespace wmoge
