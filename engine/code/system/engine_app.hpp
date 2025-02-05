@@ -27,51 +27,39 @@
 
 #pragma once
 
-#include <functional>
+#include "system/app.hpp"
+#include "system/engine_signals.hpp"
+#include "system/plugin.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
-
     /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
-
-        void add_action(std::function<void()> action);
-        void exec_actions();
-
-    private:
-        std::vector<std::function<void()>> m_actions;
+     * @class EngineApplicationConfig
+     * @brief Engine runtime config
+    */
+    struct EngineApplicationConfig {
+        ApplicationConfig*     app_config;
+        EngineSignals*         signals;
+        std::vector<PluginPtr> plugins;
     };
 
     /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
+     * @class EngineApplication
+     * @brief Base class for application based on engine runtime
+    */
+    class EngineApplication : public Application {
     public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
+        EngineApplication(EngineApplicationConfig& config);
 
-        virtual void process(ImguiProcessContext& context) {}
+        Status on_register() override;
+        Status on_init() override;
+        Status on_iteration() override;
+        Status on_shutdown() override;
+        bool   should_close() override;
 
     protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
+        EngineApplicationConfig& m_engine_config;
+        class Engine*            m_engine = nullptr;
     };
 
 }// namespace wmoge

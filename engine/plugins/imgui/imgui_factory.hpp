@@ -39,12 +39,19 @@ namespace wmoge {
     public:
         ImguiFactory(class ImguiManager* manager);
 
-        Ref<UiMenuAction> make_menu_action(std::string name, UiOnClick callback) override;
-        Ref<UiMenuGroup>  make_menu_group() override;
-        Ref<UiMenu>       make_menu(std::string name) override;
-        Ref<UiMenuBar>    make_menu_bar() override;
-        Ref<UiMainWindow> make_main_window(std::string name, Ref<UiMenuBar> menu_bar) override;
-        Ref<UiDockWindow> make_dock_window(std::string name) override;
+        Ref<UiLayoutVertical>   make_layout_vertical() override;
+        Ref<UiLayoutHorizontal> make_layout_horizontal() override;
+        Ref<UiMenuAction>       make_menu_action() override;
+        Ref<UiMenuGroup>        make_menu_group() override;
+        Ref<UiMenu>             make_menu() override;
+        Ref<UiMenuBar>          make_menu_bar() override;
+        Ref<UiMainWindow>       make_main_window() override;
+        Ref<UiDockWindow>       make_dock_window() override;
+        Ref<UiText>             make_text() override;
+        Ref<UiTextInput>        make_text_input() override;
+        Ref<UiTextInputPopup>   make_text_input_popup() override;
+        Ref<UiScrollArea>       make_scroll_area() override;
+        Ref<UiSelectable>       make_selectable() override;
 
     private:
         class ImguiManager* m_manager = nullptr;

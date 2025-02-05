@@ -27,51 +27,24 @@
 
 #pragma once
 
-#include <functional>
+#include "gfx/gfx_cmd_list.hpp"
+#include "ui/ui_factory.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
-
     /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
+     * @class UiManager
+     * @brief Interface for ui sub-system
      */
-    class ImguiProcessContext {
+    class UiManager {
     public:
-        ImguiProcessContext() = default;
+        virtual ~UiManager() = default;
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
-
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
-
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
+        virtual void       provide_window(Ref<UiMainWindow> window) = 0;
+        virtual void       add_window(Ref<UiDockWindow> window)     = 0;
+        virtual void       update()                                 = 0;
+        virtual void       render(const GfxCmdListRef& cmd_list)    = 0;
+        virtual UiFactory* get_factory()                            = 0;
     };
 
 }// namespace wmoge

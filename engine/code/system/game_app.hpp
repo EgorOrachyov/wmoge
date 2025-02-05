@@ -27,51 +27,31 @@
 
 #pragma once
 
-#include <functional>
+#include "system/engine_app.hpp"
+#include "system/game_plugin.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
-
     /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
-
-        void add_action(std::function<void()> action);
-        void exec_actions();
-
-    private:
-        std::vector<std::function<void()>> m_actions;
+     * @class GameApplicationConfig
+     * @brief Game app config
+    */
+    struct GameApplicationConfig {
+        EngineApplicationConfig* app_config;
+        GamePluginPtr            game_plugin;
+        std::string              game_info;
     };
 
     /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
+     * @class GameApplication
+     * @brief Base class for application to run stand-alone game
+    */
+    class GameApplication : public EngineApplication {
     public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
+        GameApplication(GameApplicationConfig& config);
 
     protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
+        GameApplicationConfig& m_game_config;
     };
 
 }// namespace wmoge

@@ -38,6 +38,7 @@ namespace wmoge {
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
 
+        io.FontGlobalScale = 2.0f;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;// Enable Keyboard Controls
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable Gamepad Controls
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;    // Enable Docking
@@ -69,6 +70,10 @@ namespace wmoge {
         m_main_window = std::move(window);
     }
 
+    void ImguiManager::add_window(Ref<UiDockWindow> window) {
+        m_dock_windows.push_back(std::move(window));
+    }
+
     void ImguiManager::update() {
         WG_PROFILE_CPU_UI("ImguiManager::update");
 
@@ -79,6 +84,7 @@ namespace wmoge {
         if (m_main_window) {
             ImguiProcessContext context;
             process_main_window(context);
+            process_dock_windows(context);
             dispatch_actions(context);
         }
         if (m_show_demo_window) {
@@ -107,6 +113,15 @@ namespace wmoge {
 
         ImguiElement* imgui_main_window = dynamic_cast<ImguiElement*>(m_main_window.get());
         imgui_main_window->process(context);
+    }
+
+    void ImguiManager::process_dock_windows(ImguiProcessContext& context) {
+        WG_PROFILE_CPU_UI("ImguiManager::process_dock_windows");
+
+        for (auto& window : m_dock_windows) {
+            ImguiElement* imgui_main_window = dynamic_cast<ImguiElement*>(window.get());
+            imgui_main_window->process(context);
+        }
     }
 
     void ImguiManager::dispatch_actions(ImguiProcessContext& context) {

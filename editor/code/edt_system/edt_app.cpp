@@ -25,53 +25,53 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "edt_app.hpp"
 
-#include <functional>
+#include "core/ioc_container.hpp"
+#include "edt_system/edt_editor.hpp"
+#include "system/engine_signals.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
+    static void bind_globals(IocContainer* ioc) {
+        ioc->bind_by_ioc<EdtEditor>();
+    }
 
-    /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
+    static void unbind_globals(IocContainer* ioc) {
+    }
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
+    static void bind_rtti(IocContainer* ioc) {
+    }
 
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
+    EdtApplication::EdtApplication(EdtApplicationConfig& config)
+        : EngineApplication(*config.app_config),
+          m_edt_config(config) {
 
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
+        if (config.game_plugin) {
+            config.app_config->plugins.push_back(config.game_plugin);
+        }
+        for (auto& plugin : config.plugins) {
+            config.app_config->plugins.push_back(plugin);
+        }
 
-        virtual void process(ImguiProcessContext& context) {}
+        EngineSignals* signals = m_engine_config.signals;
 
-    protected:
-        ImguiManager* m_manager;
-    };
+        signals->setup.bind([this]() {
+            bind_globals(m_config.ioc);
+            bind_rtti(m_config.ioc);
 
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
-    };
+            m_editor = m_config.ioc->resolve_value<EdtEditor>();
+            m_editor->setup();
+        });
+
+        signals->init.bind([this]() {
+            m_editor->init();
+        });
+
+        signals->shutdown.bind([this]() {
+            m_editor->shutdown();
+            unbind_globals(m_config.ioc);
+        });
+    }
 
 }// namespace wmoge

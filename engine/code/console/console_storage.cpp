@@ -25,53 +25,8 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include <functional>
+#include "console_storage.hpp"
 
 namespace wmoge {
-
-    class ImguiManager;
-
-    /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
-
-        void add_action(std::function<void()> action);
-        void exec_actions();
-
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
-
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
-    };
 
 }// namespace wmoge

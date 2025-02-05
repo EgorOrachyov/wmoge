@@ -27,51 +27,50 @@
 
 #pragma once
 
-#include <functional>
+#include "core/ref.hpp"
+#include "core/string_id.hpp"
+#include "grc/image.hpp"
+#include "math/vec.hpp"
+
+#include <optional>
+#include <string>
 
 namespace wmoge {
 
-    class ImguiManager;
-
     /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
+     * @class WindowInfo
+     * @brief Struct holding window creation info
      */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
-
-        void add_action(std::function<void()> action);
-        void exec_actions();
-
-    private:
-        std::vector<std::function<void()>> m_actions;
+    struct WindowInfo {
+        int                 width  = 1280;
+        int                 height = 720;
+        Strid               id     = SID("primary");
+        std::string         title  = "Window";
+        std::optional<bool> maximized;
+        std::optional<bool> iconified;
+        std::optional<bool> decoration;
+        Ref<Image>          icons[2];
     };
 
     /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
+     * @class Window
+     * @brief Interface for OS-specific window for displaying graphics
      */
-    class ImguiElement {
+    class Window : public RefCnt {
     public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
+        ~Window() override                            = default;
+        virtual void               close()            = 0;
+        virtual int                width() const      = 0;
+        virtual int                height() const     = 0;
+        virtual Size2i             size() const       = 0;
+        virtual int                fbo_width() const  = 0;
+        virtual int                fbo_height() const = 0;
+        virtual Size2i             fbo_size() const   = 0;
+        virtual float              scale_x() const    = 0;
+        virtual float              scale_y() const    = 0;
+        virtual bool               in_focus() const   = 0;
+        virtual const Strid&       id() const         = 0;
+        virtual const std::string& title() const      = 0;
     };
 
 }// namespace wmoge

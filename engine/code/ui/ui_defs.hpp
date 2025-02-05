@@ -27,51 +27,68 @@
 
 #pragma once
 
+#include "core/mask.hpp"
+
 #include <functional>
+#include <string>
 
 namespace wmoge {
 
-    class ImguiManager;
-
-    /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
-
-        void add_action(std::function<void()> action);
-        void exec_actions();
-
-    private:
-        std::vector<std::function<void()>> m_actions;
+    enum class UiWindowFlag {
+        NoBringToFrontOnFocus,
+        NoPadding,
+        NoBackground,
+        NoTitleBar,
+        NoCollapse,
+        NoScrollbar
     };
 
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
+    using UiWindowFlags = Mask<UiWindowFlag>;
 
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
+    enum class UiTextInputFlag {
+        CallbackAlways,
+        EnterForSubmit,
+        EscapeToClear,
+        CompletionTab,
+        HistoryScroll
     };
 
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
+    using UiTextInputFlags = Mask<UiTextInputFlag>;
+
+    enum class UiTextInputEventType {
+        None,
+        Always,
+        Completion,
+        History,
+        Enter
+    };
+
+    enum class UiTextInputScrollDir {
+        None,
+        Up,
+        Down
+    };
+
+    struct UiTextInputEvent {
+        UiTextInputEventType type = UiTextInputEventType::None;
+        UiTextInputScrollDir dir  = UiTextInputScrollDir::None;
+        std::string          text;
+    };
+
+    /** @brief */
+    using UiOnTextInput = std::function<void(const UiTextInputEvent&)>;
+
+    /** @brief */
+    using UiOnClick = std::function<void()>;
+
+    enum class UiScrollAreaType {
+        Horizontal,
+        Vertical,
+        Mixed
+    };
+
+    struct UiHintWidth {
+        std::optional<float> scale;
     };
 
 }// namespace wmoge

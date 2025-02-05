@@ -27,51 +27,60 @@
 
 #pragma once
 
+#include "core/string_id.hpp"
+#include "core/var.hpp"
+
 #include <functional>
+#include <string>
+#include <vector>
 
 namespace wmoge {
 
-    class ImguiManager;
+    enum class ConsoleObjType {
+        Var,    // Console variable holding single value
+        Cmd,    // Console command which can execute custom code with arguments
+        Trigger,// Console trigger which can be triggered once in frame
+        Slider, // Console slider for range of value with step movement
+        Selector// Console selector to chose from pre-defined set of value
+    };
 
-    /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
+    class ConsoleObj {
     public:
-        ImguiProcessContext() = default;
-
-        void add_action(std::function<void()> action);
-        void exec_actions();
-
     private:
-        std::vector<std::function<void()>> m_actions;
+        std::string m_name;
+        std::string m_help;
+        std::string m_id;
     };
 
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
+    class ConsoleVar {
     public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
+    private:
+        Var m_value;
     };
 
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
+    class ConsoleCmd {
     public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
+    private:
+    };
+
+    class ConsoleTrigger {
+    public:
+    private:
+    };
+
+    class ConsoleSlider {
+    public:
+    private:
+        Var m_min;
+        Var m_max;
+        Var m_step;
+        Var m_value;
+    };
+
+    class ConsoleSelector {
+    public:
+    private:
+        std::vector<Var> m_variants;
     };
 
 }// namespace wmoge

@@ -27,51 +27,31 @@
 
 #pragma once
 
-#include <functional>
+#include "system/plugin.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
-
     /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
+     * @class GamePlugin
+     * @brief Base class for a custom user game
      */
-    class ImguiProcessContext {
+    class GamePlugin : public Plugin {
     public:
-        ImguiProcessContext() = default;
+        Status on_register(IocContainer* ioc);
+        Status on_init();
+        Status on_shutdown();
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
-
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
-
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
+        virtual void on_pre_update() {}
+        virtual void on_update() {}
+        virtual void on_post_update() {}
+        virtual void on_render() {}
+        virtual void on_debug_draw() {}
 
     protected:
-        ImguiManager* m_manager;
+        IocContainer* m_ioc    = nullptr;
+        class Engine* m_engine = nullptr;
     };
 
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
-    };
+    using GamePluginPtr = std::shared_ptr<GamePlugin>;
 
 }// namespace wmoge

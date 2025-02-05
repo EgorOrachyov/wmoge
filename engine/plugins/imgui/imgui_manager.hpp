@@ -49,6 +49,7 @@ namespace wmoge {
         ~ImguiManager() override;
 
         void       provide_window(Ref<UiMainWindow> window) override;
+        void       add_window(Ref<UiDockWindow> window) override;
         void       update() override;
         void       render(const GfxCmdListRef& cmd_list) override;
         UiFactory* get_factory() override;
@@ -58,12 +59,14 @@ namespace wmoge {
 
     protected:
         void process_main_window(ImguiProcessContext& context);
+        void process_dock_windows(ImguiProcessContext& context);
         void dispatch_actions(ImguiProcessContext& context);
 
     private:
         std::unique_ptr<ImguiPlatform> m_platform;
         std::unique_ptr<ImguiDriver>   m_driver;
         std::unique_ptr<ImguiFactory>  m_factory;
+        std::vector<Ref<UiDockWindow>> m_dock_windows;
         Ref<UiMainWindow>              m_main_window;
 
         bool m_docking_enable   = true;

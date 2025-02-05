@@ -27,51 +27,26 @@
 
 #pragma once
 
-#include <functional>
+#include "core/signal.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
-
     /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
+     * @class EngineSignals
+     * @brief Signals called during engine execution
      */
-    class ImguiProcessContext {
+    class EngineSignals {
     public:
-        ImguiProcessContext() = default;
-
-        void add_action(std::function<void()> action);
-        void exec_actions();
-
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
-
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
+        Signal<> setup;
+        Signal<> init;
+        Signal<> shutdown;
+        Signal<> begin_frame;
+        Signal<> pre_update;
+        Signal<> update;
+        Signal<> post_update;
+        Signal<> render;
+        Signal<> debug_draw;
+        Signal<> end_frame;
     };
 
 }// namespace wmoge

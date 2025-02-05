@@ -25,53 +25,89 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "app.hpp"
 
-#include <functional>
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
+    Application::Application(ApplicationConfig& config) : m_config(config) {
+    }
 
-    /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
+    int Application::run() {
+        IocContainer* ioc = m_config.ioc;
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
+        ioc->bind_by_pointer<Application>(this);
 
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
+        if (!on_register()) {
+            return 1;
+        }
 
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
+        CmdLineOptions*  cmd_line_options = m_config.cmd_line->options;
+        CmdLineHookList* cmd_line_hooks   = m_config.cmd_line->hooks;
 
-        virtual void process(ImguiProcessContext& context) {}
+        cmd_line_options->add_bool("h,help", "display help message", "false");
 
-    protected:
-        ImguiManager* m_manager;
-    };
+        auto cmd_parse_result = cmd_line_options->parse(m_config.cmd_line->args);
+        if (!cmd_parse_result) {
+            return 1;
+        }
 
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
-    };
+        if (cmd_parse_result->get_bool("help")) {
+            std::cout << cmd_line_options->get_help();
+            return 0;
+        }
+
+        const Status status = cmd_line_hooks->process(*cmd_parse_result);
+
+        if (status.code() == StatusCode::ExitCode0) {
+            std::cout << "exit code 0" << std::endl;
+            return true;
+        }
+        if (status.code() == StatusCode::ExitCode1) {
+            std::cerr << "exit code 1" << std::endl;
+            return 1;
+        }
+        if (status.code() != StatusCode::Ok) {
+            std::cerr << "error " << status << std::endl;
+            return 2;
+        }
+
+        ApplicationSignals* signals = m_config.signals;
+
+        signals->before_init.emit();
+        {
+            WG_PROFILE_CPU_PLATFORM("Application::initialize");
+
+            if (!on_init()) {
+                return 1;
+            }
+        }
+        signals->after_init.emit();
+
+        signals->before_loop.emit();
+        {
+            while (!should_close()) {
+                WG_PROFILE_CPU_PLATFORM("Application::iteration");
+
+                if (!on_iteration()) {
+                    return 1;
+                }
+            }
+        }
+        signals->after_loop.emit();
+
+        signals->before_shutdown.emit();
+        {
+            WG_PROFILE_CPU_PLATFORM("Application::shutdown");
+
+            if (!on_shutdown()) {
+                return 1;
+            }
+        }
+        signals->after_shutdown.emit();
+
+        return 0;
+    }
 
 }// namespace wmoge

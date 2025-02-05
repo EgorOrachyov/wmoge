@@ -97,7 +97,7 @@ endfunction(wmoge_plugin name sources)
 # Game executable (with optional executable icon)
 function(wmoge_game name)
     set(flags)
-    set(args ICON)
+    set(args ICON_GAME ICON_EDITOR)
     set(listArgs INCLUDES SOURCES DEPENDENCIES)
     cmake_parse_arguments(arg "${flags}" "${args}" "${listArgs}" ${ARGN})
 
@@ -111,10 +111,20 @@ function(wmoge_game name)
         message(FATAL_ERROR "[wmoge_game(${name})]: DEPENDENCIES is a required argument")
     endif()
 
-    add_executable(${name} ${arg_SOURCES} ${arg_ICON})
-    target_link_libraries(${name} PRIVATE ${arg_DEPENDENCIES})
-    target_include_directories(${name} PRIVATE ${arg_INCLUDES})
-    message(STATUS "Configure game executable '${name}' type APPLICATION")
+    set(EXE_GAME "game")
+    set(EXE_EDITOR "editor")
+
+    add_executable(${EXE_GAME} ${arg_SOURCES} ${arg_ICON_GAME})
+    target_link_libraries(${EXE_GAME} PRIVATE wmoge ${arg_DEPENDENCIES})
+    target_include_directories(${EXE_GAME} PRIVATE ${arg_INCLUDES})
+    target_compile_definitions(${EXE_GAME} PRIVATE WMOGE_BUILD_TYPE_GAME)
+    message(STATUS "Configure ${name} game exe '${EXE_GAME}' type APPLICATION")
+
+    add_executable(${EXE_EDITOR} ${arg_SOURCES} ${arg_ICON_EDITOR})
+    target_link_libraries(${EXE_EDITOR} PRIVATE wmoge_editor ${arg_DEPENDENCIES})
+    target_include_directories(${EXE_EDITOR} PRIVATE ${arg_INCLUDES})
+    target_compile_definitions(${EXE_EDITOR} PRIVATE WMOGE_BUILD_TYPE_EDITOR)
+    message(STATUS "Configure ${name} game editor exe '${EXE_EDITOR}' type APPLICATION")
 endfunction()
 
 ###########################################################
@@ -126,6 +136,11 @@ add_subdirectory(deps)
 # Engine sources (will be as static library)
 
 add_subdirectory(engine)
+
+###########################################################
+# Editor sources (will be as static library)
+
+add_subdirectory(editor)
 
 ###########################################################
 # Game template for test purposes and to kick-off new projects

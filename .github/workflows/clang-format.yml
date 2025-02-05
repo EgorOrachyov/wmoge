@@ -5,8 +5,10 @@ on:
     branches: [ main ]
     paths:
       - '.github/**'
-      - 'engine/runtime/**'
+      - 'engine/code/**'
       - 'engine/plugins/**'
+      - 'editor/code/**'
+      - 'editor/plugins/**'
       - '.clang-format'
   pull_request:
     branches: [ main ]
@@ -19,8 +21,10 @@ jobs:
       fail-fast: false
       matrix:
         path:
-          - 'engine/runtime'
+          - 'engine/code'
           - 'engine/plugins'
+          - 'editor/code'
+          - 'editor/plugins'
     steps:
       - uses: actions/checkout@v2
       - name: Run clang-format style check

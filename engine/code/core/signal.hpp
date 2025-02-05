@@ -27,51 +27,79 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
+#include "core/simple_id.hpp"
+#include "core/status.hpp"
+
+#include <algorithm>
 #include <functional>
+#include <utility>
+#include <vector>
 
 namespace wmoge {
 
-    class ImguiManager;
+    /** @brief Signal bind id */
+    using SignalBindId = SimpleId<>;
 
     /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
+     * @class Signal
+     * @brief Allows to immediately notify listeners when something occurse on singnal holder side
+    */
+    template<typename... TArgs>
+    class Signal {
     public:
-        ImguiProcessContext() = default;
+        using Callback = std::function<void(TArgs... args)>;
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
+        Signal()                  = default;
+        Signal(const Signal&)     = delete;
+        Signal(Signal&&) noexcept = delete;
+
+        void         emit(TArgs&&... args);
+        SignalBindId bind(Callback&& callback);
+        bool         unbind(SignalBindId id);
+        void         clear();
 
     private:
-        std::vector<std::function<void()>> m_actions;
+        struct Client {
+            Callback     callback;
+            SignalBindId id;
+        };
+
+        buffered_vector<Client, 2> m_callbacks;
+        SignalBindId               m_next_id{0};
     };
 
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
+    template<typename... TArgs>
+    inline void Signal<TArgs...>::emit(TArgs&&... args) {
+        for (const auto& client : m_callbacks) {
+            client.callback(std::forward<TArgs>(args)...);
+        }
+    }
 
-        virtual void process(ImguiProcessContext& context) {}
+    template<typename... TArgs>
+    inline SignalBindId Signal<TArgs...>::bind(Callback&& callback) {
+        Client& client  = m_callbacks.emplace_back();
+        client.callback = std::move(callback);
+        client.id       = m_next_id;
+        ++m_next_id;
+        return client.id;
+    }
 
-    protected:
-        ImguiManager* m_manager;
-    };
+    template<typename... TArgs>
+    inline bool Signal<TArgs...>::unbind(SignalBindId id) {
+        auto target = std::find_if(m_callbacks.begin(), m_callbacks.end(), [&](const Client& c) {
+            return c.id == id;
+        });
+        if (target != m_callbacks.end()) {
+            m_callbacks.erase(target);
+            return true;
+        }
+        return false;
+    }
 
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
-    };
+    template<typename... TArgs>
+    inline void Signal<TArgs...>::clear() {
+        m_callbacks.clear();
+    }
 
 }// namespace wmoge

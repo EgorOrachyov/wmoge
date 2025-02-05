@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/**'
       - 'engine/**'
+      - 'editor/**'
       - 'Doxyfile'
       - 'README.md'
 

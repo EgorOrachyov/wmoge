@@ -27,51 +27,34 @@
 
 #pragma once
 
-#include <functional>
+#include "edt_system/edt_plugin.hpp"
+#include "system/app.hpp"
+#include "system/engine_app.hpp"
+#include "system/game_plugin.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
-
     /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
-
-        void add_action(std::function<void()> action);
-        void exec_actions();
-
-    private:
-        std::vector<std::function<void()>> m_actions;
+     * @class EngineApplication
+     * @brief Base class for application to run stand-alone game
+    */
+    struct EdtApplicationConfig {
+        EngineApplicationConfig*  app_config;
+        GamePluginPtr             game_plugin;
+        std::vector<EdtPluginPtr> plugins;
     };
 
     /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
+     * @class EngineApplication
+     * @brief Base class for application to run stand-alone game
+    */
+    class EdtApplication : public EngineApplication {
     public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
+        EdtApplication(EdtApplicationConfig& config);
 
     protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
+        EdtApplicationConfig& m_edt_config;
+        class EdtEditor*      m_editor = nullptr;
     };
 
 }// namespace wmoge

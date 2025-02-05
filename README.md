@@ -82,6 +82,7 @@ project for educational purposes only.
 * [freetype](https://github.com/freetype/freetype) for true-type fonts loading and rendering.
 * [glfw](https://github.com/glfw/glfw) for cross-platform window and input management.
 * [glslang](https://github.com/KhronosGroup/glslang) for runtime glsl to spir-v shaders compilation.
+* [imgui](https://github.com/ocornut/imgui) for ui rendering backed for editor
 * [lua](https://github.com/walterschell/Lua) project C source with cmake script for scripting.
 * [lua bridge](https://github.com/vinniefalco/LuaBridge) to simplify lua and C++ bindings.
 * [lz4](https://github.com/lz4/lz4) for fast compression and decompression at runtime.

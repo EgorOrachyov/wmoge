@@ -33,52 +33,85 @@
 
 namespace wmoge {
 
+    class ImguiLayoutVertical : public ImguiElementBase<UiLayoutVertical> {
+    public:
+        using ImguiElementBase<UiLayoutVertical>::ImguiElementBase;
+        void process(ImguiProcessContext& context) override;
+    };
+
+    class ImguiLayoutHorizontal : public ImguiElementBase<UiLayoutHorizontal> {
+    public:
+        using ImguiElementBase<UiLayoutHorizontal>::ImguiElementBase;
+        void process(ImguiProcessContext& context) override;
+    };
+
     class ImguiMenuAction : public ImguiElementBase<UiMenuAction> {
     public:
-        ImguiMenuAction(ImguiManager* manager, std::string name, UiOnClick callback);
-
+        using ImguiElementBase<UiMenuAction>::ImguiElementBase;
         void process(ImguiProcessContext& context) override;
     };
 
     class ImguiMenuGroup : public ImguiElementBase<UiMenuGroup> {
     public:
-        ImguiMenuGroup(ImguiManager* manager);
-
+        using ImguiElementBase<UiMenuGroup>::ImguiElementBase;
         void process(ImguiProcessContext& context) override;
     };
 
     class ImguiMenu : public ImguiElementBase<UiMenu> {
     public:
-        ImguiMenu(ImguiManager* manager, std::string name);
-
+        using ImguiElementBase<UiMenu>::ImguiElementBase;
         void process(ImguiProcessContext& context) override;
     };
 
     class ImguiMenuBar : public ImguiElementBase<UiMenuBar> {
     public:
-        ImguiMenuBar(ImguiManager* manager);
-
+        using ImguiElementBase<UiMenuBar>::ImguiElementBase;
         void process(ImguiProcessContext& context) override;
     };
 
     class ImguiMainWindow : public ImguiElementBase<UiMainWindow> {
     public:
-        ImguiMainWindow(ImguiManager* manager, std::string name, Ref<UiMenuBar> menu_bar);
-
+        using ImguiElementBase<UiMainWindow>::ImguiElementBase;
         void process(ImguiProcessContext& context) override;
 
     private:
         std::string m_dock_space_name = "main_window_dock_space";
         bool        m_fullscreen      = true;
-        bool        m_padding         = false;
-        bool        m_open            = true;
-        bool        m_no_background   = true;
     };
 
     class ImguiDockWindow : public ImguiElementBase<UiDockWindow> {
     public:
-        ImguiDockWindow(ImguiManager* manager, std::string name);
+        using ImguiElementBase<UiDockWindow>::ImguiElementBase;
+        void process(ImguiProcessContext& context) override;
+    };
 
+    class ImguiText : public ImguiElementBase<UiText> {
+    public:
+        using ImguiElementBase<UiText>::ImguiElementBase;
+        void process(ImguiProcessContext& context) override;
+    };
+
+    class ImguiTextInput : public ImguiElementBase<UiTextInput> {
+    public:
+        using ImguiElementBase<UiTextInput>::ImguiElementBase;
+        void process(ImguiProcessContext& context) override;
+    };
+
+    class ImguiTextInputPopup : public ImguiElementBase<UiTextInputPopup> {
+    public:
+        using ImguiElementBase<UiTextInputPopup>::ImguiElementBase;
+        void process(ImguiProcessContext& context) override;
+    };
+
+    class ImguiScrollArea : public ImguiElementBase<UiScrollArea> {
+    public:
+        using ImguiElementBase<UiScrollArea>::ImguiElementBase;
+        void process(ImguiProcessContext& context) override;
+    };
+
+    class ImguiSelectable : public ImguiElementBase<UiSelectable> {
+    public:
+        using ImguiElementBase<UiSelectable>::ImguiElementBase;
         void process(ImguiProcessContext& context) override;
     };
 

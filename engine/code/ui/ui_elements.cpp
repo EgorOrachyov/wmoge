@@ -25,53 +25,24 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include <functional>
+#include "ui_elements.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
+    void UiArea::add_element(Ref<UiSubElement> element) {
+        m_elements.emplace_back(std::move(element));
+    }
 
-    /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
+    void UiMenuGroup::add_item(Ref<UiMenuItem> item) {
+        m_items.emplace_back(std::move(item));
+    }
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
+    void UiMenu::add_group(Ref<UiMenuGroup> group) {
+        m_groups.emplace_back(std::move(group));
+    }
 
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
-
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
-    };
+    void UiMenuBar::add_menu(Ref<UiMenu> menu) {
+        m_menus.emplace_back(std::move(menu));
+    }
 
 }// namespace wmoge

@@ -25,53 +25,29 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "edt_editor.hpp"
 
-#include <functional>
+#include "core/ioc_container.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
+    EdtEditor::EdtEditor(IocContainer* ioc_container) {
+        m_ioc_container = ioc_container;
+    }
 
-    /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
+    Status EdtEditor::setup() {
+        m_engine = m_ioc_container->resolve_value<Engine>();
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
+        return WG_OK;
+    }
 
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
+    Status EdtEditor::init() {
+        return WG_OK;
+    }
 
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
-    };
+    Status EdtEditor::shutdown() {
+        return WG_OK;
+    }
 
 }// namespace wmoge

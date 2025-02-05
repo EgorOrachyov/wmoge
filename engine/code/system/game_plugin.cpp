@@ -25,53 +25,44 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "game_plugin.hpp"
 
-#include <functional>
+#include "system/engine.hpp"
+#include "system/engine_signals.hpp"
 
 namespace wmoge {
 
-    class ImguiManager;
+    Status GamePlugin::on_register(IocContainer* ioc) {
+        m_ioc    = ioc;
+        m_engine = m_ioc->resolve_value<Engine>();
 
-    /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
+        EngineSignals* engine_signals = m_ioc->resolve_value<EngineSignals>();
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
+        engine_signals->pre_update.bind([this]() {
+            on_pre_update();
+        });
+        engine_signals->update.bind([this]() {
+            on_update();
+        });
+        engine_signals->post_update.bind([this]() {
+            on_post_update();
+        });
+        engine_signals->render.bind([this]() {
+            on_render();
+        });
+        engine_signals->debug_draw.bind([this]() {
+            on_debug_draw();
+        });
 
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
+        return WG_OK;
+    }
 
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
+    Status GamePlugin::on_init() {
+        return WG_OK;
+    }
 
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
-    };
+    Status GamePlugin::on_shutdown() {
+        return WG_OK;
+    }
 
 }// namespace wmoge

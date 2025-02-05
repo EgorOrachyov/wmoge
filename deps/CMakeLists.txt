@@ -1,5 +1,5 @@
 # Fast hash map
-add_subdirectory(robin_hood)
+add_subdirectory(robinhood)
 
 # Fast vector with SVO optimization
 add_subdirectory(svector)
@@ -17,7 +17,7 @@ add_subdirectory(base64)
 add_subdirectory(sha256)
 
 # Static enum reflection
-add_subdirectory(magic_enum)
+add_subdirectory(magicenum)
 
 # For fast MT sync primitives
 add_subdirectory(yamc)
@@ -117,7 +117,7 @@ add_subdirectory(lua)
 add_subdirectory(luabridge)
 
 # Audio file small library for WAV loading
-add_subdirectory(audio_file)
+add_subdirectory(audiofile)
 
 # OpenAL software implementation for low-level audion rendering
 set(ALSOFT_EXAMPLES OFF CACHE BOOL "" FORCE)
@@ -129,7 +129,7 @@ set(ALSOFT_INSTALL_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(ALSOFT_INSTALL_UTILS OFF CACHE BOOL "" FORCE)
 set(ALSOFT_UPDATE_BUILD_VERSION OFF CACHE BOOL "" FORCE)
 set(LIBTYPE "STATIC" CACHE STRING "" FORCE)
-add_subdirectory(openal_soft)
+add_subdirectory(openalsoft)
 
 # ImGui for ui backend
 add_subdirectory(imgui)

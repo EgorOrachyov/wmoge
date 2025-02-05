@@ -27,51 +27,38 @@
 
 #pragma once
 
-#include <functional>
+#include "core/status.hpp"
+
+#include <atomic>
+#include <ctime>
+#include <filesystem>
+#include <memory>
+#include <vector>
 
 namespace wmoge {
 
-    class ImguiManager;
-
     /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
+     * @class EdtEditor
+     * @brief Global editor state giving access for other systems
+     *
+     * Editor provides a single point for accessing for essential editor
+     * runtime systems, allows to custom signal handles, query managers,
+     * add plugins and customize editor behaviour.
      */
-    class ImguiProcessContext {
+    class EdtEditor {
     public:
-        ImguiProcessContext() = default;
+        EdtEditor(class IocContainer* ioc_container);
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
+        Status setup();
+        Status init();
+        Status shutdown();
+
+        void request_close();
+        bool close_requested() const;
 
     private:
-        std::vector<std::function<void()>> m_actions;
-    };
-
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
+        class Engine*       m_engine        = nullptr;
+        class IocContainer* m_ioc_container = nullptr;
     };
 
 }// namespace wmoge

@@ -27,51 +27,46 @@
 
 #pragma once
 
-#include <functional>
+#include "core/ref.hpp"
+#include "ui/ui_defs.hpp"
+
+#include <string>
 
 namespace wmoge {
 
-    class ImguiManager;
-
     /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
+     * @class UiElement
+     * @brief Base class for all ui elements
      */
-    class ImguiProcessContext {
+    class UiElement : public RefCnt {
     public:
-        ImguiProcessContext() = default;
+        virtual ~UiElement() = default;
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
+        void set_name(std::string name) { m_name = std::move(name); }
+        void set_enabled(bool enabled) { m_enabled = enabled; }
 
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
-
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
+        [[nodiscard]] const std::string& get_name() const { return m_name; }
+        [[nodiscard]] bool               get_enabled() const { return m_enabled; }
 
     protected:
-        ImguiManager* m_manager;
+        std::string m_name;
+        bool        m_enabled = true;
     };
 
     /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
+     * @class UiSubElement
+     * @brief Base class for all ui sub-elements which could be nested
      */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
+    class UiSubElement : public UiElement {
     public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
+        ~UiSubElement() override = default;
+
+        void set_hint_width(UiHintWidth hint) { m_hint_width = hint; }
+
+        [[nodiscard]] const UiHintWidth& get_hint_width() const { return m_hint_width; }
+
+    protected:
+        UiHintWidth m_hint_width;
     };
 
 }// namespace wmoge
