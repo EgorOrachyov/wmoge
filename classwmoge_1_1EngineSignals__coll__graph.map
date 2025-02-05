@@ -1,4 +1,0 @@
-<map id="wmoge::EngineSignals" name="wmoge::EngineSignals">
-<area shape="rect" id="node1" title="Signals called during engine execution." alt="" coords="11,124,163,151"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Signal.html" title="Allows to immediately notify listeners when something occurse on singnal holder side." alt="" coords="5,5,168,32"/>
-</map>

@@ -1,8 +1,0 @@
-<map id="engine/runtime/platform/glfw/glfw_window_manager.hpp" name="engine/runtime/platform/glfw/glfw_window_manager.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="371,5,582,47"/>
-<area shape="rect" id="node2" href="$glfw__input_8cpp.html" title=" " alt="" coords="5,95,164,136"/>
-<area shape="rect" id="node3" href="$glfw__window_8cpp.html" title=" " alt="" coords="188,95,347,136"/>
-<area shape="rect" id="node4" href="$glfw__window__manager_8cpp.html" title=" " alt="" coords="371,95,582,136"/>
-<area shape="rect" id="node5" href="$engine_8cpp.html" title=" " alt="" coords="605,95,759,136"/>
-<area shape="rect" id="node6" href="$engine__app_8cpp.html" title=" " alt="" coords="783,95,936,136"/>
-</map>

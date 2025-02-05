@@ -1,6 +1,0 @@
-<map id="wmoge::PipelineState" name="wmoge::PipelineState">
-<area shape="rect" id="node1" title="Rendering settings provided in a pass." alt="" coords="161,95,307,121"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1BlendState.html" title="Pipeline blend state overrides." alt="" coords="5,5,140,32"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1RasterState.html" title="Pipeline raster state overrides." alt="" coords="165,5,303,32"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1DepthStencilState.html" title="Pipeline depth stencil state overrides." alt="" coords="328,5,503,32"/>
-</map>

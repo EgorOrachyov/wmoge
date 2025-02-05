@@ -1,0 +1,6 @@
+<map id="wmoge::ImguiText" name="wmoge::ImguiText">
+<area shape="rect" id="node1" title=" " alt="" coords="36,169,163,196"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="10,80,189,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,5,65,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1ImguiElement.html" title="Base class for all imgui backend ui elements." alt="" coords="90,5,239,32"/>
+</map>

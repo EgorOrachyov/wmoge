@@ -1,11 +1,8 @@
 <map id="wmoge::ImguiMenu" name="wmoge::ImguiMenu">
-<area shape="rect" id="node1" title=" " alt="" coords="97,413,231,440"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="75,323,253,364"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UiMenu.html" title=" " alt="" coords="29,247,144,273"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1UiMenuItem.html" title=" " alt="" coords="5,157,147,184"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="11,81,141,108"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="21,5,131,32"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1ImguiElement.html" title=" " alt="" coords="169,247,319,273"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1ImguiManager.html" title="Implementation of ui manager fom imgui backend." alt="" coords="171,157,323,184"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1UiManager.html" title="Interface for ui sub&#45;system." alt="" coords="180,81,313,108"/>
+<area shape="rect" id="node1" title=" " alt="" coords="27,337,162,364"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="5,247,184,288"/>
+<area shape="rect" id="node3" title=" " alt="" coords="20,171,87,197"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1ImguiElement.html" title="Base class for all imgui backend ui elements." alt="" coords="111,171,260,197"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1ImguiManager.html" title="Implementation of ui manager fom imgui backend." alt="" coords="109,81,261,108"/>
+<area shape="rect" id="node6" title=" " alt="" coords="143,5,228,32"/>
 </map>

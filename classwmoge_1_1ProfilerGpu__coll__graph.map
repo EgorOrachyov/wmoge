@@ -1,4 +1,0 @@
-<map id="wmoge::ProfilerGpu" name="wmoge::ProfilerGpu">
-<area shape="rect" id="node1" title="Collects gpu profiling time events from gfx command lists." alt="" coords="35,109,169,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Signal.html" title=" " alt="" coords="5,5,199,47"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="wmoge::ConsoleVar" name="wmoge::ConsoleVar">
-<area shape="rect" id="node1" title="An external variable which can be registered and modified through console." alt="" coords="14,80,151,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ConsoleObject.html" title="Base class for any console object." alt="" coords="5,5,160,32"/>
-</map>

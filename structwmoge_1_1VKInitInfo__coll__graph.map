@@ -1,5 +1,0 @@
-<map id="wmoge::VKInitInfo" name="wmoge::VKInitInfo">
-<area shape="rect" id="node1" title="Info used to init vk driver." alt="" coords="100,109,228,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1IocContainer.html" title="Inversion of control container for simpler dependency injection of global engine managers." alt="" coords="178,13,321,39"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="wmoge::RttiFunctionSignal" name="wmoge::RttiFunctionSignal">
-<area shape="rect" id="node1" title="Function callable with signal interface." alt="" coords="150,349,326,376"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RttiFunction.html" title="Represents type of something callable with function signature." alt="" coords="168,273,308,300"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RttiType.html" title="Base class for any rtti system type for a reflection." alt="" coords="147,95,265,121"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1RttiParamInfo.html" title="Info of a callable function param." alt="" coords="163,184,313,211"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="332,5,429,32"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1RttiMetaData.html" title="Meta data associated with a type or its internal member." alt="" coords="141,5,287,32"/>
-</map>

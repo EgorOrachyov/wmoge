@@ -1,0 +1,8 @@
+<map id="wmoge::ImguiLayoutVertical" name="wmoge::ImguiLayoutVertical">
+<area shape="rect" id="node1" title=" " alt="" coords="19,337,204,364"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="22,247,201,288"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,171,124,197"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1ImguiElement.html" title="Base class for all imgui backend ui elements." alt="" coords="147,171,297,197"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1ImguiManager.html" title="Implementation of ui manager fom imgui backend." alt="" coords="146,81,298,108"/>
+<area shape="rect" id="node6" title=" " alt="" coords="179,5,265,32"/>
+</map>

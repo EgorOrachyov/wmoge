@@ -1,8 +1,0 @@
-<map id="wmoge::ShaderFilePass" name="wmoge::ShaderFilePass">
-<area shape="rect" id="node1" title="Single technique pass." alt="" coords="39,184,202,211"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="39,95,136,121"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1PipelineState.html" title="Rendering settings provided in a pass." alt="" coords="161,95,307,121"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1BlendState.html" title="Pipeline blend state overrides." alt="" coords="5,5,140,32"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1RasterState.html" title="Pipeline raster state overrides." alt="" coords="165,5,303,32"/>
-<area shape="rect" id="node6" href="$structwmoge_1_1DepthStencilState.html" title="Pipeline depth stencil state overrides." alt="" coords="328,5,503,32"/>
-</map>

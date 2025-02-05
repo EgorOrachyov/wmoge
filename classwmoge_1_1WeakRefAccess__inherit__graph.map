@@ -1,4 +1,0 @@
-<map id="wmoge::WeakRefAccess" name="wmoge::WeakRefAccess">
-<area shape="rect" id="node1" title="Manages access to a shared object to access in a weak pointer." alt="" coords="5,80,172,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="33,5,144,32"/>
-</map>

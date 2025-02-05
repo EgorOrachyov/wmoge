@@ -1,6 +1,0 @@
-<map id="wmoge::AuxDrawMeshFaces" name="wmoge::AuxDrawMeshFaces">
-<area shape="rect" id="node1" title="Stores info to draw set of triangles." alt="" coords="94,199,285,225"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1AuxDrawPrimitive.html" title="Base class for an aux primitive to store and draw." alt="" coords="5,102,179,129"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="13,5,171,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1TMatMxN.html" title=" " alt="" coords="203,95,370,136"/>
-</map>

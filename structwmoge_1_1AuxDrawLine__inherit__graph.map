@@ -1,4 +1,0 @@
-<map id="wmoge::AuxDrawLine" name="wmoge::AuxDrawLine">
-<area shape="rect" id="node1" title="Stores info to draw line." alt="" coords="19,80,165,107"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1AuxDrawPrimitive.html" title="Base class for an aux primitive to store and draw." alt="" coords="5,5,179,32"/>
-</map>

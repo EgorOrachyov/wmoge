@@ -1,4 +1,0 @@
-<map id="wmoge::GfxDriver" name="wmoge::GfxDriver">
-<area shape="rect" id="node1" title="Gfx driver interface." alt="" coords="5,5,129,32"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1VKDriver.html" title="Vulkan gfx driver implementation." alt="" coords="6,80,129,107"/>
-</map>

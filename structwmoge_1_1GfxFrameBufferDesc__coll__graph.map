@@ -1,6 +1,0 @@
-<map id="wmoge::GfxFrameBufferDesc" name="wmoge::GfxFrameBufferDesc">
-<area shape="rect" id="node1" title="Frame buffer desc for creation and caching." alt="" coords="54,213,245,240"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,109,155,151"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1GfxTargetInfo.html" title="Info to bind texture as a render target." alt="" coords="179,117,328,143"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="179,5,328,47"/>
-</map>

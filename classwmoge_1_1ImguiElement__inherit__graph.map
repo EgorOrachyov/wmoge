@@ -1,5 +1,5 @@
 <map id="wmoge::ImguiElement" name="wmoge::ImguiElement">
-<area shape="rect" id="node1" title=" " alt="" coords="5,209,155,235"/>
+<area shape="rect" id="node1" title="Base class for all imgui backend ui elements." alt="" coords="5,438,155,465"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,5,381,47"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,71,381,112"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,136,381,177"/>
@@ -7,10 +7,24 @@
 <area shape="rect" id="node10" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,267,381,308"/>
 <area shape="rect" id="node12" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,332,381,373"/>
 <area shape="rect" id="node14" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,397,381,439"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1ImguiMenu.html" title=" " alt="" coords="451,13,586,39"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1ImguiMenuGroup.html" title=" " alt="" coords="434,78,603,105"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1ImguiMenuBar.html" title=" " alt="" coords="441,143,596,170"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1ImguiDockWindow.html" title=" " alt="" coords="429,209,608,235"/>
-<area shape="rect" id="node11" href="$classwmoge_1_1ImguiMainWindow.html" title=" " alt="" coords="431,274,607,301"/>
-<area shape="rect" id="node13" href="$classwmoge_1_1ImguiMenuAction.html" title=" " alt="" coords="433,339,604,366"/>
+<area shape="rect" id="node16" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,463,381,504"/>
+<area shape="rect" id="node18" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,528,381,569"/>
+<area shape="rect" id="node20" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,593,381,635"/>
+<area shape="rect" id="node22" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,659,381,700"/>
+<area shape="rect" id="node24" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,724,381,765"/>
+<area shape="rect" id="node26" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="203,789,381,831"/>
+<area shape="rect" id="node28" href="$classwmoge_1_1ImguiElementBase.html" title="Helper class to implement ui element." alt="" coords="203,855,381,896"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1ImguiMenu.html" title=" " alt="" coords="461,13,596,39"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1ImguiLayoutVertical.html" title=" " alt="" coords="436,78,621,105"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1ImguiLayoutHorizontal.html" title=" " alt="" coords="429,143,628,170"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1ImguiMenuGroup.html" title=" " alt="" coords="444,209,613,235"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1ImguiTextInputPopup.html" title=" " alt="" coords="432,274,625,301"/>
+<area shape="rect" id="node13" href="$classwmoge_1_1ImguiMenuBar.html" title=" " alt="" coords="451,339,606,366"/>
+<area shape="rect" id="node15" href="$classwmoge_1_1ImguiDockWindow.html" title=" " alt="" coords="439,405,618,431"/>
+<area shape="rect" id="node17" href="$classwmoge_1_1ImguiScrollArea.html" title=" " alt="" coords="447,470,610,497"/>
+<area shape="rect" id="node19" href="$classwmoge_1_1ImguiText.html" title=" " alt="" coords="465,535,592,562"/>
+<area shape="rect" id="node21" href="$classwmoge_1_1ImguiTextInput.html" title=" " alt="" coords="451,601,607,627"/>
+<area shape="rect" id="node23" href="$classwmoge_1_1ImguiMainWindow.html" title=" " alt="" coords="441,666,617,693"/>
+<area shape="rect" id="node25" href="$classwmoge_1_1ImguiMenuAction.html" title=" " alt="" coords="443,731,614,758"/>
+<area shape="rect" id="node27" href="$classwmoge_1_1ImguiSelectable.html" title=" " alt="" coords="447,797,610,823"/>
 </map>

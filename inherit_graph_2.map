@@ -1,3 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classEventFileSystem.html" title="Action event dispatch from raw input and active mapping." alt="" coords="5,5,125,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,107,125,133"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssimpMeshImportData.html" title="Options to import mesh asset from external asset format." alt="" coords="173,5,384,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1FreetypeImportData.html" title="Data to import freetype font." alt="" coords="187,56,371,83"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1ImageImportData.html" title="Options to import an image from an external format, such as png, jpeg, bmp, etc." alt="" coords="193,107,364,133"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1TextureImportData.html" title="Base class for import data to import textures for GPU rendering." alt="" coords="190,157,367,184"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1WavImportData.html" title="Options to import an audio file from .wav files format." alt="" coords="199,208,359,235"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Texture2dImportData.html" title="Options to import 2d&#45;texture from a source file." alt="" coords="440,132,631,159"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1TextureCubeImportData.html" title="Options to import a cube&#45;map texture from source files." alt="" coords="432,183,639,209"/>
 </map>

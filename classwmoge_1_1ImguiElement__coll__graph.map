@@ -1,5 +1,5 @@
 <map id="wmoge::ImguiElement" name="wmoge::ImguiElement">
-<area shape="rect" id="node1" title=" " alt="" coords="7,171,156,197"/>
+<area shape="rect" id="node1" title="Base class for all imgui backend ui elements." alt="" coords="7,171,156,197"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1ImguiManager.html" title="Implementation of ui manager fom imgui backend." alt="" coords="5,81,157,108"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UiManager.html" title="Interface for ui sub&#45;system." alt="" coords="15,5,148,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="39,5,124,32"/>
 </map>

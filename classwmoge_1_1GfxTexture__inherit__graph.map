@@ -1,7 +1,0 @@
-<map id="wmoge::GfxTexture" name="wmoge::GfxTexture">
-<area shape="rect" id="node1" title="Gfx device texture resource." alt="" coords="14,155,147,181"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="5,229,156,271"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="8,80,153,107"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1VKTexture.html" title="Vulkan gfx texture implementation for resources and render targets." alt="" coords="15,319,146,345"/>
-</map>

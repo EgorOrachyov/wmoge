@@ -1,6 +1,0 @@
-<map id="wmoge::ShaderCanvas::ParamBlockDefault" name="wmoge::ShaderCanvas::ParamBlockDefault">
-<area shape="rect" id="node1" title=" " alt="" coords="10,229,165,271"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RdgParamBlock.html" title="Rdg param block resource." alt="" coords="5,155,169,181"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RdgResource.html" title="Rdg resource base class." alt="" coords="13,80,161,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="32,5,143,32"/>
-</map>

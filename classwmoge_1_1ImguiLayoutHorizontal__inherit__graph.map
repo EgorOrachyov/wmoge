@@ -1,0 +1,6 @@
+<map id="wmoge::ImguiLayoutHorizontal" name="wmoge::ImguiLayoutHorizontal">
+<area shape="rect" id="node1" title=" " alt="" coords="55,169,253,196"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="65,80,243,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,5,137,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1ImguiElement.html" title="Base class for all imgui backend ui elements." alt="" coords="162,5,311,32"/>
+</map>

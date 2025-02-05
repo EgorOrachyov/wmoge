@@ -1,6 +1,0 @@
-<map id="wmoge::EntitySimpleFeature&lt; T &gt;" name="wmoge::EntitySimpleFeature&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,229,221,256"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1EntityFeature.html" title="Describes single aspect/feature of a particular ecs entity." alt="" coords="40,155,187,181"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="49,80,177,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="58,5,169,32"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="wmoge::File" name="wmoge::File">
-<area shape="rect" id="node1" title="Interface for platform or virtual file type." alt="" coords="223,80,314,107"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1FileMemReader.html" title="File interface implementation for reading from memory buffer." alt="" coords="5,155,167,181"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1FileMemWriter.html" title="File interface implementation for writing into dynamic memory buffer." alt="" coords="191,155,346,181"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1FilePhysical.html" title="Wrapper for a fstream for physical file reading/writing." alt="" coords="371,155,511,181"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="213,5,324,32"/>
-</map>

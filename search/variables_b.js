@@ -1,21 +1,7 @@
 var searchData=
 [
-  ['lang_8473',['lang',['../structwmoge_1_1ShaderSourceFile.html#a69af8ff8be2622322b386f39c9f63ae3',1,'wmoge::ShaderSourceFile::lang()'],['../structwmoge_1_1ShaderFileSource.html#a4cccd849388cb13355a6c9e954ea07a0',1,'wmoge::ShaderFileSource::lang()']]],
-  ['language_8474',['language',['../structwmoge_1_1ShaderCompilerInput.html#a8bf3c13d35bbee1bfe0f019c5fc70596',1,'wmoge::ShaderCompilerInput']]],
-  ['languages_8475',['languages',['../structwmoge_1_1ShaderReflection.html#a0e28063f3c61f87ad2530d018a397dc5',1,'wmoge::ShaderReflection']]],
-  ['layout_8476',['layout',['../structwmoge_1_1GfxPsoStateGraphics.html#a858aaa5402b97d21927420d106901045',1,'wmoge::GfxPsoStateGraphics::layout()'],['../structwmoge_1_1GfxPsoStateCompute.html#a26fb9071a6a814bc515239efd965288c',1,'wmoge::GfxPsoStateCompute::layout()'],['../structwmoge_1_1FilePsoStateGraphics.html#a036990b793e65af95aa8abf2ec187d3c',1,'wmoge::FilePsoStateGraphics::layout()'],['../structwmoge_1_1FilePsoStateCompute.html#a5c224e48c195153fa0a60cf996d90ebc',1,'wmoge::FilePsoStateCompute::layout()']]],
-  ['layouts_8477',['layouts',['../structwmoge_1_1FilePsoLayout.html#a09cd5450038f652577bf1c3da71e53f7',1,'wmoge::FilePsoLayout']]],
-  ['level_8478',['level',['../structwmoge_1_1LogEntry.html#aee39037781cbdb5c5aa665d9048954ba',1,'wmoge::LogEntry']]],
-  ['lifetime_8479',['lifetime',['../structwmoge_1_1PfxSpawnParams.html#a61a1ae4c823c9472efabecb3e6cba358',1,'wmoge::PfxSpawnParams::lifetime()'],['../structwmoge_1_1AuxDrawPrimitive.html#a91b7a5f672641327950d0d5f57ba17d2',1,'wmoge::AuxDrawPrimitive::lifetime()']]],
-  ['light_8480',['light',['../structwmoge_1_1GmLightComponent.html#aefb0862f6499c59cfd359657a4de8830',1,'wmoge::GmLightComponent']]],
-  ['limit_5fbone_5fweights_8481',['limit_bone_weights',['../structwmoge_1_1AssimpProcess.html#a8abff2d3d424518944190b7c4f68fec5',1,'wmoge::AssimpProcess']]],
-  ['line_8482',['line',['../structwmoge_1_1LogEntry.html#a0eaa387d5a55684ae1ae8f45af83192a',1,'wmoge::LogEntry::line()'],['../structwmoge_1_1ProfilerCpuMark.html#a7d6bd368c0cdd86a66c18273c66c61cb',1,'wmoge::ProfilerCpuMark::line()'],['../structwmoge_1_1ProfilerGpuMark.html#a3e30afb056fcf4f65cde0df69d349a01',1,'wmoge::ProfilerGpuMark::line()'],['../structwmoge_1_1ApplicationCmdLine.html#a03bb7135e1c17852c41f2ee8c4a5b2f1',1,'wmoge::ApplicationCmdLine::line()']]],
-  ['lines_8483',['lines',['../structwmoge_1_1ArrayMeshData.html#a1cf44795a6dab6b55c294680f7468b3a',1,'wmoge::ArrayMeshData']]],
-  ['loader_8484',['loader',['../structwmoge_1_1AssetMeta.html#a7a4682c3e52ec35af6c7978bc1bd7c54',1,'wmoge::AssetMeta']]],
-  ['lod_8485',['lod',['../structwmoge_1_1ModelDesc.html#afcf83a1beae1cff570a775def46857dd',1,'wmoge::ModelDesc']]],
-  ['lod_5fsettings_8486',['lod_settings',['../structwmoge_1_1ModelDesc.html#a21736d649d2f6bd95c9bf15fc414a200',1,'wmoge::ModelDesc']]],
-  ['lod_5fvalue_8487',['lod_value',['../structwmoge_1_1RenderParams.html#a550a1450fdd32698e361ab93dbd43127',1,'wmoge::RenderParams']]],
-  ['log_8488',['log',['../classwmoge_1_1EngineConfig.html#a570d1a794646a7b128d7491fb38b7c70',1,'wmoge::EngineConfig']]],
-  ['lum_5fhistogram_8489',['lum_histogram',['../structwmoge_1_1GraphicsPipelineAssets.html#a14a7e4c1937fa31fc21dd4128a3c8df6',1,'wmoge::GraphicsPipelineAssets']]],
-  ['lum_5fluminance_8490',['lum_luminance',['../structwmoge_1_1GraphicsPipelineAssets.html#a707fe9ef2f56b3b3fd22a78a76d22316',1,'wmoge::GraphicsPipelineAssets']]]
+  ['sampling_441',['sampling',['../classwmoge_1_1TextureImportData.html#acd36c953c5821233fe0c11811bb652a4',1,'wmoge::TextureImportData']]],
+  ['sort_5fby_5fptype_442',['sort_by_ptype',['../structwmoge_1_1AssimpProcess.html#ae43102bf178395d7e1d27d6d37d98ead',1,'wmoge::AssimpProcess']]],
+  ['srgb_443',['srgb',['../classwmoge_1_1TextureImportData.html#ac071a0b7e3712c70e6f29fc0f20f5479',1,'wmoge::TextureImportData']]],
+  ['swizz_444',['swizz',['../classwmoge_1_1TextureImportData.html#aa7d16a3c24da3cabe7cae6f412af8ff0',1,'wmoge::TextureImportData']]]
 ];

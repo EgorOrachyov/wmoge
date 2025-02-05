@@ -1,6 +1,0 @@
-<map id="wmoge::IoYamlTree" name="wmoge::IoYamlTree">
-<area shape="rect" id="node1" title="Yaml tree implementation for serialization and de&#45;serialization." alt="" coords="113,171,250,197"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1IoTree.html" title="Structured property serialization and de&#45;serialization tree." alt="" coords="128,95,235,121"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="5,5,192,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="217,5,314,32"/>
-</map>

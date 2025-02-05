@@ -1,5 +1,0 @@
-<map id="wmoge::Plugin" name="wmoge::Plugin">
-<area shape="rect" id="node1" title="Base class for any engine plug&#45;in." alt="" coords="65,95,171,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="5,5,108,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="132,5,229,32"/>
-</map>

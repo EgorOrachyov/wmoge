@@ -1,6 +1,0 @@
-<map id="wmoge::EntitySetupContext" name="wmoge::EntitySetupContext">
-<area shape="rect" id="node1" title="Context passed to trait on entity setup." alt="" coords="29,171,209,197"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1EcsWorld.html" title="Container which manages created entities and components." alt="" coords="5,81,131,108"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Scene.html" title="Scene objects container representing running game state." alt="" coords="155,81,261,108"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="153,5,263,32"/>
-</map>

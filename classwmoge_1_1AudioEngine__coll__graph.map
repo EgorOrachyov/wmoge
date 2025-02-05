@@ -1,5 +1,0 @@
-<map id="wmoge::AudioEngine" name="wmoge::AudioEngine">
-<area shape="rect" id="node1" title="Audio engine interface." alt="" coords="95,139,237,165"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1AudioDriverCaps.html" title="Optional capabilities and specs info about audio engine driver." alt="" coords="5,5,172,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="196,5,293,32"/>
-</map>
