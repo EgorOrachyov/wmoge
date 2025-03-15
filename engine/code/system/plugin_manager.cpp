@@ -34,16 +34,8 @@ namespace wmoge {
 
     void PluginManager::setup(IocContainer* ioc) {
         for (auto& plugin : m_plugins) {
-            for (auto& dep : plugin->get_requirements()) {
-                if (m_plugins_loaded.find(dep) == m_plugins_loaded.end()) {
-                    WG_LOG_ERROR("plugin name=" << plugin->get_name() << " dep=" << dep << " not loaded");
-                }
-            }
-
             plugin->on_register(ioc);
-            m_plugins_loaded.insert(plugin->get_name());
         }
-
         WG_LOG_INFO("register plugins");
     }
 
@@ -51,7 +43,6 @@ namespace wmoge {
         for (auto& plugin : m_plugins) {
             plugin->on_init();
         }
-
         WG_LOG_INFO("init plugins");
     }
 
@@ -59,12 +50,10 @@ namespace wmoge {
         for (auto& plugin : m_plugins) {
             plugin->on_shutdown();
         }
-
         WG_LOG_INFO("shutdown plugins");
     }
 
     void PluginManager::add(PluginPtr plugin) {
-        m_plugins_id[plugin->get_name()] = int(m_plugins.size());
         m_plugins.push_back(std::move(plugin));
     }
 

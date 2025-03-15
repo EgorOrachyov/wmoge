@@ -164,7 +164,7 @@ namespace wmoge {
             return 0;
         });
 
-        task_fill_requests.schedule(m_task_manager, Async::join(array_view(deps))).add_on_completion([=](AsyncStatus status, std::optional<int>&) {
+        task_fill_requests.schedule(m_task_manager, Async::join(array_view(load_state->deps))).add_on_completion([=](AsyncStatus status, std::optional<int>&) {
             if (status == AsyncStatus::Failed) {
                 load_state->async_op->set_failed();
             }

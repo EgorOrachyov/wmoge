@@ -5,13 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "template-editor (run)",
+            "name": "editor (run)",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build-Debug/template/code/editor.exe",
             "args": [
                 "--root_remap=${workspaceRoot}/template",
-                "--engine_remap=../engine/"
+                "--engine_remap=../engine/",
+                "--editor_remap=../editor/"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}/build-Debug/template",
@@ -19,7 +20,7 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "template-debug (run)",
+            "name": "game-debug (run)",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build-Debug/template/code/game.exe",
@@ -33,7 +34,7 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "template-release (run)",
+            "name": "game-release (run)",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build-Release/template/code/game.exe",
@@ -47,7 +48,7 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "template-debug (help)",
+            "name": "game-debug (help)",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build-Debug/template/code/game.exe",

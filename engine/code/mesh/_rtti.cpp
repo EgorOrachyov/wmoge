@@ -27,13 +27,13 @@
 
 #pragma once
 
-#include "mesh/array_mesh.hpp"
 #include "mesh/mesh.hpp"
+#include "mesh/mesh_array.hpp"
 
 namespace wmoge {
 
     void rtti_mesh() {
-        rtti_type<ArrayMesh>();
+        rtti_type<MeshArray>();
         rtti_type<Mesh>();
     }
 

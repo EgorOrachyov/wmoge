@@ -81,6 +81,8 @@ namespace wmoge {
         [[nodiscard]] const Ref<GfxTexture>& get_texture_gfx(DefaultTexture texture);
         [[nodiscard]] const Ref<GfxSampler>& get_sampler(DefaultSampler sampler);
 
+        [[nodiscard]] GfxDriver* get_gfx_driver() const { return m_gfx_driver; }
+
     private:
         void init_default_samplers();
         void init_default_textures();

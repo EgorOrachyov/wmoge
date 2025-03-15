@@ -55,11 +55,19 @@ namespace wmoge {
         assert(preset != TexSizePreset::None);
         const Vec2i size = preset_to_size(preset);
 
+        if (image.get_width() == size[0] && image.get_height() == size[1]) {
+            return WG_OK;
+        }
+
         return image.resize(size.x(), size.y());
     }
 
     Vec2i TexResize::preset_to_size(TexSizePreset preset) {
         switch (preset) {
+            case TexSizePreset::Size32x32:
+                return Vec2i(32, 32);
+            case TexSizePreset::Size64x64:
+                return Vec2i(64, 64);
             case TexSizePreset::Size128x128:
                 return Vec2i(128, 128);
             case TexSizePreset::Size256x256:
@@ -73,6 +81,7 @@ namespace wmoge {
             case TexSizePreset::Size4096x4096:
                 return Vec2i(4096, 4096);
             default:
+                WG_LOG_ERROR("unsupported resize preset " << Enum::to_str(preset));
                 return Vec2i(0, 0);
         }
     }
@@ -82,7 +91,7 @@ namespace wmoge {
             return TexSizePreset::None;
         }
 
-        TexSizePreset preset = TexSizePreset::Size128x128;
+        TexSizePreset preset = TexSizePreset::Size32x32;
         Vec2i         size   = preset_to_size(preset);
 
         while (size.x() < width && size.y() < height && preset != TexSizePreset::Size4096x4096) {

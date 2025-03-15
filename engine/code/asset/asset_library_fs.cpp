@@ -73,11 +73,11 @@ namespace wmoge {
         return WG_OK;
     }
 
-    static std::string make_asset_data_path(const std::string& directory, const AssetId& name) {
-        return directory + name.str();
+    static std::string make_asset_data_path(const std::string& directory, const std::string& name) {
+        return directory + name;
     }
 
-    Status AssetLibraryFileSystem::find_asset_data_meta(const Strid& name, AssetDataMeta& meta) {
+    Status AssetLibraryFileSystem::find_asset_data_meta(const std::string& name, AssetDataMeta& meta) {
         WG_PROFILE_CPU_ASSET("AssetLibraryFileSystem::find_asset_data_meta");
 
         WG_CHECKED(m_file_system->get_file_size(make_asset_data_path(m_directory, name), meta.size));
@@ -88,7 +88,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Async AssetLibraryFileSystem::read_data(const Strid& name, array_view<std::uint8_t> data) {
+    Async AssetLibraryFileSystem::read_data(const std::string& name, array_view<std::uint8_t> data) {
         WG_PROFILE_CPU_ASSET("AssetLibraryFileSystem::read_data");
         return m_async_file_system->read_file(make_asset_data_path(m_directory, name), data).as_async();
     }

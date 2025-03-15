@@ -78,6 +78,7 @@
 #include "rtti/_rtti.hpp"
 #include "scene/_rtti.hpp"
 #include "system/_rtti.hpp"
+#include "ui/_rtti.hpp"
 
 namespace wmoge {
 
@@ -196,6 +197,7 @@ namespace wmoge {
         rtti_scene();
         rtti_game();
         rtti_system();
+        rtti_ui();
     }
 
     EngineApplication::EngineApplication(EngineApplicationConfig& config) : Application(*config.app_config), m_engine_config(config) {

@@ -34,6 +34,37 @@
 
 namespace wmoge {
 
+    enum class UiCursorType {
+        Arrow = 0,
+        TextInput,
+        ResizeAll,
+        ResizeNS,
+        ResizeEW,
+        ResizeNESW,
+        ResizeNWSE,
+        Hand,
+        NotAllowed
+    };
+
+    enum class UiDir {
+        None  = 0,
+        Left  = 1,
+        Right = 2,
+        Up    = 3,
+        Down  = 4
+    };
+
+    enum class UiOrientation {
+        Horizontal,
+        Vertical
+    };
+
+    enum class UiScroll {
+        Horizontal,
+        Vertical,
+        Mixed
+    };
+
     enum class UiWindowFlag {
         NoBringToFrontOnFocus,
         NoPadding,
@@ -54,41 +85,5 @@ namespace wmoge {
     };
 
     using UiTextInputFlags = Mask<UiTextInputFlag>;
-
-    enum class UiTextInputEventType {
-        None,
-        Always,
-        Completion,
-        History,
-        Enter
-    };
-
-    enum class UiTextInputScrollDir {
-        None,
-        Up,
-        Down
-    };
-
-    struct UiTextInputEvent {
-        UiTextInputEventType type = UiTextInputEventType::None;
-        UiTextInputScrollDir dir  = UiTextInputScrollDir::None;
-        std::string          text;
-    };
-
-    /** @brief */
-    using UiOnTextInput = std::function<void(const UiTextInputEvent&)>;
-
-    /** @brief */
-    using UiOnClick = std::function<void()>;
-
-    enum class UiScrollAreaType {
-        Horizontal,
-        Vertical,
-        Mixed
-    };
-
-    struct UiHintWidth {
-        std::optional<float> scale;
-    };
 
 }// namespace wmoge

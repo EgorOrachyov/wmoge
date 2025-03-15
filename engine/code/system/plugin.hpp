@@ -29,12 +29,9 @@
 
 #include "core/ioc_container.hpp"
 #include "core/status.hpp"
-#include "core/string_id.hpp"
-#include "core/string_utils.hpp"
-#include "core/uuid.hpp"
 
+#include <functional>
 #include <memory>
-#include <vector>
 
 namespace wmoge {
 
@@ -49,19 +46,21 @@ namespace wmoge {
         virtual Status on_register(IocContainer* ioc) { return WG_OK; }
         virtual Status on_init() { return WG_OK; }
         virtual Status on_shutdown() { return WG_OK; }
-
-        [[nodiscard]] const UUID&               get_uuid() { return m_uuid; }
-        [[nodiscard]] const Strid&              get_name() { return m_name; }
-        [[nodiscard]] const std::string&        get_description() { return m_description; }
-        [[nodiscard]] const std::vector<Strid>& get_requirements() { return m_requirements; }
-
-    protected:
-        UUID               m_uuid;
-        Strid              m_name;
-        std::string        m_description;
-        std::vector<Strid> m_requirements;
     };
 
     using PluginPtr = std::shared_ptr<Plugin>;
 
+    using PluginFactory = std::function<PluginPtr()>;
+
 }// namespace wmoge
+
+#define WG_PLUGIN_FACTORY(plugin_class) \
+    plugin_class##Factory()
+
+#define WG_PLUGIN_ID(plugin_class) \
+    SID(#plugin_class)
+
+#define WG_PLUGIN_DECL(plugin_class)                              \
+    inline PluginFactory plugin_class##Factory() {                \
+        return []() { return std::make_shared<plugin_class>(); }; \
+    }

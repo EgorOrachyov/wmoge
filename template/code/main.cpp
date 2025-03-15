@@ -59,11 +59,14 @@ int main(int argc, const char* const* argv) {
 
     ApplicationSignals app_signlas;
 
-    EngineCmdLineHooks::uuid_gen(options, hooks);
-    EngineCmdLineHooks::root_remap(options, hooks, &ioc_containter);
-    EngineCmdLineHooks::engine(options, hooks, &ioc_containter);
-    EngineCmdLineHooks::logs(options, hooks, &ioc_containter);
-    EngineCmdLineHooks::profiler(options, hooks, &ioc_containter, &app_signlas);
+    eng_hooks::uuid_gen(options, hooks);
+    eng_hooks::root_remap(options, hooks, &ioc_containter);
+    eng_hooks::engine(options, hooks, &ioc_containter);
+#ifdef WMOGE_BUILD_TYPE_EDITOR
+    edt_hooks::editor(options, hooks, &ioc_containter);
+#endif
+    eng_hooks::logs(options, hooks, &ioc_containter);
+    eng_hooks::profiler(options, hooks, &ioc_containter, &app_signlas);
 
     ApplicationCmdLine cmd_line;
     cmd_line.options = &options;

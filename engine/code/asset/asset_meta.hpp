@@ -81,8 +81,10 @@ namespace wmoge {
         WG_RTTI_STRUCT(AssetMeta);
 
         UUID                 uuid;
+        int                  version = 0;
         Strid                rtti;
         Strid                loader;
+        Strid                importer;
         std::vector<Strid>   deps;
         std::vector<Strid>   data;
         std::string          description;
@@ -92,8 +94,10 @@ namespace wmoge {
     WG_RTTI_STRUCT_BEGIN(AssetMeta) {
         WG_RTTI_META_DATA();
         WG_RTTI_FIELD(uuid, {RttiOptional});
+        WG_RTTI_FIELD(version, {RttiOptional});
         WG_RTTI_FIELD(rtti, {});
         WG_RTTI_FIELD(loader, {});
+        WG_RTTI_FIELD(importer, {RttiOptional});
         WG_RTTI_FIELD(deps, {RttiOptional});
         WG_RTTI_FIELD(data, {RttiOptional});
         WG_RTTI_FIELD(description, {RttiOptional});

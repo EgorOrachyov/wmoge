@@ -105,6 +105,7 @@
 #include "gpu/gpu_buffer.hpp"
 
 #include "grc/font.hpp"
+#include "grc/icon.hpp"
 #include "grc/image.hpp"
 #include "grc/pso_cache.hpp"
 #include "grc/pso_file.hpp"
@@ -152,8 +153,8 @@
 #include "memory/mem_linear.hpp"
 #include "memory/mem_pool.hpp"
 
-#include "mesh/array_mesh.hpp"
 #include "mesh/mesh.hpp"
+#include "mesh/mesh_array.hpp"
 #include "mesh/mesh_batch.hpp"
 #include "mesh/mesh_bucket.hpp"
 #include "mesh/mesh_builder.hpp"

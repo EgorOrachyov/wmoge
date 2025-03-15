@@ -48,9 +48,9 @@ namespace wmoge {
                 return;
             }
 
-            array_view<const Ref<ArrayMesh>> array_meshes = mesh.mesh->get_array_meshes();
-            for (const Ref<ArrayMesh>& chunk : array_meshes) {
-                const ArrayMeshData& data = chunk->get_data();
+            array_view<const Ref<MeshArray>> array_meshes = mesh.mesh->get_array_meshes();
+            for (const Ref<MeshArray>& chunk : array_meshes) {
+                const MeshArrayData& data = chunk->get_data();
                 if (data.pos3.empty() || data.faces.empty()) {
                     continue;
                 }

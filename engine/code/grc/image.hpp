@@ -120,6 +120,8 @@ namespace wmoge {
         [[nodiscard]] int              get_pixel_size() { return m_pixel_size; }
         [[nodiscard]] bool             is_empty() { return !(m_width * m_height); }
         [[nodiscard]] bool             is_not_empty() { return m_width * m_height; }
+        [[nodiscard]] Vec2i            get_sizei() const { return Vec2i{m_width, m_height}; }
+        [[nodiscard]] Vec2f            get_sizef() const { return Vec2f{static_cast<float>(m_width), static_cast<float>(m_height)}; }
 
         /**
          * @brief Returns max levels (mips including 0) count for specified image

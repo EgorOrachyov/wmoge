@@ -31,8 +31,8 @@
 #include "core/status.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "math/vec.hpp"
-#include "mesh/array_mesh.hpp"
 #include "mesh/mesh.hpp"
+#include "mesh/mesh_array.hpp"
 
 #include <vector>
 
@@ -44,14 +44,14 @@ namespace wmoge {
      */
     class MeshBuilder {
     public:
-        void add_chunk(const Strid& name, const Ref<ArrayMesh>& data);
+        void add_chunk(const Strid& name, const Ref<MeshArray>& data);
 
         Status build();
 
         [[nodiscard]] MeshDesc& get_mesh() { return m_mesh; }
 
     private:
-        std::vector<Ref<ArrayMesh>> m_chunks;
+        std::vector<Ref<MeshArray>> m_chunks;
         std::vector<Strid>          m_chunks_names;
         MeshDesc                    m_mesh;
     };

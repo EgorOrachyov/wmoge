@@ -35,7 +35,7 @@
 
 namespace wmoge {
 
-    void MeshBuilder::add_chunk(const Strid& name, const Ref<ArrayMesh>& data) {
+    void MeshBuilder::add_chunk(const Strid& name, const Ref<MeshArray>& data) {
         assert(data);
 
         m_chunks.push_back(data);

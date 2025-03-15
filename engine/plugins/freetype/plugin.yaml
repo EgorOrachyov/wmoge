@@ -1,0 +1,12 @@
+id: FreetypePlugin
+uuid: 0
+version: 1
+version_name: "1.0.0"
+name: "FreeType Plugin"
+created_by: "Egor Orachev"
+category: ""
+brief: "Brings freetype import library support for ttf fonts"
+description: ""
+depends: []
+excludes: []
+search_tags: []

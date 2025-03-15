@@ -1,0 +1,12 @@
+id: RuntimePlugin
+uuid: 0
+version: 1
+version_name: "1.0.0"
+name: "Runtime Plguin"
+created_by: "Egor Orachev"
+category: ""
+brief: "Standard engine runtime plugin for minimum functionality"
+description: ""
+depends: []
+excludes: []
+search_tags: []

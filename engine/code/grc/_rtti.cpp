@@ -28,6 +28,7 @@
 #include "_rtti.hpp"
 
 #include "grc/font.hpp"
+#include "grc/icon.hpp"
 #include "grc/image.hpp"
 #include "grc/pso_file.hpp"
 #include "grc/shader.hpp"
@@ -63,6 +64,10 @@ namespace wmoge {
         rtti_type<Texture2d>();
         rtti_type<TextureCube>();
         rtti_type<Font>();
+        rtti_type<IconInfo>();
+        rtti_type<IconAtlasPage>();
+        rtti_type<IconAtlasDesc>();
+        rtti_type<IconAtlas>();
     }
 
 }// namespace wmoge

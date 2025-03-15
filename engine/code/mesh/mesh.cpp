@@ -90,7 +90,7 @@ namespace wmoge {
     array_view<const MeshChunk> Mesh::get_chunks() const {
         return m_chunks;
     }
-    array_view<const Ref<ArrayMesh>> Mesh::get_array_meshes() const {
+    array_view<const Ref<MeshArray>> Mesh::get_array_meshes() const {
         return m_array_meshes;
     }
     array_view<const Ref<Data>> Mesh::get_vertex_buffers() const {

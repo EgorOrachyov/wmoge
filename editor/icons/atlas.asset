@@ -1,0 +1,17 @@
+# Wmoge asset meta file
+version: 1
+uuid: 0
+loader: IconAtlasAssetLoader
+rtti: Icon
+deps: [ ]
+import_data:
+  rtti: IconAtlasImportData
+  channels: 4
+  format: RGBA8
+  srgb: true
+  compression:
+    format: BC7
+  icons:
+    - image: "editor/icons/general_redo.png"
+      name: general_redo
+    

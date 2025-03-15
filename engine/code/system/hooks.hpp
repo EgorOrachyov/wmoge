@@ -32,17 +32,14 @@
 
 namespace wmoge {
 
-    /**
-     * @class EngineCmdLineHooks
-     * @brief Provides common comand line hooks
-     */
-    class EngineCmdLineHooks {
-    public:
-        static void uuid_gen(CmdLineOptions& options, CmdLineHookList& list);
-        static void root_remap(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
-        static void engine(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
-        static void logs(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
-        static void profiler(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc, struct ApplicationSignals* app_signals);
-    };
+    struct ApplicationSignals;
+
+    namespace eng_hooks {
+        void uuid_gen(CmdLineOptions& options, CmdLineHookList& list);
+        void root_remap(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
+        void engine(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
+        void logs(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
+        void profiler(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc, ApplicationSignals* app_signals);
+    }// namespace eng_hooks
 
 }// namespace wmoge

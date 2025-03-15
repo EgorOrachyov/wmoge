@@ -27,6 +27,6 @@
 
 #pragma once
 
-#include "edt_system/edt_app.hpp"
-#include "edt_system/edt_editor.hpp"
-#include "edt_system/edt_plugin.hpp"
+#include "system/edt_app.hpp"
+#include "system/edt_editor.hpp"
+#include "system/edt_hooks.hpp"

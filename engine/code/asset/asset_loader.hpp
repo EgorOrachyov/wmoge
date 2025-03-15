@@ -43,7 +43,7 @@ namespace wmoge {
      * @brief Request files to load for an asset load
      */
     struct AssetLoadRequest {
-        flat_map<Strid, Strid> data_files;
+        flat_map<Strid, std::string> data_files;
 
         void  add_data_file(const Strid& name);
         void  add_data_file(const Strid& name, const std::string& path);

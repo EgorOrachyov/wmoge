@@ -28,11 +28,59 @@
 #pragma once
 
 #include "core/ref.hpp"
+#include "core/simple_id.hpp"
+#include "core/status.hpp"
+#include "ui/ui_attribute.hpp"
 #include "ui/ui_defs.hpp"
 
-#include <string>
-
 namespace wmoge {
+
+    /** @brief Ui element enum type */
+    enum class UiElementType {
+        Unknown = 0,
+        Separator,
+        SeparatorText,
+        ToolTip,
+        ContextMenu,
+        Popup,
+        CompletionPopup,
+        StackPanel,
+        ScrollPanel,
+        MenuItem,
+        Menu,
+        MenuBar,
+        ToolBar,
+        MainWindow,
+        DockWindow,
+        Text,
+        TextWrapped,
+        TextLink,
+        DragInt,
+        DragFloat,
+        SliderInt,
+        SliderFloat,
+        InputInt,
+        InputFloat,
+        InputText,
+        InputTextExt,
+        Selectable,
+        Button,
+        CheckBoxButton,
+        RadioButton,
+        ComboBox,
+        ListBox,
+        ProgressBar
+
+    };
+
+    /** @brief Ui element id */
+    using UiElementId = SimpleId<>;
+
+    /**
+     * @class UiUserData
+     * @brief Base class for user data which can be attached to any ui element
+     */
+    class UiUserData : public RefCnt {};
 
     /**
      * @class UiElement
@@ -40,17 +88,11 @@ namespace wmoge {
      */
     class UiElement : public RefCnt {
     public:
-        virtual ~UiElement() = default;
-
-        void set_name(std::string name) { m_name = std::move(name); }
-        void set_enabled(bool enabled) { m_enabled = enabled; }
-
-        [[nodiscard]] const std::string& get_name() const { return m_name; }
-        [[nodiscard]] bool               get_enabled() const { return m_enabled; }
-
-    protected:
-        std::string m_name;
-        bool        m_enabled = true;
+        UiAttribute<Strid>           tag;
+        UiAttributeOpt<UiCursorType> cursor;
+        UiAttribute<Ref<UiUserData>> user_data;
+        UiElementId                  id;
+        UiElementType                type = UiElementType::Unknown;
     };
 
     /**
@@ -60,13 +102,6 @@ namespace wmoge {
     class UiSubElement : public UiElement {
     public:
         ~UiSubElement() override = default;
-
-        void set_hint_width(UiHintWidth hint) { m_hint_width = hint; }
-
-        [[nodiscard]] const UiHintWidth& get_hint_width() const { return m_hint_width; }
-
-    protected:
-        UiHintWidth m_hint_width;
     };
 
 }// namespace wmoge

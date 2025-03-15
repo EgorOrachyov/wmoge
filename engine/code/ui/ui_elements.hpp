@@ -28,10 +28,12 @@
 #pragma once
 
 #include "core/array_view.hpp"
+#include "grc/icon.hpp"
 #include "math/color.hpp"
 #include "ui/ui_defs.hpp"
 #include "ui/ui_element.hpp"
 #include "ui/ui_style.hpp"
+#include "ui/ui_tooltip.hpp"
 
 #include <functional>
 #include <optional>
@@ -44,23 +46,70 @@ namespace wmoge {
      * @class
      * @brief
      */
-    class UiArea : public UiSubElement {
+    class UiSeparator : public UiSubElement {};
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiSeparatorText : public UiSubElement {
     public:
-        void add_element(Ref<UiSubElement> element);
-
-        [[nodiscard]] array_view<const Ref<UiSubElement>> get_elements() const { return m_elements; }
-
-    protected:
-        std::vector<Ref<UiSubElement>> m_elements;
+        UiAttribute<std::string> label;
     };
 
-    class UiLayout : public UiArea {
+    /**
+     * @class
+     * @brief
+     */
+    class UiContextMenu : public UiElement {
+    public:
+        using Slot = UiSlot<UiSubElement>;
+
+        UiSlots<Slot> children;
     };
 
-    class UiLayoutVertical : public UiLayout {
+    /**
+     * @class
+     * @brief
+     */
+    class UiPopup : public UiElement {
+    public:
+        using Slot = UiSlot<UiSubElement>;
+
+        UiSlots<Slot> children;
     };
 
-    class UiLayoutHorizontal : public UiLayout {
+    /**
+     * @class
+     * @brief
+     */
+    class UiCompletionPopup : public UiPopup {};
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiPanel : public UiSubElement {
+    public:
+        using Slot = UiSlot<UiSubElement>;
+
+        UiSlots<Slot> children;
+    };
+
+    class UiStackPanel : public UiPanel {
+    public:
+        UiAttribute<UiOrientation> orientation{UiOrientation::Vertical};
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiScrollPanel : public UiPanel {
+    public:
+        UiAttributeOpt<float> scroll_value_x;
+        UiAttributeOpt<float> scroll_value_y;
+        UiAttribute<UiScroll> scroll_type{UiScroll::Vertical};
     };
 
     /**
@@ -69,66 +118,44 @@ namespace wmoge {
      */
     class UiMenuItem : public UiSubElement {
     public:
-    protected:
+        using OnClick = std::function<void()>;
+
+        UiAttribute<bool> selected{false};
+        UiAttribute<bool> enabled{true};
+        UiEvent<OnClick>  on_click;
     };
 
     /**
      * @class
      * @brief
      */
-    class UiMenuAction : public UiMenuItem {
+    class UiMenu : public UiSubElement {
     public:
-        void set_on_click(UiOnClick callback) { m_on_click = std::move(callback); }
-        void set_selected(bool selected) { m_selected = selected; }
+        using Slot = UiSlot<UiSubElement>;
 
-        [[nodiscard]] const UiOnClick& get_in_click() const { return m_on_click; }
-        [[nodiscard]] bool             get_selected() const { return m_selected; }
-
-    protected:
-        UiOnClick m_on_click;
-        bool      m_selected = false;
+        UiSlots<Slot> children;
     };
 
     /**
      * @class
      * @brief
      */
-    class UiMenuGroup : public UiSubElement {
+    class UiMenuBar : public UiElement {
     public:
-        void add_item(Ref<UiMenuItem> item);
+        using Slot = UiSubElement;
 
-        [[nodiscard]] array_view<const Ref<UiMenuItem>> get_items() const { return m_items; }
-
-    protected:
-        std::vector<Ref<UiMenuItem>> m_items;
+        UiSlots<Slot> children;
     };
 
     /**
      * @class
      * @brief
      */
-    class UiMenu : public UiMenuItem {
+    class UiToolBar : public UiElement {
     public:
-        void add_group(Ref<UiMenuGroup> group);
+        using Slot = UiSubElement;
 
-        [[nodiscard]] array_view<const Ref<UiMenuGroup>> get_groups() const { return m_groups; }
-
-    protected:
-        std::vector<Ref<UiMenuGroup>> m_groups;
-    };
-
-    /**
-     * @class
-     * @brief
-     */
-    class UiMenuBar : public UiSubElement {
-    public:
-        void add_menu(Ref<UiMenu> menu);
-
-        [[nodiscard]] array_view<const Ref<UiMenu>> get_menus() const { return m_menus; }
-
-    protected:
-        std::vector<Ref<UiMenu>> m_menus;
+        UiSlots<Slot> children;
     };
 
     /**
@@ -137,40 +164,24 @@ namespace wmoge {
      */
     class UiWindow : public UiElement {
     public:
-        void set_menu_bar(Ref<UiMenuBar> menu_bar) { m_menu_bar = std::move(menu_bar); }
-        void set_area(Ref<UiArea> area) { m_area = std::move(area); }
-        void set_window_flags(UiWindowFlags flags) { m_window_flags = std::move(flags); }
-
-        [[nodiscard]] const Ref<UiMenuBar>& get_menu_bar() const { return m_menu_bar; }
-        [[nodiscard]] const Ref<UiArea>&    get_area() const { return m_area; }
-
-        [[nodiscard]] bool has_menu_bar() const { return m_menu_bar; }
-        [[nodiscard]] bool has_area() const { return m_area; }
-
-    protected:
-        Ref<UiMenuBar> m_menu_bar;
-        Ref<UiArea>    m_area;
-        UiWindowFlags  m_window_flags;
-        bool           m_open = true;
+        UiSlot<UiMenuBar>          menu_bar;
+        UiSlot<UiToolBar>          tool_bar;
+        UiSlot<UiPanel>            panel;
+        UiAttribute<UiWindowFlags> flags;
+        UiAttribute<bool>          is_open{true};
     };
 
     /**
      * @class
      * @brief
      */
-    class UiMainWindow : public UiWindow {
-    public:
-    protected:
-    };
+    class UiMainWindow : public UiWindow {};
 
     /**
      * @class
      * @brief
      */
-    class UiDockWindow : public UiWindow {
-    public:
-    protected:
-    };
+    class UiDockWindow : public UiWindow {};
 
     /**
      * @class
@@ -178,74 +189,245 @@ namespace wmoge {
      */
     class UiText : public UiSubElement {
     public:
-        void set_text(std::string text) { m_text = std::move(text); }
-        void set_text_color(std::optional<Color4f> color) { m_text_color = color; }
-
-        [[nodiscard]] const std::string& get_text() const { return m_text; }
-
-    protected:
-        std::string            m_text;
-        std::optional<Color4f> m_text_color;
-    };
-
-    class UiTextInputPopup : public UiArea {
-    public:
-        [[nodiscard]] float get_lines_mult() const { return m_lines_mult; }
-
-    protected:
-        float m_lines_mult = 6.0f;
+        UiAttribute<std::string> text;
+        UiAttributeOpt<Color4f>  text_color;
     };
 
     /**
      * @class
      * @brief
      */
-    class UiTextInput : public UiSubElement {
+    class UiTextWrapped : public UiSubElement {
     public:
-        void set_text(std::string text) { m_text = std::move(text); }
-        void set_popup(Ref<UiTextInputPopup> popup) { m_popup = std::move(popup); }
-        void set_text_flags(UiTextInputFlags flags) { m_text_flags = std::move(flags); }
-        void set_on_text_input(UiOnTextInput callback) { m_on_text_input = std::move(callback); }
-
-        [[nodiscard]] const std::string&           get_text() const { return m_text; }
-        [[nodiscard]] UiTextInputFlags             get_text_flags() const { return m_text_flags; }
-        [[nodiscard]] const UiOnTextInput&         get_on_text_input() const { return m_on_text_input; }
-        [[nodiscard]] const Ref<UiTextInputPopup>& get_popup() const { return m_popup; }
-
-    protected:
-        std::string           m_text;
-        std::vector<char>     m_input_buffer;
-        Ref<UiTextInputPopup> m_popup;
-        UiTextInputFlags      m_text_flags;
-        UiOnTextInput         m_on_text_input;
-        int                   m_input_buffer_capacity = 256;
+        UiAttribute<std::string> text;
+        UiAttributeOpt<Color4f>  text_color;
     };
 
     /**
      * @class
      * @brief
      */
-    class UiScrollArea : public UiArea {
+    class UiTextLink : public UiSubElement {
     public:
-        void set_scroll_type(UiScrollAreaType type) { m_scroll_type = type; }
-        void set_scroll(std::optional<float> scroll) { m_scroll = scroll; }
-
-        [[nodiscard]] std::optional<float> get_scroll() const { return m_scroll; }
-        [[nodiscard]] UiScrollAreaType     get_scroll_type() const { return m_scroll_type; }
-
-    protected:
-        std::optional<float> m_scroll;
-        UiScrollAreaType     m_scroll_type = UiScrollAreaType::Vertical;
+        UiAttribute<std::string> text;
     };
 
+    /**
+     * @class
+     * @brief
+     */
+    class UiDragInt : public UiSubElement {
+    public:
+        using OnInput = std::function<void()>;
+
+        UiAttribute<std::string>    label;
+        UiAttribute<int>            value{0};
+        UiAttributeOpt<int>         value_min;
+        UiAttributeOpt<int>         value_max;
+        UiAttributeOpt<float>       speed;
+        UiAttributeOpt<std::string> format;
+        UiEvent<OnInput>            on_input;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiDragFloat : public UiSubElement {
+    public:
+        using OnInput = std::function<void()>;
+
+        UiAttribute<std::string>    label;
+        UiAttribute<float>          value{0};
+        UiAttributeOpt<float>       value_min;
+        UiAttributeOpt<float>       value_max;
+        UiAttributeOpt<float>       speed;
+        UiAttributeOpt<std::string> format;
+        UiEvent<OnInput>            on_input;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiSliderInt : public UiSubElement {
+    public:
+        using OnInput = std::function<void()>;
+
+        UiAttribute<std::string>    label;
+        UiAttribute<int>            value{0};
+        UiAttribute<int>            value_min{0};
+        UiAttribute<int>            value_max{0};
+        UiAttributeOpt<std::string> format;
+        UiEvent<OnInput>            on_input;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiSliderFloat : public UiSubElement {
+    public:
+        using OnInput = std::function<void()>;
+
+        UiAttribute<std::string>    label;
+        UiAttribute<float>          value{0};
+        UiAttribute<float>          value_min{0};
+        UiAttribute<float>          value_max{0};
+        UiAttributeOpt<std::string> format;
+        UiEvent<OnInput>            on_input;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiInputInt : public UiSubElement {
+    public:
+        using OnInput = std::function<void()>;
+
+        UiAttribute<std::string> label;
+        UiAttribute<int>         value{0};
+        UiAttributeOpt<int>      step;
+        UiAttributeOpt<int>      step_fast;
+        UiEvent<OnInput>         on_input;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiInputFloat : public UiSubElement {
+    public:
+        using OnInput = std::function<void()>;
+
+        UiAttribute<std::string>    label;
+        UiAttribute<float>          value{0.0f};
+        UiAttributeOpt<float>       step;
+        UiAttributeOpt<float>       step_fast;
+        UiAttributeOpt<std::string> format;
+        UiEvent<OnInput>            on_input;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiInputText : public UiSubElement {
+    public:
+        using OnInput = std::function<void()>;
+
+        UiAttribute<std::string>    text;
+        UiAttributeOpt<std::string> hint;
+        UiEvent<OnInput>            on_input;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiInputTextExt : public UiSubElement {
+    public:
+        using OnInput      = std::function<void()>;
+        using OnHistory    = std::function<void(UiDir)>;
+        using OnCompletion = std::function<void()>;
+
+        UiAttribute<UiTextInputFlags> flags;
+        UiAttribute<std::string>      text;
+        UiAttributeOpt<std::string>   hint;
+        UiEvent<OnInput>              on_input;
+        UiEvent<OnHistory>            on_history;
+        UiEvent<OnCompletion>         on_completion;
+        UiSlot<UiCompletionPopup>     completion_popup;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
     class UiSelectable : public UiSubElement {
     public:
-        void set_on_click(UiOnClick callback) { m_on_click = std::move(callback); }
+        using OnClick = std::function<void()>;
 
-        [[nodiscard]] const UiOnClick& get_in_click() const { return m_on_click; }
+        UiAttribute<std::string> label;
+        UiAttributeOpt<Icon>     icon;
+        UiAttribute<bool>        selected{false};
+        UiAttribute<bool>        disabled{false};
+        UiEvent<OnClick>         on_click;
+    };
 
-    protected:
-        UiOnClick m_on_click;
+    /**
+     * @class
+     * @brief
+     */
+    class UiButton : public UiSubElement {
+    public:
+        using OnClick = std::function<void()>;
+
+        UiAttribute<std::string> label;
+        UiAttribute<Icon>        icon;
+        UiAttributeOpt<Vec2f>    icon_scale;
+        UiEvent<OnClick>         on_click;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiCheckBoxButton : public UiSubElement {
+    public:
+        using OnClick = std::function<void()>;
+
+        UiAttribute<std::string> label;
+        UiAttribute<bool>        checked{false};
+        UiEvent<OnClick>         on_click;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiRadioButton : public UiSubElement {
+    public:
+        using OnClick = std::function<void()>;
+
+        UiAttribute<std::string> label;
+        UiAttribute<bool>        checked{false};
+        UiEvent<OnClick>         on_click;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiComboBox : public UiSubElement {
+    public:
+        UiAttribute<std::string>     label;
+        UiAttributeList<std::string> items;
+        UiAttributeOpt<int>          current_item;
+        UiAttributeOpt<int>          max_popup_items;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiListBox : public UiSubElement {
+    public:
+        UiAttribute<std::string>     label;
+        UiAttributeList<std::string> items;
+        UiAttributeOpt<int>          current_item;
+        UiAttributeOpt<int>          height_in_items;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    class UiProgressBar : public UiSubElement {
+    public:
+        UiAttribute<std::string> label;
+        UiAttributeOpt<float>    progress;
     };
 
 }// namespace wmoge

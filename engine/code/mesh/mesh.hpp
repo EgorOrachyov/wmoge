@@ -36,7 +36,7 @@
 #include "gfx/gfx_defs.hpp"
 #include "math/aabb.hpp"
 #include "math/vec.hpp"
-#include "mesh/array_mesh.hpp"
+#include "mesh/mesh_array.hpp"
 #include "rtti/traits.hpp"
 
 #include <functional>
@@ -94,7 +94,7 @@ namespace wmoge {
         WG_RTTI_STRUCT(MeshDesc);
 
         std::vector<MeshChunk>       chunks;
-        std::vector<Ref<ArrayMesh>>  array_meshes;
+        std::vector<Ref<MeshArray>>  array_meshes;
         std::vector<Ref<Data>>       vertex_buffers;
         std::vector<Ref<Data>>       index_buffers;
         std::vector<MeshVertStream>  vert_streams;
@@ -140,7 +140,7 @@ namespace wmoge {
         [[nodiscard]] GfxVertBuffersSetup                   get_vert_buffers_setup(int chunk_id) const;
         [[nodiscard]] GfxIndexBufferSetup                   get_index_buffer_setup(int chunk_id) const;
         [[nodiscard]] array_view<const MeshChunk>           get_chunks() const;
-        [[nodiscard]] array_view<const Ref<ArrayMesh>>      get_array_meshes() const;
+        [[nodiscard]] array_view<const Ref<MeshArray>>      get_array_meshes() const;
         [[nodiscard]] array_view<const Ref<Data>>           get_vertex_buffers() const;
         [[nodiscard]] array_view<const Ref<Data>>           get_index_buffers() const;
         [[nodiscard]] array_view<const Ref<GfxVertBuffer>>  get_gfx_vertex_buffers() const;
@@ -156,7 +156,7 @@ namespace wmoge {
 
     private:
         std::vector<MeshChunk>           m_chunks;
-        std::vector<Ref<ArrayMesh>>      m_array_meshes;
+        std::vector<Ref<MeshArray>>      m_array_meshes;
         std::vector<Ref<GfxVertBuffer>>  m_gfx_vertex_buffers;
         std::vector<Ref<Data>>           m_vertex_buffers;
         std::vector<Ref<GfxIndexBuffer>> m_gfx_index_buffers;

@@ -48,21 +48,11 @@ namespace wmoge {
         void setup(IocContainer* ioc);
         void init();
         void shutdown();
-
-        template<typename T>
-        void add();
         void add(PluginPtr plugin);
         void add(const std::vector<PluginPtr>& plugins);
 
     private:
         std::vector<PluginPtr> m_plugins;
-        flat_map<Strid, int>   m_plugins_id;
-        flat_set<Strid>        m_plugins_loaded;
     };
-
-    template<typename T>
-    inline void PluginManager::add() {
-        add(std::make_shared<T>());
-    }
 
 }// namespace wmoge

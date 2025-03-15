@@ -37,6 +37,8 @@ namespace wmoge {
     */
     enum TexSizePreset {
         None = 0,
+        Size32x32,
+        Size64x64,
         Size128x128,
         Size256x256,
         Size512x512,

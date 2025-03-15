@@ -41,19 +41,20 @@ namespace wmoge {
     public:
         virtual ~UiFactory() = default;
 
-        virtual Ref<UiLayoutVertical>   make_layout_vertical()   = 0;
-        virtual Ref<UiLayoutHorizontal> make_layout_horizontal() = 0;
-        virtual Ref<UiMenuAction>       make_menu_action()       = 0;
-        virtual Ref<UiMenuGroup>        make_menu_group()        = 0;
-        virtual Ref<UiMenu>             make_menu()              = 0;
-        virtual Ref<UiMenuBar>          make_menu_bar()          = 0;
-        virtual Ref<UiMainWindow>       make_main_window()       = 0;
-        virtual Ref<UiDockWindow>       make_dock_window()       = 0;
-        virtual Ref<UiText>             make_text()              = 0;
-        virtual Ref<UiTextInput>        make_text_input()        = 0;
-        virtual Ref<UiTextInputPopup>   make_text_input_popup()  = 0;
-        virtual Ref<UiScrollArea>       make_scroll_area()       = 0;
-        virtual Ref<UiSelectable>       make_selectable()        = 0;
+        // virtual Ref<UiLayoutVertical>   make_layout_vertical()   = 0;
+        // virtual Ref<UiLayoutHorizontal> make_layout_horizontal() = 0;
+        // virtual Ref<UiMenuAction>       make_menu_action()       = 0;
+        // virtual Ref<UiMenuGroup>        make_menu_group()        = 0;
+        // virtual Ref<UiMenu>             make_menu()              = 0;
+        // virtual Ref<UiMenuBar>          make_menu_bar()          = 0;
+        // virtual Ref<UiMainWindow>       make_main_window()       = 0;
+        // virtual Ref<UiDockWindow>       make_dock_window()       = 0;
+        // virtual Ref<UiText>             make_text()              = 0;
+        // virtual Ref<UiTextInput>        make_text_input()        = 0;
+        // virtual Ref<UiTextInputPopup>   make_text_input_popup()  = 0;
+        // virtual Ref<UiScrollArea>       make_scroll_area()       = 0;
+        // virtual Ref<UiSelectable>       make_selectable()        = 0;
+        // virtual Ref<UiIconButton>       make_icon_button()       = 0;
     };
 
 }// namespace wmoge

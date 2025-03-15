@@ -1,8 +1,1 @@
-set(PLUGIN_NAME freetype_plugin)
-set(PLUGIN_DEPENDENCIES wmoge freetype)
-file(GLOB_RECURSE PLUGIN_SOURCES ${CMAKE_CURRENT_LIST_DIR}/*.cpp ${CMAKE_CURRENT_LIST_DIR}/*.hpp)
-
-wmoge_plugin(${PLUGIN_NAME} 
-    INCLUDES ${CMAKE_CURRENT_LIST_DIR}/ 
-    SOURCES ${PLUGIN_SOURCES} 
-    DEPENDENCIES ${PLUGIN_DEPENDENCIES})
+add_subdirectory(code)
