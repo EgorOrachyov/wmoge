@@ -1,0 +1,17 @@
+<map id="wmoge::GfxBuffer" name="wmoge::GfxBuffer">
+<area shape="rect" id="node1" title="Base class for gfx buffer." alt="" coords="357,111,481,138"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxIndexBuffer.html" title="Gfx index buffer." alt="" coords="537,22,692,49"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1GfxStorageBuffer.html" title="Gfx storage buffer." alt="" coords="530,82,699,109"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1GfxUniformBuffer.html" title="Gfx uniform buffer." alt="" coords="529,137,700,163"/>
+<area shape="rect" id="node13" href="$classwmoge_1_1GfxVertBuffer.html" title="Gfx vertex buffer." alt="" coords="541,194,689,221"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="164,111,309,138"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,111,116,138"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="748,5,899,47"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1VKIndexBuffer.html" title="Gfx vulkan index buffer implementation." alt="" coords="954,13,1107,39"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="748,71,899,112"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1VKStorageBuffer.html" title="Gfx vulkan storage buffer implementation." alt="" coords="947,78,1114,105"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="748,136,899,177"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1VKUniformBuffer.html" title="Gfx vulkan uniform buffer implementation." alt="" coords="947,143,1115,170"/>
+<area shape="rect" id="node14" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="748,201,899,243"/>
+<area shape="rect" id="node15" href="$classwmoge_1_1VKVertBuffer.html" title="Gfx vulkan vertex buffer implementation." alt="" coords="957,209,1104,235"/>
+</map>

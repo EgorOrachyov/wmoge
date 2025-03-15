@@ -1,0 +1,11 @@
+<map id="wmoge::UiToolTip" name="wmoge::UiToolTip">
+<area shape="rect" id="node1" title="Tooltip object which can be shown on ui element for help information." alt="" coords="784,117,911,143"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="579,117,710,143"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,58,350,85"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="218,109,371,151"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,62,168,89"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="396,5,555,47"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="217,239,372,295"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="229,175,361,216"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="579,168,711,209"/>
+</map>

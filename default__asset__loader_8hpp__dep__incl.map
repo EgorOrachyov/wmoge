@@ -1,5 +1,5 @@
-<map id="engine/plugins/runtime/asset/default_asset_loader.hpp" name="engine/plugins/runtime/asset/default_asset_loader.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="79,5,286,47"/>
-<area shape="rect" id="node2" href="$runtime_2__rtti_8cpp.html" title=" " alt="" coords="5,95,157,136"/>
-<area shape="rect" id="node3" href="$default__asset__loader_8cpp.html" title=" " alt="" coords="182,95,389,136"/>
+<map id="engine/plugins/runtime/code/asset/default_asset_loader.hpp" name="engine/plugins/runtime/code/asset/default_asset_loader.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="89,5,261,61"/>
+<area shape="rect" id="node2" href="$plugins_2runtime_2code_2__rtti_8cpp.html" title=" " alt="" coords="5,117,157,158"/>
+<area shape="rect" id="node3" href="$default__asset__loader_8cpp.html" title=" " alt="" coords="182,109,354,165"/>
 </map>

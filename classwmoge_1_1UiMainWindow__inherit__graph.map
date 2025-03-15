@@ -1,0 +1,6 @@
+<map id="wmoge::UiMainWindow" name="wmoge::UiMainWindow">
+<area shape="rect" id="node1" title=" " alt="" coords="5,229,163,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiWindow.html" title=" " alt="" coords="19,155,149,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="19,80,149,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="29,5,139,32"/>
+</map>

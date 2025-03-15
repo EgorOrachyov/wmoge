@@ -1,0 +1,4 @@
+<map id="wmoge::ApplicationSignals" name="wmoge::ApplicationSignals">
+<area shape="rect" id="node1" title="App signals to intercept some events." alt="" coords="5,168,183,195"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Signal.html" title="Allows to immediately notify listeners when something occurse on singnal holder side." alt="" coords="13,5,175,32"/>
+</map>

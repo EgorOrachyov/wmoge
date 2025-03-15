@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/plugins/freetype/freetype_font.hpp Source File</title>
+<title>wmoge: engine/plugins/freetype/code/freetype_font.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_ace8fd7f57d850e3fbaa385ad029ca6b.html">freetype</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_ace8fd7f57d850e3fbaa385ad029ca6b.html">freetype</a></li><li class="navelem"><a class="el" href="dir_ec50e46288f591444752f2fd7a7cb784.html">code</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -98,33 +98,47 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;core/array_view.hpp&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;core/status.hpp&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;core/string_utils.hpp&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;gfx/gfx_driver.hpp&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;grc/font.hpp&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;grc/texture_manager.hpp&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;platform/file_system.hpp&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="array__view_8hpp.html">core/array_view.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="status_8hpp.html">core/status.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__utils_8hpp.html">core/string_utils.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__driver_8hpp.html">gfx/gfx_driver.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="font_8hpp.html">grc/font.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__manager_8hpp.html">grc/texture_manager.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="file__system_8hpp.html">platform/file_system.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classwmoge_1_1FreetypeFont.html">   44</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1FreetypeFont.html">FreetypeFont</a> {</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="classwmoge_1_1FreetypeFont.html#ac14723bea62934abb54dab77f97a7077">FreetypeFont</a>(<span class="keyword">class</span> IocContainer* ioc);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="classwmoge_1_1FreetypeFont.html#ac14723bea62934abb54dab77f97a7077">FreetypeFont</a>(<span class="keyword">class</span> <a class="code" href="classwmoge_1_1IocContainer.html">IocContainer</a>* ioc);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        Status <a class="code" href="classwmoge_1_1FreetypeFont.html#a19216d29834550900d02ff466a5228e2">load</a>(<span class="keyword">const</span> Ref&lt;Font&gt;&amp; font, array_view&lt;const std::uint8_t&gt; ttf_data, <span class="keywordtype">int</span> height = 40, <span class="keywordtype">int</span> glyphs_in_row = 16);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1FreetypeFont.html#a19216d29834550900d02ff466a5228e2">load</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Font&gt;</a>&amp; font, <a class="code" href="classwmoge_1_1array__view.html">array_view&lt;const std::uint8_t&gt;</a> ttf_data, <span class="keywordtype">int</span> height = 40, <span class="keywordtype">int</span> glyphs_in_row = 16);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        GfxDriver*      m_gfx_driver;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        FileSystem*     m_file_system;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        TextureManager* m_texture_manager;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <a class="code" href="classwmoge_1_1GfxDriver.html">GfxDriver</a>*      m_gfx_driver;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <a class="code" href="classwmoge_1_1FileSystem.html">FileSystem</a>*     m_file_system;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <a class="code" href="classwmoge_1_1TextureManager.html">TextureManager</a>* m_texture_manager;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    };</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="aarray__view_8hpp_html"><div class="ttname"><a href="array__view_8hpp.html">array_view.hpp</a></div></div>
+<div class="ttc" id="aclasswmoge_1_1FileSystem_html"><div class="ttname"><a href="classwmoge_1_1FileSystem.html">wmoge::FileSystem</a></div><div class="ttdoc">Abstracts access to the engine and game files directory.</div><div class="ttdef"><b>Definition:</b> file_system.hpp:86</div></div>
 <div class="ttc" id="aclasswmoge_1_1FreetypeFont_html"><div class="ttname"><a href="classwmoge_1_1FreetypeFont.html">wmoge::FreetypeFont</a></div><div class="ttdoc">Provides utilies to work with .ttf font via freetype library.</div><div class="ttdef"><b>Definition:</b> freetype_font.hpp:44</div></div>
 <div class="ttc" id="aclasswmoge_1_1FreetypeFont_html_a19216d29834550900d02ff466a5228e2"><div class="ttname"><a href="classwmoge_1_1FreetypeFont.html#a19216d29834550900d02ff466a5228e2">wmoge::FreetypeFont::load</a></div><div class="ttdeci">Status load(const Ref&lt; Font &gt; &amp;font, array_view&lt; const std::uint8_t &gt; ttf_data, int height=40, int glyphs_in_row=16)</div><div class="ttdoc">Loads font from a .ttf file from file system using specified height in pixels.</div><div class="ttdef"><b>Definition:</b> freetype_font.cpp:47</div></div>
 <div class="ttc" id="aclasswmoge_1_1FreetypeFont_html_ac14723bea62934abb54dab77f97a7077"><div class="ttname"><a href="classwmoge_1_1FreetypeFont.html#ac14723bea62934abb54dab77f97a7077">wmoge::FreetypeFont::FreetypeFont</a></div><div class="ttdeci">FreetypeFont(class IocContainer *ioc)</div><div class="ttdef"><b>Definition:</b> freetype_font.cpp:41</div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:33</div></div>
+<div class="ttc" id="aclasswmoge_1_1GfxDriver_html"><div class="ttname"><a href="classwmoge_1_1GfxDriver.html">wmoge::GfxDriver</a></div><div class="ttdoc">Gfx driver interface.</div><div class="ttdef"><b>Definition:</b> gfx_driver.hpp:62</div></div>
+<div class="ttc" id="aclasswmoge_1_1IocContainer_html"><div class="ttname"><a href="classwmoge_1_1IocContainer.html">wmoge::IocContainer</a></div><div class="ttdoc">Inversion of control container for simpler dependency injection of global engine managers.</div><div class="ttdef"><b>Definition:</b> ioc_container.hpp:70</div></div>
+<div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
+<div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:78</div></div>
+<div class="ttc" id="aclasswmoge_1_1TextureManager_html"><div class="ttname"><a href="classwmoge_1_1TextureManager.html">wmoge::TextureManager</a></div><div class="ttdoc">Manager for memory, gfx and streaming of texture assets.</div><div class="ttdef"><b>Definition:</b> texture_manager.hpp:65</div></div>
+<div class="ttc" id="aclasswmoge_1_1array__view_html"><div class="ttname"><a href="classwmoge_1_1array__view.html">wmoge::array_view</a></div><div class="ttdoc">View to elements of array.</div><div class="ttdef"><b>Definition:</b> array_view.hpp:45</div></div>
+<div class="ttc" id="afile__system_8hpp_html"><div class="ttname"><a href="file__system_8hpp.html">file_system.hpp</a></div></div>
+<div class="ttc" id="afont_8hpp_html"><div class="ttname"><a href="font_8hpp.html">font.hpp</a></div></div>
+<div class="ttc" id="agfx__driver_8hpp_html"><div class="ttname"><a href="gfx__driver_8hpp.html">gfx_driver.hpp</a></div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
+<div class="ttc" id="astatus_8hpp_html"><div class="ttname"><a href="status_8hpp.html">status.hpp</a></div></div>
+<div class="ttc" id="astring__utils_8hpp_html"><div class="ttname"><a href="string__utils_8hpp.html">string_utils.hpp</a></div></div>
+<div class="ttc" id="atexture__manager_8hpp_html"><div class="ttname"><a href="texture__manager_8hpp.html">texture_manager.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

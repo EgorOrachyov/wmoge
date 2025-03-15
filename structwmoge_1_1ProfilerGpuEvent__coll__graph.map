@@ -1,0 +1,5 @@
+<map id="wmoge::ProfilerGpuEvent" name="wmoge::ProfilerGpuEvent">
+<area shape="rect" id="node1" title="Gpu time event." alt="" coords="5,213,172,240"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ProfilerGpuMark.html" title="Gpu profiling mark." alt="" coords="7,124,170,151"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="40,5,137,32"/>
+</map>

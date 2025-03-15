@@ -1,0 +1,18 @@
+<map id="engine/code/pfx/pfx_storage.hpp" name="engine/code/pfx/pfx_storage.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="517,5,652,47"/>
+<area shape="rect" id="node2" href="$pfx__component__runtime_8hpp.html" title=" " alt="" coords="13,273,180,315"/>
+<area shape="rect" id="node4" href="$pfx__emitter_8hpp.html" title=" " alt="" coords="201,363,336,404"/>
+<area shape="rect" id="node6" href="$pfx__effect_8hpp.html" title=" " alt="" coords="621,452,756,493"/>
+<area shape="rect" id="node12" href="$pfx__feature_8hpp.html" title=" " alt="" coords="517,95,652,136"/>
+<area shape="rect" id="node16" href="$pfx__storage_8cpp.html" title=" " alt="" coords="855,95,989,136"/>
+<area shape="rect" id="node3" href="$pfx__component__runtime_8cpp.html" title=" " alt="" coords="5,452,172,493"/>
+<area shape="rect" id="node5" href="$engine_8hpp.html" title=" " alt="" coords="456,549,615,575"/>
+<area shape="rect" id="node9" href="$pfx__emitter_8cpp.html" title=" " alt="" coords="297,541,432,583"/>
+<area shape="rect" id="node10" href="$pfx__scene_8hpp.html" title=" " alt="" coords="196,452,331,493"/>
+<area shape="rect" id="node7" href="$code_2pfx_2__rtti_8cpp.html" title=" " alt="" coords="798,549,961,575"/>
+<area shape="rect" id="node8" href="$pfx__effect_8cpp.html" title=" " alt="" coords="639,541,773,583"/>
+<area shape="rect" id="node11" href="$pfx__scene_8cpp.html" title=" " alt="" coords="139,541,273,583"/>
+<area shape="rect" id="node13" href="$pfx__component_8hpp.html" title=" " alt="" coords="465,184,600,225"/>
+<area shape="rect" id="node15" href="$pfx__feature_8cpp.html" title=" " alt="" coords="307,184,441,225"/>
+<area shape="rect" id="node14" href="$pfx__component_8cpp.html" title=" " alt="" coords="360,273,495,315"/>
+</map>

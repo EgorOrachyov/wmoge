@@ -1,0 +1,6 @@
+<map id="wmoge::AssetSourceFile" name="wmoge::AssetSourceFile">
+<area shape="rect" id="node1" title="Represent source file info of an asset." alt="" coords="110,95,277,121"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1Sha256.html" title="SHA 256 bit hash." alt="" coords="5,5,120,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="145,5,242,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1DateTime.html" title="Represents a date and time value." alt="" coords="266,5,393,32"/>
+</map>

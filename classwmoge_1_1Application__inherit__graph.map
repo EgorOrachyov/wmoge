@@ -1,0 +1,6 @@
+<map id="wmoge::Application" name="wmoge::Application">
+<area shape="rect" id="node1" title="Base class for any application which is an entry point to run." alt="" coords="107,5,241,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1EngineApplication.html" title="Base class for application based on engine runtime." alt="" coords="87,80,261,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1EdtApplication.html" title=" " alt="" coords="5,155,159,181"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GameApplication.html" title="Base class for application to run stand&#45;alone game." alt="" coords="183,155,352,181"/>
+</map>

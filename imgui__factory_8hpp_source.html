@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/plugins/imgui/imgui_factory.hpp Source File</title>
+<title>wmoge: engine/plugins/imgui/code/imgui_factory.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_3fbf80809fec30ae9f2fe46d9234fe65.html">imgui</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_3fbf80809fec30ae9f2fe46d9234fe65.html">imgui</a></li><li class="navelem"><a class="el" href="dir_d7658b27dcdfda97871f3c4cd1acc96e.html">code</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -98,50 +98,40 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;ui/ui_factory.hpp&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ui__factory_8hpp.html">ui/ui_factory.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classwmoge_1_1ImguiFactory.html">   38</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1ImguiFactory.html">ImguiFactory</a> : <span class="keyword">public</span> UiFactory {</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classwmoge_1_1ImguiFactory.html">   38</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1ImguiFactory.html">ImguiFactory</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1UiFactory.html">UiFactory</a> {</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="classwmoge_1_1ImguiFactory.html#a7f111dc9b681254e0e987f3d89ede56f">ImguiFactory</a>(<span class="keyword">class</span> <a class="code" href="classwmoge_1_1ImguiManager.html">ImguiManager</a>* manager);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        Ref&lt;UiLayoutVertical&gt;   <a class="code" href="classwmoge_1_1ImguiFactory.html#a65c7fb7dca4be6d92061406e16e1b5e9">make_layout_vertical</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        Ref&lt;UiLayoutHorizontal&gt; <a class="code" href="classwmoge_1_1ImguiFactory.html#a1f6c8f80fc5c78403f0c1a13748a46dc">make_layout_horizontal</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        Ref&lt;UiMenuAction&gt;       <a class="code" href="classwmoge_1_1ImguiFactory.html#a04487c9c1577316f023cc1e9b0735923">make_menu_action</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        Ref&lt;UiMenuGroup&gt;        <a class="code" href="classwmoge_1_1ImguiFactory.html#ad86f9165e31ec99f47eaed9dfa6a6dfc">make_menu_group</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        Ref&lt;UiMenu&gt;             <a class="code" href="classwmoge_1_1ImguiFactory.html#ab9eb954f758789161e586b501fcf2f5d">make_menu</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        Ref&lt;UiMenuBar&gt;          <a class="code" href="classwmoge_1_1ImguiFactory.html#a34092f4acc32e5f7ec08379145747233">make_menu_bar</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        Ref&lt;UiMainWindow&gt;       <a class="code" href="classwmoge_1_1ImguiFactory.html#a3e3af3bc72bbf26cff6d5b57d94eb350">make_main_window</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        Ref&lt;UiDockWindow&gt;       <a class="code" href="classwmoge_1_1ImguiFactory.html#ab72e74c632f6bcfd8d6fbe589003e8a0">make_dock_window</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        Ref&lt;UiText&gt;             <a class="code" href="classwmoge_1_1ImguiFactory.html#a140aa61dce6d012f6e523b151fa523d0">make_text</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        Ref&lt;UiTextInput&gt;        <a class="code" href="classwmoge_1_1ImguiFactory.html#af4daf2a5dc20acc9f8eac3136adb4b9f">make_text_input</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        Ref&lt;UiTextInputPopup&gt;   <a class="code" href="classwmoge_1_1ImguiFactory.html#a31c6306889a2334eaf5d6f8d7e8bf661">make_text_input_popup</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        Ref&lt;UiScrollArea&gt;       <a class="code" href="classwmoge_1_1ImguiFactory.html#a46a208da7a28056467e7b858a63148ff">make_scroll_area</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        Ref&lt;UiSelectable&gt;       <a class="code" href="classwmoge_1_1ImguiFactory.html#a248fd8b4d3a442cb285807fa2c4cd229">make_selectable</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">class </span><a class="code" href="classwmoge_1_1ImguiManager.html">ImguiManager</a>* m_manager = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    };</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="comment">// Ref&lt;UiLayoutVertical&gt;   make_layout_vertical() override;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="comment">// Ref&lt;UiLayoutHorizontal&gt; make_layout_horizontal() override;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="comment">// Ref&lt;UiMenuAction&gt;       make_menu_action() override;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="comment">// Ref&lt;UiMenuGroup&gt;        make_menu_group() override;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="comment">// Ref&lt;UiMenu&gt;             make_menu() override;</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="comment">// Ref&lt;UiMenuBar&gt;          make_menu_bar() override;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="comment">// Ref&lt;UiMainWindow&gt;       make_main_window() override;</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="comment">// Ref&lt;UiDockWindow&gt;       make_dock_window() override;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="comment">// Ref&lt;UiText&gt;             make_text() override;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="comment">// Ref&lt;UiTextInput&gt;        make_text_input() override;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="comment">// Ref&lt;UiTextInputPopup&gt;   make_text_input_popup() override;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="comment">// Ref&lt;UiScrollArea&gt;       make_scroll_area() override;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="comment">// Ref&lt;UiSelectable&gt;       make_selectable() override;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="comment">// Ref&lt;UiIconButton&gt;       make_icon_button() override;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">class </span><a class="code" href="classwmoge_1_1ImguiManager.html">ImguiManager</a>* m_manager = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    };</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aclasswmoge_1_1ImguiFactory_html"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html">wmoge::ImguiFactory</a></div><div class="ttdoc">Ui elements factory implementation for imgui.</div><div class="ttdef"><b>Definition:</b> imgui_factory.hpp:38</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_a04487c9c1577316f023cc1e9b0735923"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#a04487c9c1577316f023cc1e9b0735923">wmoge::ImguiFactory::make_menu_action</a></div><div class="ttdeci">Ref&lt; UiMenuAction &gt; make_menu_action() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:45</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_a140aa61dce6d012f6e523b151fa523d0"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#a140aa61dce6d012f6e523b151fa523d0">wmoge::ImguiFactory::make_text</a></div><div class="ttdeci">Ref&lt; UiText &gt; make_text() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:69</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_a1f6c8f80fc5c78403f0c1a13748a46dc"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#a1f6c8f80fc5c78403f0c1a13748a46dc">wmoge::ImguiFactory::make_layout_horizontal</a></div><div class="ttdeci">Ref&lt; UiLayoutHorizontal &gt; make_layout_horizontal() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:41</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_a248fd8b4d3a442cb285807fa2c4cd229"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#a248fd8b4d3a442cb285807fa2c4cd229">wmoge::ImguiFactory::make_selectable</a></div><div class="ttdeci">Ref&lt; UiSelectable &gt; make_selectable() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:85</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_a31c6306889a2334eaf5d6f8d7e8bf661"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#a31c6306889a2334eaf5d6f8d7e8bf661">wmoge::ImguiFactory::make_text_input_popup</a></div><div class="ttdeci">Ref&lt; UiTextInputPopup &gt; make_text_input_popup() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:77</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_a34092f4acc32e5f7ec08379145747233"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#a34092f4acc32e5f7ec08379145747233">wmoge::ImguiFactory::make_menu_bar</a></div><div class="ttdeci">Ref&lt; UiMenuBar &gt; make_menu_bar() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:57</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_a3e3af3bc72bbf26cff6d5b57d94eb350"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#a3e3af3bc72bbf26cff6d5b57d94eb350">wmoge::ImguiFactory::make_main_window</a></div><div class="ttdeci">Ref&lt; UiMainWindow &gt; make_main_window() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:61</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_a46a208da7a28056467e7b858a63148ff"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#a46a208da7a28056467e7b858a63148ff">wmoge::ImguiFactory::make_scroll_area</a></div><div class="ttdeci">Ref&lt; UiScrollArea &gt; make_scroll_area() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:81</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_a65c7fb7dca4be6d92061406e16e1b5e9"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#a65c7fb7dca4be6d92061406e16e1b5e9">wmoge::ImguiFactory::make_layout_vertical</a></div><div class="ttdeci">Ref&lt; UiLayoutVertical &gt; make_layout_vertical() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:37</div></div>
 <div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_a7f111dc9b681254e0e987f3d89ede56f"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#a7f111dc9b681254e0e987f3d89ede56f">wmoge::ImguiFactory::ImguiFactory</a></div><div class="ttdeci">ImguiFactory(class ImguiManager *manager)</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:34</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_ab72e74c632f6bcfd8d6fbe589003e8a0"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#ab72e74c632f6bcfd8d6fbe589003e8a0">wmoge::ImguiFactory::make_dock_window</a></div><div class="ttdeci">Ref&lt; UiDockWindow &gt; make_dock_window() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:65</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_ab9eb954f758789161e586b501fcf2f5d"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#ab9eb954f758789161e586b501fcf2f5d">wmoge::ImguiFactory::make_menu</a></div><div class="ttdeci">Ref&lt; UiMenu &gt; make_menu() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:53</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_ad86f9165e31ec99f47eaed9dfa6a6dfc"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#ad86f9165e31ec99f47eaed9dfa6a6dfc">wmoge::ImguiFactory::make_menu_group</a></div><div class="ttdeci">Ref&lt; UiMenuGroup &gt; make_menu_group() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:49</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiFactory_html_af4daf2a5dc20acc9f8eac3136adb4b9f"><div class="ttname"><a href="classwmoge_1_1ImguiFactory.html#af4daf2a5dc20acc9f8eac3136adb4b9f">wmoge::ImguiFactory::make_text_input</a></div><div class="ttdeci">Ref&lt; UiTextInput &gt; make_text_input() override</div><div class="ttdef"><b>Definition:</b> imgui_factory.cpp:73</div></div>
-<div class="ttc" id="aclasswmoge_1_1ImguiManager_html"><div class="ttname"><a href="classwmoge_1_1ImguiManager.html">wmoge::ImguiManager</a></div><div class="ttdoc">Implementation of ui manager fom imgui backend.</div><div class="ttdef"><b>Definition:</b> imgui_manager.hpp:46</div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:33</div></div>
+<div class="ttc" id="aclasswmoge_1_1ImguiManager_html"><div class="ttname"><a href="classwmoge_1_1ImguiManager.html">wmoge::ImguiManager</a></div><div class="ttdoc">Implementation of ui manager fom imgui backend.</div><div class="ttdef"><b>Definition:</b> imgui_manager.hpp:50</div></div>
+<div class="ttc" id="aclasswmoge_1_1UiFactory_html"><div class="ttname"><a href="classwmoge_1_1UiFactory.html">wmoge::UiFactory</a></div><div class="ttdoc">Abstract factory for ui elemenets construction.</div><div class="ttdef"><b>Definition:</b> ui_factory.hpp:40</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
+<div class="ttc" id="aui__factory_8hpp_html"><div class="ttname"><a href="ui__factory_8hpp.html">ui_factory.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

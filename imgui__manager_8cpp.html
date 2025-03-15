@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/plugins/imgui/imgui_manager.cpp File Reference</title>
+<title>wmoge: engine/plugins/imgui/code/imgui_manager.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_3fbf80809fec30ae9f2fe46d9234fe65.html">imgui</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_3fbf80809fec30ae9f2fe46d9234fe65.html">imgui</a></li><li class="navelem"><a class="el" href="dir_d7658b27dcdfda97871f3c4cd1acc96e.html">code</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,31 +75,62 @@ $(function() {
 <code>#include &quot;imgui.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="imgui__driver__vulkan_8hpp_source.html">imgui_driver_vulkan.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="imgui__platform__glfw_8hpp_source.html">imgui_platform_glfw.hpp</a>&quot;</code><br />
-<code>#include &quot;profiler/profiler_cpu.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="profiler__cpu_8hpp_source.html">profiler/profiler_cpu.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for imgui_manager.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="imgui__manager_8cpp__incl.png" border="0" usemap="#aengine_2plugins_2imgui_2imgui__manager_8cpp" alt=""/></div>
-<map name="aengine_2plugins_2imgui_2imgui__manager_8cpp" id="aengine_2plugins_2imgui_2imgui__manager_8cpp">
-<area shape="rect" title=" " alt="" coords="773,5,913,47"/>
-<area shape="rect" href="imgui__manager_8hpp.html" title=" " alt="" coords="775,95,910,121"/>
-<area shape="rect" title=" " alt="" coords="934,95,997,121"/>
-<area shape="rect" href="imgui__driver__vulkan_8hpp.html" title=" " alt="" coords="338,95,499,121"/>
-<area shape="rect" href="imgui__platform__glfw_8hpp.html" title=" " alt="" coords="567,95,729,121"/>
-<area shape="rect" title=" " alt="" coords="1021,95,1176,121"/>
-<area shape="rect" title=" " alt="" coords="357,169,480,196"/>
-<area shape="rect" href="imgui__driver_8hpp.html" title=" " alt="" coords="505,169,621,196"/>
-<area shape="rect" href="imgui__element_8hpp.html" title=" " alt="" coords="800,169,931,196"/>
-<area shape="rect" href="imgui__factory_8hpp.html" title=" " alt="" coords="955,169,1077,196"/>
-<area shape="rect" href="imgui__platform_8hpp.html" title=" " alt="" coords="645,169,776,196"/>
-<area shape="rect" title=" " alt="" coords="1102,169,1301,196"/>
-<area shape="rect" title=" " alt="" coords="1325,169,1451,196"/>
-<area shape="rect" title=" " alt="" coords="1475,169,1543,196"/>
-<area shape="rect" title=" " alt="" coords="493,244,633,271"/>
-<area shape="rect" title=" " alt="" coords="826,244,905,271"/>
-<area shape="rect" title=" " alt="" coords="958,244,1074,271"/>
-<area shape="rect" title=" " alt="" coords="5,169,168,196"/>
-<area shape="rect" title=" " alt="" coords="192,169,333,196"/>
+<div class="center"><img src="imgui__manager_8cpp__incl.png" border="0" usemap="#aengine_2plugins_2imgui_2code_2imgui__manager_8cpp" alt=""/></div>
+<map name="aengine_2plugins_2imgui_2code_2imgui__manager_8cpp" id="aengine_2plugins_2imgui_2code_2imgui__manager_8cpp">
+<area shape="rect" title=" " alt="" coords="2593,5,2764,47"/>
+<area shape="rect" href="imgui__manager_8hpp.html" title=" " alt="" coords="2611,95,2746,121"/>
+<area shape="rect" title=" " alt="" coords="3159,244,3222,271"/>
+<area shape="rect" href="imgui__driver__vulkan_8hpp.html" title=" " alt="" coords="1907,95,2069,121"/>
+<area shape="rect" href="imgui__platform__glfw_8hpp.html" title=" " alt="" coords="2353,95,2516,121"/>
+<area shape="rect" href="profiler__cpu_8hpp.html" title=" " alt="" coords="3159,543,3313,569"/>
+<area shape="rect" href="gfx__driver_8hpp.html" title=" " alt="" coords="1199,169,1321,196"/>
+<area shape="rect" href="gfx__texture_8hpp.html" title=" " alt="" coords="1672,468,1803,495"/>
+<area shape="rect" href="texture_8hpp.html" title=" " alt="" coords="2625,169,2732,196"/>
+<area shape="rect" href="imgui__driver_8hpp.html" title=" " alt="" coords="2229,169,2345,196"/>
+<area shape="rect" href="imgui__element_8hpp.html" title=" " alt="" coords="2756,169,2887,196"/>
+<area shape="rect" href="imgui__factory_8hpp.html" title=" " alt="" coords="2911,169,3033,196"/>
+<area shape="rect" href="imgui__platform_8hpp.html" title=" " alt="" coords="2420,169,2551,196"/>
+<area shape="rect" href="window__manager_8hpp.html" title=" " alt="" coords="2886,393,3085,420"/>
+<area shape="rect" href="ui__manager_8hpp.html" title=" " alt="" coords="2026,169,2153,196"/>
+<area shape="rect" title=" " alt="" coords="2989,617,3057,644"/>
+<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="2674,617,2811,644"/>
+<area shape="rect" href="async_8hpp.html" title=" " alt="" coords="2108,319,2217,345"/>
+<area shape="rect" href="callback__queue_8hpp.html" title=" " alt="" coords="2292,319,2457,345"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="862,692,962,719"/>
+<area shape="rect" href="gfx__buffers_8hpp.html" title=" " alt="" coords="347,468,477,495"/>
+<area shape="rect" href="gfx__resource_8hpp.html" title=" " alt="" coords="1135,543,1276,569"/>
+<area shape="rect" href="gfx__defs_8hpp.html" title=" " alt="" coords="1278,617,1394,644"/>
+<area shape="rect" title=" " alt="" coords="2318,767,2373,793"/>
+<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="1135,692,1235,719"/>
+<area shape="rect" title=" " alt="" coords="341,692,392,719"/>
+<area shape="rect" href="gfx__cmd__list_8hpp.html" title=" " alt="" coords="1298,244,1438,271"/>
+<area shape="rect" href="gfx__desc__set_8hpp.html" title=" " alt="" coords="635,393,779,420"/>
+<area shape="rect" href="gfx__sampler_8hpp.html" title=" " alt="" coords="958,468,1095,495"/>
+<area shape="rect" href="gfx__pipeline_8hpp.html" title=" " alt="" coords="1087,319,1222,345"/>
+<area shape="rect" href="gfx__render__pass_8hpp.html" title=" " alt="" coords="803,393,965,420"/>
+<area shape="rect" href="window_8hpp.html" title=" " alt="" coords="2307,468,2448,495"/>
+<area shape="rect" href="gfx__shader_8hpp.html" title=" " alt="" coords="1827,468,1957,495"/>
+<area shape="rect" href="gfx__vert__format_8hpp.html" title=" " alt="" coords="1192,393,1349,420"/>
+<area shape="rect" href="gfx__query_8hpp.html" title=" " alt="" coords="1424,468,1547,495"/>
+<area shape="rect" href="mat_8hpp.html" title=" " alt="" coords="120,617,221,644"/>
+<area shape="rect" title=" " alt="" coords="2063,617,2121,644"/>
+<area shape="rect" title=" " alt="" coords="2840,767,2899,793"/>
+<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="2535,692,2641,719"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="2234,692,2358,719"/>
+<area shape="rect" title=" " alt="" coords="1597,692,1672,719"/>
+<area shape="rect" href="image_8hpp.html" title=" " alt="" coords="2442,543,2545,569"/>
+<area shape="rect" href="asset_8hpp.html" title=" " alt="" coords="2484,617,2599,644"/>
+<area shape="rect" href="flat__map_8hpp.html" title=" " alt="" coords="2082,543,2206,569"/>
+<area shape="rect" title=" " alt="" coords="2146,617,2257,644"/>
+<area shape="rect" href="signal_8hpp.html" title=" " alt="" coords="3183,692,3292,719"/>
+<area shape="rect" href="timer_8hpp.html" title=" " alt="" coords="3452,617,3556,644"/>
+<area shape="rect" title=" " alt="" coords="3428,692,3489,719"/>
+<area shape="rect" title=" " alt="" coords="3233,617,3295,644"/>
+<area shape="rect" title=" " alt="" coords="3319,617,3377,644"/>
 </map>
 </div>
 </div><table class="memberdecls">

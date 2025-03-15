@@ -1,0 +1,23 @@
+<map id="engine/code/grc/icon.hpp" name="engine/code/grc/icon.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="311,5,477,32"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,385,164,411"/>
+<area shape="rect" id="node3" href="$code_2grc_2__rtti_8cpp.html" title=" " alt="" coords="123,95,287,121"/>
+<area shape="rect" id="node4" href="$icon_8cpp.html" title=" " alt="" coords="311,95,477,121"/>
+<area shape="rect" id="node5" href="$ui__elements_8hpp.html" title=" " alt="" coords="501,95,705,121"/>
+<area shape="rect" id="node19" href="$icon__atlas__asset__loader_8hpp.html" title=" " alt="" coords="819,80,972,136"/>
+<area shape="rect" id="node6" href="$ui__factory_8hpp.html" title=" " alt="" coords="336,199,527,225"/>
+<area shape="rect" id="node16" href="$imgui__elements_8hpp.html" title=" " alt="" coords="702,288,875,329"/>
+<area shape="rect" id="node17" href="$edt__main__window_8hpp.html" title=" " alt="" coords="641,191,795,233"/>
+<area shape="rect" id="node7" href="$ui__manager_8hpp.html" title=" " alt="" coords="293,295,495,322"/>
+<area shape="rect" id="node14" href="$imgui__factory_8hpp.html" title=" " alt="" coords="519,288,677,329"/>
+<area shape="rect" id="node8" href="$engine_8cpp.html" title=" " alt="" coords="189,377,327,419"/>
+<area shape="rect" id="node9" href="$engine__app_8cpp.html" title=" " alt="" coords="351,377,490,419"/>
+<area shape="rect" id="node10" href="$imgui__manager_8hpp.html" title=" " alt="" coords="514,377,685,419"/>
+<area shape="rect" id="node11" href="$imgui__elements_8cpp.html" title=" " alt="" coords="789,467,962,508"/>
+<area shape="rect" id="node12" href="$imgui__manager_8cpp.html" title=" " alt="" coords="357,467,527,508"/>
+<area shape="rect" id="node13" href="$imgui__plugin_8cpp.html" title=" " alt="" coords="551,467,706,508"/>
+<area shape="rect" id="node15" href="$imgui__factory_8cpp.html" title=" " alt="" coords="709,377,868,419"/>
+<area shape="rect" id="node18" href="$edt__main__window_8cpp.html" title=" " alt="" coords="899,288,1054,329"/>
+<area shape="rect" id="node20" href="$plugins_2runtime_2code_2__rtti_8cpp.html" title=" " alt="" coords="819,191,971,233"/>
+<area shape="rect" id="node21" href="$icon__atlas__asset__loader_8cpp.html" title=" " alt="" coords="996,184,1149,240"/>
+</map>

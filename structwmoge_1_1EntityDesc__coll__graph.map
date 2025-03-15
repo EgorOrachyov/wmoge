@@ -1,0 +1,4 @@
+<map id="wmoge::EntityDesc" name="wmoge::EntityDesc">
+<area shape="rect" id="node1" title="Struct describing scene entity." alt="" coords="5,95,137,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="20,5,123,32"/>
+</map>

@@ -1,8 +1,0 @@
-<map id="wmoge::ImguiDockWindow" name="wmoge::ImguiDockWindow">
-<area shape="rect" id="node1" title=" " alt="" coords="5,337,184,364"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="5,247,184,288"/>
-<area shape="rect" id="node3" title=" " alt="" coords="23,171,134,197"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1ImguiElement.html" title="Base class for all imgui backend ui elements." alt="" coords="159,171,308,197"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1ImguiManager.html" title="Implementation of ui manager fom imgui backend." alt="" coords="157,81,309,108"/>
-<area shape="rect" id="node6" title=" " alt="" coords="191,5,276,32"/>
-</map>

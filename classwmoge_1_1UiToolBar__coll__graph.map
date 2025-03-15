@@ -1,0 +1,10 @@
+<map id="wmoge::UiToolBar" name="wmoge::UiToolBar">
+<area shape="rect" id="node1" title=" " alt="" coords="767,190,895,217"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="587,130,717,157"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,71,350,98"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="218,123,371,164"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,251,168,278"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1UiSlots.html" title=" " alt="" coords="396,253,563,295"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="217,187,372,243"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="229,5,361,47"/>
+</map>

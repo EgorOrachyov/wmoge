@@ -1,0 +1,10 @@
+<map id="wmoge::ShaderFill::ParamBlockDefault::Vars" name="wmoge::ShaderFill::ParamBlockDefault::Vars">
+<area shape="rect" id="node1" title=" " alt="" coords="760,114,927,155"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RdgTexture.html" title="Rdg texture resource." alt="" coords="512,93,648,120"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RdgResource.html" title="Rdg resource base class." alt="" coords="297,93,445,120"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="45,5,156,32"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1SimpleId.html" title=" " alt="" coords="25,57,176,98"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="52,123,149,149"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="5,174,196,215"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="495,144,665,171"/>
+</map>

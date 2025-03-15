@@ -1,0 +1,7 @@
+<map id="wmoge::EntityBuildContext" name="wmoge::EntityBuildContext">
+<area shape="rect" id="node1" title="Context passed to trait on entity creation." alt="" coords="164,171,339,197"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1SceneUuidMap.html" title=" " alt="" coords="5,81,164,108"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1EcsWorld.html" title="Container which manages created entities and components." alt="" coords="189,81,314,108"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Scene.html" title="Scene objects container representing running game state." alt="" coords="338,81,445,108"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="336,5,447,32"/>
+</map>

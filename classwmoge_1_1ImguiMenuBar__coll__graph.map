@@ -1,8 +1,0 @@
-<map id="wmoge::ImguiMenuBar" name="wmoge::ImguiMenuBar">
-<area shape="rect" id="node1" title=" " alt="" coords="17,337,172,364"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title=" " alt="" coords="5,247,184,288"/>
-<area shape="rect" id="node3" title=" " alt="" coords="35,171,122,197"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1ImguiElement.html" title="Base class for all imgui backend ui elements." alt="" coords="147,171,296,197"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1ImguiManager.html" title="Implementation of ui manager fom imgui backend." alt="" coords="145,81,297,108"/>
-<area shape="rect" id="node6" title=" " alt="" coords="179,5,264,32"/>
-</map>

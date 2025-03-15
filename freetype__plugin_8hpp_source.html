@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/plugins/freetype/freetype_plugin.hpp Source File</title>
+<title>wmoge: engine/plugins/freetype/code/freetype_plugin.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_ace8fd7f57d850e3fbaa385ad029ca6b.html">freetype</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_ace8fd7f57d850e3fbaa385ad029ca6b.html">freetype</a></li><li class="navelem"><a class="el" href="dir_ec50e46288f591444752f2fd7a7cb784.html">code</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -98,24 +98,26 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;system/plugin.hpp&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="plugin_8hpp.html">system/plugin.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classwmoge_1_1FreetypePlugin.html">   38</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1FreetypePlugin.html">FreetypePlugin</a> : <span class="keyword">public</span> Plugin {</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classwmoge_1_1FreetypePlugin.html">   38</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1FreetypePlugin.html">FreetypePlugin</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Plugin.html">Plugin</a> {</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="classwmoge_1_1FreetypePlugin.html#a49a73cc5e1a0ab03a44a04443e2790b1">FreetypePlugin</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classwmoge_1_1FreetypePlugin.html#aaf7571c2930fa555554fdb5a82e37ef9">   41</a></span>&#160;        <a class="code" href="classwmoge_1_1FreetypePlugin.html#aaf7571c2930fa555554fdb5a82e37ef9">~FreetypePlugin</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1FreetypePlugin.html#a1c806b5cde00b9a877ca767d3fe064ff">on_register</a>(<a class="code" href="classwmoge_1_1IocContainer.html">IocContainer</a>* ioc) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    };</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        Status <a class="code" href="classwmoge_1_1FreetypePlugin.html#a1c806b5cde00b9a877ca767d3fe064ff">on_register</a>(IocContainer* ioc) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    };</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="plugin_8hpp.html#a184aa608eabcc369a507a0451aac130d">WG_PLUGIN_DECL</a>(<a class="code" href="classwmoge_1_1FreetypePlugin.html">FreetypePlugin</a>)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aclasswmoge_1_1FreetypePlugin_html"><div class="ttname"><a href="classwmoge_1_1FreetypePlugin.html">wmoge::FreetypePlugin</a></div><div class="ttdoc">Plugin which brings freetype fonts support.</div><div class="ttdef"><b>Definition:</b> freetype_plugin.hpp:38</div></div>
-<div class="ttc" id="aclasswmoge_1_1FreetypePlugin_html_a1c806b5cde00b9a877ca767d3fe064ff"><div class="ttname"><a href="classwmoge_1_1FreetypePlugin.html#a1c806b5cde00b9a877ca767d3fe064ff">wmoge::FreetypePlugin::on_register</a></div><div class="ttdeci">Status on_register(IocContainer *ioc) override</div><div class="ttdef"><b>Definition:</b> freetype_plugin.cpp:43</div></div>
-<div class="ttc" id="aclasswmoge_1_1FreetypePlugin_html_a49a73cc5e1a0ab03a44a04443e2790b1"><div class="ttname"><a href="classwmoge_1_1FreetypePlugin.html#a49a73cc5e1a0ab03a44a04443e2790b1">wmoge::FreetypePlugin::FreetypePlugin</a></div><div class="ttdeci">FreetypePlugin()</div><div class="ttdef"><b>Definition:</b> freetype_plugin.cpp:36</div></div>
-<div class="ttc" id="aclasswmoge_1_1FreetypePlugin_html_aaf7571c2930fa555554fdb5a82e37ef9"><div class="ttname"><a href="classwmoge_1_1FreetypePlugin.html#aaf7571c2930fa555554fdb5a82e37ef9">wmoge::FreetypePlugin::~FreetypePlugin</a></div><div class="ttdeci">~FreetypePlugin() override=default</div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:33</div></div>
+<div class="ttc" id="aclasswmoge_1_1FreetypePlugin_html_a1c806b5cde00b9a877ca767d3fe064ff"><div class="ttname"><a href="classwmoge_1_1FreetypePlugin.html#a1c806b5cde00b9a877ca767d3fe064ff">wmoge::FreetypePlugin::on_register</a></div><div class="ttdeci">Status on_register(IocContainer *ioc) override</div><div class="ttdef"><b>Definition:</b> freetype_plugin.cpp:35</div></div>
+<div class="ttc" id="aclasswmoge_1_1IocContainer_html"><div class="ttname"><a href="classwmoge_1_1IocContainer.html">wmoge::IocContainer</a></div><div class="ttdoc">Inversion of control container for simpler dependency injection of global engine managers.</div><div class="ttdef"><b>Definition:</b> ioc_container.hpp:70</div></div>
+<div class="ttc" id="aclasswmoge_1_1Plugin_html"><div class="ttname"><a href="classwmoge_1_1Plugin.html">wmoge::Plugin</a></div><div class="ttdoc">Base class for any engine plug-in.</div><div class="ttdef"><b>Definition:</b> plugin.hpp:42</div></div>
+<div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:78</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
+<div class="ttc" id="aplugin_8hpp_html"><div class="ttname"><a href="plugin_8hpp.html">plugin.hpp</a></div></div>
+<div class="ttc" id="aplugin_8hpp_html_a184aa608eabcc369a507a0451aac130d"><div class="ttname"><a href="plugin_8hpp.html#a184aa608eabcc369a507a0451aac130d">WG_PLUGIN_DECL</a></div><div class="ttdeci">#define WG_PLUGIN_DECL(plugin_class)</div><div class="ttdef"><b>Definition:</b> plugin.hpp:63</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

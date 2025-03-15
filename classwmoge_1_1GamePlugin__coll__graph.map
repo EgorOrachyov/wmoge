@@ -1,0 +1,6 @@
+<map id="wmoge::GamePlugin" name="wmoge::GamePlugin">
+<area shape="rect" id="node1" title="Base class for a custom user game." alt="" coords="120,95,261,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Plugin.html" title="Base class for any engine plug&#45;in." alt="" coords="5,5,112,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Engine.html" title="Global engine state giving access for other systems." alt="" coords="136,5,245,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1IocContainer.html" title="Inversion of control container for simpler dependency injection of global engine managers." alt="" coords="270,5,413,32"/>
+</map>

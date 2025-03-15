@@ -1,5 +1,5 @@
-<map id="engine/plugins/imgui/imgui_platform_glfw.hpp" name="engine/plugins/imgui/imgui_platform_glfw.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="80,5,247,47"/>
-<area shape="rect" id="node2" href="$imgui__manager_8cpp.html" title=" " alt="" coords="5,95,145,136"/>
-<area shape="rect" id="node3" href="$imgui__platform__glfw_8cpp.html" title=" " alt="" coords="169,95,336,136"/>
+<map id="engine/plugins/imgui/code/imgui_platform_glfw.hpp" name="engine/plugins/imgui/code/imgui_platform_glfw.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="110,5,253,61"/>
+<area shape="rect" id="node2" href="$imgui__manager_8cpp.html" title=" " alt="" coords="5,117,176,158"/>
+<area shape="rect" id="node3" href="$imgui__platform__glfw_8cpp.html" title=" " alt="" coords="201,109,343,165"/>
 </map>

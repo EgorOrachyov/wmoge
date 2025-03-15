@@ -1,0 +1,7 @@
+<map id="wmoge::VKDescSet" name="wmoge::VKDescSet">
+<area shape="rect" id="node1" title="Vulkan descriptor set implementation." alt="" coords="11,319,150,345"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="5,229,156,271"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1GfxDescSet.html" title="Represent set of resources optimized for binding to a pipeline." alt="" coords="11,155,151,181"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="8,80,153,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
+</map>

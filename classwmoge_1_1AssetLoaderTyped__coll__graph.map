@@ -1,0 +1,7 @@
+<map id="wmoge::AssetLoaderTyped&lt; T &gt;" name="wmoge::AssetLoaderTyped&lt; T &gt;">
+<area shape="rect" id="node1" title="Adapter to implement asset loaders of a particular asset type." alt="" coords="45,247,254,273"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="5,157,149,184"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="13,81,141,108"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="22,5,133,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="174,157,271,184"/>
+</map>

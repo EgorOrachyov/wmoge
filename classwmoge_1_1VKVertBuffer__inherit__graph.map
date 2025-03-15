@@ -1,0 +1,9 @@
+<map id="wmoge::VKVertBuffer" name="wmoge::VKVertBuffer">
+<area shape="rect" id="node1" title="Gfx vulkan vertex buffer implementation." alt="" coords="87,393,234,420"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="5,304,156,345"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1GfxVertBuffer.html" title="Gfx vertex buffer." alt="" coords="7,229,155,256"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="19,155,143,181"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="8,80,153,107"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1VKBuffer.html" title="Base class for vulkan buffers." alt="" coords="181,311,303,338"/>
+</map>

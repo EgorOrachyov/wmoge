@@ -91,10 +91,12 @@ Inheritance diagram for wmoge::ImguiDriver:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a723352b94771b2d30c7859ca2c1f09ac"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiDriver.html#a723352b94771b2d30c7859ca2c1f09ac">~ImguiDriver</a> ()=default</td></tr>
 <tr class="separator:a723352b94771b2d30c7859ca2c1f09ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a544acda51f604af6120e0ceebbd7ff16"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiDriver.html#a544acda51f604af6120e0ceebbd7ff16">new_frame</a> ()=0</td></tr>
-<tr class="separator:a544acda51f604af6120e0ceebbd7ff16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebb7bc4c9367b63c93c5041a55a17e56"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiDriver.html#aebb7bc4c9367b63c93c5041a55a17e56">render</a> (const GfxCmdListRef &amp;cmd_list)=0</td></tr>
+<tr class="memitem:ae80731a1f48cd3fe471c9ba540243e43"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiDriver.html#ae80731a1f48cd3fe471c9ba540243e43">new_frame</a> (std::size_t frame_id)=0</td></tr>
+<tr class="separator:ae80731a1f48cd3fe471c9ba540243e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebb7bc4c9367b63c93c5041a55a17e56"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiDriver.html#aebb7bc4c9367b63c93c5041a55a17e56">render</a> (const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;cmd_list)=0</td></tr>
 <tr class="separator:aebb7bc4c9367b63c93c5041a55a17e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a63e028440a9badfc491ef341a0a639"><td class="memItemLeft" align="right" valign="top">virtual ImTextureID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiDriver.html#a5a63e028440a9badfc491ef341a0a639">get_texture_id</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxTexture.html">GfxTexture</a> &gt; &amp;texture, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxSampler.html">GfxSampler</a> &gt; &amp;sampler)=0</td></tr>
+<tr class="separator:a5a63e028440a9badfc491ef341a0a639"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for imgui video drive API integration. </p>
@@ -125,8 +127,46 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a544acda51f604af6120e0ceebbd7ff16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a544acda51f604af6120e0ceebbd7ff16">&#9670;&nbsp;</a></span>new_frame()</h2>
+<a id="a5a63e028440a9badfc491ef341a0a639"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a63e028440a9badfc491ef341a0a639">&#9670;&nbsp;</a></span>get_texture_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual ImTextureID wmoge::ImguiDriver::get_texture_id </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxTexture.html">GfxTexture</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxSampler.html">GfxSampler</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sampler</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1ImguiDriverVulkan.html#a8ba0568b2c8124d2f275c40c56aa5cc8">wmoge::ImguiDriverVulkan</a>.</p>
+
+</div>
+</div>
+<a id="ae80731a1f48cd3fe471c9ba540243e43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae80731a1f48cd3fe471c9ba540243e43">&#9670;&nbsp;</a></span>new_frame()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,7 +177,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void wmoge::ImguiDriver::new_frame </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>frame_id</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -148,7 +189,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1ImguiDriverVulkan.html#a313f63a6ed86f820bf5ff38fe1bd4051">wmoge::ImguiDriverVulkan</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1ImguiDriverVulkan.html#ad1907454296789201782b3d52863ce2a">wmoge::ImguiDriverVulkan</a>.</p>
 
 </div>
 </div>
@@ -164,7 +205,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void wmoge::ImguiDriver::render </td>
           <td>(</td>
-          <td class="paramtype">const GfxCmdListRef &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;&#160;</td>
           <td class="paramname"><em>cmd_list</em></td><td>)</td>
           <td></td>
         </tr>
@@ -181,7 +222,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>engine/plugins/imgui/<a class="el" href="imgui__driver_8hpp_source.html">imgui_driver.hpp</a></li>
+<li>engine/plugins/imgui/code/<a class="el" href="imgui__driver_8hpp_source.html">imgui_driver.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

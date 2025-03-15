@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/plugins/assimp/assimp_plugin.cpp File Reference</title>
+<title>wmoge: engine/plugins/assimp/code/assimp_plugin.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_cf243704a60bc9adedf68ddf2b2bbea3.html">assimp</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_cf243704a60bc9adedf68ddf2b2bbea3.html">assimp</a></li><li class="navelem"><a class="el" href="dir_45606cd7264f7bc5a6da5d86c98358b3.html">code</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,27 +72,63 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="assimp__plugin_8hpp_source.html">assimp_plugin.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="assimp_2__rtti_8hpp_source.html">_rtti.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="plugins_2assimp_2code_2__rtti_8hpp_source.html">_rtti.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="assimp__asset__loader_8hpp_source.html">assimp_asset_loader.hpp</a>&quot;</code><br />
-<code>#include &quot;core/log.hpp&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for assimp_plugin.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="assimp__plugin_8cpp__incl.png" border="0" usemap="#aengine_2plugins_2assimp_2assimp__plugin_8cpp" alt=""/></div>
-<map name="aengine_2plugins_2assimp_2assimp__plugin_8cpp" id="aengine_2plugins_2assimp_2assimp__plugin_8cpp">
-<area shape="rect" title=" " alt="" coords="407,5,557,47"/>
-<area shape="rect" href="assimp__plugin_8hpp.html" title=" " alt="" coords="147,95,276,121"/>
-<area shape="rect" href="assimp_2__rtti_8hpp.html" title=" " alt="" coords="377,95,445,121"/>
-<area shape="rect" href="assimp__asset__loader_8hpp.html" title=" " alt="" coords="469,95,639,121"/>
-<area shape="rect" title=" " alt="" coords="663,95,755,121"/>
-<area shape="rect" title=" " alt="" coords="5,177,132,203"/>
-<area shape="rect" title=" " alt="" coords="156,169,288,211"/>
-<area shape="rect" title=" " alt="" coords="313,177,414,203"/>
-<area shape="rect" title=" " alt="" coords="439,177,539,203"/>
-<area shape="rect" title=" " alt="" coords="563,177,678,203"/>
-<area shape="rect" title=" " alt="" coords="703,177,813,203"/>
-<area shape="rect" title=" " alt="" coords="837,177,951,203"/>
-<area shape="rect" title=" " alt="" coords="975,177,1042,203"/>
+<div class="center"><img src="assimp__plugin_8cpp__incl.png" border="0" usemap="#aengine_2plugins_2assimp_2code_2assimp__plugin_8cpp" alt=""/></div>
+<map name="aengine_2plugins_2assimp_2code_2assimp__plugin_8cpp" id="aengine_2plugins_2assimp_2code_2assimp__plugin_8cpp">
+<area shape="rect" title=" " alt="" coords="3248,5,3413,47"/>
+<area shape="rect" href="assimp__plugin_8hpp.html" title=" " alt="" coords="3263,259,3393,285"/>
+<area shape="rect" href="plugins_2assimp_2code_2__rtti_8hpp.html" title=" " alt="" coords="3369,95,3437,121"/>
+<area shape="rect" href="assimp__asset__loader_8hpp.html" title=" " alt="" coords="2329,95,2498,121"/>
+<area shape="rect" href="plugin_8hpp.html" title=" " alt="" coords="3217,781,3343,808"/>
+<area shape="rect" href="ioc__container_8hpp.html" title=" " alt="" coords="2483,856,2635,883"/>
+<area shape="rect" title=" " alt="" coords="3006,1005,3074,1032"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="1561,931,1671,957"/>
+<area shape="rect" title=" " alt="" coords="3241,1155,3319,1181"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1929,931,2021,957"/>
+<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="2171,931,2335,957"/>
+<area shape="rect" title=" " alt="" coords="2360,931,2403,957"/>
+<area shape="rect" title=" " alt="" coords="2721,931,2786,957"/>
+<area shape="rect" title=" " alt="" coords="928,931,995,957"/>
+<area shape="rect" title=" " alt="" coords="2427,931,2503,957"/>
+<area shape="rect" title=" " alt="" coords="2528,931,2595,957"/>
+<area shape="rect" title=" " alt="" coords="1171,931,1282,957"/>
+<area shape="rect" title=" " alt="" coords="2061,1155,2126,1181"/>
+<area shape="rect" title=" " alt="" coords="2080,1005,2149,1032"/>
+<area shape="rect" title=" " alt="" coords="1409,1155,1463,1181"/>
+<area shape="rect" title=" " alt="" coords="1053,1005,1112,1032"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="1374,1080,1498,1107"/>
+<area shape="rect" title=" " alt="" coords="1755,1155,1824,1181"/>
+<area shape="rect" title=" " alt="" coords="697,1155,780,1181"/>
+<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="1525,1005,1617,1032"/>
+<area shape="rect" href="asset__loader__adapter_8hpp.html" title=" " alt="" coords="1707,169,1839,211"/>
+<area shape="rect" href="mat_8hpp.html" title=" " alt="" coords="2069,707,2171,733"/>
+<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="2745,781,2812,808"/>
+<area shape="rect" href="mesh_8hpp.html" title=" " alt="" coords="2308,333,2423,360"/>
+<area shape="rect" title=" " alt="" coords="3182,177,3293,203"/>
+<area shape="rect" title=" " alt="" coords="57,177,170,203"/>
+<area shape="rect" href="asset__loader_8hpp.html" title=" " alt="" coords="1209,259,1365,285"/>
+<area shape="rect" href="asset_8hpp.html" title=" " alt="" coords="755,483,869,509"/>
+<area shape="rect" href="traits_8hpp.html" title=" " alt="" coords="1402,557,1497,584"/>
+<area shape="rect" href="flat__map_8hpp.html" title=" " alt="" coords="1411,781,1535,808"/>
+<area shape="rect" href="asset__library_8hpp.html" title=" " alt="" coords="684,333,839,360"/>
+<area shape="rect" href="asset__meta_8hpp.html" title=" " alt="" coords="639,408,790,435"/>
+<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="3003,781,3141,808"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="1865,781,1965,808"/>
+<area shape="rect" href="stream_8hpp.html" title=" " alt="" coords="1638,856,1738,883"/>
+<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="1696,931,1803,957"/>
+<area shape="rect" href="tree_8hpp.html" title=" " alt="" coords="1532,856,1615,883"/>
+<area shape="rect" href="aabb_8hpp.html" title=" " alt="" coords="1936,632,2043,659"/>
+<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="2016,856,2155,883"/>
+<area shape="rect" title=" " alt="" coords="2096,931,2147,957"/>
+<area shape="rect" title=" " alt="" coords="2261,1005,2357,1032"/>
+<area shape="rect" href="gfx__buffers_8hpp.html" title=" " alt="" coords="2397,707,2528,733"/>
+<area shape="rect" href="gfx__cmd__list_8hpp.html" title=" " alt="" coords="2473,632,2613,659"/>
+<area shape="rect" href="gfx__defs_8hpp.html" title=" " alt="" coords="2603,707,2719,733"/>
+<area shape="rect" href="mesh__array_8hpp.html" title=" " alt="" coords="1857,408,2007,435"/>
 </map>
 </div>
 </div><table class="memberdecls">

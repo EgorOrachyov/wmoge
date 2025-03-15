@@ -1,0 +1,11 @@
+<map id="wmoge::ShaderCanvas" name="wmoge::ShaderCanvas">
+<area shape="rect" id="node1" title="Auto&#45;generated reflection for &#39;canvas&#39; shader." alt="" coords="941,292,1096,319"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ShaderCanvas_1_1TechniqueDefault.html" title=" " alt="" coords="677,337,832,378"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1ShaderCanvas_1_1TechniqueDefault_1_1PassDefault.html" title=" " alt="" coords="385,472,540,528"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="32,367,129,393"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1ShaderCanvas_1_1TechniqueDefault_1_1Options.html" title=" " alt="" coords="385,329,540,385"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1ShaderCanvas_1_1ParamBlockMetaDefault.html" title=" " alt="" coords="378,199,547,241"/>
+<area shape="rect" id="node8" href="$structwmoge_1_1ShaderCanvas_1_1ParamBlockMetaImagesBatch.html" title=" " alt="" coords="360,265,565,306"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1SimpleId.html" title=" " alt="" coords="5,62,156,103"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="680,402,829,443"/>
+</map>

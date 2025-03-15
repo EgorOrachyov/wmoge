@@ -1,0 +1,20 @@
+<map id="engine/code/ui/ui_attribute.hpp" name="engine/code/ui/ui_attribute.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="194,5,393,32"/>
+<area shape="rect" id="node2" href="$ui__element_8hpp.html" title=" " alt="" coords="263,80,460,107"/>
+<area shape="rect" id="node18" href="$ui__tooltip_8hpp.html" title=" " alt="" coords="135,155,321,181"/>
+<area shape="rect" id="node3" href="$engine_8hpp.html" title=" " alt="" coords="9,490,167,517"/>
+<area shape="rect" id="node4" href="$ui__elements_8hpp.html" title=" " alt="" coords="147,229,351,256"/>
+<area shape="rect" id="node5" href="$ui__factory_8hpp.html" title=" " alt="" coords="314,311,505,338"/>
+<area shape="rect" id="node15" href="$imgui__elements_8hpp.html" title=" " alt="" coords="624,304,797,345"/>
+<area shape="rect" id="node16" href="$edt__main__window_8hpp.html" title=" " alt="" coords="43,304,197,345"/>
+<area shape="rect" id="node6" href="$ui__manager_8hpp.html" title=" " alt="" coords="323,401,525,427"/>
+<area shape="rect" id="node13" href="$imgui__factory_8hpp.html" title=" " alt="" coords="549,393,707,435"/>
+<area shape="rect" id="node7" href="$engine_8cpp.html" title=" " alt="" coords="355,483,493,524"/>
+<area shape="rect" id="node8" href="$engine__app_8cpp.html" title=" " alt="" coords="192,483,331,524"/>
+<area shape="rect" id="node9" href="$imgui__manager_8hpp.html" title=" " alt="" coords="517,483,688,524"/>
+<area shape="rect" id="node10" href="$imgui__elements_8cpp.html" title=" " alt="" coords="795,572,968,613"/>
+<area shape="rect" id="node11" href="$imgui__manager_8cpp.html" title=" " alt="" coords="545,572,716,613"/>
+<area shape="rect" id="node12" href="$imgui__plugin_8cpp.html" title=" " alt="" coords="367,572,521,613"/>
+<area shape="rect" id="node14" href="$imgui__factory_8cpp.html" title=" " alt="" coords="713,483,871,524"/>
+<area shape="rect" id="node17" href="$edt__main__window_8cpp.html" title=" " alt="" coords="43,393,197,435"/>
+</map>

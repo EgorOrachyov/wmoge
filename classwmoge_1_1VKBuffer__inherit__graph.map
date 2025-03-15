@@ -1,0 +1,7 @@
+<map id="wmoge::VKBuffer" name="wmoge::VKBuffer">
+<area shape="rect" id="node1" title="Base class for vulkan buffers." alt="" coords="5,81,128,108"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VKIndexBuffer.html" title="Gfx vulkan index buffer implementation." alt="" coords="183,5,337,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1VKStorageBuffer.html" title="Gfx vulkan storage buffer implementation." alt="" coords="177,56,343,83"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1VKUniformBuffer.html" title="Gfx vulkan uniform buffer implementation." alt="" coords="176,107,344,133"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1VKVertBuffer.html" title="Gfx vulkan vertex buffer implementation." alt="" coords="187,157,333,184"/>
+</map>

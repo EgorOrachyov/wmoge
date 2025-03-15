@@ -1,0 +1,4 @@
+<map id="wmoge::UiStyleDesc" name="wmoge::UiStyleDesc">
+<area shape="rect" id="node1" title="Style desc which can be used for save/load of style." alt="" coords="11,95,154,121"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1UiColorPalette.html" title="Ui color palette." alt="" coords="5,5,160,32"/>
+</map>

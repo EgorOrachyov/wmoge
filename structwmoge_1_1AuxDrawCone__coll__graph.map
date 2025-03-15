@@ -1,0 +1,7 @@
+<map id="wmoge::AuxDrawCone" name="wmoge::AuxDrawCone">
+<area shape="rect" id="node1" title="Stores info to draw a cone." alt="" coords="203,184,355,211"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1AuxDrawPrimitive.html" title="Base class for an aux primitive to store and draw." alt="" coords="5,95,179,121"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="13,5,171,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1TQuat.html" title=" " alt="" coords="203,95,355,121"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="379,95,549,121"/>
+</map>

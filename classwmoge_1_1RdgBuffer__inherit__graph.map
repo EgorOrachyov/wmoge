@@ -1,0 +1,9 @@
+<map id="wmoge::RdgBuffer" name="wmoge::RdgBuffer">
+<area shape="rect" id="node1" title="Rdg buffer resource." alt="" coords="360,81,487,108"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RdgIndexBuffer.html" title="Rdg index buffer resource." alt="" coords="542,5,701,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RdgStorageBuffer.html" title="Rdg storage buffer resource." alt="" coords="535,56,707,83"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1RdgUniformBuffer.html" title="Rdg uniform buffer resource." alt="" coords="535,107,708,133"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1RdgVertBuffer.html" title="Rdg vertex buffer resource." alt="" coords="546,157,697,184"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RdgResource.html" title="Rdg resource base class." alt="" coords="164,81,312,108"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,81,116,108"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classwmoge_1_1UiFactory.html" title="Abstract factory for ui elemenets construction." alt="" coords="5,5,132,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiFactory.html" title="Ui elements factory implementation for imgui." alt="" coords="180,5,325,32"/>
+</map>

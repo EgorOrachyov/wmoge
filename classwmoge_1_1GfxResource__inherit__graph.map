@@ -1,0 +1,51 @@
+<map id="wmoge::GfxResource" name="wmoge::GfxResource">
+<area shape="rect" id="node1" title="Base class for any gfx resource object." alt="" coords="164,650,309,677"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="385,143,509,170"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1GfxCmdList.html" title="List to record gfx commands for execution on device." alt="" coords="378,275,517,302"/>
+<area shape="rect" id="node15" href="$classwmoge_1_1GfxDescSet.html" title="Represent set of resources optimized for binding to a pipeline." alt="" coords="377,342,517,369"/>
+<area shape="rect" id="node18" href="$classwmoge_1_1GfxDescSetLayout.html" title="Layout of a single resources set for pipeline creation." alt="" coords="358,411,537,438"/>
+<area shape="rect" id="node21" href="$classwmoge_1_1GfxFrameBuffer.html" title="Gfx frame buffer object with complete set of targets." alt="" coords="367,485,528,511"/>
+<area shape="rect" id="node24" href="$classwmoge_1_1GfxPso.html" title="Base class for compiled pipeline state object." alt="" coords="391,565,504,591"/>
+<area shape="rect" id="node29" href="$classwmoge_1_1GfxPsoLayout.html" title="Layout of pipeline for resources binding." alt="" coords="371,623,523,650"/>
+<area shape="rect" id="node32" href="$classwmoge_1_1GfxQueryPool.html" title="Gfx query pool." alt="" coords="372,675,523,702"/>
+<area shape="rect" id="node35" href="$classwmoge_1_1GfxRenderPass.html" title=" " alt="" coords="367,727,528,754"/>
+<area shape="rect" id="node38" href="$classwmoge_1_1GfxSampler.html" title="Gfx sampler for sampling textures in shaders." alt="" coords="378,781,517,807"/>
+<area shape="rect" id="node41" href="$classwmoge_1_1GfxShader.html" title="Compiled single gpu program module." alt="" coords="382,837,513,863"/>
+<area shape="rect" id="node44" href="$classwmoge_1_1GfxShaderProgram.html" title="Compiled and linked full shader program with all stages." alt="" coords="357,899,537,926"/>
+<area shape="rect" id="node46" href="$classwmoge_1_1GfxTexture.html" title="Gfx device texture resource." alt="" coords="381,974,514,1001"/>
+<area shape="rect" id="node48" href="$classwmoge_1_1GfxVertFormat.html" title="Class describing the format of the input to the vertex shader." alt="" coords="370,1073,525,1099"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,650,116,677"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxIndexBuffer.html" title="Gfx index buffer." alt="" coords="593,25,748,51"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1GfxStorageBuffer.html" title="Gfx storage buffer." alt="" coords="586,86,755,113"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1GfxUniformBuffer.html" title="Gfx uniform buffer." alt="" coords="585,143,756,170"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1GfxVertBuffer.html" title="Gfx vertex buffer." alt="" coords="597,194,745,221"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="817,5,968,47"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="817,71,968,112"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="817,136,968,177"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="817,201,968,243"/>
+<area shape="rect" id="node13" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,252,746,293"/>
+<area shape="rect" id="node14" href="$classwmoge_1_1VKCmdList.html" title="Vulkan command list object implementation." alt="" coords="824,267,961,294"/>
+<area shape="rect" id="node16" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,317,746,359"/>
+<area shape="rect" id="node17" href="$classwmoge_1_1VKDescSet.html" title="Vulkan descriptor set implementation." alt="" coords="823,325,962,351"/>
+<area shape="rect" id="node19" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,383,746,424"/>
+<area shape="rect" id="node20" href="$classwmoge_1_1VKDescSetLayout.html" title="Vulkan descriptor set layout implementation." alt="" coords="804,390,981,417"/>
+<area shape="rect" id="node22" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,448,746,489"/>
+<area shape="rect" id="node23" href="$classwmoge_1_1VKFrameBuffer.html" title="Vulkan frame buffer object implementation." alt="" coords="813,447,972,474"/>
+<area shape="rect" id="node25" href="$classwmoge_1_1GfxPsoCompute.html" title="Represents created and compiled compute pipeline state object." alt="" coords="588,514,753,541"/>
+<area shape="rect" id="node27" href="$classwmoge_1_1GfxPsoGraphics.html" title="Represents created and compiled graphics pipeline state object." alt="" coords="588,565,753,591"/>
+<area shape="rect" id="node26" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="817,499,968,540"/>
+<area shape="rect" id="node28" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="817,564,968,605"/>
+<area shape="rect" id="node30" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,616,746,657"/>
+<area shape="rect" id="node31" href="$classwmoge_1_1VKPsoLayout.html" title="Vulkan pipeline layout implementation." alt="" coords="817,630,968,657"/>
+<area shape="rect" id="node33" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,681,746,723"/>
+<area shape="rect" id="node34" href="$classwmoge_1_1VKQueryPool.html" title="Vulkan implementation for query pool." alt="" coords="819,689,967,715"/>
+<area shape="rect" id="node36" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,747,746,788"/>
+<area shape="rect" id="node37" href="$classwmoge_1_1VKRenderPass.html" title="Vulkan single render pass implementation required for PSO and drawing." alt="" coords="813,754,972,781"/>
+<area shape="rect" id="node39" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,812,746,853"/>
+<area shape="rect" id="node40" href="$classwmoge_1_1VKSampler.html" title="Vulkan sampler implementation." alt="" coords="825,819,961,846"/>
+<area shape="rect" id="node42" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,877,746,919"/>
+<area shape="rect" id="node43" href="$classwmoge_1_1VKShader.html" title="Vulkan implementation of gfx shader." alt="" coords="828,885,957,911"/>
+<area shape="rect" id="node45" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,943,746,984"/>
+<area shape="rect" id="node47" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="595,1008,746,1049"/>
+<area shape="rect" id="node49" href="$classwmoge_1_1VKVertFormat.html" title="Vulkan vertex format description." alt="" coords="594,1074,747,1101"/>
+</map>

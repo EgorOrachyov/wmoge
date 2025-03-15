@@ -1,6 +1,6 @@
-<map id="engine/plugins/imgui/imgui_manager.hpp" name="engine/plugins/imgui/imgui_manager.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="171,5,311,47"/>
-<area shape="rect" id="node2" href="$imgui__elements_8cpp.html" title=" " alt="" coords="5,95,147,136"/>
-<area shape="rect" id="node3" href="$imgui__manager_8cpp.html" title=" " alt="" coords="171,95,311,136"/>
-<area shape="rect" id="node4" href="$imgui__plugin_8cpp.html" title=" " alt="" coords="335,95,475,136"/>
+<map id="engine/plugins/imgui/code/imgui_manager.hpp" name="engine/plugins/imgui/code/imgui_manager.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="203,5,373,47"/>
+<area shape="rect" id="node2" href="$imgui__elements_8cpp.html" title=" " alt="" coords="5,95,179,136"/>
+<area shape="rect" id="node3" href="$imgui__manager_8cpp.html" title=" " alt="" coords="203,95,373,136"/>
+<area shape="rect" id="node4" href="$imgui__plugin_8cpp.html" title=" " alt="" coords="397,95,552,136"/>
 </map>

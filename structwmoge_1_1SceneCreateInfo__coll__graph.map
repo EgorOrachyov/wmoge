@@ -1,0 +1,4 @@
+<map id="wmoge::SceneCreateInfo" name="wmoge::SceneCreateInfo">
+<area shape="rect" id="node1" title="Info for scene construction." alt="" coords="5,95,172,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="40,5,137,32"/>
+</map>

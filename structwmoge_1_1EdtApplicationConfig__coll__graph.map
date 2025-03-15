@@ -1,0 +1,12 @@
+<map id="wmoge::EdtApplicationConfig" name="wmoge::EdtApplicationConfig">
+<area shape="rect" id="node1" title=" " alt="" coords="1285,252,1475,279"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1EngineApplicationConfig.html" title="Engine runtime config." alt="" coords="999,245,1172,286"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1EngineSignals.html" title="Signals called during engine execution." alt="" coords="539,175,691,201"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Signal.html" title="Allows to immediately notify listeners when something occurse on singnal holder side." alt="" coords="11,189,174,216"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1ApplicationSignals.html" title="App signals to intercept some events." alt="" coords="333,248,510,275"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1ApplicationConfig.html" title="Desc containing info to setup application." alt="" coords="715,287,885,313"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1ApplicationCmdLine.html" title="App command line processing params." alt="" coords="328,299,515,325"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1CmdLineHookList.html" title="Storage for cmd line hooks." alt="" coords="5,296,180,323"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1CmdLineOptions.html" title="Container for command&#45;line options." alt="" coords="9,347,176,373"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1IocContainer.html" title="Inversion of control container for simpler dependency injection of global engine managers." alt="" coords="350,349,493,376"/>
+</map>

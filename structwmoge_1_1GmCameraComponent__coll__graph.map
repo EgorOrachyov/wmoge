@@ -1,0 +1,5 @@
+<map id="wmoge::GmCameraComponent" name="wmoge::GmCameraComponent">
+<area shape="rect" id="node1" title=" " alt="" coords="76,109,279,136"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1EcsComponent.html" title=" " alt="" coords="5,5,181,47"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Camera.html" title="Camera primitive to setup rendering." alt="" coords="205,13,320,39"/>
+</map>

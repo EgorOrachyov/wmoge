@@ -1,0 +1,5 @@
+<map id="wmoge::GmLightComponent" name="wmoge::GmLightComponent">
+<area shape="rect" id="node1" title=" " alt="" coords="68,109,255,136"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1EcsComponent.html" title=" " alt="" coords="5,5,165,47"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Light.html" title="Light sources representation for the rendering engine." alt="" coords="189,13,288,39"/>
+</map>

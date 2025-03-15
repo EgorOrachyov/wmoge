@@ -1,0 +1,5 @@
+<map id="wmoge::IoStream" name="wmoge::IoStream">
+<area shape="rect" id="node1" title="Serialization and de&#45;serialization stream." alt="" coords="16,80,139,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1IoStreamFile.html" title="An stream to read/write data to a file with compression." alt="" coords="5,155,149,181"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="22,5,133,32"/>
+</map>

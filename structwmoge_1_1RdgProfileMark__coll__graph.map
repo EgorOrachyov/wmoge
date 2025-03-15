@@ -1,0 +1,6 @@
+<map id="wmoge::RdgProfileMark" name="wmoge::RdgProfileMark">
+<area shape="rect" id="node1" title="Rdg mark for graph profiling." alt="" coords="99,213,258,240"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ProfilerGpuMark.html" title="Gpu profiling mark." alt="" coords="5,124,168,151"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="130,5,227,32"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1ProfilerCpuMark.html" title="Cpu profiling mark." alt="" coords="192,124,355,151"/>
+</map>

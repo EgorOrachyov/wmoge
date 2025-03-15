@@ -1,0 +1,4 @@
+<map id="wmoge::RwMutexReadPrefer" name="wmoge::RwMutexReadPrefer">
+<area shape="rect" id="node1" title="Read&#45;write lock with policy to prefer readers." alt="" coords="9,109,198,136"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,201,61"/>
+</map>

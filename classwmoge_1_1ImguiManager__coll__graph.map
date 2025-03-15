@@ -1,4 +1,4 @@
 <map id="wmoge::ImguiManager" name="wmoge::ImguiManager">
 <area shape="rect" id="node1" title="Implementation of ui manager fom imgui backend." alt="" coords="5,80,157,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="39,5,124,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiManager.html" title="Interface for ui sub&#45;system." alt="" coords="15,5,148,32"/>
 </map>

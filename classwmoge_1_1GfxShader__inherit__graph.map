@@ -1,0 +1,7 @@
+<map id="wmoge::GfxShader" name="wmoge::GfxShader">
+<area shape="rect" id="node1" title="Compiled single gpu program module." alt="" coords="15,155,146,181"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="5,229,156,271"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="8,80,153,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1VKShader.html" title="Vulkan implementation of gfx shader." alt="" coords="16,319,145,345"/>
+</map>
