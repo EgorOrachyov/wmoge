@@ -91,16 +91,14 @@ Inheritance diagram for wmoge::UiManager:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad1ec5cd4a2b8edb6ca6d851d4c121c2a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#ad1ec5cd4a2b8edb6ca6d851d4c121c2a">~UiManager</a> ()=default</td></tr>
 <tr class="separator:ad1ec5cd4a2b8edb6ca6d851d4c121c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ffab910a1575243fa7f481261100afd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a3ffab910a1575243fa7f481261100afd">provide_window</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiMainWindow.html">UiMainWindow</a> &gt; window)=0</td></tr>
-<tr class="separator:a3ffab910a1575243fa7f481261100afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac11ea519e922c65d108a11b7f9debb5d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#ac11ea519e922c65d108a11b7f9debb5d">add_window</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiDockWindow.html">UiDockWindow</a> &gt; window)=0</td></tr>
-<tr class="separator:ac11ea519e922c65d108a11b7f9debb5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adce778424d6b9d160810c0b50efe28d4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#adce778424d6b9d160810c0b50efe28d4">set_main_window</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiMainWindow.html">UiMainWindow</a> &gt; window)=0</td></tr>
+<tr class="separator:adce778424d6b9d160810c0b50efe28d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e7bc7ffec050d62f1c0e6a71a1f04c6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a2e7bc7ffec050d62f1c0e6a71a1f04c6">add_dock_window</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiDockWindow.html">UiDockWindow</a> &gt; window)=0</td></tr>
+<tr class="separator:a2e7bc7ffec050d62f1c0e6a71a1f04c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ce29f20efc8ab1f12498e69ab1b12ba"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a6ce29f20efc8ab1f12498e69ab1b12ba">update</a> (std::size_t frame_id)=0</td></tr>
 <tr class="separator:a6ce29f20efc8ab1f12498e69ab1b12ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1394f958959703f5e8fa7a5d42d0c7cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a1394f958959703f5e8fa7a5d42d0c7cc">render</a> (const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;cmd_list)=0</td></tr>
 <tr class="separator:a1394f958959703f5e8fa7a5d42d0c7cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c84e1635976d60aa00abaf12bd2f320"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1UiFactory.html">UiFactory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a9c84e1635976d60aa00abaf12bd2f320">get_factory</a> ()=0</td></tr>
-<tr class="separator:a9c84e1635976d60aa00abaf12bd2f320"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for ui sub-system. </p>
@@ -131,8 +129,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac11ea519e922c65d108a11b7f9debb5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac11ea519e922c65d108a11b7f9debb5d">&#9670;&nbsp;</a></span>add_window()</h2>
+<a id="a2e7bc7ffec050d62f1c0e6a71a1f04c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e7bc7ffec050d62f1c0e6a71a1f04c6">&#9670;&nbsp;</a></span>add_dock_window()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,7 +139,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void wmoge::UiManager::add_window </td>
+          <td class="memname">virtual void wmoge::UiManager::add_dock_window </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiDockWindow.html">UiDockWindow</a> &gt;&#160;</td>
           <td class="paramname"><em>window</em></td><td>)</td>
@@ -155,62 +153,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#ad138f4c7f4197f341d40a47e6c275785">wmoge::ImguiManager</a>.</p>
-
-</div>
-</div>
-<a id="a9c84e1635976d60aa00abaf12bd2f320"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c84e1635976d60aa00abaf12bd2f320">&#9670;&nbsp;</a></span>get_factory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1UiFactory.html">UiFactory</a>* wmoge::UiManager::get_factory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#a6c1d95c411601b975ef2322b868ec858">wmoge::ImguiManager</a>.</p>
-
-</div>
-</div>
-<a id="a3ffab910a1575243fa7f481261100afd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ffab910a1575243fa7f481261100afd">&#9670;&nbsp;</a></span>provide_window()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void wmoge::UiManager::provide_window </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiMainWindow.html">UiMainWindow</a> &gt;&#160;</td>
-          <td class="paramname"><em>window</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#aec32aa15b2bf803096589f654fc00496">wmoge::ImguiManager</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#a03e419c493e0b7012876082639ced32f">wmoge::ImguiManager</a>.</p>
 
 </div>
 </div>
@@ -239,6 +182,34 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#a6165919cc3de64058e4ff9699a7a074e">wmoge::ImguiManager</a>.</p>
+
+</div>
+</div>
+<a id="adce778424d6b9d160810c0b50efe28d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adce778424d6b9d160810c0b50efe28d4">&#9670;&nbsp;</a></span>set_main_window()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void wmoge::UiManager::set_main_window </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiMainWindow.html">UiMainWindow</a> &gt;&#160;</td>
+          <td class="paramname"><em>window</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#a62d95d3e41f735f172ef299ba557dd07">wmoge::ImguiManager</a>.</p>
 
 </div>
 </div>

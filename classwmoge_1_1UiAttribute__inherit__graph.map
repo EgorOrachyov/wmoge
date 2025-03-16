@@ -1,22 +1,22 @@
 <map id="wmoge::UiAttribute&lt; T &gt;" name="wmoge::UiAttribute&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,565,168,591"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,550,168,577"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1UiAttributeList.html" title=" " alt="" coords="249,5,403,47"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="249,71,403,112"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="249,136,403,177"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="249,201,403,243"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="249,267,403,308"/>
 <area shape="rect" id="node7" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="249,332,403,373"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="249,397,403,439"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="216,463,436,490"/>
-<area shape="rect" id="node10" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="234,514,418,541"/>
-<area shape="rect" id="node11" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="234,565,418,591"/>
-<area shape="rect" id="node12" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="228,615,424,642"/>
-<area shape="rect" id="node13" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,667,405,708"/>
-<area shape="rect" id="node14" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,732,405,773"/>
-<area shape="rect" id="node15" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,797,405,839"/>
-<area shape="rect" id="node16" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,863,405,904"/>
-<area shape="rect" id="node17" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,928,405,969"/>
-<area shape="rect" id="node18" href="$classwmoge_1_1UiSlots.html" title=" " alt="" coords="243,993,409,1035"/>
-<area shape="rect" id="node19" href="$classwmoge_1_1UiSlots.html" title=" " alt="" coords="243,1059,409,1100"/>
-<area shape="rect" id="node20" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="253,1125,399,1151"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="216,398,436,425"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="234,449,418,475"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="234,499,418,526"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="228,550,424,577"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="233,601,419,627"/>
+<area shape="rect" id="node13" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,652,405,693"/>
+<area shape="rect" id="node14" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,717,405,759"/>
+<area shape="rect" id="node15" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,783,405,824"/>
+<area shape="rect" id="node16" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,848,405,889"/>
+<area shape="rect" id="node17" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,913,405,955"/>
+<area shape="rect" id="node18" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="247,979,405,1020"/>
+<area shape="rect" id="node19" href="$classwmoge_1_1UiSlots.html" title=" " alt="" coords="243,1044,409,1085"/>
+<area shape="rect" id="node20" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="253,1110,399,1137"/>
 </map>

@@ -1,5 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1ImguiElement.html" title="Base class for all imgui backend ui elements." alt="" coords="5,5,155,32"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ImguiElementBase.html" title="Helper class to implement ui element." alt="" coords="203,23,381,65"/>
-<area shape="rect" id="node3" title=" " alt="" coords="31,56,129,83"/>
+<area shape="rect" id="node1" href="$structwmoge_1_1ImguiInputTextUserData.html" title=" " alt="" coords="5,5,216,32"/>
 </map>

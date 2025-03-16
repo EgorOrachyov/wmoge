@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classwmoge_1_1UiInputTextExt-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -74,7 +75,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ui__elements_8hpp_source.html">ui_elements.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="ui__inputs_8hpp_source.html">ui_inputs.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for wmoge::UiInputTextExt:</div>
 <div class="dyncontent">
@@ -91,21 +92,24 @@ Collaboration diagram for wmoge::UiInputTextExt:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1UiInputTextExt__coll__graph.png" border="0" usemap="#awmoge_1_1UiInputTextExt_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1UiInputTextExt_coll__map" id="awmoge_1_1UiInputTextExt_coll__map">
-<area shape="rect" title=" " alt="" coords="1275,376,1429,402"/>
-<area shape="rect" href="classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="1043,276,1196,302"/>
-<area shape="rect" href="classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="611,268,742,294"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,326,350,353"/>
-<area shape="rect" href="classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="218,116,371,158"/>
-<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,250,168,277"/>
-<area shape="rect" href="classwmoge_1_1UiEvent.html" title=" " alt="" coords="817,33,1001,60"/>
-<area shape="rect" href="classwmoge_1_1UiSlot.html" title=" " alt="" coords="396,72,555,114"/>
-<area shape="rect" href="classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="399,366,552,407"/>
-<area shape="rect" href="classwmoge_1_1UiEvent.html" title=" " alt="" coords="579,418,775,445"/>
-<area shape="rect" href="classwmoge_1_1UiEvent.html" title=" " alt="" coords="799,468,1019,494"/>
-<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="217,181,372,237"/>
-<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="229,260,361,302"/>
-<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="1053,526,1185,567"/>
-<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="1053,591,1185,632"/>
+<area shape="rect" title=" " alt="" coords="1427,504,1581,531"/>
+<area shape="rect" href="classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="1069,365,1223,392"/>
+<area shape="rect" href="classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="643,339,774,365"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,404,350,431"/>
+<area shape="rect" href="classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="218,194,371,235"/>
+<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,201,168,228"/>
+<area shape="rect" href="classwmoge_1_1UiEvent.html" title=" " alt="" coords="402,51,586,77"/>
+<area shape="rect" href="classwmoge_1_1UiEvent.html" title=" " alt="" coords="616,135,801,161"/>
+<area shape="rect" href="classwmoge_1_1UiSlot.html" title=" " alt="" coords="415,147,573,189"/>
+<area shape="rect" href="classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="859,437,1012,478"/>
+<area shape="rect" href="classwmoge_1_1UiEvent.html" title=" " alt="" coords="396,505,592,532"/>
+<area shape="rect" href="classwmoge_1_1UiEvent.html" title=" " alt="" coords="825,556,1045,583"/>
+<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="217,324,372,380"/>
+<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="229,259,361,301"/>
+<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="1080,618,1212,659"/>
+<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="1080,683,1212,725"/>
+<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="1080,749,1212,790"/>
+<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="1080,814,1212,855"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -113,44 +117,23 @@ Collaboration diagram for wmoge::UiInputTextExt:</div>
 Public Types</h2></td></tr>
 <tr class="memitem:a99a98c0259c1045ccf82f82b9e058132"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a99a98c0259c1045ccf82f82b9e058132">OnInput</a> = std::function&lt; void()&gt;</td></tr>
 <tr class="separator:a99a98c0259c1045ccf82f82b9e058132"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ca57a26c27a79bf64e79c7659989d6c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a2ca57a26c27a79bf64e79c7659989d6c">OnHistory</a> = std::function&lt; void(<a class="el" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3">UiDir</a>)&gt;</td></tr>
-<tr class="separator:a2ca57a26c27a79bf64e79c7659989d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7264a6abc1f1d3d3e579a50a6ee650a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#ad7264a6abc1f1d3d3e579a50a6ee650a">OnEnter</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="separator:ad7264a6abc1f1d3d3e579a50a6ee650a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ac0b437338598ce955d51965340b7c6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a4ac0b437338598ce955d51965340b7c6">OnHistory</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="separator:a4ac0b437338598ce955d51965340b7c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a3c62de74e46d7f76a1eabd6203b977"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a1a3c62de74e46d7f76a1eabd6203b977">OnCompletion</a> = std::function&lt; void()&gt;</td></tr>
 <tr class="separator:a1a3c62de74e46d7f76a1eabd6203b977"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ad642db0b74516a671165aadfaca90e9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; <a class="el" href="namespacewmoge.html#a6130a30ac7bc351741750df0d9d41c29">UiTextInputFlags</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#ad642db0b74516a671165aadfaca90e9c">flags</a></td></tr>
-<tr class="separator:ad642db0b74516a671165aadfaca90e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83eb3d004ca2276ba01d814a4e81f060"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a83eb3d004ca2276ba01d814a4e81f060">text</a></td></tr>
-<tr class="separator:a83eb3d004ca2276ba01d814a4e81f060"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac183fa06df0ef66b8081410d1a9921fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttributeOpt.html">UiAttributeOpt</a>&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#ac183fa06df0ef66b8081410d1a9921fd">hint</a></td></tr>
-<tr class="separator:ac183fa06df0ef66b8081410d1a9921fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4df77fca848e1276a5685b5f37f93c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt; <a class="el" href="classwmoge_1_1UiInputTextExt.html#a99a98c0259c1045ccf82f82b9e058132">OnInput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#ac4df77fca848e1276a5685b5f37f93c7">on_input</a></td></tr>
-<tr class="separator:ac4df77fca848e1276a5685b5f37f93c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab47efd2ddc35a44fe5bf6415640b9fe5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt; <a class="el" href="classwmoge_1_1UiInputTextExt.html#a2ca57a26c27a79bf64e79c7659989d6c">OnHistory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#ab47efd2ddc35a44fe5bf6415640b9fe5">on_history</a></td></tr>
-<tr class="separator:ab47efd2ddc35a44fe5bf6415640b9fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd580acdafdb616d29a647579ffd47cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt; <a class="el" href="classwmoge_1_1UiInputTextExt.html#a1a3c62de74e46d7f76a1eabd6203b977">OnCompletion</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#afd580acdafdb616d29a647579ffd47cb">on_completion</a></td></tr>
-<tr class="separator:afd580acdafdb616d29a647579ffd47cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fa02122eac3c2312780fac12dfc2bd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiSlot.html">UiSlot</a>&lt; <a class="el" href="classwmoge_1_1UiCompletionPopup.html">UiCompletionPopup</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a1fa02122eac3c2312780fac12dfc2bd1">completion_popup</a></td></tr>
-<tr class="separator:a1fa02122eac3c2312780fac12dfc2bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_attribs_classwmoge_1_1UiElement"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classwmoge_1_1UiElement')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classwmoge_1_1UiElement.html">wmoge::UiElement</a></td></tr>
-<tr class="memitem:ab23ffca8745e4741a6e24dd41d8bbb8a inherit pub_attribs_classwmoge_1_1UiElement"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#ab23ffca8745e4741a6e24dd41d8bbb8a">tag</a></td></tr>
-<tr class="separator:ab23ffca8745e4741a6e24dd41d8bbb8a inherit pub_attribs_classwmoge_1_1UiElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b781404082284e92e6982eed31e0323 inherit pub_attribs_classwmoge_1_1UiElement"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttributeOpt.html">UiAttributeOpt</a>&lt; <a class="el" href="namespacewmoge.html#abdfb0dfd2bff081ec3eb19e3b7820508">UiCursorType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#a4b781404082284e92e6982eed31e0323">cursor</a></td></tr>
-<tr class="separator:a4b781404082284e92e6982eed31e0323 inherit pub_attribs_classwmoge_1_1UiElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4751b0e69adf5e44d58f1a4072e7968e inherit pub_attribs_classwmoge_1_1UiElement"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiUserData.html">UiUserData</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#a4751b0e69adf5e44d58f1a4072e7968e">user_data</a></td></tr>
-<tr class="separator:a4751b0e69adf5e44d58f1a4072e7968e inherit pub_attribs_classwmoge_1_1UiElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4644d4b63b10ebc0aced895ab5362dc inherit pub_attribs_classwmoge_1_1UiElement"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a7d4622d99ca6c287b250ac1856c3db3b">UiElementId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#af4644d4b63b10ebc0aced895ab5362dc">id</a></td></tr>
-<tr class="separator:af4644d4b63b10ebc0aced895ab5362dc inherit pub_attribs_classwmoge_1_1UiElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a509385167d528099ffbd739effd5f506 inherit pub_attribs_classwmoge_1_1UiElement"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3">UiElementType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#a509385167d528099ffbd739effd5f506">type</a> = <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a88183b946cc5f0e8c96b2e66e1c74a7e">UiElementType::Unknown</a></td></tr>
-<tr class="separator:a509385167d528099ffbd739effd5f506 inherit pub_attribs_classwmoge_1_1UiElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4a2b86549c01873804f081237f6af2f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a4a2b86549c01873804f081237f6af2f0">UiInputTextExt</a> ()</td></tr>
+<tr class="separator:a4a2b86549c01873804f081237f6af2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1UiSubElement"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1UiSubElement')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1UiSubElement.html">wmoge::UiSubElement</a></td></tr>
-<tr class="memitem:a4e23a543c54460c3142b22c51695ad5e inherit pub_methods_classwmoge_1_1UiSubElement"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiSubElement.html#a4e23a543c54460c3142b22c51695ad5e">~UiSubElement</a> () override=default</td></tr>
-<tr class="separator:a4e23a543c54460c3142b22c51695ad5e inherit pub_methods_classwmoge_1_1UiSubElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76ed86744d7ad0412095868013a5b39d inherit pub_methods_classwmoge_1_1UiSubElement"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiSubElement.html#a76ed86744d7ad0412095868013a5b39d">UiSubElement</a> (<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3">UiElementType</a> <a class="el" href="classwmoge_1_1UiElement.html#ae836d7d0bc1d5b4c7bf8aecf056d6e4d">type</a>)</td></tr>
+<tr class="separator:a76ed86744d7ad0412095868013a5b39d inherit pub_methods_classwmoge_1_1UiSubElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classwmoge_1_1UiElement"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1UiElement')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1UiElement.html">wmoge::UiElement</a></td></tr>
+<tr class="memitem:a81183dafb5ca599a03f8a8433a55ad22 inherit pub_methods_classwmoge_1_1UiElement"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#a81183dafb5ca599a03f8a8433a55ad22">UiElement</a> (<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3">UiElementType</a> <a class="el" href="classwmoge_1_1UiElement.html#ae836d7d0bc1d5b4c7bf8aecf056d6e4d">type</a>)</td></tr>
+<tr class="separator:a81183dafb5ca599a03f8a8433a55ad22 inherit pub_methods_classwmoge_1_1UiElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1RefCnt"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1RefCnt')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1RefCnt.html">wmoge::RefCnt</a></td></tr>
 <tr class="memitem:a096d17e21797e393638670e4f082c6a9 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#a096d17e21797e393638670e4f082c6a9">~RefCnt</a> ()</td></tr>
 <tr class="separator:a096d17e21797e393638670e4f082c6a9 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,6 +143,45 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a8cba5a36fdcba326be2592de7cffb146 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb7916425067c1d775930cf5e3f98ed7 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#afb7916425067c1d775930cf5e3f98ed7">refs_count</a> ()</td></tr>
 <tr class="separator:afb7916425067c1d775930cf5e3f98ed7 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ad642db0b74516a671165aadfaca90e9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; <a class="el" href="namespacewmoge.html#a6130a30ac7bc351741750df0d9d41c29">UiTextInputFlags</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#ad642db0b74516a671165aadfaca90e9c">flags</a></td></tr>
+<tr class="separator:ad642db0b74516a671165aadfaca90e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83eb3d004ca2276ba01d814a4e81f060"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a83eb3d004ca2276ba01d814a4e81f060">text</a></td></tr>
+<tr class="separator:a83eb3d004ca2276ba01d814a4e81f060"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac183fa06df0ef66b8081410d1a9921fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttributeOpt.html">UiAttributeOpt</a>&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#ac183fa06df0ef66b8081410d1a9921fd">hint</a></td></tr>
+<tr class="separator:ac183fa06df0ef66b8081410d1a9921fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51b7310aaabb8b455f0f9f95372aa93e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a51b7310aaabb8b455f0f9f95372aa93e">esc_to_clear</a> {true}</td></tr>
+<tr class="separator:a51b7310aaabb8b455f0f9f95372aa93e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4df77fca848e1276a5685b5f37f93c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt; <a class="el" href="classwmoge_1_1UiInputTextExt.html#a99a98c0259c1045ccf82f82b9e058132">OnInput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#ac4df77fca848e1276a5685b5f37f93c7">on_input</a></td></tr>
+<tr class="separator:ac4df77fca848e1276a5685b5f37f93c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e9bad058d8bbab4c465ae546ac5112c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt; <a class="el" href="classwmoge_1_1UiInputTextExt.html#ad7264a6abc1f1d3d3e579a50a6ee650a">OnEnter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a2e9bad058d8bbab4c465ae546ac5112c">on_enter</a></td></tr>
+<tr class="separator:a2e9bad058d8bbab4c465ae546ac5112c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b38f0f9973d9cdb08174fedfcc2426d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt; <a class="el" href="classwmoge_1_1UiInputTextExt.html#a4ac0b437338598ce955d51965340b7c6">OnHistory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a4b38f0f9973d9cdb08174fedfcc2426d">on_history_prev</a></td></tr>
+<tr class="separator:a4b38f0f9973d9cdb08174fedfcc2426d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20c0a9fdbc903d34754001ea1a7e96e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt; <a class="el" href="classwmoge_1_1UiInputTextExt.html#a4ac0b437338598ce955d51965340b7c6">OnHistory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a20c0a9fdbc903d34754001ea1a7e96e2">on_history_next</a></td></tr>
+<tr class="separator:a20c0a9fdbc903d34754001ea1a7e96e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd580acdafdb616d29a647579ffd47cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt; <a class="el" href="classwmoge_1_1UiInputTextExt.html#a1a3c62de74e46d7f76a1eabd6203b977">OnCompletion</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#afd580acdafdb616d29a647579ffd47cb">on_completion</a></td></tr>
+<tr class="separator:afd580acdafdb616d29a647579ffd47cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fa02122eac3c2312780fac12dfc2bd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiSlot.html">UiSlot</a>&lt; <a class="el" href="classwmoge_1_1UiCompletionPopup.html">UiCompletionPopup</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a1fa02122eac3c2312780fac12dfc2bd1">completion_popup</a></td></tr>
+<tr class="separator:a1fa02122eac3c2312780fac12dfc2bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31441fa9e282ee5af7633e21b3a0466f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a31441fa9e282ee5af7633e21b3a0466f">completion_popup_lines</a> {10}</td></tr>
+<tr class="separator:a31441fa9e282ee5af7633e21b3a0466f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1842611659270fd163bd785e860c9a50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiInputTextExt.html#a1842611659270fd163bd785e860c9a50">completion_popup_bottom</a> {false}</td></tr>
+<tr class="separator:a1842611659270fd163bd785e860c9a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_classwmoge_1_1UiElement"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classwmoge_1_1UiElement')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classwmoge_1_1UiElement.html">wmoge::UiElement</a></td></tr>
+<tr class="memitem:ab23ffca8745e4741a6e24dd41d8bbb8a inherit pub_attribs_classwmoge_1_1UiElement"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#ab23ffca8745e4741a6e24dd41d8bbb8a">tag</a></td></tr>
+<tr class="separator:ab23ffca8745e4741a6e24dd41d8bbb8a inherit pub_attribs_classwmoge_1_1UiElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b781404082284e92e6982eed31e0323 inherit pub_attribs_classwmoge_1_1UiElement"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttributeOpt.html">UiAttributeOpt</a>&lt; <a class="el" href="namespacewmoge.html#abdfb0dfd2bff081ec3eb19e3b7820508">UiCursorType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#a4b781404082284e92e6982eed31e0323">cursor</a></td></tr>
+<tr class="separator:a4b781404082284e92e6982eed31e0323 inherit pub_attribs_classwmoge_1_1UiElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4751b0e69adf5e44d58f1a4072e7968e inherit pub_attribs_classwmoge_1_1UiElement"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiUserData.html">UiUserData</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#a4751b0e69adf5e44d58f1a4072e7968e">user_data</a></td></tr>
+<tr class="separator:a4751b0e69adf5e44d58f1a4072e7968e inherit pub_attribs_classwmoge_1_1UiElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae836d7d0bc1d5b4c7bf8aecf056d6e4d inherit pub_attribs_classwmoge_1_1UiElement"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3">UiElementType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#ae836d7d0bc1d5b4c7bf8aecf056d6e4d">type</a> = <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a88183b946cc5f0e8c96b2e66e1c74a7e">UiElementType::Unknown</a></td></tr>
+<tr class="separator:ae836d7d0bc1d5b4c7bf8aecf056d6e4d inherit pub_attribs_classwmoge_1_1UiElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classwmoge_1_1RefCnt"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classwmoge_1_1RefCnt')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classwmoge_1_1RefCnt.html">wmoge::RefCnt</a></td></tr>
 <tr class="memitem:aae1bbca622a836c5b3eafb5ccb9fea58 inherit pro_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#aae1bbca622a836c5b3eafb5ccb9fea58">destroy</a> ()</td></tr>
 <tr class="separator:aae1bbca622a836c5b3eafb5ccb9fea58 inherit pro_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,14 +203,28 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a2ca57a26c27a79bf64e79c7659989d6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ca57a26c27a79bf64e79c7659989d6c">&#9670;&nbsp;</a></span>OnHistory</h2>
+<a id="ad7264a6abc1f1d3d3e579a50a6ee650a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7264a6abc1f1d3d3e579a50a6ee650a">&#9670;&nbsp;</a></span>OnEnter</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classwmoge_1_1UiInputTextExt.html#a2ca57a26c27a79bf64e79c7659989d6c">wmoge::UiInputTextExt::OnHistory</a> =  std::function&lt;void(<a class="el" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3">UiDir</a>)&gt;</td>
+          <td class="memname">using <a class="el" href="classwmoge_1_1UiInputTextExt.html#ad7264a6abc1f1d3d3e579a50a6ee650a">wmoge::UiInputTextExt::OnEnter</a> =  std::function&lt;void()&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4ac0b437338598ce955d51965340b7c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ac0b437338598ce955d51965340b7c6">&#9670;&nbsp;</a></span>OnHistory</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classwmoge_1_1UiInputTextExt.html#a4ac0b437338598ce955d51965340b7c6">wmoge::UiInputTextExt::OnHistory</a> =  std::function&lt;void()&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -209,6 +245,32 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4a2b86549c01873804f081237f6af2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a2b86549c01873804f081237f6af2f0">&#9670;&nbsp;</a></span>UiInputTextExt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::UiInputTextExt::UiInputTextExt </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a1fa02122eac3c2312780fac12dfc2bd1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fa02122eac3c2312780fac12dfc2bd1">&#9670;&nbsp;</a></span>completion_popup</h2>
@@ -218,6 +280,48 @@ Additional Inherited Members</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classwmoge_1_1UiSlot.html">UiSlot</a>&lt;<a class="el" href="classwmoge_1_1UiCompletionPopup.html">UiCompletionPopup</a>&gt; wmoge::UiInputTextExt::completion_popup</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1842611659270fd163bd785e860c9a50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1842611659270fd163bd785e860c9a50">&#9670;&nbsp;</a></span>completion_popup_bottom</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt;bool&gt; wmoge::UiInputTextExt::completion_popup_bottom {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a31441fa9e282ee5af7633e21b3a0466f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31441fa9e282ee5af7633e21b3a0466f">&#9670;&nbsp;</a></span>completion_popup_lines</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt;int&gt; wmoge::UiInputTextExt::completion_popup_lines {10}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a51b7310aaabb8b455f0f9f95372aa93e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51b7310aaabb8b455f0f9f95372aa93e">&#9670;&nbsp;</a></span>esc_to_clear</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt;bool&gt; wmoge::UiInputTextExt::esc_to_clear {true}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -266,14 +370,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ab47efd2ddc35a44fe5bf6415640b9fe5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab47efd2ddc35a44fe5bf6415640b9fe5">&#9670;&nbsp;</a></span>on_history</h2>
+<a id="a2e9bad058d8bbab4c465ae546ac5112c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e9bad058d8bbab4c465ae546ac5112c">&#9670;&nbsp;</a></span>on_enter</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt;<a class="el" href="classwmoge_1_1UiInputTextExt.html#a2ca57a26c27a79bf64e79c7659989d6c">OnHistory</a>&gt; wmoge::UiInputTextExt::on_history</td>
+          <td class="memname"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt;<a class="el" href="classwmoge_1_1UiInputTextExt.html#ad7264a6abc1f1d3d3e579a50a6ee650a">OnEnter</a>&gt; wmoge::UiInputTextExt::on_enter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a20c0a9fdbc903d34754001ea1a7e96e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20c0a9fdbc903d34754001ea1a7e96e2">&#9670;&nbsp;</a></span>on_history_next</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt;<a class="el" href="classwmoge_1_1UiInputTextExt.html#a4ac0b437338598ce955d51965340b7c6">OnHistory</a>&gt; wmoge::UiInputTextExt::on_history_next</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b38f0f9973d9cdb08174fedfcc2426d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b38f0f9973d9cdb08174fedfcc2426d">&#9670;&nbsp;</a></span>on_history_prev</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1UiEvent.html">UiEvent</a>&lt;<a class="el" href="classwmoge_1_1UiInputTextExt.html#a4ac0b437338598ce955d51965340b7c6">OnHistory</a>&gt; wmoge::UiInputTextExt::on_history_prev</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -309,7 +441,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>engine/code/ui/<a class="el" href="ui__elements_8hpp_source.html">ui_elements.hpp</a></li>
+<li>engine/code/ui/<a class="el" href="ui__inputs_8hpp_source.html">ui_inputs.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
