@@ -27,86 +27,33 @@
 
 #pragma once
 
-#include "core/ref.hpp"
-#include "core/status.hpp"
-#include "core/string_id.hpp"
+#include "core/array_view.hpp"
+#include "grc/icon.hpp"
 #include "ui/ui_attribute.hpp"
-#include "ui/ui_defs.hpp"
-
-#include <functional>
-#include <optional>
-#include <string>
-#include <vector>
+#include "ui/ui_element.hpp"
 
 namespace wmoge {
 
-    /** @brief Ui element enum type */
-    enum class UiElementType {
-        Unknown = 0,
-        Separator,
-        SeparatorText,
-        ToolTip,
-        ContextMenu,
-        Popup,
-        CompletionPopup,
-        Modal,
-        StackPanel,
-        ScrollPanel,
-        MenuItem,
-        Menu,
-        MenuBar,
-        ToolBar,
-        StatusBar,
-        MainWindow,
-        DockWindow,
-        Text,
-        TextWrapped,
-        TextLink,
-        DragInt,
-        DragFloat,
-        SliderInt,
-        SliderFloat,
-        InputInt,
-        InputFloat,
-        InputText,
-        InputTextExt,
-        Selectable,
-        Button,
-        CheckBoxButton,
-        RadioButton,
-        ComboBox,
-        ListBox,
-        ProgressBar
-
-    };
-
-    /**
-     * @class UiUserData
-     * @brief Base class for user data which can be attached to any ui element
-     */
-    class UiUserData : public RefCnt {};
-
-    /**
-     * @class UiElement
-     * @brief Base class for all ui elements
-     */
-    class UiElement : public RefCnt {
+    class ImguiProcessor {
     public:
-        UiElement(UiElementType type) : type(type) {}
+        ImguiProcessor(class ImguiManager* manager);
 
-        UiAttribute<Strid>           tag;
-        UiAttributeOpt<UiCursorType> cursor;
-        UiAttribute<Ref<UiUserData>> user_data;
-        const UiElementType          type = UiElementType::Unknown;
-    };
+        void             process(UiElement* element);
+        void             process(UiSlots<UiSlot<UiSubElement>>& elements);
+        void             draw_icon(const Icon& icon, const Vec2f& icon_size);
+        void             add_action_event(UiEvent<std::function<void()>>& event);
+        void             add_action(std::function<void()> action);
+        void             dispatch_actions();
+        void             clear_actions();
+        array_view<char> put_str_to_buffer(const std::string& s);
+        std::string      pop_str_from_buffer();
 
-    /**
-     * @class UiSubElement
-     * @brief Base class for all ui sub-elements which could be nested
-     */
-    class UiSubElement : public UiElement {
-    public:
-        UiSubElement(UiElementType type) : UiElement(type) {}
+        [[nodiscard]] class ImguiManager* get_manager() const { return m_manager; }
+
+    private:
+        std::vector<std::function<void()>> m_actions;
+        std::vector<char>                  m_input_buffer;
+        class ImguiManager*                m_manager;
     };
 
 }// namespace wmoge

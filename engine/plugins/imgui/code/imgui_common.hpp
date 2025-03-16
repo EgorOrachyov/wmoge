@@ -27,51 +27,34 @@
 
 #pragma once
 
-#include <functional>
+#include "core/string_id.hpp"
+#include "math/vec.hpp"
+#include "ui/ui_attribute.hpp"
+
+#include <imgui.h>
+
+#include <string>
 
 namespace wmoge {
 
-    class ImguiManager;
+    inline const char* imgui_str(const UiAttribute<std::string>& s) {
+        return s.get().c_str();
+    }
 
-    /**
-     * @class ImguiProcessContext
-     * @brief Context for imgui 'draw' ui elements pass
-     */
-    class ImguiProcessContext {
-    public:
-        ImguiProcessContext() = default;
+    inline const char* imgui_str(const UiAttribute<Strid>& s) {
+        return s.get().str().c_str();
+    }
 
-        void add_action(std::function<void()> action);
-        void exec_actions();
+    inline ImVec2 imgui_vec2(const Vec2f& v) {
+        return ImVec2(v[0], v[1]);
+    }
 
-    private:
-        std::vector<std::function<void()>> m_actions;
-    };
+    inline ImVec4 imgui_vec4(const Vec4f& v) {
+        return ImVec4(v[0], v[1], v[2], v[3]);
+    }
 
-    /**
-     * @class ImguiElement
-     * @brief Base class for all imgui backend ui elements
-     */
-    class ImguiElement {
-    public:
-        ImguiElement(ImguiManager* manager);
-        virtual ~ImguiElement() = default;
-
-        virtual void process(ImguiProcessContext& context) {}
-
-    protected:
-        ImguiManager* m_manager;
-    };
-
-    /**
-     * @class ImguiElementBase
-     * @brief Helper class to implement ui element
-     */
-    template<typename UiBaseClass>
-    class ImguiElementBase : public UiBaseClass, public ImguiElement {
-    public:
-        ImguiElementBase(ImguiManager* manager) : ImguiElement(manager) {}
-        ~ImguiElementBase() override = default;
-    };
+    inline ImVec4 imgui_color4(const Color4f& v) {
+        return ImVec4(v[0], v[1], v[2], v[3]);
+    }
 
 }// namespace wmoge

@@ -31,13 +31,10 @@
 #include "gfx/gfx_texture.hpp"
 #include "grc/texture.hpp"
 #include "imgui_driver.hpp"
-#include "imgui_element.hpp"
-#include "imgui_factory.hpp"
 #include "imgui_platform.hpp"
+#include "imgui_process.hpp"
 #include "platform/window_manager.hpp"
 #include "ui/ui_manager.hpp"
-
-#include "imgui.h"
 
 #include <memory>
 
@@ -52,11 +49,10 @@ namespace wmoge {
         ImguiManager(WindowManager* window_manager, GfxDriver* driver);
         ~ImguiManager() override;
 
-        void       provide_window(Ref<UiMainWindow> window) override;
-        void       add_window(Ref<UiDockWindow> window) override;
-        void       update(std::size_t frame_id) override;
-        void       render(const GfxCmdListRef& cmd_list) override;
-        UiFactory* get_factory() override;
+        void set_main_window(Ref<UiMainWindow> window) override;
+        void add_dock_window(Ref<UiDockWindow> window) override;
+        void update(std::size_t frame_id) override;
+        void render(const GfxCmdListRef& cmd_list) override;
 
         ImTextureID get_texture_id(const Ref<Texture2d>& texture);
 
@@ -64,20 +60,19 @@ namespace wmoge {
         [[nodiscard]] bool is_viewports_enable() const { return m_viewports_enable; }
 
     protected:
-        void process_main_window(ImguiProcessContext& context);
-        void process_dock_windows(ImguiProcessContext& context);
-        void dispatch_actions(ImguiProcessContext& context);
+        void process_main_window();
+        void process_dock_windows();
+        void dispatch_actions();
 
     private:
-        std::unique_ptr<ImguiPlatform> m_platform;
-        std::unique_ptr<ImguiDriver>   m_driver;
-        std::unique_ptr<ImguiFactory>  m_factory;
-        std::vector<Ref<UiDockWindow>> m_dock_windows;
-        Ref<UiMainWindow>              m_main_window;
+        std::unique_ptr<ImguiProcessor> m_processor;
+        std::unique_ptr<ImguiPlatform>  m_platform;
+        std::unique_ptr<ImguiDriver>    m_driver;
+        std::vector<Ref<UiDockWindow>>  m_dock_windows;
+        Ref<UiMainWindow>               m_main_window;
 
         bool m_docking_enable   = true;
         bool m_viewports_enable = true;
-
         bool m_show_demo_window = true;
     };
 

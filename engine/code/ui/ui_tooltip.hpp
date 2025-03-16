@@ -41,6 +41,8 @@ namespace wmoge {
      */
     class UiToolTip : public UiElement {
     public:
+        UiToolTip() : UiElement(UiElementType::ToolTip) {}
+
         UiAttribute<std::string> text;
         UiSlot<UiSubElement>     content;
     };

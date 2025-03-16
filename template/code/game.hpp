@@ -94,7 +94,51 @@ public:
         rdg_pool  = std::make_unique<RdgPool>(engine->gfx_driver());
         rdg_graph = std::make_unique<RdgGraph>(rdg_pool.get(), engine->gfx_driver(), engine->shader_manager(), engine->texture_manager());
 
-        auto* ui_factory = engine->ui_manager()->get_factory();
+        auto atlas = m_engine->asset_manager()->load(SID("editor/icons/atlas")).cast<IconAtlas>();
+        auto icon  = atlas->try_find_icon(SID("general_redo")).value();
+
+        auto button      = make_ref<UiButton>();
+        button->label    = "ckick me";
+        button->icon     = icon;
+        button->on_click = []() {
+            WG_LOG_INFO("clicked!");
+        };
+
+        auto input_text = make_ref<UiInputTextExt>();
+
+        auto popup  = make_ref<UiCompletionPopup>();
+        popup->name = "text_completion";
+
+        for (int i = 0; i < 10; i++) {
+            auto item      = make_ref<UiSelectable>();
+            item->icon     = icon;
+            item->label    = "item-" + std::to_string(i);
+            item->on_click = [self = item.get(), input_text = input_text.get()]() {
+                input_text->text = self->label.get();
+            };
+            popup->children.add_slot() = item;
+        }
+
+        input_text->completion_popup = popup;
+        input_text->hint             = "start typing object name...";
+        input_text->on_enter         = [self = input_text.get(), popup]() {
+            WG_LOG_INFO("executed!");
+            self->text         = "";
+            popup->should_show = false;
+        };
+        input_text->on_input = [self = input_text.get(), popup]() {
+            popup->should_show = !self->text.get().empty();
+        };
+
+        auto panel                 = make_ref<UiStackPanel>();
+        panel->children.add_slot() = button;
+        panel->children.add_slot() = input_text;
+
+        auto window   = make_ref<UiMainWindow>();
+        window->title = "Wmoge Editor";
+        window->panel = panel;
+
+        m_engine->ui_manager()->set_main_window(window);
 
         WG_LOG_INFO("init");
         return WG_OK;

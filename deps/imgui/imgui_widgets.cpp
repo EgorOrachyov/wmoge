@@ -1111,6 +1111,49 @@ bool ImGui::ImageButtonEx(ImGuiID id, ImTextureID user_texture_id, const ImVec2&
     return pressed;
 }
 
+bool ImGui::ImageButtonWithLabelEx(ImGuiID id, const char* label, ImTextureID user_texture_id, const ImVec2& image_size, const ImVec2& uv0, const ImVec2& uv1, const ImVec4& bg_col, const ImVec4& tint_col, ImGuiButtonFlags flags)
+{
+    ImGuiContext& g = *GImGui;
+    const ImGuiStyle& style = g.Style;
+    ImGuiWindow* window = GetCurrentWindow();
+    if (window->SkipItems)
+        return false;
+
+    const ImVec2 padding = g.Style.FramePadding;
+    const ImVec2 label_size = CalcTextSize(label, NULL, true);
+    const float label_padding = label_size.x > 0 ? style.ItemInnerSpacing.x : 0.0f;
+    const ImVec2 bb_size = ImVec2(
+            image_size.x + label_padding + label_size.x + padding.x * 2.0f, 
+            ImMax(image_size.y, label_size.y) + padding.y * 2.0f); 
+
+    const ImRect bb(window->DC.CursorPos, window->DC.CursorPos + bb_size);
+    ItemSize(bb);
+    if (!ItemAdd(bb, id))
+        return false;
+
+    bool hovered, held;
+    bool pressed = ButtonBehavior(bb, id, &hovered, &held, flags);
+
+    const ImRect bb_image(
+            bb.Min + ImVec2(padding.x, (bb_size.y - image_size.y) * 0.5f), 
+            bb.Min + ImVec2(padding.x + image_size.x, (bb_size.y - image_size.y) * 0.5f + image_size.y));
+
+    const ImRect bb_text(
+            bb.Min + ImVec2(padding.x + image_size.x + label_padding, (bb_size.y - label_size.y) * 0.5f), 
+            bb.Min + ImVec2(padding.x + image_size.x + label_padding + label_size.x, (bb_size.y - label_size.y) * 0.5f + label_size.y));        
+
+    // Render
+    const ImU32 col = GetColorU32((held && hovered) ? ImGuiCol_ButtonActive : hovered ? ImGuiCol_ButtonHovered : ImGuiCol_Button);
+    RenderNavCursor(bb, id);
+    RenderFrame(bb.Min, bb.Max, col, true, ImClamp((float)ImMin(padding.x, padding.y), 0.0f, g.Style.FrameRounding));
+    if (bg_col.w > 0.0f)
+        window->DrawList->AddRectFilled(bb_image.Min, bb_image.Max, GetColorU32(bg_col));
+    window->DrawList->AddImage(user_texture_id, bb_image.Min, bb_image.Max, uv0, uv1, GetColorU32(tint_col));
+    RenderTextClipped(bb_text.Min, bb_text.Max, label, NULL, &label_size, style.ButtonTextAlign, &bb);
+
+    return pressed;
+}
+
 // - ImageButton() adds style.FramePadding*2.0f to provided size. This is in order to facilitate fitting an image in a button.
 // - ImageButton() draws a background based on regular Button() color + optionally an inner background if specified. (#8165) // FIXME: Maybe that's not the best design?
 bool ImGui::ImageButton(const char* str_id, ImTextureID user_texture_id, const ImVec2& image_size, const ImVec2& uv0, const ImVec2& uv1, const ImVec4& bg_col, const ImVec4& tint_col)
@@ -1121,6 +1164,16 @@ bool ImGui::ImageButton(const char* str_id, ImTextureID user_texture_id, const I
         return false;
 
     return ImageButtonEx(window->GetID(str_id), user_texture_id, image_size, uv0, uv1, bg_col, tint_col);
+}
+
+bool ImGui::ImageButtonWithLabel(const char* str_id, const char* label, ImTextureID user_texture_id, const ImVec2& image_size, const ImVec2& uv0, const ImVec2& uv1, const ImVec4& bg_col, const ImVec4& tint_col)
+{
+    ImGuiContext& g = *GImGui;
+    ImGuiWindow* window = g.CurrentWindow;
+    if (window->SkipItems)
+        return false;
+
+    return ImageButtonWithLabelEx(window->GetID(str_id), label, user_texture_id, image_size, uv0, uv1, bg_col, tint_col);
 }
 
 #ifndef IMGUI_DISABLE_OBSOLETE_FUNCTIONS

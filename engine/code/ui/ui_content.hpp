@@ -27,86 +27,81 @@
 
 #pragma once
 
-#include "core/ref.hpp"
-#include "core/status.hpp"
-#include "core/string_id.hpp"
+#include "math/color.hpp"
 #include "ui/ui_attribute.hpp"
-#include "ui/ui_defs.hpp"
-
-#include <functional>
-#include <optional>
-#include <string>
-#include <vector>
+#include "ui/ui_element.hpp"
 
 namespace wmoge {
 
-    /** @brief Ui element enum type */
-    enum class UiElementType {
-        Unknown = 0,
-        Separator,
-        SeparatorText,
-        ToolTip,
-        ContextMenu,
-        Popup,
-        CompletionPopup,
-        Modal,
-        StackPanel,
-        ScrollPanel,
-        MenuItem,
-        Menu,
-        MenuBar,
-        ToolBar,
-        StatusBar,
-        MainWindow,
-        DockWindow,
-        Text,
-        TextWrapped,
-        TextLink,
-        DragInt,
-        DragFloat,
-        SliderInt,
-        SliderFloat,
-        InputInt,
-        InputFloat,
-        InputText,
-        InputTextExt,
-        Selectable,
-        Button,
-        CheckBoxButton,
-        RadioButton,
-        ComboBox,
-        ListBox,
-        ProgressBar
-
+    /**
+     * @class UiSeparator
+     * @brief
+     */
+    class UiSeparator : public UiSubElement {
+    public:
+        UiSeparator() : UiSubElement(UiElementType::Separator) {}
     };
 
     /**
-     * @class UiUserData
-     * @brief Base class for user data which can be attached to any ui element
+     * @class UiSeparatorText
+     * @brief
      */
-    class UiUserData : public RefCnt {};
-
-    /**
-     * @class UiElement
-     * @brief Base class for all ui elements
-     */
-    class UiElement : public RefCnt {
+    class UiSeparatorText : public UiSubElement {
     public:
-        UiElement(UiElementType type) : type(type) {}
+        UiSeparatorText() : UiSubElement(UiElementType::SeparatorText) {}
 
-        UiAttribute<Strid>           tag;
-        UiAttributeOpt<UiCursorType> cursor;
-        UiAttribute<Ref<UiUserData>> user_data;
-        const UiElementType          type = UiElementType::Unknown;
+        UiAttribute<std::string> label;
     };
 
     /**
-     * @class UiSubElement
-     * @brief Base class for all ui sub-elements which could be nested
+     * @class UiText
+     * @brief
      */
-    class UiSubElement : public UiElement {
+    class UiText : public UiSubElement {
     public:
-        UiSubElement(UiElementType type) : UiElement(type) {}
+        UiText() : UiSubElement(UiElementType::Text) {}
+
+        UiAttribute<std::string> text;
+        UiAttributeOpt<Color4f>  text_color;
+    };
+
+    /**
+     * @class UiTextWrapped
+     * @brief
+     */
+    class UiTextWrapped : public UiSubElement {
+    public:
+        UiTextWrapped() : UiSubElement(UiElementType::TextWrapped) {}
+
+        UiAttribute<std::string> text;
+        UiAttributeOpt<Color4f>  text_color;
+    };
+
+    /**
+     * @class UiTextLink
+     * @brief
+     */
+    class UiTextLink : public UiSubElement {
+    public:
+        UiTextLink() : UiSubElement(UiElementType::TextLink) {}
+
+        using OnClick = std::function<void()>;
+
+        UiAttribute<std::string>    text;
+        UiAttributeOpt<std::string> url;
+        UiEvent<OnClick>            on_click;
+    };
+
+    /**
+     * @class UiProgressBar
+     * @brief
+     */
+    class UiProgressBar : public UiSubElement {
+    public:
+        UiProgressBar() : UiSubElement(UiElementType::ProgressBar) {}
+
+        UiAttribute<std::string> label;
+        UiAttributeOpt<float>    progress;
     };
 
 }// namespace wmoge

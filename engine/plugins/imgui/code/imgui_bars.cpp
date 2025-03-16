@@ -25,36 +25,29 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include "ui/ui_element.hpp"
-#include "ui/ui_elements.hpp"
-#include "ui/ui_style.hpp"
+#include "imgui_bars.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class UiFactory
-     * @brief Abstract factory for ui elemenets construction
-     */
-    class UiFactory {
-    public:
-        virtual ~UiFactory() = default;
+    void imgui_process_menu_bar(ImguiProcessor& processor, UiMenuBar& bar) {
+        if (ImGui::BeginMainMenuBar()) {
+            processor.process(bar.children);
+            ImGui::EndMainMenuBar();
+        }
+    }
 
-        // virtual Ref<UiLayoutVertical>   make_layout_vertical()   = 0;
-        // virtual Ref<UiLayoutHorizontal> make_layout_horizontal() = 0;
-        // virtual Ref<UiMenuAction>       make_menu_action()       = 0;
-        // virtual Ref<UiMenuGroup>        make_menu_group()        = 0;
-        // virtual Ref<UiMenu>             make_menu()              = 0;
-        // virtual Ref<UiMenuBar>          make_menu_bar()          = 0;
-        // virtual Ref<UiMainWindow>       make_main_window()       = 0;
-        // virtual Ref<UiDockWindow>       make_dock_window()       = 0;
-        // virtual Ref<UiText>             make_text()              = 0;
-        // virtual Ref<UiTextInput>        make_text_input()        = 0;
-        // virtual Ref<UiTextInputPopup>   make_text_input_popup()  = 0;
-        // virtual Ref<UiScrollArea>       make_scroll_area()       = 0;
-        // virtual Ref<UiSelectable>       make_selectable()        = 0;
-        // virtual Ref<UiIconButton>       make_icon_button()       = 0;
-    };
+    void imgui_process_tool_bar(ImguiProcessor& processor, UiToolBar& bar) {
+        if (ImGui::BeginMenuBar()) {
+            processor.process(bar.children);
+            ImGui::EndMenuBar();
+        }
+    }
+
+    void imgui_process_status_bar(ImguiProcessor& processor, UiStatusBar& bar) {
+        if (ImGui::BeginMenuBar()) {
+            processor.process(bar.children);
+            ImGui::EndMenuBar();
+        }
+    }
 
 }// namespace wmoge

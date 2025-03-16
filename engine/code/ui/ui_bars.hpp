@@ -27,35 +27,48 @@
 
 #pragma once
 
-#include "ui/ui_factory.hpp"
+#include "ui/ui_attribute.hpp"
+#include "ui/ui_element.hpp"
 
 namespace wmoge {
 
     /**
-     * @class ImguiFactory
-     * @brief Ui elements factory implementation for imgui
+     * @class UiMenuBar
+     * @brief
      */
-    class ImguiFactory : public UiFactory {
+    class UiMenuBar : public UiElement {
     public:
-        ImguiFactory(class ImguiManager* manager);
+        UiMenuBar() : UiElement(UiElementType::MenuBar) {}
 
-        // Ref<UiLayoutVertical>   make_layout_vertical() override;
-        // Ref<UiLayoutHorizontal> make_layout_horizontal() override;
-        // Ref<UiMenuAction>       make_menu_action() override;
-        // Ref<UiMenuGroup>        make_menu_group() override;
-        // Ref<UiMenu>             make_menu() override;
-        // Ref<UiMenuBar>          make_menu_bar() override;
-        // Ref<UiMainWindow>       make_main_window() override;
-        // Ref<UiDockWindow>       make_dock_window() override;
-        // Ref<UiText>             make_text() override;
-        // Ref<UiTextInput>        make_text_input() override;
-        // Ref<UiTextInputPopup>   make_text_input_popup() override;
-        // Ref<UiScrollArea>       make_scroll_area() override;
-        // Ref<UiSelectable>       make_selectable() override;
-        // Ref<UiIconButton>       make_icon_button() override;
+        using Slot = UiSlot<UiSubElement>;
 
-    private:
-        class ImguiManager* m_manager = nullptr;
+        UiSlots<Slot> children;
+    };
+
+    /**
+     * @class UiToolBar
+     * @brief
+     */
+    class UiToolBar : public UiElement {
+    public:
+        UiToolBar() : UiElement(UiElementType::ToolBar) {}
+
+        using Slot = UiSlot<UiSubElement>;
+
+        UiSlots<Slot> children;
+    };
+
+    /**
+     * @class UiStatusBar
+     * @brief
+     */
+    class UiStatusBar : public UiElement {
+    public:
+        UiStatusBar() : UiElement(UiElementType::StatusBar) {}
+
+        using Slot = UiSlot<UiSubElement>;
+
+        UiSlots<Slot> children;
     };
 
 }// namespace wmoge

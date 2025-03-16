@@ -27,86 +27,26 @@
 
 #pragma once
 
-#include "core/ref.hpp"
-#include "core/status.hpp"
-#include "core/string_id.hpp"
-#include "ui/ui_attribute.hpp"
-#include "ui/ui_defs.hpp"
-
-#include <functional>
-#include <optional>
-#include <string>
-#include <vector>
+#include "imgui_common.hpp"
+#include "imgui_process.hpp"
+#include "ui/ui_inputs.hpp"
 
 namespace wmoge {
 
-    /** @brief Ui element enum type */
-    enum class UiElementType {
-        Unknown = 0,
-        Separator,
-        SeparatorText,
-        ToolTip,
-        ContextMenu,
-        Popup,
-        CompletionPopup,
-        Modal,
-        StackPanel,
-        ScrollPanel,
-        MenuItem,
-        Menu,
-        MenuBar,
-        ToolBar,
-        StatusBar,
-        MainWindow,
-        DockWindow,
-        Text,
-        TextWrapped,
-        TextLink,
-        DragInt,
-        DragFloat,
-        SliderInt,
-        SliderFloat,
-        InputInt,
-        InputFloat,
-        InputText,
-        InputTextExt,
-        Selectable,
-        Button,
-        CheckBoxButton,
-        RadioButton,
-        ComboBox,
-        ListBox,
-        ProgressBar
+    void imgui_process_drag_int(ImguiProcessor& processor, UiDragInt& element);
 
-    };
+    void imgui_process_drag_float(ImguiProcessor& processor, UiDragFloat& element);
 
-    /**
-     * @class UiUserData
-     * @brief Base class for user data which can be attached to any ui element
-     */
-    class UiUserData : public RefCnt {};
+    void imgui_process_slider_int(ImguiProcessor& processor, UiSliderInt& element);
 
-    /**
-     * @class UiElement
-     * @brief Base class for all ui elements
-     */
-    class UiElement : public RefCnt {
-    public:
-        UiElement(UiElementType type) : type(type) {}
+    void imgui_process_slider_float(ImguiProcessor& processor, UiSliderFloat& element);
 
-        UiAttribute<Strid>           tag;
-        UiAttributeOpt<UiCursorType> cursor;
-        UiAttribute<Ref<UiUserData>> user_data;
-        const UiElementType          type = UiElementType::Unknown;
-    };
+    void imgui_process_input_int(ImguiProcessor& processor, UiInputInt& element);
 
-    /**
-     * @class UiSubElement
-     * @brief Base class for all ui sub-elements which could be nested
-     */
-    class UiSubElement : public UiElement {
-    public:
-        UiSubElement(UiElementType type) : UiElement(type) {}
-    };
+    void imgui_process_input_float(ImguiProcessor& processor, UiInputFloat& element);
+
+    void imgui_process_input_text(ImguiProcessor& processor, UiInputText& element);
+
+    void imgui_process_input_text_ext(ImguiProcessor& processor, UiInputTextExt& element);
 
 }// namespace wmoge

@@ -27,86 +27,22 @@
 
 #pragma once
 
-#include "core/ref.hpp"
-#include "core/status.hpp"
-#include "core/string_id.hpp"
-#include "ui/ui_attribute.hpp"
-#include "ui/ui_defs.hpp"
-
-#include <functional>
-#include <optional>
-#include <string>
-#include <vector>
+#include "imgui_common.hpp"
+#include "imgui_process.hpp"
+#include "ui/ui_content.hpp"
 
 namespace wmoge {
 
-    /** @brief Ui element enum type */
-    enum class UiElementType {
-        Unknown = 0,
-        Separator,
-        SeparatorText,
-        ToolTip,
-        ContextMenu,
-        Popup,
-        CompletionPopup,
-        Modal,
-        StackPanel,
-        ScrollPanel,
-        MenuItem,
-        Menu,
-        MenuBar,
-        ToolBar,
-        StatusBar,
-        MainWindow,
-        DockWindow,
-        Text,
-        TextWrapped,
-        TextLink,
-        DragInt,
-        DragFloat,
-        SliderInt,
-        SliderFloat,
-        InputInt,
-        InputFloat,
-        InputText,
-        InputTextExt,
-        Selectable,
-        Button,
-        CheckBoxButton,
-        RadioButton,
-        ComboBox,
-        ListBox,
-        ProgressBar
+    void imgui_process_separator(ImguiProcessor& processor, UiSeparator& element);
 
-    };
+    void imgui_process_separator_text(ImguiProcessor& processor, UiSeparatorText& element);
 
-    /**
-     * @class UiUserData
-     * @brief Base class for user data which can be attached to any ui element
-     */
-    class UiUserData : public RefCnt {};
+    void imgui_process_text(ImguiProcessor& processor, UiText& element);
 
-    /**
-     * @class UiElement
-     * @brief Base class for all ui elements
-     */
-    class UiElement : public RefCnt {
-    public:
-        UiElement(UiElementType type) : type(type) {}
+    void imgui_process_text_wrapped(ImguiProcessor& processor, UiTextWrapped& element);
 
-        UiAttribute<Strid>           tag;
-        UiAttributeOpt<UiCursorType> cursor;
-        UiAttribute<Ref<UiUserData>> user_data;
-        const UiElementType          type = UiElementType::Unknown;
-    };
+    void imgui_process_text_link(ImguiProcessor& processor, UiTextLink& element);
 
-    /**
-     * @class UiSubElement
-     * @brief Base class for all ui sub-elements which could be nested
-     */
-    class UiSubElement : public UiElement {
-    public:
-        UiSubElement(UiElementType type) : UiElement(type) {}
-    };
+    void imgui_process_progress_bar(ImguiProcessor& processor, UiProgressBar& element);
 
 }// namespace wmoge

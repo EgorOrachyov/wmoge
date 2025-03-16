@@ -41,8 +41,24 @@ namespace wmoge {
         UiAttribute() = default;
         UiAttribute(T value) : m_value(std::move(value)) {}
 
-        void     set(T value) { m_value = std::move(value); }
-        const T& get() const { return m_value; }
+        UiAttribute& operator=(const T& value) {
+            m_value = value;
+            return *this;
+        }
+
+        UiAttribute& operator=(T&& value) {
+            m_value = std::move(value);
+            return *this;
+        }
+
+        void set(T value) { m_value = std::move(value); }
+
+        operator T() const { return m_value; }
+
+        [[nodiscard]] const T& get() const { return m_value; }
+        [[nodiscard]] T&       get() { return m_value; }
+        [[nodiscard]] const T* get_ptr() const { return &m_value; }
+        [[nodiscard]] T*       get_ptr() { return &m_value; }
 
     protected:
         T m_value;
@@ -51,32 +67,46 @@ namespace wmoge {
     template<typename T>
     class UiAttributeList : public UiAttribute<std::vector<T>> {
     public:
+        using UiAttribute<std::vector<T>>::m_value;
+
         void add_element(T element) { m_value.push_back(std::move(element)); }
     };
 
     template<typename T>
     class UiAttributeOpt : public UiAttribute<std::optional<T>> {
     public:
+        using UiAttribute<std::optional<T>>::m_value;
+        using UiAttribute<std::optional<T>>::operator=;
+
         bool     has_value() const { return m_value.has_value(); }
         const T& value() const { return m_value.value(); }
+        void     reset() { m_value.reset(); }
     };
 
     template<typename T>
     class UiEvent : public UiAttribute<T> {
     public:
-        void has_callback() const { return m_value; }
+        using UiAttribute<T>::m_value;
+        using UiAttribute<T>::operator=;
+
+        bool has_callback() const { return (bool) m_value; }
     };
 
     template<typename T>
     class UiSlot : public UiAttribute<Ref<T>> {
     public:
+        using UiAttribute<Ref<T>>::m_value;
+        using UiAttribute<Ref<T>>::operator=;
+
         bool has_value() const { return m_value; }
     };
 
     template<typename T>
     class UiSlots : public UiAttribute<std::vector<T>> {
     public:
-        T&                  add_slot() { m_value.emplace_back(); }
+        using UiAttribute<std::vector<T>>::m_value;
+
+        T&                  add_slot() { return m_value.emplace_back(); }
         array_view<const T> get_slots() const { return m_value; }
     };
 

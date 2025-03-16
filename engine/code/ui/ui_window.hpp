@@ -27,86 +27,47 @@
 
 #pragma once
 
-#include "core/ref.hpp"
-#include "core/status.hpp"
-#include "core/string_id.hpp"
 #include "ui/ui_attribute.hpp"
-#include "ui/ui_defs.hpp"
-
-#include <functional>
-#include <optional>
-#include <string>
-#include <vector>
+#include "ui/ui_bars.hpp"
+#include "ui/ui_containers.hpp"
+#include "ui/ui_element.hpp"
 
 namespace wmoge {
 
-    /** @brief Ui element enum type */
-    enum class UiElementType {
-        Unknown = 0,
-        Separator,
-        SeparatorText,
-        ToolTip,
-        ContextMenu,
-        Popup,
-        CompletionPopup,
-        Modal,
-        StackPanel,
-        ScrollPanel,
-        MenuItem,
-        Menu,
-        MenuBar,
-        ToolBar,
-        StatusBar,
-        MainWindow,
-        DockWindow,
-        Text,
-        TextWrapped,
-        TextLink,
-        DragInt,
-        DragFloat,
-        SliderInt,
-        SliderFloat,
-        InputInt,
-        InputFloat,
-        InputText,
-        InputTextExt,
-        Selectable,
-        Button,
-        CheckBoxButton,
-        RadioButton,
-        ComboBox,
-        ListBox,
-        ProgressBar
+    /**
+     * @class UiWindow
+     * @brief
+     */
+    class UiWindow : public UiElement {
+    public:
+        using UiElement::UiElement;
 
+        UiAttribute<std::string>   title;
+        UiSlot<UiMenuBar>          menu_bar;
+        UiSlot<UiToolBar>          tool_bar;
+        UiSlot<UiStatusBar>        status_bar;
+        UiSlot<UiPanel>            panel;
+        UiAttribute<UiWindowFlags> flags;
+        UiAttribute<bool>          is_open{true};
+        UiAttribute<bool>          is_fullscreen{true};
     };
 
     /**
-     * @class UiUserData
-     * @brief Base class for user data which can be attached to any ui element
+     * @class UiMainWindow
+     * @brief
      */
-    class UiUserData : public RefCnt {};
-
-    /**
-     * @class UiElement
-     * @brief Base class for all ui elements
-     */
-    class UiElement : public RefCnt {
+    class UiMainWindow : public UiWindow {
     public:
-        UiElement(UiElementType type) : type(type) {}
-
-        UiAttribute<Strid>           tag;
-        UiAttributeOpt<UiCursorType> cursor;
-        UiAttribute<Ref<UiUserData>> user_data;
-        const UiElementType          type = UiElementType::Unknown;
+        UiMainWindow() : UiWindow(UiElementType::MainWindow) {}
     };
 
     /**
-     * @class UiSubElement
-     * @brief Base class for all ui sub-elements which could be nested
+     * @class UiDockWindow
+     * @brief
      */
-    class UiSubElement : public UiElement {
+    class UiDockWindow : public UiWindow {
     public:
-        UiSubElement(UiElementType type) : UiElement(type) {}
+        UiDockWindow() : UiWindow(UiElementType::DockWindow) {}
     };
 
 }// namespace wmoge

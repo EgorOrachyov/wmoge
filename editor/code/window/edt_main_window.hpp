@@ -28,7 +28,6 @@
 #pragma once
 
 #include "platform/window.hpp"
-#include "ui/ui_elements.hpp"
 
 namespace wmoge {
 
@@ -37,8 +36,7 @@ namespace wmoge {
         EdtMainWindow(Ref<Window> window);
 
     private:
-        Ref<UiMainWindow> m_ui_window;
-        Ref<Window>       m_window;
+        Ref<Window> m_window;
     };
 
 }// namespace wmoge

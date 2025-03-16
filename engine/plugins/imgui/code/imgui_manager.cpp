@@ -53,24 +53,24 @@ namespace wmoge {
             m_driver = std::make_unique<ImguiDriverVulkan>(window_manager->get_primary_window(), driver);
         }
 
-        m_factory = std::make_unique<ImguiFactory>(this);
+        m_processor = std::make_unique<ImguiProcessor>(this);
 
         assert(m_platform);
         assert(m_driver);
     }
 
     ImguiManager::~ImguiManager() {
+        m_processor.reset();
         m_driver.reset();
         m_platform.reset();
-        m_factory.reset();
         ImGui::DestroyContext();
     }
 
-    void ImguiManager::provide_window(Ref<UiMainWindow> window) {
+    void ImguiManager::set_main_window(Ref<UiMainWindow> window) {
         m_main_window = std::move(window);
     }
 
-    void ImguiManager::add_window(Ref<UiDockWindow> window) {
+    void ImguiManager::add_dock_window(Ref<UiDockWindow> window) {
         m_dock_windows.push_back(std::move(window));
     }
 
@@ -82,10 +82,9 @@ namespace wmoge {
         ImGui::NewFrame();
 
         if (m_main_window) {
-            ImguiProcessContext context;
-            process_main_window(context);
-            process_dock_windows(context);
-            dispatch_actions(context);
+            process_main_window();
+            process_dock_windows();
+            dispatch_actions();
         }
         if (m_show_demo_window) {
             ImGui::ShowDemoWindow(&m_show_demo_window);
@@ -104,34 +103,29 @@ namespace wmoge {
         }
     }
 
-    UiFactory* ImguiManager::get_factory() {
-        return m_factory.get();
-    }
-
     ImTextureID ImguiManager::get_texture_id(const Ref<Texture2d>& texture) {
         return m_driver->get_texture_id(texture->get_texture(), texture->get_sampler());
     }
 
-    void ImguiManager::process_main_window(ImguiProcessContext& context) {
+    void ImguiManager::process_main_window() {
         WG_PROFILE_CPU_UI("ImguiManager::process_main_window");
 
-        ImguiElement* imgui_main_window = dynamic_cast<ImguiElement*>(m_main_window.get());
-        imgui_main_window->process(context);
+        m_processor->process(m_main_window.get());
     }
 
-    void ImguiManager::process_dock_windows(ImguiProcessContext& context) {
+    void ImguiManager::process_dock_windows() {
         WG_PROFILE_CPU_UI("ImguiManager::process_dock_windows");
 
-        for (auto& window : m_dock_windows) {
-            ImguiElement* imgui_main_window = dynamic_cast<ImguiElement*>(window.get());
-            imgui_main_window->process(context);
+        for (auto& dock_window : m_dock_windows) {
+            m_processor->process(dock_window.get());
         }
     }
 
-    void ImguiManager::dispatch_actions(ImguiProcessContext& context) {
+    void ImguiManager::dispatch_actions() {
         WG_PROFILE_CPU_UI("ImguiManager::dispatch_actions");
 
-        context.exec_actions();
+        m_processor->dispatch_actions();
+        m_processor->clear_actions();
     }
 
 }// namespace wmoge

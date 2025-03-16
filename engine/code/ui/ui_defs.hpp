@@ -60,8 +60,8 @@ namespace wmoge {
     };
 
     enum class UiScroll {
-        Horizontal,
         Vertical,
+        Horizontal,
         Mixed
     };
 

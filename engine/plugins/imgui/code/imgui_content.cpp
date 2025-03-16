@@ -25,22 +25,62 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "imgui_element.hpp"
+#include "imgui_content.hpp"
 
 namespace wmoge {
 
-    void ImguiProcessContext::add_action(std::function<void()> action) {
-        m_actions.push_back(std::move(action));
+    void imgui_process_separator(ImguiProcessor& processor, UiSeparator& element) {
+        ImGui::Separator();
     }
 
-    void ImguiProcessContext::exec_actions() {
-        for (const auto& action : m_actions) {
-            action();
+    void imgui_process_separator_text(ImguiProcessor& processor, UiSeparatorText& element) {
+        ImGui::SeparatorText(imgui_str(element.label));
+    }
+
+    void imgui_process_text(ImguiProcessor& processor, UiText& element) {
+        if (element.text_color.has_value()) {
+            ImGui::PushStyleColor(ImGuiCol_Text, imgui_color4(element.text_color.value()));
+        }
+        ImGui::TextUnformatted(element.text.get().c_str());
+        if (element.text_color.has_value()) {
+            ImGui::PopStyleColor();
         }
     }
 
-    ImguiElement::ImguiElement(ImguiManager* manager)
-        : m_manager(manager) {
+    void imgui_process_text_wrapped(ImguiProcessor& processor, UiTextWrapped& element) {
+        if (element.text_color.has_value()) {
+            ImGui::PushStyleColor(ImGuiCol_Text, imgui_color4(element.text_color.value()));
+        }
+
+        ImGui::PushTextWrapPos();
+        ImGui::TextUnformatted(element.text.get().c_str());
+        ImGui::PopTextWrapPos();
+
+        if (element.text_color.has_value()) {
+            ImGui::PopStyleColor();
+        }
+    }
+
+    void imgui_process_text_link(ImguiProcessor& processor, UiTextLink& element) {
+        if (element.url.has_value()) {
+            ImGui::TextLinkOpenURL(imgui_str(element.text), element.url.value().c_str());
+        } else {
+            if (ImGui::TextLink(imgui_str(element.text))) {
+                processor.add_action_event(element.on_click);
+            }
+        }
+    }
+
+    void imgui_process_progress_bar(ImguiProcessor& processor, UiProgressBar& element) {
+        float fraction = -0.0f;
+
+        if (element.progress.has_value()) {
+            fraction = element.progress.value();
+        } else {
+            fraction = -1.0f * static_cast<float>(ImGui::GetTime());
+        }
+
+        ImGui::ProgressBar(fraction, ImVec2(0.0f, 0.0f), imgui_str(element.label));
     }
 
 }// namespace wmoge

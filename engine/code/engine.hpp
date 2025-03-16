@@ -227,11 +227,16 @@
 #include "system/plugin.hpp"
 #include "system/plugin_manager.hpp"
 
+#include "ui/ui_bars.hpp"
+#include "ui/ui_containers.hpp"
+#include "ui/ui_content.hpp"
+#include "ui/ui_controls.hpp"
 #include "ui/ui_defs.hpp"
 #include "ui/ui_element.hpp"
-#include "ui/ui_elements.hpp"
-#include "ui/ui_factory.hpp"
+#include "ui/ui_inputs.hpp"
 #include "ui/ui_manager.hpp"
 #include "ui/ui_style.hpp"
+#include "ui/ui_views.hpp"
+#include "ui/ui_window.hpp"
 
 #include "game/game_manager.hpp"

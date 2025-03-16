@@ -27,86 +27,24 @@
 
 #pragma once
 
-#include "core/ref.hpp"
-#include "core/status.hpp"
-#include "core/string_id.hpp"
-#include "ui/ui_attribute.hpp"
-#include "ui/ui_defs.hpp"
-
-#include <functional>
-#include <optional>
-#include <string>
-#include <vector>
+#include "imgui_common.hpp"
+#include "imgui_process.hpp"
+#include "ui/ui_controls.hpp"
 
 namespace wmoge {
 
-    /** @brief Ui element enum type */
-    enum class UiElementType {
-        Unknown = 0,
-        Separator,
-        SeparatorText,
-        ToolTip,
-        ContextMenu,
-        Popup,
-        CompletionPopup,
-        Modal,
-        StackPanel,
-        ScrollPanel,
-        MenuItem,
-        Menu,
-        MenuBar,
-        ToolBar,
-        StatusBar,
-        MainWindow,
-        DockWindow,
-        Text,
-        TextWrapped,
-        TextLink,
-        DragInt,
-        DragFloat,
-        SliderInt,
-        SliderFloat,
-        InputInt,
-        InputFloat,
-        InputText,
-        InputTextExt,
-        Selectable,
-        Button,
-        CheckBoxButton,
-        RadioButton,
-        ComboBox,
-        ListBox,
-        ProgressBar
+    void imgui_process_menu_item(ImguiProcessor& processor, UiMenuItem& element);
 
-    };
+    void imgui_process_selectable(ImguiProcessor& processor, UiSelectable& element);
 
-    /**
-     * @class UiUserData
-     * @brief Base class for user data which can be attached to any ui element
-     */
-    class UiUserData : public RefCnt {};
+    void imgui_process_button(ImguiProcessor& processor, UiButton& element);
 
-    /**
-     * @class UiElement
-     * @brief Base class for all ui elements
-     */
-    class UiElement : public RefCnt {
-    public:
-        UiElement(UiElementType type) : type(type) {}
+    void imgui_process_check_box_button(ImguiProcessor& processor, UiCheckBoxButton& element);
 
-        UiAttribute<Strid>           tag;
-        UiAttributeOpt<UiCursorType> cursor;
-        UiAttribute<Ref<UiUserData>> user_data;
-        const UiElementType          type = UiElementType::Unknown;
-    };
+    void imgui_process_radio_button(ImguiProcessor& processor, UiRadioButton& element);
 
-    /**
-     * @class UiSubElement
-     * @brief Base class for all ui sub-elements which could be nested
-     */
-    class UiSubElement : public UiElement {
-    public:
-        UiSubElement(UiElementType type) : UiElement(type) {}
-    };
+    void imgui_process_combo_box(ImguiProcessor& processor, UiComboBox& element);
+
+    void imgui_process_list_box(ImguiProcessor& processor, UiListBox& element);
 
 }// namespace wmoge
