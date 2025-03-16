@@ -34,7 +34,6 @@
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_pipeline.hpp"
-#include "gpu/gpu_buffer.hpp"
 #include "grc/font.hpp"
 #include "grc/texture.hpp"
 #include "math/color.hpp"
@@ -43,6 +42,7 @@
 #include "math/math_utils2d.hpp"
 #include "math/transform.hpp"
 #include "math/vec.hpp"
+#include "render/gpu_buffer.hpp"
 #include "render/interop.hpp"
 
 #include <cinttypes>

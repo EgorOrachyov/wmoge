@@ -8056,13 +8056,13 @@ void ImGui::ShowStyleEditor(ImGuiStyle* ref)
             ImGui::SliderFloat("GrabMinSize", &style.GrabMinSize, 1.0f, 20.0f, "%.0f");
 
             ImGui::SeparatorText("Borders");
-            ImGui::SliderFloat("WindowBorderSize", &style.WindowBorderSize, 0.0f, 1.0f, "%.0f");
-            ImGui::SliderFloat("ChildBorderSize", &style.ChildBorderSize, 0.0f, 1.0f, "%.0f");
-            ImGui::SliderFloat("PopupBorderSize", &style.PopupBorderSize, 0.0f, 1.0f, "%.0f");
-            ImGui::SliderFloat("FrameBorderSize", &style.FrameBorderSize, 0.0f, 1.0f, "%.0f");
-            ImGui::SliderFloat("TabBorderSize", &style.TabBorderSize, 0.0f, 1.0f, "%.0f");
-            ImGui::SliderFloat("TabBarBorderSize", &style.TabBarBorderSize, 0.0f, 2.0f, "%.0f");
-            ImGui::SliderFloat("TabBarOverlineSize", &style.TabBarOverlineSize, 0.0f, 2.0f, "%.0f");
+            ImGui::SliderFloat("WindowBorderSize", &style.WindowBorderSize, 0.0f, 10.0f, "%.0f");
+            ImGui::SliderFloat("ChildBorderSize", &style.ChildBorderSize, 0.0f, 10.0f, "%.0f");
+            ImGui::SliderFloat("PopupBorderSize", &style.PopupBorderSize, 0.0f, 10.0f, "%.0f");
+            ImGui::SliderFloat("FrameBorderSize", &style.FrameBorderSize, 0.0f, 10.0f, "%.0f");
+            ImGui::SliderFloat("TabBorderSize", &style.TabBorderSize, 0.0f, 10.0f, "%.0f");
+            ImGui::SliderFloat("TabBarBorderSize", &style.TabBarBorderSize, 0.0f, 10.0f, "%.0f");
+            ImGui::SliderFloat("TabBarOverlineSize", &style.TabBarOverlineSize, 0.0f, 10.0f, "%.0f");
             ImGui::SameLine(); HelpMarker("Overline is only drawn over the selected tab when ImGuiTabBarFlags_DrawSelectedOverline is set.");
 
             ImGui::SeparatorText("Rounding");
@@ -8197,7 +8197,7 @@ void ImGui::ShowStyleEditor(ImGuiStyle* ref)
             // Post-baking font scaling. Note that this is NOT the nice way of scaling fonts, read below.
             // (we enforce hard clamping manually as by default DragFloat/SliderFloat allows CTRL+Click text to get out of bounds).
             const float MIN_SCALE = 0.3f;
-            const float MAX_SCALE = 2.0f;
+            const float MAX_SCALE = 10.0f;
             HelpMarker(
                 "Those are old settings provided for convenience.\n"
                 "However, the _correct_ way of scaling your UI is currently to reload your font at the designed size, "

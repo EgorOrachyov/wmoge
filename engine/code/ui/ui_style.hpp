@@ -28,7 +28,9 @@
 #pragma once
 
 #include "asset/asset.hpp"
+#include "asset/asset_ref.hpp"
 #include "core/flat_map.hpp"
+#include "grc/font.hpp"
 #include "math/color.hpp"
 #include "math/vec.hpp"
 #include "rtti/traits.hpp"
@@ -128,6 +130,20 @@ namespace wmoge {
     }
     WG_RTTI_END;
 
+    /** @brief Ui font with tag to reference in elements styling */
+    struct UiFontSlot {
+        WG_RTTI_STRUCT(UiFontSlot);
+
+        Strid          tag;
+        AssetRef<Font> file;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(UiFontSlot) {
+        WG_RTTI_FIELD(tag, {});
+        WG_RTTI_FIELD(file, {});
+    }
+    WG_RTTI_END;
+
     /**
      * @class UiStyleDesc
      * @brief Style desc which can be used for save/load of style
@@ -188,6 +204,8 @@ namespace wmoge {
         std::optional<float>     hover_delay_normal;
         UiColorPalette           palette;
         std::vector<UiColorSlot> colors;
+        std::vector<UiFontSlot>  fonts;
+        std::optional<float>     font_scale;
     };
 
     WG_RTTI_STRUCT_BEGIN(UiStyleDesc) {
@@ -244,6 +262,8 @@ namespace wmoge {
         WG_RTTI_FIELD(hover_delay_normal, {RttiOptional});
         WG_RTTI_FIELD(palette, {RttiOptional});
         WG_RTTI_FIELD(colors, {RttiOptional});
+        WG_RTTI_FIELD(fonts, {RttiOptional});
+        WG_RTTI_FIELD(font_scale, {RttiOptional});
     }
     WG_RTTI_END;
 

@@ -64,9 +64,10 @@ namespace wmoge {
         [[nodiscard]] bool is_viewports_enable() const { return m_viewports_enable; }
 
     protected:
-        void process_main_window();
-        void process_dock_windows();
-        void dispatch_actions();
+        void    process_main_window();
+        void    process_dock_windows();
+        void    dispatch_actions();
+        ImFont* load_font(const Ref<Font>& font);
 
     private:
         std::unique_ptr<ImguiProcessor> m_processor;
@@ -76,6 +77,8 @@ namespace wmoge {
         Ref<UiMainWindow>               m_main_window;
         Ref<UiStyle>                    m_style;
         Ref<UiStyle>                    m_style_default;
+        std::vector<ImFont*>            m_fonts;
+        flat_map<Ref<Font>, ImFont*>    m_loaded_fonts;
 
         bool m_docking_enable   = true;
         bool m_viewports_enable = true;

@@ -46,6 +46,7 @@ namespace wmoge {
         m_glyphs_in_row = desc.glyphs_in_row;
         m_max_height    = desc.max_height;
         m_max_width     = desc.max_width;
+        m_file_content  = desc.file_content;
 
         return WG_OK;
     }

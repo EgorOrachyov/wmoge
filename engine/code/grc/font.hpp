@@ -29,6 +29,7 @@
 
 #include "asset/asset.hpp"
 #include "core/buffered_vector.hpp"
+#include "core/data.hpp"
 #include "core/flat_map.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
@@ -75,6 +76,7 @@ namespace wmoge {
         int                      glyphs_in_row = -1;
         int                      max_height    = -1;
         int                      max_width     = -1;
+        Ref<Data>                file_content;
     };
 
     /**
@@ -122,6 +124,7 @@ namespace wmoge {
         [[nodiscard]] int                             get_glyphs_in_row() const { return m_glyphs_in_row; }
         [[nodiscard]] int                             get_max_width() const { return m_max_width; }
         [[nodiscard]] int                             get_max_height() const { return m_max_height; }
+        [[nodiscard]] Ref<Data>                       get_file_content() const { return m_file_content; }
 
     private:
         flat_map<int, FontGlyph> m_glyphs;
@@ -132,6 +135,7 @@ namespace wmoge {
         int                      m_glyphs_in_row = -1;
         int                      m_max_height    = -1;
         int                      m_max_width     = -1;
+        Ref<Data>                m_file_content;
     };
 
     WG_RTTI_CLASS_BEGIN(Font) {

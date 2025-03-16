@@ -34,6 +34,7 @@ namespace wmoge {
     void rtti_ui() {
         rtti_type<UiColorPalette>();
         rtti_type<UiColorSlot>();
+        rtti_type<UiFontSlot>();
         rtti_type<UiStyleDesc>();
         rtti_type<UiStyle>();
     }

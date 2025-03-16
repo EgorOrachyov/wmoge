@@ -1,0 +1,17 @@
+# Wmoge asset meta file
+version: 1
+uuid: 0
+loader: DefaultAssetLoader
+rtti: UiStyle
+deps: 
+  - "editor/fonts/inter/inter_28pt_medium"
+  - "editor/fonts/inter/inter_28pt_black"
+  - "editor/fonts/inter/inter_28pt_bold"
+  - "editor/fonts/inter/inter_28pt_italic"
+  - "editor/fonts/inter/inter_28pt_light"
+  - "editor/fonts/inter/inter_28pt_medium_italic"
+  - "editor/fonts/inter/inter_28pt_regular"
+description: "default dark style"
+import_data:
+  rtti: AssetImportData
+  source_files: [{file: "editor/styles/dark.yml"}]

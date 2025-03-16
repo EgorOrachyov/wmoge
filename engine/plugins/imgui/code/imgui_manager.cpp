@@ -32,13 +32,14 @@
 #include "imgui_platform_glfw.hpp"
 #include "profiler/profiler_cpu.hpp"
 
+#include <cstdio>
+
 namespace wmoge {
 
     ImguiManager::ImguiManager(WindowManager* window_manager, GfxDriver* driver) {
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
 
-        io.FontGlobalScale = 2.0f;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;// Enable Keyboard Controls
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable Gamepad Controls
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;    // Enable Docking
@@ -112,6 +113,13 @@ namespace wmoge {
     void ImguiManager::set_style(const Ref<UiStyle>& style) {
         m_style = style;
         imgui_style_to_imgui_style(m_style, ImGui::GetStyle());
+
+        ImGui::GetIO().FontGlobalScale = style->get_desc().font_scale.value_or(1.0f);
+
+        m_fonts.clear();
+        for (const auto& font : m_style->get_desc().fonts) {
+            m_fonts.push_back(load_font(font.file));
+        }
     }
 
     Ref<UiStyle> ImguiManager::get_style() {
@@ -129,14 +137,30 @@ namespace wmoge {
     void ImguiManager::process_main_window() {
         WG_PROFILE_CPU_UI("ImguiManager::process_main_window");
 
+        if (!m_fonts.empty()) {
+            ImGui::PushFont(m_fonts.front());
+        }
+
         m_processor->process(m_main_window.get());
+
+        if (!m_fonts.empty()) {
+            ImGui::PopFont();
+        }
     }
 
     void ImguiManager::process_dock_windows() {
         WG_PROFILE_CPU_UI("ImguiManager::process_dock_windows");
 
+        if (!m_fonts.empty()) {
+            ImGui::PushFont(m_fonts.front());
+        }
+
         for (auto& dock_window : m_dock_windows) {
             m_processor->process(dock_window.get());
+        }
+
+        if (!m_fonts.empty()) {
+            ImGui::PopFont();
         }
     }
 
@@ -145,6 +169,25 @@ namespace wmoge {
 
         m_processor->dispatch_actions();
         m_processor->clear_actions();
+    }
+
+    ImFont* ImguiManager::load_font(const Ref<Font>& font) {
+        auto query = m_loaded_fonts.find(font);
+        if (query != m_loaded_fonts.end()) {
+            return query->second;
+        }
+
+        ImFontConfig config         = ImFontConfig();
+        config.FontDataOwnedByAtlas = false;
+        std::snprintf(config.Name, sizeof(config.Name), "%s-%s", font->get_family_name().c_str(), font->get_style_name().c_str());
+
+        const auto& file_content      = font->get_file_content();
+        const auto  file_content_size = static_cast<int>(file_content->size());
+        const auto  size_pixels       = static_cast<float>(font->get_height());
+
+        ImFont* im_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(file_content->buffer(), file_content_size, size_pixels, &config);
+
+        return m_loaded_fonts[font] = im_font;
     }
 
 }// namespace wmoge

@@ -97,48 +97,56 @@ public:
         auto atlas = m_engine->asset_manager()->load(SID("editor/icons/atlas")).cast<IconAtlas>();
         auto icon  = atlas->try_find_icon(SID("general_redo")).value();
 
-        auto button      = make_ref<UiButton>();
-        button->label    = "ckick me";
-        button->icon     = icon;
-        button->on_click = []() {
-            WG_LOG_INFO("clicked!");
+        auto editor_style = m_engine->asset_manager()->load(SID("editor/styles/dark")).cast<UiStyle>();
+
+        auto button_save      = make_ref<UiButton>();
+        button_save->label    = "save style";
+        button_save->icon     = icon;
+        button_save->on_click = [e = m_engine]() {
+            WG_LOG_INFO("saved!");
+
+            IoYamlTree tree;
+            IoContext  ctx;
+
+            tree.create_tree();
+
+            auto s = e->ui_manager()->get_style();
+            s->write_to_tree(ctx, tree);
+
+            std::string str;
+            tree.save_tree(str);
+
+            e->file_system()->save_file("style.yml", str);
         };
 
-        auto input_text = make_ref<UiInputTextExt>();
+        auto button_load      = make_ref<UiButton>();
+        button_load->label    = "load style";
+        button_load->icon     = icon;
+        button_load->on_click = [e = m_engine, editor_style]() {
+            WG_LOG_INFO("loaded!");
 
-        auto popup  = make_ref<UiCompletionPopup>();
-        popup->name = "text_completion";
+            IoYamlTree tree;
+            IoContext  ctx;
 
-        for (int i = 0; i < 10; i++) {
-            auto item      = make_ref<UiSelectable>();
-            item->icon     = icon;
-            item->label    = "item-" + std::to_string(i);
-            item->on_click = [self = item.get(), input_text = input_text.get()]() {
-                input_text->text = self->label.get();
-            };
-            popup->children.add_slot() = item;
-        }
+            tree.parse_file(e->file_system(), "style.yml");
 
-        input_text->completion_popup = popup;
-        input_text->hint             = "start typing object name...";
-        input_text->on_enter         = [self = input_text.get(), popup]() {
-            WG_LOG_INFO("executed!");
-            self->text         = "";
-            popup->should_show = false;
-        };
-        input_text->on_input = [self = input_text.get(), popup]() {
-            popup->should_show = !self->text.get().empty();
+            auto s = make_ref<UiStyle>();
+            s->set_id(SID("loaded_style"));
+            s->read_from_tree(ctx, tree);
+
+            e->ui_manager()->set_style(s);
         };
 
         auto panel                 = make_ref<UiStackPanel>();
-        panel->children.add_slot() = button;
-        panel->children.add_slot() = input_text;
+        panel->children.add_slot() = button_save;
+        panel->children.add_slot() = button_load;
 
         auto window   = make_ref<UiMainWindow>();
         window->title = "Wmoge Editor";
         window->panel = panel;
 
         m_engine->ui_manager()->set_main_window(window);
+        m_engine->ui_manager()->set_style(editor_style);
 
         WG_LOG_INFO("init");
         return WG_OK;

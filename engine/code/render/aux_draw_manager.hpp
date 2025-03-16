@@ -30,7 +30,6 @@
 #include "core/array_view.hpp"
 #include "core/synchronization.hpp"
 #include "gfx/gfx_vert_format.hpp"
-#include "gpu/gpu_buffer.hpp"
 #include "grc/font.hpp"
 #include "grc/texture_manager.hpp"
 #include "math/mat.hpp"
@@ -38,6 +37,7 @@
 #include "math/vec.hpp"
 #include "platform/window.hpp"
 #include "rdg/rdg_graph.hpp"
+#include "render/gpu_buffer.hpp"
 #include "render/interop.hpp"
 
 #include <deque>

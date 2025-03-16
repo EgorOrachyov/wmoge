@@ -29,9 +29,9 @@
 
 #include "core/array_view.hpp"
 #include "gfx/gfx_buffers.hpp"
-#include "gpu/gpu_buffer.hpp"
 #include "mesh/mesh_bucket.hpp"
 #include "mesh/mesh_pass.hpp"
+#include "render/gpu_buffer.hpp"
 #include "render/render_defs.hpp"
 
 #include "../../shaders/tmp/generated/auto_material_reflection.hpp"

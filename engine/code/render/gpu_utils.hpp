@@ -28,9 +28,9 @@
 #pragma once
 
 #include "core/array_view.hpp"
-#include "gpu/gpu_buffer.hpp"
 #include "rdg/rdg_graph.hpp"
 #include "rdg/rdg_utils.hpp"
+#include "render/gpu_buffer.hpp"
 
 namespace wmoge {
 

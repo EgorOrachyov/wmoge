@@ -202,6 +202,8 @@ namespace wmoge {
         font_desc.texture->set_id(SID(font->get_name().str() + "_bitmap"));
         m_texture_manager->queue_texture_upload(font_desc.texture.get());
 
+        font_desc.file_content = make_ref<Data>(ttf_data.begin(), ttf_data.size());
+
         return font->init(font_desc);
     }
 

@@ -101,7 +101,7 @@ namespace wmoge {
             return SID(std::string("asset<") + rtti_type<T>()->get_str() + ">");
         }
         static Ref<RttiType> make() {
-            return make_ref<RttiTypeRefT<T>>(name());
+            return make_ref<RttiTypeRefT<AssetRef<T>, T>>(name());
         }
     };
 

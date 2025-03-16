@@ -1,0 +1,12 @@
+# Wmoge asset meta file
+version: 1
+uuid: 0
+loader: FreetypeAssetLoader
+rtti: Font
+deps: [ ]
+description: "font"
+import_data:
+  rtti: FreetypeImportData
+  source_files: [{file: "editor/fonts/inter/inter_28pt_regular.ttf"}]
+  height: 32
+  glyphs_in_row: 16

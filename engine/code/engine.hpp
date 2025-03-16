@@ -102,8 +102,6 @@
 #include "glsl/glsl_include_processor.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
 
-#include "gpu/gpu_buffer.hpp"
-
 #include "grc/font.hpp"
 #include "grc/icon.hpp"
 #include "grc/image.hpp"

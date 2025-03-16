@@ -3370,7 +3370,7 @@ struct ImFontConfig
     ImWchar         EllipsisChar;           // 0        // Explicitly specify unicode codepoint of ellipsis character. When fonts are being merged first specified ellipsis will be used.
 
     // [Internal]
-    char            Name[40];               // Name (strictly to ease debugging)
+    char            Name[256];              // Name (strictly to ease debugging)
     ImFont*         DstFont;
 
     IMGUI_API ImFontConfig();

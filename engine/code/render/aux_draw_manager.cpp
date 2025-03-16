@@ -31,10 +31,10 @@
 #include "core/buffered_vector.hpp"
 #include "core/log.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "gpu/gpu_utils.hpp"
 #include "math/math_utils3d.hpp"
 #include "rdg/rdg_profiling.hpp"
 #include "rdg/rdg_utils.hpp"
+#include "render/gpu_utils.hpp"
 #include "render/shader_funcs.hpp"
 #include "render/shader_table.hpp"
 

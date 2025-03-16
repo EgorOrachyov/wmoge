@@ -317,10 +317,10 @@ namespace wmoge {
         }
     };
 
-    template<typename PtrT>
-    class RttiTypeRefT : public RttiTypeT<Ref<PtrT>, RttiTypeRef> {
+    template<typename HolderT, typename PtrT>
+    class RttiTypeRefT : public RttiTypeT<HolderT, RttiTypeRef> {
     public:
-        using ParentT = RttiTypeT<Ref<PtrT>, RttiTypeRef>;
+        using ParentT = RttiTypeT<HolderT, RttiTypeRef>;
         using RefT    = Ref<PtrT>;
 
         RttiTypeRefT(Strid name) : ParentT(name) {
@@ -365,7 +365,7 @@ namespace wmoge {
             return SID(std::string("ref<") + rtti_type<T>()->get_str() + ">");
         }
         static Ref<RttiType> make() {
-            return make_ref<RttiTypeRefT<T>>(name());
+            return make_ref<RttiTypeRefT<Ref<T>, T>>(name());
         }
     };
 
