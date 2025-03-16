@@ -99,6 +99,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6ce29f20efc8ab1f12498e69ab1b12ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1394f958959703f5e8fa7a5d42d0c7cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a1394f958959703f5e8fa7a5d42d0c7cc">render</a> (const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;cmd_list)=0</td></tr>
 <tr class="separator:a1394f958959703f5e8fa7a5d42d0c7cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36716b4aab0214db20bbf4bfe7eb2faf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a36716b4aab0214db20bbf4bfe7eb2faf">set_style</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiStyle.html">UiStyle</a> &gt; &amp;style)=0</td></tr>
+<tr class="separator:a36716b4aab0214db20bbf4bfe7eb2faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb98cccd2281540606a852a32f608d3b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiStyle.html">UiStyle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#abb98cccd2281540606a852a32f608d3b">get_style</a> ()=0</td></tr>
+<tr class="separator:abb98cccd2281540606a852a32f608d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8bc7ac375017f5d465c38155fe406eb"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiStyle.html">UiStyle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#ac8bc7ac375017f5d465c38155fe406eb">get_style_default</a> ()=0</td></tr>
+<tr class="separator:ac8bc7ac375017f5d465c38155fe406eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for ui sub-system. </p>
@@ -157,6 +163,60 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="abb98cccd2281540606a852a32f608d3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb98cccd2281540606a852a32f608d3b">&#9670;&nbsp;</a></span>get_style()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1UiStyle.html">UiStyle</a>&gt; wmoge::UiManager::get_style </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#ab885f9685e7be227ca3e47f92c2c7a66">wmoge::ImguiManager</a>.</p>
+
+</div>
+</div>
+<a id="ac8bc7ac375017f5d465c38155fe406eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8bc7ac375017f5d465c38155fe406eb">&#9670;&nbsp;</a></span>get_style_default()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1UiStyle.html">UiStyle</a>&gt; wmoge::UiManager::get_style_default </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#a693cd56bb6da4c13d99361c3f41aad9e">wmoge::ImguiManager</a>.</p>
+
+</div>
+</div>
 <a id="a1394f958959703f5e8fa7a5d42d0c7cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1394f958959703f5e8fa7a5d42d0c7cc">&#9670;&nbsp;</a></span>render()</h2>
 
@@ -210,6 +270,34 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#a62d95d3e41f735f172ef299ba557dd07">wmoge::ImguiManager</a>.</p>
+
+</div>
+</div>
+<a id="a36716b4aab0214db20bbf4bfe7eb2faf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36716b4aab0214db20bbf4bfe7eb2faf">&#9670;&nbsp;</a></span>set_style()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void wmoge::UiManager::set_style </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiStyle.html">UiStyle</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>style</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#a7a24395e8a36815925ebf8e66e95dc5b">wmoge::ImguiManager</a>.</p>
 
 </div>
 </div>

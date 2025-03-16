@@ -101,44 +101,99 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__id_8hpp.html">core/string_id.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="vec_8hpp.html">math/vec.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ui__attribute_8hpp.html">ui/ui_attribute.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;imgui.h&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="namespacewmoge.html#abc52fdce2e7dc4e83be32b0c773883ac">   40</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="namespacewmoge.html#abc52fdce2e7dc4e83be32b0c773883ac">imgui_str</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1UiAttribute.html">UiAttribute&lt;std::string&gt;</a>&amp; s) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> s.<a class="code" href="classwmoge_1_1UiAttribute.html#af1d2367cff9e87e7dc5ba9a47f52f003">get</a>().c_str();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a85b6b41a2da5325ac5d6cd174a5863b0">   44</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="namespacewmoge.html#abc52fdce2e7dc4e83be32b0c773883ac">imgui_str</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1UiAttribute.html">UiAttribute&lt;Strid&gt;</a>&amp; s) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">return</span> s.<a class="code" href="classwmoge_1_1UiAttribute.html#af1d2367cff9e87e7dc5ba9a47f52f003">get</a>().str().c_str();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a918165e5d3a4e83a4e6e79b53fb375e0">   48</a></span>&#160;    <span class="keyword">inline</span> ImVec2 <a class="code" href="namespacewmoge.html#a918165e5d3a4e83a4e6e79b53fb375e0">imgui_vec2</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1TVecN.html">Vec2f</a>&amp; v) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> ImVec2(v[0], v[1]);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a9323c73ffc3f30f91a592a7e0d787526">   52</a></span>&#160;    <span class="keyword">inline</span> ImVec4 <a class="code" href="namespacewmoge.html#a9323c73ffc3f30f91a592a7e0d787526">imgui_vec4</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1TVecN.html">Vec4f</a>&amp; v) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> ImVec4(v[0], v[1], v[2], v[3]);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="namespacewmoge.html#afe472840ac6057a8743b2285de2d1bd9">   56</a></span>&#160;    <span class="keyword">inline</span> ImVec4 <a class="code" href="namespacewmoge.html#afe472840ac6057a8743b2285de2d1bd9">imgui_color4</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1TVecN.html">Color4f</a>&amp; v) {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> ImVec4(v[0], v[1], v[2], v[3]);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ui__defs_8hpp.html">ui/ui_defs.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;imgui.h&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="namespacewmoge.html#abc52fdce2e7dc4e83be32b0c773883ac">   41</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="namespacewmoge.html#abc52fdce2e7dc4e83be32b0c773883ac">imgui_str</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1UiAttribute.html">UiAttribute&lt;std::string&gt;</a>&amp; s) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> s.<a class="code" href="classwmoge_1_1UiAttribute.html#af1d2367cff9e87e7dc5ba9a47f52f003">get</a>().c_str();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a85b6b41a2da5325ac5d6cd174a5863b0">   45</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="namespacewmoge.html#abc52fdce2e7dc4e83be32b0c773883ac">imgui_str</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1UiAttribute.html">UiAttribute&lt;Strid&gt;</a>&amp; s) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> s.<a class="code" href="classwmoge_1_1UiAttribute.html#af1d2367cff9e87e7dc5ba9a47f52f003">get</a>().str().c_str();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a918165e5d3a4e83a4e6e79b53fb375e0">   49</a></span>&#160;    <span class="keyword">inline</span> ImVec2 <a class="code" href="namespacewmoge.html#a918165e5d3a4e83a4e6e79b53fb375e0">imgui_vec2</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1TVecN.html">Vec2f</a>&amp; v) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> ImVec2(v[0], v[1]);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespacewmoge.html#aace3185e8c00ab9eefdf55622b7d0beb">   53</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classwmoge_1_1TVecN.html">Vec2f</a> <a class="code" href="namespacewmoge.html#a918165e5d3a4e83a4e6e79b53fb375e0">imgui_vec2</a>(<span class="keyword">const</span> ImVec2&amp; v) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">Vec2f</a>(v[0], v[1]);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a9323c73ffc3f30f91a592a7e0d787526">   57</a></span>&#160;    <span class="keyword">inline</span> ImVec4 <a class="code" href="namespacewmoge.html#a9323c73ffc3f30f91a592a7e0d787526">imgui_vec4</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1TVecN.html">Vec4f</a>&amp; v) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">return</span> ImVec4(v[0], v[1], v[2], v[3]);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="namespacewmoge.html#afe472840ac6057a8743b2285de2d1bd9">   61</a></span>&#160;    <span class="keyword">inline</span> ImVec4 <a class="code" href="namespacewmoge.html#afe472840ac6057a8743b2285de2d1bd9">imgui_color4</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1TVecN.html">Color4f</a>&amp; v) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> ImVec4(v[0], v[1], v[2], v[3]);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a3649047c6f273584a4a6a608fcca1ddf">   65</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classwmoge_1_1TVecN.html">Color4f</a> <a class="code" href="namespacewmoge.html#afe472840ac6057a8743b2285de2d1bd9">imgui_color4</a>(<span class="keyword">const</span> ImVec4&amp; v) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#a9b40ad659b284af204946d16f8b41010">Color4f</a>(v.x, v.y, v.z, v.w);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="namespacewmoge.html#ab5a1164694c62dc0e981742d965dfd7b">   69</a></span>&#160;    <span class="keyword">inline</span> ImGuiDir <a class="code" href="namespacewmoge.html#ab5a1164694c62dc0e981742d965dfd7b">imgui_dir</a>(<a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3">UiDir</a> dir) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">switch</span> (dir) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a6adf97f83acf6453d4a6a4b1070f3754">UiDir::None</a>:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="keywordflow">return</span> ImGuiDir_None;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a945d5e233cf7d6240f6b783b36a374ff">UiDir::Left</a>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                <span class="keywordflow">return</span> ImGuiDir_Left;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a92b09c7c48c520c3c55e497875da437c">UiDir::Right</a>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                <span class="keywordflow">return</span> ImGuiDir_Right;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a258f49887ef8d14ac268c92b02503aaa">UiDir::Up</a>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                <span class="keywordflow">return</span> ImGuiDir_Up;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a08a38277b0309070706f6652eeae9a53">UiDir::Down</a>:</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keywordflow">return</span> ImGuiDir_Down;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                <span class="keywordflow">return</span> ImGuiDir_None;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a7eb04a3fdb4b20cf74f5811114b29fb7">   87</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3">UiDir</a> <a class="code" href="namespacewmoge.html#ab5a1164694c62dc0e981742d965dfd7b">imgui_dir</a>(ImGuiDir dir) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">switch</span> (dir) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">case</span> ImGuiDir_None:</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a6adf97f83acf6453d4a6a4b1070f3754">UiDir::None</a>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">case</span> ImGuiDir_Left:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a945d5e233cf7d6240f6b783b36a374ff">UiDir::Left</a>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keywordflow">case</span> ImGuiDir_Right:</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a92b09c7c48c520c3c55e497875da437c">UiDir::Right</a>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">case</span> ImGuiDir_Up:</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a258f49887ef8d14ac268c92b02503aaa">UiDir::Up</a>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keywordflow">case</span> ImGuiDir_Down:</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a08a38277b0309070706f6652eeae9a53">UiDir::Down</a>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a6adf97f83acf6453d4a6a4b1070f3754">UiDir::None</a>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aclasswmoge_1_1TVecN_html"><div class="ttname"><a href="classwmoge_1_1TVecN.html">wmoge::TVecN&lt; float, 2 &gt;</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1UiAttribute_html"><div class="ttname"><a href="classwmoge_1_1UiAttribute.html">wmoge::UiAttribute&lt; std::string &gt;</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1UiAttribute_html_af1d2367cff9e87e7dc5ba9a47f52f003"><div class="ttname"><a href="classwmoge_1_1UiAttribute.html#af1d2367cff9e87e7dc5ba9a47f52f003">wmoge::UiAttribute::get</a></div><div class="ttdeci">const T &amp; get() const</div><div class="ttdef"><b>Definition:</b> ui_attribute.hpp:58</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
-<div class="ttc" id="anamespacewmoge_html_a918165e5d3a4e83a4e6e79b53fb375e0"><div class="ttname"><a href="namespacewmoge.html#a918165e5d3a4e83a4e6e79b53fb375e0">wmoge::imgui_vec2</a></div><div class="ttdeci">ImVec2 imgui_vec2(const Vec2f &amp;v)</div><div class="ttdef"><b>Definition:</b> imgui_common.hpp:48</div></div>
-<div class="ttc" id="anamespacewmoge_html_a9323c73ffc3f30f91a592a7e0d787526"><div class="ttname"><a href="namespacewmoge.html#a9323c73ffc3f30f91a592a7e0d787526">wmoge::imgui_vec4</a></div><div class="ttdeci">ImVec4 imgui_vec4(const Vec4f &amp;v)</div><div class="ttdef"><b>Definition:</b> imgui_common.hpp:52</div></div>
-<div class="ttc" id="anamespacewmoge_html_abc52fdce2e7dc4e83be32b0c773883ac"><div class="ttname"><a href="namespacewmoge.html#abc52fdce2e7dc4e83be32b0c773883ac">wmoge::imgui_str</a></div><div class="ttdeci">const char * imgui_str(const UiAttribute&lt; std::string &gt; &amp;s)</div><div class="ttdef"><b>Definition:</b> imgui_common.hpp:40</div></div>
-<div class="ttc" id="anamespacewmoge_html_afe472840ac6057a8743b2285de2d1bd9"><div class="ttname"><a href="namespacewmoge.html#afe472840ac6057a8743b2285de2d1bd9">wmoge::imgui_color4</a></div><div class="ttdeci">ImVec4 imgui_color4(const Color4f &amp;v)</div><div class="ttdef"><b>Definition:</b> imgui_common.hpp:56</div></div>
+<div class="ttc" id="anamespacewmoge_html_a5fdd89d8c7e29caea1bc65ed9cce362e"><div class="ttname"><a href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">wmoge::Vec2f</a></div><div class="ttdeci">TVecN&lt; float, 2 &gt; Vec2f</div><div class="ttdef"><b>Definition:</b> vec.hpp:617</div></div>
+<div class="ttc" id="anamespacewmoge_html_a918165e5d3a4e83a4e6e79b53fb375e0"><div class="ttname"><a href="namespacewmoge.html#a918165e5d3a4e83a4e6e79b53fb375e0">wmoge::imgui_vec2</a></div><div class="ttdeci">ImVec2 imgui_vec2(const Vec2f &amp;v)</div><div class="ttdef"><b>Definition:</b> imgui_common.hpp:49</div></div>
+<div class="ttc" id="anamespacewmoge_html_a9323c73ffc3f30f91a592a7e0d787526"><div class="ttname"><a href="namespacewmoge.html#a9323c73ffc3f30f91a592a7e0d787526">wmoge::imgui_vec4</a></div><div class="ttdeci">ImVec4 imgui_vec4(const Vec4f &amp;v)</div><div class="ttdef"><b>Definition:</b> imgui_common.hpp:57</div></div>
+<div class="ttc" id="anamespacewmoge_html_a9b40ad659b284af204946d16f8b41010"><div class="ttname"><a href="namespacewmoge.html#a9b40ad659b284af204946d16f8b41010">wmoge::Color4f</a></div><div class="ttdeci">Vec4f Color4f</div><div class="ttdef"><b>Definition:</b> vec.hpp:634</div></div>
+<div class="ttc" id="anamespacewmoge_html_aaef7af134ba5cd199080ce9a117f24d3"><div class="ttname"><a href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3">wmoge::UiDir</a></div><div class="ttdeci">UiDir</div><div class="ttdef"><b>Definition:</b> ui_defs.hpp:49</div></div>
+<div class="ttc" id="anamespacewmoge_html_aaef7af134ba5cd199080ce9a117f24d3a08a38277b0309070706f6652eeae9a53"><div class="ttname"><a href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a08a38277b0309070706f6652eeae9a53">wmoge::UiDir::Down</a></div><div class="ttdeci">@ Down</div></div>
+<div class="ttc" id="anamespacewmoge_html_aaef7af134ba5cd199080ce9a117f24d3a258f49887ef8d14ac268c92b02503aaa"><div class="ttname"><a href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a258f49887ef8d14ac268c92b02503aaa">wmoge::UiDir::Up</a></div><div class="ttdeci">@ Up</div></div>
+<div class="ttc" id="anamespacewmoge_html_aaef7af134ba5cd199080ce9a117f24d3a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a6adf97f83acf6453d4a6a4b1070f3754">wmoge::UiDir::None</a></div><div class="ttdeci">@ None</div></div>
+<div class="ttc" id="anamespacewmoge_html_aaef7af134ba5cd199080ce9a117f24d3a92b09c7c48c520c3c55e497875da437c"><div class="ttname"><a href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a92b09c7c48c520c3c55e497875da437c">wmoge::UiDir::Right</a></div><div class="ttdeci">@ Right</div></div>
+<div class="ttc" id="anamespacewmoge_html_aaef7af134ba5cd199080ce9a117f24d3a945d5e233cf7d6240f6b783b36a374ff"><div class="ttname"><a href="namespacewmoge.html#aaef7af134ba5cd199080ce9a117f24d3a945d5e233cf7d6240f6b783b36a374ff">wmoge::UiDir::Left</a></div><div class="ttdeci">@ Left</div></div>
+<div class="ttc" id="anamespacewmoge_html_ab5a1164694c62dc0e981742d965dfd7b"><div class="ttname"><a href="namespacewmoge.html#ab5a1164694c62dc0e981742d965dfd7b">wmoge::imgui_dir</a></div><div class="ttdeci">ImGuiDir imgui_dir(UiDir dir)</div><div class="ttdef"><b>Definition:</b> imgui_common.hpp:69</div></div>
+<div class="ttc" id="anamespacewmoge_html_abc52fdce2e7dc4e83be32b0c773883ac"><div class="ttname"><a href="namespacewmoge.html#abc52fdce2e7dc4e83be32b0c773883ac">wmoge::imgui_str</a></div><div class="ttdeci">const char * imgui_str(const UiAttribute&lt; std::string &gt; &amp;s)</div><div class="ttdef"><b>Definition:</b> imgui_common.hpp:41</div></div>
+<div class="ttc" id="anamespacewmoge_html_afe472840ac6057a8743b2285de2d1bd9"><div class="ttname"><a href="namespacewmoge.html#afe472840ac6057a8743b2285de2d1bd9">wmoge::imgui_color4</a></div><div class="ttdeci">ImVec4 imgui_color4(const Color4f &amp;v)</div><div class="ttdef"><b>Definition:</b> imgui_common.hpp:61</div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
 <div class="ttc" id="aui__attribute_8hpp_html"><div class="ttname"><a href="ui__attribute_8hpp.html">ui_attribute.hpp</a></div></div>
+<div class="ttc" id="aui__defs_8hpp_html"><div class="ttname"><a href="ui__defs_8hpp.html">ui_defs.hpp</a></div></div>
 <div class="ttc" id="avec_8hpp_html"><div class="ttname"><a href="vec_8hpp.html">vec.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
