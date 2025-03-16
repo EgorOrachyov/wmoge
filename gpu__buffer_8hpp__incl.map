@@ -1,5 +1,5 @@
-<map id="engine/code/gpu/gpu_buffer.hpp" name="engine/code/gpu/gpu_buffer.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="2333,5,2475,47"/>
+<map id="engine/code/render/gpu_buffer.hpp" name="engine/code/render/gpu_buffer.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="2338,5,2470,47"/>
 <area shape="rect" id="node2" href="$string__utils_8hpp.html" title=" " alt="" coords="2845,692,2984,719"/>
 <area shape="rect" id="node7" title=" " alt="" coords="543,991,601,1017"/>
 <area shape="rect" id="node9" title=" " alt="" coords="282,991,347,1017"/>

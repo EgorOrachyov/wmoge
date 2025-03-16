@@ -1,0 +1,6 @@
+<map id="wmoge::UiFontSlot" name="wmoge::UiFontSlot">
+<area shape="rect" id="node1" title="Ui font with tag to reference in elements styling." alt="" coords="148,200,280,227"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetRef.html" title=" " alt="" coords="5,96,183,137"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="19,5,169,47"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="207,103,304,130"/>
+</map>
