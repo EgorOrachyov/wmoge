@@ -44,7 +44,7 @@ namespace wmoge {
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;    // Enable Docking
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;  // Enable Multi-Viewport / Platform Windows
 
-        ImGui::StyleColorsDark();
+        ImGui::StyleColorsClassic();
 
         if (window_manager->get_type() == WindowManagerType::Glfw) {
             m_platform = std::make_unique<ImguiPlatformGlfw>(window_manager->get_primary_window(), driver);
@@ -54,6 +54,12 @@ namespace wmoge {
         }
 
         m_processor = std::make_unique<ImguiProcessor>(this);
+
+        m_style_default = make_ref<UiStyle>();
+        m_style_default->set_id(SID("style/imgui/default"));
+        imgui_style_from_imgui_style(m_style_default, ImGui::GetStyle());
+
+        m_style = m_style_default;
 
         assert(m_platform);
         assert(m_driver);
@@ -101,6 +107,19 @@ namespace wmoge {
             ImGui::UpdatePlatformWindows();
             ImGui::RenderPlatformWindowsDefault();
         }
+    }
+
+    void ImguiManager::set_style(const Ref<UiStyle>& style) {
+        m_style = style;
+        imgui_style_to_imgui_style(m_style, ImGui::GetStyle());
+    }
+
+    Ref<UiStyle> ImguiManager::get_style() {
+        return m_style;
+    }
+
+    Ref<UiStyle> ImguiManager::get_style_default() {
+        return m_style_default;
     }
 
     ImTextureID ImguiManager::get_texture_id(const Ref<Texture2d>& texture) {

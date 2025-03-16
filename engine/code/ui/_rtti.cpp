@@ -32,7 +32,6 @@
 namespace wmoge {
 
     void rtti_ui() {
-        rtti_type<UiColorPaletteEntry>();
         rtti_type<UiColorPalette>();
         rtti_type<UiColorSlot>();
         rtti_type<UiStyleDesc>();

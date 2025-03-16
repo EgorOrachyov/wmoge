@@ -27,59 +27,13 @@
 
 #pragma once
 
-#include "gfx/gfx_driver.hpp"
-#include "gfx/gfx_texture.hpp"
-#include "grc/texture.hpp"
-#include "imgui_driver.hpp"
-#include "imgui_platform.hpp"
-#include "imgui_process.hpp"
-#include "imgui_style.hpp"
-#include "platform/window_manager.hpp"
-#include "ui/ui_manager.hpp"
-
-#include <memory>
+#include "imgui_common.hpp"
+#include "ui/ui_style.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class ImguiManager
-     * @brief Implementation of ui manager fom imgui backend
-     */
-    class ImguiManager : public UiManager {
-    public:
-        ImguiManager(WindowManager* window_manager, GfxDriver* driver);
-        ~ImguiManager() override;
+    void imgui_style_to_imgui_style(const Ref<UiStyle>& src, ImGuiStyle& dst);
 
-        void         set_main_window(Ref<UiMainWindow> window) override;
-        void         add_dock_window(Ref<UiDockWindow> window) override;
-        void         update(std::size_t frame_id) override;
-        void         render(const GfxCmdListRef& cmd_list) override;
-        void         set_style(const Ref<UiStyle>& style) override;
-        Ref<UiStyle> get_style() override;
-        Ref<UiStyle> get_style_default() override;
-
-        ImTextureID get_texture_id(const Ref<Texture2d>& texture);
-
-        [[nodiscard]] bool is_docking_enable() const { return m_docking_enable; }
-        [[nodiscard]] bool is_viewports_enable() const { return m_viewports_enable; }
-
-    protected:
-        void process_main_window();
-        void process_dock_windows();
-        void dispatch_actions();
-
-    private:
-        std::unique_ptr<ImguiProcessor> m_processor;
-        std::unique_ptr<ImguiPlatform>  m_platform;
-        std::unique_ptr<ImguiDriver>    m_driver;
-        std::vector<Ref<UiDockWindow>>  m_dock_windows;
-        Ref<UiMainWindow>               m_main_window;
-        Ref<UiStyle>                    m_style;
-        Ref<UiStyle>                    m_style_default;
-
-        bool m_docking_enable   = true;
-        bool m_viewports_enable = true;
-        bool m_show_demo_window = true;
-    };
+    void imgui_style_from_imgui_style(const Ref<UiStyle>& dst, const ImGuiStyle& src);
 
 }// namespace wmoge

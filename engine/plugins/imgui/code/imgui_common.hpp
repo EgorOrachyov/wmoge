@@ -30,6 +30,7 @@
 #include "core/string_id.hpp"
 #include "math/vec.hpp"
 #include "ui/ui_attribute.hpp"
+#include "ui/ui_defs.hpp"
 
 #include <imgui.h>
 
@@ -49,12 +50,56 @@ namespace wmoge {
         return ImVec2(v[0], v[1]);
     }
 
+    inline Vec2f imgui_vec2(const ImVec2& v) {
+        return Vec2f(v[0], v[1]);
+    }
+
     inline ImVec4 imgui_vec4(const Vec4f& v) {
         return ImVec4(v[0], v[1], v[2], v[3]);
     }
 
     inline ImVec4 imgui_color4(const Color4f& v) {
         return ImVec4(v[0], v[1], v[2], v[3]);
+    }
+
+    inline Color4f imgui_color4(const ImVec4& v) {
+        return Color4f(v.x, v.y, v.z, v.w);
+    }
+
+    inline ImGuiDir imgui_dir(UiDir dir) {
+        switch (dir) {
+            case UiDir::None:
+                return ImGuiDir_None;
+            case UiDir::Left:
+                return ImGuiDir_Left;
+            case UiDir::Right:
+                return ImGuiDir_Right;
+            case UiDir::Up:
+                return ImGuiDir_Up;
+            case UiDir::Down:
+                return ImGuiDir_Down;
+
+            default:
+                return ImGuiDir_None;
+        }
+    }
+
+    inline UiDir imgui_dir(ImGuiDir dir) {
+        switch (dir) {
+            case ImGuiDir_None:
+                return UiDir::None;
+            case ImGuiDir_Left:
+                return UiDir::Left;
+            case ImGuiDir_Right:
+                return UiDir::Right;
+            case ImGuiDir_Up:
+                return UiDir::Up;
+            case ImGuiDir_Down:
+                return UiDir::Down;
+
+            default:
+                return UiDir::None;
+        }
     }
 
 }// namespace wmoge

@@ -28,6 +28,7 @@
 #pragma once
 
 #include "asset/asset.hpp"
+#include "core/flat_map.hpp"
 #include "math/color.hpp"
 #include "math/vec.hpp"
 #include "rtti/traits.hpp"
@@ -40,7 +41,7 @@ namespace wmoge {
 
     /** @brief Name of color param in ui stype */
     enum class UiColor {
-        Text,
+        Text = 0,
         TextDisabled,
         WindowBg,
         ChildBg,
@@ -101,25 +102,11 @@ namespace wmoge {
         Count
     };
 
-    /** @brief Named entry in ui color palette */
-    struct UiColorPaletteEntry {
-        WG_RTTI_STRUCT(UiColorPaletteEntry);
-
-        Strid   name;
-        Color4f color;
-    };
-
-    WG_RTTI_STRUCT_BEGIN(UiColorPaletteEntry) {
-        WG_RTTI_FIELD(name, {});
-        WG_RTTI_FIELD(color, {});
-    }
-    WG_RTTI_END;
-
     /** @brief Ui color palette */
     struct UiColorPalette {
         WG_RTTI_STRUCT(UiColorPalette);
 
-        std::vector<UiColorPaletteEntry> colors;
+        flat_map<Strid, Color4f> colors;
     };
 
     WG_RTTI_STRUCT_BEGIN(UiColorPalette) {
@@ -204,57 +191,57 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(UiStyleDesc) {
-        WG_RTTI_FIELD(alpha, {});
-        WG_RTTI_FIELD(disabled_alpha, {});
-        WG_RTTI_FIELD(window_padding, {});
-        WG_RTTI_FIELD(window_rounding, {});
-        WG_RTTI_FIELD(window_border_size, {});
-        WG_RTTI_FIELD(window_min_size, {});
-        WG_RTTI_FIELD(window_title_align, {});
-        WG_RTTI_FIELD(window_menu_button_position, {});
-        WG_RTTI_FIELD(child_rounding, {});
-        WG_RTTI_FIELD(child_border_size, {});
-        WG_RTTI_FIELD(popup_rounding, {});
-        WG_RTTI_FIELD(popup_border_size, {});
-        WG_RTTI_FIELD(frame_padding, {});
-        WG_RTTI_FIELD(frame_rounding, {});
-        WG_RTTI_FIELD(frame_border_size, {});
-        WG_RTTI_FIELD(item_spacing, {});
-        WG_RTTI_FIELD(item_inner_spacing, {});
-        WG_RTTI_FIELD(cell_padding, {});
-        WG_RTTI_FIELD(touch_extra_padding, {});
-        WG_RTTI_FIELD(indent_spacing, {});
-        WG_RTTI_FIELD(columns_min_spacing, {});
-        WG_RTTI_FIELD(scrollbar_size, {});
-        WG_RTTI_FIELD(scrollbar_rounding, {});
-        WG_RTTI_FIELD(grab_min_size, {});
-        WG_RTTI_FIELD(grab_rounding, {});
-        WG_RTTI_FIELD(log_slider_deadzone, {});
-        WG_RTTI_FIELD(tab_rounding, {});
-        WG_RTTI_FIELD(tab_border_size, {});
-        WG_RTTI_FIELD(tab_min_width_for_close_button, {});
-        WG_RTTI_FIELD(tab_bar_border_size, {});
-        WG_RTTI_FIELD(tab_bar_overline_size, {});
-        WG_RTTI_FIELD(table_angled_headers_angle, {});
-        WG_RTTI_FIELD(table_angled_headers_textAlign, {});
-        WG_RTTI_FIELD(color_button_position, {});
-        WG_RTTI_FIELD(button_text_align, {});
-        WG_RTTI_FIELD(selectable_text_align, {});
-        WG_RTTI_FIELD(separator_text_border_size, {});
-        WG_RTTI_FIELD(separator_text_align, {});
-        WG_RTTI_FIELD(separator_text_padding, {});
-        WG_RTTI_FIELD(display_window_padding, {});
-        WG_RTTI_FIELD(display_safe_area_padding, {});
-        WG_RTTI_FIELD(docking_separator_size, {});
-        WG_RTTI_FIELD(mouse_cursor_scale, {});
-        WG_RTTI_FIELD(anti_aliased_lines, {});
-        WG_RTTI_FIELD(anti_aliased_lines_use_tex, {});
-        WG_RTTI_FIELD(anti_aliased_fill, {});
-        WG_RTTI_FIELD(curve_tessellation_tol, {});
-        WG_RTTI_FIELD(circle_tessellation_max_error, {});
-        WG_RTTI_FIELD(hover_stationary_delay, {});
-        WG_RTTI_FIELD(hover_delay_short, {});
-        WG_RTTI_FIELD(hover_delay_normal, {});
+        WG_RTTI_FIELD(alpha, {RttiOptional});
+        WG_RTTI_FIELD(disabled_alpha, {RttiOptional});
+        WG_RTTI_FIELD(window_padding, {RttiOptional});
+        WG_RTTI_FIELD(window_rounding, {RttiOptional});
+        WG_RTTI_FIELD(window_border_size, {RttiOptional});
+        WG_RTTI_FIELD(window_min_size, {RttiOptional});
+        WG_RTTI_FIELD(window_title_align, {RttiOptional});
+        WG_RTTI_FIELD(window_menu_button_position, {RttiOptional});
+        WG_RTTI_FIELD(child_rounding, {RttiOptional});
+        WG_RTTI_FIELD(child_border_size, {RttiOptional});
+        WG_RTTI_FIELD(popup_rounding, {RttiOptional});
+        WG_RTTI_FIELD(popup_border_size, {RttiOptional});
+        WG_RTTI_FIELD(frame_padding, {RttiOptional});
+        WG_RTTI_FIELD(frame_rounding, {RttiOptional});
+        WG_RTTI_FIELD(frame_border_size, {RttiOptional});
+        WG_RTTI_FIELD(item_spacing, {RttiOptional});
+        WG_RTTI_FIELD(item_inner_spacing, {RttiOptional});
+        WG_RTTI_FIELD(cell_padding, {RttiOptional});
+        WG_RTTI_FIELD(touch_extra_padding, {RttiOptional});
+        WG_RTTI_FIELD(indent_spacing, {RttiOptional});
+        WG_RTTI_FIELD(columns_min_spacing, {RttiOptional});
+        WG_RTTI_FIELD(scrollbar_size, {RttiOptional});
+        WG_RTTI_FIELD(scrollbar_rounding, {RttiOptional});
+        WG_RTTI_FIELD(grab_min_size, {RttiOptional});
+        WG_RTTI_FIELD(grab_rounding, {RttiOptional});
+        WG_RTTI_FIELD(log_slider_deadzone, {RttiOptional});
+        WG_RTTI_FIELD(tab_rounding, {RttiOptional});
+        WG_RTTI_FIELD(tab_border_size, {RttiOptional});
+        WG_RTTI_FIELD(tab_min_width_for_close_button, {RttiOptional});
+        WG_RTTI_FIELD(tab_bar_border_size, {RttiOptional});
+        WG_RTTI_FIELD(tab_bar_overline_size, {RttiOptional});
+        WG_RTTI_FIELD(table_angled_headers_angle, {RttiOptional});
+        WG_RTTI_FIELD(table_angled_headers_textAlign, {RttiOptional});
+        WG_RTTI_FIELD(color_button_position, {RttiOptional});
+        WG_RTTI_FIELD(button_text_align, {RttiOptional});
+        WG_RTTI_FIELD(selectable_text_align, {RttiOptional});
+        WG_RTTI_FIELD(separator_text_border_size, {RttiOptional});
+        WG_RTTI_FIELD(separator_text_align, {RttiOptional});
+        WG_RTTI_FIELD(separator_text_padding, {RttiOptional});
+        WG_RTTI_FIELD(display_window_padding, {RttiOptional});
+        WG_RTTI_FIELD(display_safe_area_padding, {RttiOptional});
+        WG_RTTI_FIELD(docking_separator_size, {RttiOptional});
+        WG_RTTI_FIELD(mouse_cursor_scale, {RttiOptional});
+        WG_RTTI_FIELD(anti_aliased_lines, {RttiOptional});
+        WG_RTTI_FIELD(anti_aliased_lines_use_tex, {RttiOptional});
+        WG_RTTI_FIELD(anti_aliased_fill, {RttiOptional});
+        WG_RTTI_FIELD(curve_tessellation_tol, {RttiOptional});
+        WG_RTTI_FIELD(circle_tessellation_max_error, {RttiOptional});
+        WG_RTTI_FIELD(hover_stationary_delay, {RttiOptional});
+        WG_RTTI_FIELD(hover_delay_short, {RttiOptional});
+        WG_RTTI_FIELD(hover_delay_normal, {RttiOptional});
         WG_RTTI_FIELD(palette, {RttiOptional});
         WG_RTTI_FIELD(colors, {RttiOptional});
     }
