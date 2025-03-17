@@ -95,8 +95,6 @@ namespace wmoge {
         ImGuiInputTextFlags flags  = ImGuiInputTextFlags_None;
         auto                buffer = processor.put_str_to_buffer(element.text);
 
-        ImGui::PushID(&element);
-
         if (element.hint.has_value()) {
             if (ImGui::InputTextWithHint("##input", element.hint.value().c_str(), buffer.data(), static_cast<int>(buffer.size()), flags)) {
                 processor.add_action_event(element.on_input);
@@ -108,8 +106,6 @@ namespace wmoge {
         }
 
         element.text = std::move(processor.pop_str_from_buffer());
-
-        ImGui::PopID();
     }
 
     struct ImguiInputTextUserData {
@@ -164,8 +160,6 @@ namespace wmoge {
             flags |= ImGuiInputTextFlags_EscapeClearsAll;
         }
 
-        ImGui::PushID(&element);
-
         if (element.hint.has_value()) {
             if (ImGui::InputTextWithHint("##input", element.hint.value().c_str(), buffer.data(), static_cast<int>(buffer.size()), flags, imgui_input_text_callback, &user_data)) {
                 processor.add_action_event(element.on_enter);
@@ -196,8 +190,6 @@ namespace wmoge {
 
             processor.process(element.completion_popup.get());
         }
-
-        ImGui::PopID();
     }
 
 }// namespace wmoge

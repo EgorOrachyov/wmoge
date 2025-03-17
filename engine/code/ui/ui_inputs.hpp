@@ -170,18 +170,17 @@ namespace wmoge {
         using OnHistory    = std::function<void()>;
         using OnCompletion = std::function<void()>;
 
-        UiAttribute<UiTextInputFlags> flags;
-        UiAttribute<std::string>      text;
-        UiAttributeOpt<std::string>   hint;
-        UiAttribute<bool>             esc_to_clear{true};
-        UiEvent<OnInput>              on_input;
-        UiEvent<OnEnter>              on_enter;
-        UiEvent<OnHistory>            on_history_prev;
-        UiEvent<OnHistory>            on_history_next;
-        UiEvent<OnCompletion>         on_completion;
-        UiSlot<UiCompletionPopup>     completion_popup;
-        UiAttribute<int>              completion_popup_lines{10};
-        UiAttribute<bool>             completion_popup_bottom{false};
+        UiAttribute<std::string>    text;
+        UiAttributeOpt<std::string> hint;
+        UiAttribute<bool>           esc_to_clear{true};
+        UiEvent<OnInput>            on_input;
+        UiEvent<OnEnter>            on_enter;
+        UiEvent<OnHistory>          on_history_prev;
+        UiEvent<OnHistory>          on_history_next;
+        UiEvent<OnCompletion>       on_completion;
+        UiSlot<UiCompletionPopup>   completion_popup;
+        UiAttribute<int>            completion_popup_lines{10};
+        UiAttribute<bool>           completion_popup_bottom{false};
     };
 
 }// namespace wmoge

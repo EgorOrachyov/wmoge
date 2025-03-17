@@ -41,13 +41,13 @@ namespace wmoge {
     public:
         virtual ~UiManager() = default;
 
-        virtual void         set_main_window(Ref<UiMainWindow> window) = 0;
-        virtual void         add_dock_window(Ref<UiDockWindow> window) = 0;
-        virtual void         update(std::size_t frame_id)              = 0;
-        virtual void         render(const GfxCmdListRef& cmd_list)     = 0;
-        virtual void         set_style(const Ref<UiStyle>& style)      = 0;
-        virtual Ref<UiStyle> get_style()                               = 0;
-        virtual Ref<UiStyle> get_style_default()                       = 0;
+        virtual void                set_main_window(Ref<UiMainWindow> window) = 0;
+        virtual void                add_dock_window(Ref<UiDockWindow> window) = 0;
+        virtual void                update(std::size_t frame_id)              = 0;
+        virtual void                render(const GfxCmdListRef& cmd_list)     = 0;
+        virtual void                set_style(const Ref<UiStyle>& style)      = 0;
+        virtual const Ref<UiStyle>& get_style()                               = 0;
+        virtual const Ref<UiStyle>& get_style_default()                       = 0;
     };
 
 }// namespace wmoge

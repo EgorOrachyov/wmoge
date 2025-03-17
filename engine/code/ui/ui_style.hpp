@@ -41,69 +41,6 @@
 
 namespace wmoge {
 
-    /** @brief Name of color param in ui stype */
-    enum class UiColor {
-        Text = 0,
-        TextDisabled,
-        WindowBg,
-        ChildBg,
-        PopupBg,
-        Border,
-        BorderShadow,
-        FrameBg,
-        FrameBgHovered,
-        FrameBgActive,
-        TitleBg,
-        TitleBgActive,
-        TitleBgCollapsed,
-        MenuBarBg,
-        ScrollbarBg,
-        ScrollbarGrab,
-        ScrollbarGrabHovered,
-        ScrollbarGrabActive,
-        CheckMark,
-        SliderGrab,
-        SliderGrabActive,
-        Button,
-        ButtonHovered,
-        ButtonActive,
-        Header,
-        HeaderHovered,
-        HeaderActive,
-        Separator,
-        SeparatorHovered,
-        SeparatorActive,
-        ResizeGrip,
-        ResizeGripHovered,
-        ResizeGripActive,
-        TabHovered,
-        Tab,
-        TabSelected,
-        TabSelectedOverline,
-        TabDimmed,
-        TabDimmedSelected,
-        TabDimmedSelectedOverline,
-        DockingPreview,
-        DockingEmptyBg,
-        PlotLines,
-        PlotLinesHovered,
-        PlotHistogram,
-        PlotHistogramHovered,
-        TableHeaderBg,
-        TableBorderStrong,
-        TableBorderLight,
-        TableRowBg,
-        TableRowBgAlt,
-        TextLink,
-        TextSelectedBg,
-        DragDropTarget,
-        NavCursor,
-        NavWindowingHighlight,
-        NavWindowingDimBg,
-        ModalWindowDimBg,
-        Count
-    };
-
     /** @brief Ui color palette */
     struct UiColorPalette {
         WG_RTTI_STRUCT(UiColorPalette);
@@ -113,6 +50,20 @@ namespace wmoge {
 
     WG_RTTI_STRUCT_BEGIN(UiColorPalette) {
         WG_RTTI_FIELD(colors, {RttiOptional});
+    }
+    WG_RTTI_END;
+
+    /** @brief Ui param slot override value */
+    struct UiParamSlot {
+        WG_RTTI_STRUCT(UiParamSlot);
+
+        UiParam type;
+        float   value;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(UiParamSlot) {
+        WG_RTTI_FIELD(type, {});
+        WG_RTTI_FIELD(value, {});
     }
     WG_RTTI_END;
 
@@ -144,6 +95,22 @@ namespace wmoge {
     }
     WG_RTTI_END;
 
+    /** @brief Ui sub style which can be used to customize a sub tree of ui elements */
+    struct UiSubStyle {
+        WG_RTTI_STRUCT(UiSubStyle);
+
+        Strid                    font;
+        std::vector<UiParamSlot> params;
+        std::vector<UiColorSlot> colors;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(UiSubStyle) {
+        WG_RTTI_FIELD(font, {RttiOptional});
+        WG_RTTI_FIELD(params, {RttiOptional});
+        WG_RTTI_FIELD(colors, {RttiOptional});
+    }
+    WG_RTTI_END;
+
     /**
      * @class UiStyleDesc
      * @brief Style desc which can be used for save/load of style
@@ -151,61 +118,62 @@ namespace wmoge {
     struct UiStyleDesc {
         WG_RTTI_STRUCT(UiStyleDesc);
 
-        std::optional<float>     alpha;
-        std::optional<float>     disabled_alpha;
-        std::optional<Vec2f>     window_padding;
-        std::optional<float>     window_rounding;
-        std::optional<float>     window_border_size;
-        std::optional<Vec2f>     window_min_size;
-        std::optional<Vec2f>     window_title_align;
-        std::optional<UiDir>     window_menu_button_position;
-        std::optional<float>     child_rounding;
-        std::optional<float>     child_border_size;
-        std::optional<float>     popup_rounding;
-        std::optional<float>     popup_border_size;
-        std::optional<Vec2f>     frame_padding;
-        std::optional<float>     frame_rounding;
-        std::optional<float>     frame_border_size;
-        std::optional<Vec2f>     item_spacing;
-        std::optional<Vec2f>     item_inner_spacing;
-        std::optional<Vec2f>     cell_padding;
-        std::optional<Vec2f>     touch_extra_padding;
-        std::optional<float>     indent_spacing;
-        std::optional<float>     columns_min_spacing;
-        std::optional<float>     scrollbar_size;
-        std::optional<float>     scrollbar_rounding;
-        std::optional<float>     grab_min_size;
-        std::optional<float>     grab_rounding;
-        std::optional<float>     log_slider_deadzone;
-        std::optional<float>     tab_rounding;
-        std::optional<float>     tab_border_size;
-        std::optional<float>     tab_min_width_for_close_button;
-        std::optional<float>     tab_bar_border_size;
-        std::optional<float>     tab_bar_overline_size;
-        std::optional<float>     table_angled_headers_angle;
-        std::optional<Vec2f>     table_angled_headers_textAlign;
-        std::optional<UiDir>     color_button_position;
-        std::optional<Vec2f>     button_text_align;
-        std::optional<Vec2f>     selectable_text_align;
-        std::optional<float>     separator_text_border_size;
-        std::optional<Vec2f>     separator_text_align;
-        std::optional<Vec2f>     separator_text_padding;
-        std::optional<Vec2f>     display_window_padding;
-        std::optional<Vec2f>     display_safe_area_padding;
-        std::optional<float>     docking_separator_size;
-        std::optional<float>     mouse_cursor_scale;
-        std::optional<bool>      anti_aliased_lines;
-        std::optional<bool>      anti_aliased_lines_use_tex;
-        std::optional<bool>      anti_aliased_fill;
-        std::optional<float>     curve_tessellation_tol;
-        std::optional<float>     circle_tessellation_max_error;
-        std::optional<float>     hover_stationary_delay;
-        std::optional<float>     hover_delay_short;
-        std::optional<float>     hover_delay_normal;
-        UiColorPalette           palette;
-        std::vector<UiColorSlot> colors;
-        std::vector<UiFontSlot>  fonts;
-        std::optional<float>     font_scale;
+        std::optional<float>        alpha;
+        std::optional<float>        disabled_alpha;
+        std::optional<Vec2f>        window_padding;
+        std::optional<float>        window_rounding;
+        std::optional<float>        window_border_size;
+        std::optional<Vec2f>        window_min_size;
+        std::optional<Vec2f>        window_title_align;
+        std::optional<UiDir>        window_menu_button_position;
+        std::optional<float>        child_rounding;
+        std::optional<float>        child_border_size;
+        std::optional<float>        popup_rounding;
+        std::optional<float>        popup_border_size;
+        std::optional<Vec2f>        frame_padding;
+        std::optional<float>        frame_rounding;
+        std::optional<float>        frame_border_size;
+        std::optional<Vec2f>        item_spacing;
+        std::optional<Vec2f>        item_inner_spacing;
+        std::optional<Vec2f>        cell_padding;
+        std::optional<Vec2f>        touch_extra_padding;
+        std::optional<float>        indent_spacing;
+        std::optional<float>        columns_min_spacing;
+        std::optional<float>        scrollbar_size;
+        std::optional<float>        scrollbar_rounding;
+        std::optional<float>        grab_min_size;
+        std::optional<float>        grab_rounding;
+        std::optional<float>        log_slider_deadzone;
+        std::optional<float>        tab_rounding;
+        std::optional<float>        tab_border_size;
+        std::optional<float>        tab_min_width_for_close_button;
+        std::optional<float>        tab_bar_border_size;
+        std::optional<float>        tab_bar_overline_size;
+        std::optional<float>        table_angled_headers_angle;
+        std::optional<Vec2f>        table_angled_headers_textAlign;
+        std::optional<UiDir>        color_button_position;
+        std::optional<Vec2f>        button_text_align;
+        std::optional<Vec2f>        selectable_text_align;
+        std::optional<float>        separator_text_border_size;
+        std::optional<Vec2f>        separator_text_align;
+        std::optional<Vec2f>        separator_text_padding;
+        std::optional<Vec2f>        display_window_padding;
+        std::optional<Vec2f>        display_safe_area_padding;
+        std::optional<float>        docking_separator_size;
+        std::optional<float>        mouse_cursor_scale;
+        std::optional<bool>         anti_aliased_lines;
+        std::optional<bool>         anti_aliased_lines_use_tex;
+        std::optional<bool>         anti_aliased_fill;
+        std::optional<float>        curve_tessellation_tol;
+        std::optional<float>        circle_tessellation_max_error;
+        std::optional<float>        hover_stationary_delay;
+        std::optional<float>        hover_delay_short;
+        std::optional<float>        hover_delay_normal;
+        std::optional<float>        font_scale;
+        std::vector<UiFontSlot>     fonts;
+        std::vector<UiColorSlot>    colors;
+        UiColorPalette              palette;
+        flat_map<Strid, UiSubStyle> sub_styles;
     };
 
     WG_RTTI_STRUCT_BEGIN(UiStyleDesc) {
@@ -260,10 +228,11 @@ namespace wmoge {
         WG_RTTI_FIELD(hover_stationary_delay, {RttiOptional});
         WG_RTTI_FIELD(hover_delay_short, {RttiOptional});
         WG_RTTI_FIELD(hover_delay_normal, {RttiOptional});
-        WG_RTTI_FIELD(palette, {RttiOptional});
-        WG_RTTI_FIELD(colors, {RttiOptional});
-        WG_RTTI_FIELD(fonts, {RttiOptional});
         WG_RTTI_FIELD(font_scale, {RttiOptional});
+        WG_RTTI_FIELD(fonts, {RttiOptional});
+        WG_RTTI_FIELD(colors, {RttiOptional});
+        WG_RTTI_FIELD(palette, {RttiOptional});
+        WG_RTTI_FIELD(sub_styles, {RttiOptional});
     }
     WG_RTTI_END;
 

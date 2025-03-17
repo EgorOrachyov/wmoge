@@ -52,6 +52,7 @@ namespace wmoge {
         Modal,
         StackPanel,
         ScrollPanel,
+        CollapsingPanel,
         MenuItem,
         Menu,
         MenuBar,
@@ -77,14 +78,7 @@ namespace wmoge {
         ComboBox,
         ListBox,
         ProgressBar
-
     };
-
-    /**
-     * @class UiUserData
-     * @brief Base class for user data which can be attached to any ui element
-     */
-    class UiUserData : public RefCnt {};
 
     /**
      * @class UiElement
@@ -96,7 +90,7 @@ namespace wmoge {
 
         UiAttribute<Strid>           tag;
         UiAttributeOpt<UiCursorType> cursor;
-        UiAttribute<Ref<UiUserData>> user_data;
+        UiAttribute<Strid>           sub_style;
         const UiElementType          type = UiElementType::Unknown;
     };
 

@@ -110,8 +110,8 @@ public:
 
             tree.create_tree();
 
-            auto s = e->ui_manager()->get_style();
-            s->write_to_tree(ctx, tree);
+            auto s      = e->ui_manager()->get_style();
+            auto status = s->write_to_tree(ctx, tree);
 
             std::string str;
             tree.save_tree(str);
@@ -128,7 +128,7 @@ public:
             IoYamlTree tree;
             IoContext  ctx;
 
-            tree.parse_file(e->file_system(), "style.yml");
+            auto status = tree.parse_file(e->file_system(), "style.yml");
 
             auto s = make_ref<UiStyle>();
             s->set_id(SID("loaded_style"));
@@ -137,15 +137,25 @@ public:
             e->ui_manager()->set_style(s);
         };
 
-        auto panel                 = make_ref<UiStackPanel>();
+        auto header  = make_ref<UiText>();
+        header->text = "ELEMENTS";
+
+        auto panel                 = make_ref<UiCollapsingPanel>();
+        panel->header              = header;
         panel->children.add_slot() = button_save;
         panel->children.add_slot() = button_load;
+        panel->sub_style           = SID("header");
 
         auto window   = make_ref<UiMainWindow>();
         window->title = "Wmoge Editor";
-        window->panel = panel;
+
+        auto dock_window       = make_ref<UiDockWindow>();
+        dock_window->title     = "Wmoge Sub-Editor";
+        dock_window->sub_style = SID("panel");
+        dock_window->panel     = panel;
 
         m_engine->ui_manager()->set_main_window(window);
+        m_engine->ui_manager()->add_dock_window(dock_window);
         m_engine->ui_manager()->set_style(editor_style);
 
         WG_LOG_INFO("init");

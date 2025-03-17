@@ -50,18 +50,20 @@ namespace wmoge {
         ImguiManager(WindowManager* window_manager, GfxDriver* driver);
         ~ImguiManager() override;
 
-        void         set_main_window(Ref<UiMainWindow> window) override;
-        void         add_dock_window(Ref<UiDockWindow> window) override;
-        void         update(std::size_t frame_id) override;
-        void         render(const GfxCmdListRef& cmd_list) override;
-        void         set_style(const Ref<UiStyle>& style) override;
-        Ref<UiStyle> get_style() override;
-        Ref<UiStyle> get_style_default() override;
+        void                set_main_window(Ref<UiMainWindow> window) override;
+        void                add_dock_window(Ref<UiDockWindow> window) override;
+        void                update(std::size_t frame_id) override;
+        void                render(const GfxCmdListRef& cmd_list) override;
+        void                set_style(const Ref<UiStyle>& style) override;
+        const Ref<UiStyle>& get_style() override;
+        const Ref<UiStyle>& get_style_default() override;
 
         ImTextureID get_texture_id(const Ref<Texture2d>& texture);
+        ImFont*     find_font(Strid name);
 
-        [[nodiscard]] bool is_docking_enable() const { return m_docking_enable; }
-        [[nodiscard]] bool is_viewports_enable() const { return m_viewports_enable; }
+        [[nodiscard]] bool               is_docking_enable() const { return m_docking_enable; }
+        [[nodiscard]] bool               is_viewports_enable() const { return m_viewports_enable; }
+        [[nodiscard]] const UiStyleDesc& get_style_desc() const { return m_style->get_desc(); }
 
     protected:
         void    process_main_window();
@@ -78,7 +80,8 @@ namespace wmoge {
         Ref<UiStyle>                    m_style;
         Ref<UiStyle>                    m_style_default;
         std::vector<ImFont*>            m_fonts;
-        flat_map<Ref<Font>, ImFont*>    m_loaded_fonts;
+        flat_map<Strid, int>            m_fonts_tags;
+        flat_map<Ref<Font>, ImFont*>    m_fonts_loaded;
 
         bool m_docking_enable   = true;
         bool m_viewports_enable = true;

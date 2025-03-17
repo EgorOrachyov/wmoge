@@ -1711,9 +1711,12 @@ enum ImGuiCol_
     ImGuiCol_Button,
     ImGuiCol_ButtonHovered,
     ImGuiCol_ButtonActive,
-    ImGuiCol_Header,                // Header* colors are used for CollapsingHeader, TreeNode, Selectable, MenuItem
+    ImGuiCol_Header,                // Header* colors are used for TreeNode, Selectable, MenuItem
     ImGuiCol_HeaderHovered,
     ImGuiCol_HeaderActive,
+    ImGuiCol_CollapsingHeader,      // Collapsing header colors
+    ImGuiCol_CollapsingHeaderHovered,
+    ImGuiCol_CollapsingHeaderActive,
     ImGuiCol_Separator,
     ImGuiCol_SeparatorHovered,
     ImGuiCol_SeparatorActive,

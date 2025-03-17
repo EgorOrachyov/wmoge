@@ -28,6 +28,7 @@
 #pragma once
 
 #include "ui/ui_attribute.hpp"
+#include "ui/ui_content.hpp"
 #include "ui/ui_element.hpp"
 
 namespace wmoge {
@@ -145,6 +146,18 @@ namespace wmoge {
         UiAttribute<bool>        has_border{false};
         UiAttribute<bool>        allow_resize{false};
         UiAttribute<UiScroll>    scroll_type{UiScroll::Vertical};
+    };
+
+    /**
+     * @class UiCollapsingPanel
+     * @brief
+     */
+    class UiCollapsingPanel : public UiPanel {
+    public:
+        UiCollapsingPanel() : UiPanel(UiElementType::CollapsingPanel) {}
+
+        UiSlot<UiText>    header;
+        UiAttribute<bool> default_open{true};
     };
 
 }// namespace wmoge

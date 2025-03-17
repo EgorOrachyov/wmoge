@@ -34,6 +34,7 @@
 
 namespace wmoge {
 
+    /** @brief Cursor shown over ui element */
     enum class UiCursorType {
         Arrow = 0,
         TextInput,
@@ -46,6 +47,7 @@ namespace wmoge {
         NotAllowed
     };
 
+    /** @brief General ui direction value */
     enum class UiDir {
         None  = 0,
         Left  = 1,
@@ -54,17 +56,20 @@ namespace wmoge {
         Down  = 4
     };
 
+    /** @brief Layout orientation */
     enum class UiOrientation {
         Horizontal,
         Vertical
     };
 
+    /** @brief Type of scroll areas */
     enum class UiScroll {
         Vertical,
         Horizontal,
         Mixed
     };
 
+    /** @brief Flag for window element */
     enum class UiWindowFlag {
         NoBringToFrontOnFocus,
         NoPadding,
@@ -74,16 +79,124 @@ namespace wmoge {
         NoScrollbar
     };
 
+    /** @brief Window element flags */
     using UiWindowFlags = Mask<UiWindowFlag>;
 
-    enum class UiTextInputFlag {
-        CallbackAlways,
-        EnterForSubmit,
-        EscapeToClear,
-        CompletionTab,
-        HistoryScroll
+    /** @brief Name of param in ui style */
+    enum class UiParam {
+        Alpha = 0,
+        DisabledAlpha,
+        WindowPaddingX,
+        WindowPaddingY,
+        WindowRounding,
+        WindowBorderSize,
+        WindowMinSizeX,
+        WindowMinSizeY,
+        WindowTitleAlignX,
+        WindowTitleAlignY,
+        ChildRounding,
+        ChildBorderSize,
+        PopupRounding,
+        PopupBorderSize,
+        FramePaddingX,
+        FramePaddingY,
+        FrameRounding,
+        FrameBorderSize,
+        ItemSpacingX,
+        ItemSpacingY,
+        ItemInnerSpacingX,
+        ItemInnerSpacingY,
+        IndentSpacing,
+        CellPaddingX,
+        CellPaddingY,
+        ScrollbarSize,
+        ScrollbarRounding,
+        GrabMinSize,
+        GrabRounding,
+        TabRounding,
+        TabBorderSize,
+        TabBarBorderSize,
+        TabBarOverlineSize,
+        TableAngledHeadersAngle,
+        TableAngledHeadersTextAlignX,
+        TableAngledHeadersTextAlignY,
+        ButtonTextAlignX,
+        ButtonTextAlignY,
+        SelectableTextAlignX,
+        SelectableTextAlignY,
+        SeparatorTextBorderSize,
+        SeparatorTextAlignX,
+        SeparatorTextAlignY,
+        SeparatorTextPaddingX,
+        SeparatorTextPaddingY,
+        DockingSeparatorSize,
+        Count
     };
 
-    using UiTextInputFlags = Mask<UiTextInputFlag>;
+    /** @brief Name of color param in ui stype */
+    enum class UiColor {
+        Text = 0,
+        TextDisabled,
+        WindowBg,
+        ChildBg,
+        PopupBg,
+        Border,
+        BorderShadow,
+        FrameBg,
+        FrameBgHovered,
+        FrameBgActive,
+        TitleBg,
+        TitleBgActive,
+        TitleBgCollapsed,
+        MenuBarBg,
+        ScrollbarBg,
+        ScrollbarGrab,
+        ScrollbarGrabHovered,
+        ScrollbarGrabActive,
+        CheckMark,
+        SliderGrab,
+        SliderGrabActive,
+        Button,
+        ButtonHovered,
+        ButtonActive,
+        Header,
+        HeaderHovered,
+        HeaderActive,
+        CollapsingHeader,
+        CollapsingHeaderHovered,
+        CollapsingHeaderActive,
+        Separator,
+        SeparatorHovered,
+        SeparatorActive,
+        ResizeGrip,
+        ResizeGripHovered,
+        ResizeGripActive,
+        TabHovered,
+        Tab,
+        TabSelected,
+        TabSelectedOverline,
+        TabDimmed,
+        TabDimmedSelected,
+        TabDimmedSelectedOverline,
+        DockingPreview,
+        DockingEmptyBg,
+        PlotLines,
+        PlotLinesHovered,
+        PlotHistogram,
+        PlotHistogramHovered,
+        TableHeaderBg,
+        TableBorderStrong,
+        TableBorderLight,
+        TableRowBg,
+        TableRowBgAlt,
+        TextLink,
+        TextSelectedBg,
+        DragDropTarget,
+        NavCursor,
+        NavWindowingHighlight,
+        NavWindowingDimBg,
+        ModalWindowDimBg,
+        Count
+    };
 
 }// namespace wmoge

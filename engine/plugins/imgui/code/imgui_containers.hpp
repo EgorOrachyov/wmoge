@@ -47,4 +47,6 @@ namespace wmoge {
 
     void imgui_process_scroll_panel(ImguiProcessor& processor, UiScrollPanel& panel);
 
+    void imgui_process_collapsing_panel(ImguiProcessor& processor, UiCollapsingPanel& panel);
+
 }// namespace wmoge

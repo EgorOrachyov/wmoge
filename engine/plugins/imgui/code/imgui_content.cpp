@@ -38,27 +38,13 @@ namespace wmoge {
     }
 
     void imgui_process_text(ImguiProcessor& processor, UiText& element) {
-        if (element.text_color.has_value()) {
-            ImGui::PushStyleColor(ImGuiCol_Text, imgui_color4(element.text_color.value()));
-        }
         ImGui::TextUnformatted(element.text.get().c_str());
-        if (element.text_color.has_value()) {
-            ImGui::PopStyleColor();
-        }
     }
 
     void imgui_process_text_wrapped(ImguiProcessor& processor, UiTextWrapped& element) {
-        if (element.text_color.has_value()) {
-            ImGui::PushStyleColor(ImGuiCol_Text, imgui_color4(element.text_color.value()));
-        }
-
         ImGui::PushTextWrapPos();
         ImGui::TextUnformatted(element.text.get().c_str());
         ImGui::PopTextWrapPos();
-
-        if (element.text_color.has_value()) {
-            ImGui::PopStyleColor();
-        }
     }
 
     void imgui_process_text_link(ImguiProcessor& processor, UiTextLink& element) {

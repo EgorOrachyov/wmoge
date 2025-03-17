@@ -50,6 +50,7 @@ m_desc:
   hover_stationary_delay: 0.15
   hover_delay_short: 0.15
   hover_delay_normal: 0.4
+  font_scale: 1
   palette:
     colors:
       - key: color_1
@@ -87,7 +88,7 @@ m_desc:
       - key: color_15
         value: 0.0588235 0.470588 0.929412 1
       - key: color_17
-        value: 0.0823529 0.0823529 0.0823529 1
+        value: 0.0823529 0.0823529 0.0823529 0.647059
       - key: color_18
         value: 0.529412 0.729412 0.988235 1
       - key: color_19
@@ -96,8 +97,6 @@ m_desc:
         value: 0.992157 0.94902 0.258824 1
       - key: color_21
         value: 0.0823529 0.0823529 0.0823529 0.647856
-      - key: color_22
-        value: 0.0823529 0.0823529 0.0823529 0.647059
   colors:
     - type: Text
       value: color_0
@@ -153,6 +152,12 @@ m_desc:
       value: color_13
     - type: HeaderActive
       value: color_15
+    - type: CollapsingHeader
+      value: color_5
+    - type: CollapsingHeaderHovered
+      value: color_14
+    - type: CollapsingHeaderActive
+      value: color_14
     - type: Separator
       value: color_10
     - type: SeparatorHovered
@@ -164,7 +169,7 @@ m_desc:
     - type: ResizeGripHovered
       value: color_14
     - type: ResizeGripActive
-      value: color_13
+      value: color_20
     - type: TabHovered
       value: color_3
     - type: Tab
@@ -178,7 +183,7 @@ m_desc:
     - type: TabDimmedSelected
       value: color_3
     - type: TabDimmedSelectedOverline
-      value: color_17
+      value: color_3
     - type: DockingPreview
       value: color_14
     - type: DockingEmptyBg
@@ -214,19 +219,28 @@ m_desc:
     - type: NavWindowingDimBg
       value: color_21
     - type: ModalWindowDimBg
-      value: color_22
+      value: color_17
   fonts:
-    - tag: "medium"
+    - tag: medium
       file: "editor/fonts/inter/inter_28pt_medium"
-    - tag: "bold"
+    - tag: bold
       file: "editor/fonts/inter/inter_28pt_bold"
-    - tag: "black"
+    - tag: black
       file: "editor/fonts/inter/inter_28pt_black"
-    - tag: "italic"
+    - tag: italic
       file: "editor/fonts/inter/inter_28pt_italic"
-    - tag: "light"
+    - tag: light
       file: "editor/fonts/inter/inter_28pt_light"
-    - tag: "medium_light"
+    - tag: medium_light
       file: "editor/fonts/inter/inter_28pt_medium_italic"
-    - tag: "regular"
+    - tag: regular
       file: "editor/fonts/inter/inter_28pt_regular"
+  sub_styles:
+    - key: panel
+      value:
+        colors:
+          - type: WindowBg
+            value: color_3
+    - key: header
+      value:
+        font: bold

@@ -36,12 +36,167 @@
 #include "imgui_window.hpp"
 
 #include <cstring>
+#include <utility>
 
 namespace wmoge {
 
+    void imgui_push_var(UiParam param, float v) {
+        switch (param) {
+            case UiParam::Alpha:
+                ImGui::PushStyleVar(ImGuiStyleVar_Alpha, v);
+                break;
+            case UiParam::DisabledAlpha:
+                ImGui::PushStyleVar(ImGuiStyleVar_Alpha, v);
+                break;
+            case UiParam::WindowPaddingX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_WindowPadding, v);
+                break;
+            case UiParam::WindowPaddingY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_WindowPadding, v);
+                break;
+            case UiParam::WindowRounding:
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, v);
+                break;
+            case UiParam::WindowBorderSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, v);
+                break;
+            case UiParam::WindowMinSizeX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_WindowMinSize, v);
+                break;
+            case UiParam::WindowMinSizeY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_WindowMinSize, v);
+                break;
+            case UiParam::WindowTitleAlignX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_WindowTitleAlign, v);
+                break;
+            case UiParam::WindowTitleAlignY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_WindowTitleAlign, v);
+                break;
+            case UiParam::ChildRounding:
+                ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, v);
+                break;
+            case UiParam::ChildBorderSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_ChildBorderSize, v);
+                break;
+            case UiParam::PopupRounding:
+                ImGui::PushStyleVar(ImGuiStyleVar_PopupRounding, v);
+                break;
+            case UiParam::PopupBorderSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_PopupBorderSize, v);
+                break;
+            case UiParam::FramePaddingX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_FramePadding, v);
+                break;
+            case UiParam::FramePaddingY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_FramePadding, v);
+                break;
+            case UiParam::FrameRounding:
+                ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, v);
+                break;
+            case UiParam::FrameBorderSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, v);
+                break;
+            case UiParam::ItemSpacingX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_ItemSpacing, v);
+                break;
+            case UiParam::ItemSpacingY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_ItemSpacing, v);
+                break;
+            case UiParam::ItemInnerSpacingX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_ItemInnerSpacing, v);
+                break;
+            case UiParam::ItemInnerSpacingY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_ItemInnerSpacing, v);
+                break;
+            case UiParam::IndentSpacing:
+                ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, v);
+                break;
+            case UiParam::CellPaddingX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_CellPadding, v);
+                break;
+            case UiParam::CellPaddingY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_CellPadding, v);
+                break;
+            case UiParam::ScrollbarSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_ScrollbarSize, v);
+                break;
+            case UiParam::ScrollbarRounding:
+                ImGui::PushStyleVar(ImGuiStyleVar_ScrollbarRounding, v);
+                break;
+            case UiParam::GrabMinSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, v);
+                break;
+            case UiParam::GrabRounding:
+                ImGui::PushStyleVar(ImGuiStyleVar_GrabRounding, v);
+                break;
+            case UiParam::TabRounding:
+                ImGui::PushStyleVar(ImGuiStyleVar_TabRounding, v);
+                break;
+            case UiParam::TabBorderSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_TabBorderSize, v);
+                break;
+            case UiParam::TabBarBorderSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_TabBarBorderSize, v);
+                break;
+            case UiParam::TabBarOverlineSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_TabBarOverlineSize, v);
+                break;
+            case UiParam::TableAngledHeadersAngle:
+                ImGui::PushStyleVar(ImGuiStyleVar_TableAngledHeadersAngle, v);
+                break;
+            case UiParam::TableAngledHeadersTextAlignX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_TableAngledHeadersTextAlign, v);
+                break;
+            case UiParam::TableAngledHeadersTextAlignY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_TableAngledHeadersTextAlign, v);
+                break;
+            case UiParam::ButtonTextAlignX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_ButtonTextAlign, v);
+                break;
+            case UiParam::ButtonTextAlignY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_ButtonTextAlign, v);
+                break;
+            case UiParam::SelectableTextAlignX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_SelectableTextAlign, v);
+                break;
+            case UiParam::SelectableTextAlignY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_SelectableTextAlign, v);
+                break;
+            case UiParam::SeparatorTextBorderSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_SeparatorTextBorderSize, v);
+                break;
+            case UiParam::SeparatorTextAlignX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_SeparatorTextAlign, v);
+                break;
+            case UiParam::SeparatorTextAlignY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_SeparatorTextAlign, v);
+                break;
+            case UiParam::SeparatorTextPaddingX:
+                ImGui::PushStyleVarX(ImGuiStyleVar_SeparatorTextPadding, v);
+                break;
+            case UiParam::SeparatorTextPaddingY:
+                ImGui::PushStyleVarY(ImGuiStyleVar_SeparatorTextPadding, v);
+                break;
+            case UiParam::DockingSeparatorSize:
+                ImGui::PushStyleVar(ImGuiStyleVar_DockingSeparatorSize, v);
+                break;
+
+            default:
+                break;
+        }
+    }
+
     ImguiProcessor::ImguiProcessor(ImguiManager* manager)
         : m_manager(manager),
-          m_input_buffer(256, '\0') {
+          m_input_buffer(256, '\0'),
+          m_param_stack(static_cast<int>(UiParam::Count)),
+          m_color_stack(static_cast<int>(UiColor::Count)) {
+    }
+
+    void ImguiProcessor::process_tree(UiElement* element) {
+        push_style();
+        process(element);
+        pop_style();
     }
 
     void ImguiProcessor::process(UiElement* element) {
@@ -50,6 +205,10 @@ namespace wmoge {
         }
 
         const UiElementType type = element->type;
+
+        push_sub_style(element->sub_style);
+
+        ImGui::PushID(element);
 
         switch (type) {
             case UiElementType::MainWindow:
@@ -79,6 +238,9 @@ namespace wmoge {
                 break;
             case UiElementType::ScrollPanel:
                 imgui_process_scroll_panel(*this, *static_cast<UiScrollPanel*>(element));
+                break;
+            case UiElementType::CollapsingPanel:
+                imgui_process_collapsing_panel(*this, *static_cast<UiCollapsingPanel*>(element));
                 break;
 
             case UiElementType::MenuBar:
@@ -161,6 +323,10 @@ namespace wmoge {
                 WG_LOG_ERROR("unknown type of ui element with tag " << element->tag);
                 break;
         }
+
+        ImGui::PopID();
+
+        pop_sub_style();
     }
 
     void ImguiProcessor::process(UiSlots<UiSlot<UiSubElement>>& elements) {
@@ -225,6 +391,117 @@ namespace wmoge {
         }
 
         return std::move(r);
+    }
+
+    Color4f ImguiProcessor::get_color(UiColor color) const {
+        auto& stack = m_color_stack[static_cast<int>(color)];
+        return stack.back();
+    }
+
+    void ImguiProcessor::push_style() {
+        const UiStyleDesc&    style_desc = m_manager->get_style_desc();
+        const UiColorPalette& palette    = style_desc.palette;
+
+        if (!style_desc.fonts.empty()) {
+            if (ImFont* font = m_manager->find_font(style_desc.fonts.front().tag)) {
+                ImGui::PushFont(font);
+            }
+        }
+        for (const auto& slot : style_desc.colors) {
+            auto          query = palette.colors.find(slot.value);
+            const Color4f value = query != palette.colors.end() ? query->second : Color4f();
+            push_color(slot.type, value);
+        }
+    }
+
+    void ImguiProcessor::pop_style() {
+        const UiStyleDesc& style_desc = m_manager->get_style_desc();
+
+        if (!style_desc.fonts.empty()) {
+            if (m_manager->find_font(style_desc.fonts.front().tag)) {
+                ImGui::PopFont();
+            }
+        }
+        for (const auto& slot : style_desc.colors) {
+            pop_color(slot.type);
+        }
+    }
+
+    void ImguiProcessor::push_sub_style(Strid sub_style) {
+        const UiStyleDesc& style_desc = m_manager->get_style_desc();
+
+        auto query = style_desc.sub_styles.find(sub_style);
+        if (query == style_desc.sub_styles.end()) {
+            m_style_stack.push_back(nullptr);
+            return;
+        }
+
+        const UiSubStyle*     s       = &query->second;
+        const UiColorPalette& palette = style_desc.palette;
+
+        if (!s->font.empty()) {
+            if (ImFont* font = m_manager->find_font(s->font)) {
+                ImGui::PushFont(font);
+            }
+        }
+        for (const auto& slot : s->params) {
+            push_param(slot.type, slot.value);
+        }
+        for (const auto& slot : s->colors) {
+            auto          query = palette.colors.find(slot.value);
+            const Color4f value = query != palette.colors.end() ? query->second : Color4f();
+            push_color(slot.type, value);
+        }
+
+        m_style_stack.push_back(s);
+    }
+
+    void ImguiProcessor::pop_sub_style() {
+        const UiSubStyle* s = m_style_stack.back();
+        if (s == nullptr) {
+            m_style_stack.pop_back();
+            return;
+        }
+
+        const UiStyleDesc& style_desc = m_manager->get_style_desc();
+
+        if (!s->font.empty()) {
+            if (m_manager->find_font(s->font)) {
+                ImGui::PopFont();
+            }
+        }
+        for (const auto& slot : s->params) {
+            pop_param(slot.type);
+        }
+        for (const auto& slot : s->colors) {
+            pop_color(slot.type);
+        }
+
+        m_style_stack.pop_back();
+    }
+
+    void ImguiProcessor::push_param(UiParam param, float value) {
+        auto& stack = m_param_stack[static_cast<int>(param)];
+        stack.push_back(value);
+        imgui_push_var(param, value);
+    }
+
+    void ImguiProcessor::pop_param(UiParam param) {
+        auto& stack = m_param_stack[static_cast<int>(param)];
+        stack.pop_back();
+        ImGui::PopStyleVar();
+    }
+
+    void ImguiProcessor::push_color(UiColor color, Color4f value) {
+        auto& stack = m_color_stack[static_cast<int>(color)];
+        stack.push_back(value);
+        ImGui::PushStyleColor(static_cast<ImGuiCol>(color), imgui_color4(value));
+    }
+
+    void ImguiProcessor::pop_color(UiColor color) {
+        auto& stack = m_color_stack[static_cast<int>(color)];
+        stack.pop_back();
+        ImGui::PopStyleColor();
     }
 
 }// namespace wmoge

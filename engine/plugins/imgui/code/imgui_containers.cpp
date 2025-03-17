@@ -159,4 +159,32 @@ namespace wmoge {
         ImGui::EndChild();
     }
 
+    void imgui_process_collapsing_panel(ImguiProcessor& processor, UiCollapsingPanel& panel) {
+        ImGuiTreeNodeFlags flags =
+                ImGuiTreeNodeFlags_Framed |
+                ImGuiTreeNodeFlags_NoAutoOpenOnLog;
+
+        if (panel.default_open) {
+            flags |= ImGuiTreeNodeFlags_DefaultOpen;
+        }
+
+        ImGui::PushStyleColor(ImGuiCol_Header, imgui_color4(processor.get_color(UiColor::CollapsingHeader)));
+        ImGui::PushStyleColor(ImGuiCol_HeaderHovered, imgui_color4(processor.get_color(UiColor::CollapsingHeaderHovered)));
+        ImGui::PushStyleColor(ImGuiCol_HeaderActive, imgui_color4(processor.get_color(UiColor::CollapsingHeaderActive)));
+
+        const bool is_open = ImGui::TreeNodeEx("##header", flags);
+
+        ImGui::PopStyleColor(3);
+
+        if (panel.header.has_value()) {
+            ImGui::SameLine();
+            processor.process(panel.header.get());
+        }
+
+        if (is_open) {
+            processor.process(panel.children);
+            ImGui::TreePop();
+        }
+    }
+
 }// namespace wmoge

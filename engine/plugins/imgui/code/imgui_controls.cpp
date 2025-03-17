@@ -44,8 +44,6 @@ namespace wmoge {
             flags |= ImGuiSelectableFlags_Disabled;
         }
 
-        ImGui::PushID(&element);
-
         if (ImGui::Selectable("", element.selected.get(), flags)) {
             processor.add_action_event(element.on_click);
         }
@@ -61,8 +59,6 @@ namespace wmoge {
             ImGui::SameLine();
             ImGui::Text(imgui_str(element.label));
         }
-
-        ImGui::PopID();
     }
 
     void imgui_process_button(ImguiProcessor& processor, UiButton& element) {
@@ -83,8 +79,6 @@ namespace wmoge {
             const ImVec4      tint         = imgui_color4(info.tint);
             const ImVec4      bg_color;
 
-            ImGui::PushID(&element);
-
             if (element.label.get().empty()) {
                 if (ImGui::ImageButton(imgui_str(element.label), texture_id, texture_size, uv0, uv1, bg_color, tint)) {
                     processor.add_action_event(element.on_click);
@@ -94,8 +88,6 @@ namespace wmoge {
                     processor.add_action_event(element.on_click);
                 }
             }
-
-            ImGui::PopID();
         }
     }
 

@@ -62,7 +62,6 @@ namespace wmoge {
         UiText() : UiSubElement(UiElementType::Text) {}
 
         UiAttribute<std::string> text;
-        UiAttributeOpt<Color4f>  text_color;
     };
 
     /**
@@ -74,7 +73,6 @@ namespace wmoge {
         UiTextWrapped() : UiSubElement(UiElementType::TextWrapped) {}
 
         UiAttribute<std::string> text;
-        UiAttributeOpt<Color4f>  text_color;
     };
 
     /**

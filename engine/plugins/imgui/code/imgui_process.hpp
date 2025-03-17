@@ -31,6 +31,7 @@
 #include "grc/icon.hpp"
 #include "ui/ui_attribute.hpp"
 #include "ui/ui_element.hpp"
+#include "ui/ui_style.hpp"
 
 namespace wmoge {
 
@@ -38,6 +39,7 @@ namespace wmoge {
     public:
         ImguiProcessor(class ImguiManager* manager);
 
+        void             process_tree(UiElement* element);
         void             process(UiElement* element);
         void             process(UiSlots<UiSlot<UiSubElement>>& elements);
         void             draw_icon(const Icon& icon, const Vec2f& icon_size);
@@ -47,12 +49,26 @@ namespace wmoge {
         void             clear_actions();
         array_view<char> put_str_to_buffer(const std::string& s);
         std::string      pop_str_from_buffer();
+        Color4f          get_color(UiColor color) const;
 
         [[nodiscard]] class ImguiManager* get_manager() const { return m_manager; }
 
     private:
+        void push_style();
+        void pop_style();
+        void push_sub_style(Strid sub_style);
+        void pop_sub_style();
+        void push_param(UiParam param, float value);
+        void pop_param(UiParam param);
+        void push_color(UiColor color, Color4f value);
+        void pop_color(UiColor color);
+
+    private:
         std::vector<std::function<void()>> m_actions;
         std::vector<char>                  m_input_buffer;
+        std::vector<std::vector<float>>    m_param_stack;
+        std::vector<std::vector<Color4f>>  m_color_stack;
+        std::vector<const UiSubStyle*>     m_style_stack;
         class ImguiManager*                m_manager;
     };
 

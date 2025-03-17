@@ -117,16 +117,18 @@ namespace wmoge {
         ImGui::GetIO().FontGlobalScale = style->get_desc().font_scale.value_or(1.0f);
 
         m_fonts.clear();
+        m_fonts_tags.clear();
         for (const auto& font : m_style->get_desc().fonts) {
+            m_fonts_tags[font.tag] = static_cast<int>(m_fonts.size());
             m_fonts.push_back(load_font(font.file));
         }
     }
 
-    Ref<UiStyle> ImguiManager::get_style() {
+    const Ref<UiStyle>& ImguiManager::get_style() {
         return m_style;
     }
 
-    Ref<UiStyle> ImguiManager::get_style_default() {
+    const Ref<UiStyle>& ImguiManager::get_style_default() {
         return m_style_default;
     }
 
@@ -134,33 +136,23 @@ namespace wmoge {
         return m_driver->get_texture_id(texture->get_texture(), texture->get_sampler());
     }
 
+    ImFont* ImguiManager::find_font(Strid name) {
+        auto idx = m_fonts_tags.find(name);
+        if (idx != m_fonts_tags.end()) {
+            return m_fonts[idx->second];
+        }
+        return nullptr;
+    }
+
     void ImguiManager::process_main_window() {
         WG_PROFILE_CPU_UI("ImguiManager::process_main_window");
-
-        if (!m_fonts.empty()) {
-            ImGui::PushFont(m_fonts.front());
-        }
-
-        m_processor->process(m_main_window.get());
-
-        if (!m_fonts.empty()) {
-            ImGui::PopFont();
-        }
+        m_processor->process_tree(m_main_window.get());
     }
 
     void ImguiManager::process_dock_windows() {
         WG_PROFILE_CPU_UI("ImguiManager::process_dock_windows");
-
-        if (!m_fonts.empty()) {
-            ImGui::PushFont(m_fonts.front());
-        }
-
         for (auto& dock_window : m_dock_windows) {
-            m_processor->process(dock_window.get());
-        }
-
-        if (!m_fonts.empty()) {
-            ImGui::PopFont();
+            m_processor->process_tree(dock_window.get());
         }
     }
 
@@ -172,8 +164,8 @@ namespace wmoge {
     }
 
     ImFont* ImguiManager::load_font(const Ref<Font>& font) {
-        auto query = m_loaded_fonts.find(font);
-        if (query != m_loaded_fonts.end()) {
+        auto query = m_fonts_loaded.find(font);
+        if (query != m_fonts_loaded.end()) {
             return query->second;
         }
 
@@ -187,7 +179,7 @@ namespace wmoge {
 
         ImFont* im_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(file_content->buffer(), file_content_size, size_pixels, &config);
 
-        return m_loaded_fonts[font] = im_font;
+        return m_fonts_loaded[font] = im_font;
     }
 
 }// namespace wmoge
