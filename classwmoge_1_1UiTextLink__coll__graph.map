@@ -1,13 +1,12 @@
 <map id="wmoge::UiTextLink" name="wmoge::UiTextLink">
-<area shape="rect" id="node1" title=" " alt="" coords="1163,201,1296,228"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="936,176,1089,203"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="604,176,735,203"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,152,350,179"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="218,203,371,245"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,211,168,237"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="759,35,912,77"/>
-<area shape="rect" id="node11" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="396,327,580,353"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="217,72,372,128"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="229,269,361,310"/>
-<area shape="rect" id="node10" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="947,278,1079,319"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1161,207,1295,234"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="935,102,1088,129"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="603,85,733,111"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,137,349,163"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="217,5,371,47"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,187,168,214"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="757,175,911,216"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1UiEvent.html" title=" " alt="" coords="395,238,579,265"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="228,71,360,112"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="945,289,1077,331"/>
 </map>

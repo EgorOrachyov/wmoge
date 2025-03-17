@@ -1,4 +1,0 @@
-<map id="wmoge::UiUserData" name="wmoge::UiUserData">
-<area shape="rect" id="node1" title="Base class for user data which can be attached to any ui element." alt="" coords="5,80,144,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="19,5,130,32"/>
-</map>

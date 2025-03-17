@@ -1,0 +1,13 @@
+<map id="wmoge::UiCollapsingPanel" name="wmoge::UiCollapsingPanel">
+<area shape="rect" id="node1" title=" " alt="" coords="1383,217,1559,244"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiPanel.html" title=" " alt="" coords="1133,137,1249,164"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="923,137,1076,164"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="577,137,708,164"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,137,349,164"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="217,189,371,230"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,196,168,223"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1UiSlots.html" title=" " alt="" coords="732,27,899,69"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1UiSlot.html" title=" " alt="" coords="395,239,553,281"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="228,71,360,113"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="1125,269,1257,310"/>
+</map>

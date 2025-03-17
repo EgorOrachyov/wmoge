@@ -7,9 +7,9 @@
 <area shape="rect" id="node7" href="$classwmoge_1_1UiPopup.html" title=" " alt="" coords="375,487,495,513"/>
 <area shape="rect" id="node8" href="$classwmoge_1_1UiStatusBar.html" title=" " alt="" coords="365,537,506,564"/>
 <area shape="rect" id="node9" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="359,588,512,615"/>
-<area shape="rect" id="node35" href="$classwmoge_1_1UiToolBar.html" title=" " alt="" coords="371,639,499,665"/>
-<area shape="rect" id="node36" href="$classwmoge_1_1UiToolTip.html" title="Tooltip object which can be shown on ui element for help information." alt="" coords="372,689,499,716"/>
-<area shape="rect" id="node37" href="$classwmoge_1_1UiWindow.html" title=" " alt="" coords="371,1171,500,1197"/>
+<area shape="rect" id="node36" href="$classwmoge_1_1UiToolBar.html" title=" " alt="" coords="371,639,499,665"/>
+<area shape="rect" id="node37" href="$classwmoge_1_1UiToolTip.html" title="Tooltip object which can be shown on ui element for help information." alt="" coords="372,689,499,716"/>
+<area shape="rect" id="node38" href="$classwmoge_1_1UiWindow.html" title=" " alt="" coords="371,1171,500,1197"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,512,116,539"/>
 <area shape="rect" id="node10" href="$classwmoge_1_1UiButton.html" title=" " alt="" coords="605,5,727,32"/>
 <area shape="rect" id="node11" href="$classwmoge_1_1UiCheckBoxButton.html" title=" " alt="" coords="576,56,756,83"/>
@@ -24,18 +24,19 @@
 <area shape="rect" id="node20" href="$classwmoge_1_1UiMenu.html" title=" " alt="" coords="609,512,723,539"/>
 <area shape="rect" id="node21" href="$classwmoge_1_1UiMenuItem.html" title=" " alt="" coords="595,563,737,589"/>
 <area shape="rect" id="node22" href="$classwmoge_1_1UiPanel.html" title=" " alt="" coords="608,613,724,640"/>
-<area shape="rect" id="node25" href="$classwmoge_1_1UiProgressBar.html" title=" " alt="" coords="589,664,743,691"/>
-<area shape="rect" id="node26" href="$classwmoge_1_1UiRadioButton.html" title=" " alt="" coords="589,715,743,741"/>
-<area shape="rect" id="node27" href="$classwmoge_1_1UiSelectable.html" title=" " alt="" coords="594,765,738,792"/>
-<area shape="rect" id="node28" href="$classwmoge_1_1UiSeparator.html" title=" " alt="" coords="597,816,735,843"/>
-<area shape="rect" id="node29" href="$classwmoge_1_1UiSeparatorText.html" title=" " alt="" coords="584,867,748,893"/>
-<area shape="rect" id="node30" href="$classwmoge_1_1UiSliderFloat.html" title=" " alt="" coords="593,917,739,944"/>
-<area shape="rect" id="node31" href="$classwmoge_1_1UiSliderInt.html" title=" " alt="" coords="601,968,731,995"/>
-<area shape="rect" id="node32" href="$classwmoge_1_1UiText.html" title=" " alt="" coords="612,1019,720,1045"/>
-<area shape="rect" id="node33" href="$classwmoge_1_1UiTextLink.html" title=" " alt="" coords="599,1069,733,1096"/>
-<area shape="rect" id="node34" href="$classwmoge_1_1UiTextWrapped.html" title=" " alt="" coords="587,1120,745,1147"/>
-<area shape="rect" id="node23" href="$classwmoge_1_1UiScrollPanel.html" title=" " alt="" coords="805,588,954,615"/>
-<area shape="rect" id="node24" href="$classwmoge_1_1UiStackPanel.html" title=" " alt="" coords="804,639,955,665"/>
-<area shape="rect" id="node38" href="$classwmoge_1_1UiDockWindow.html" title=" " alt="" coords="587,1171,745,1197"/>
-<area shape="rect" id="node39" href="$classwmoge_1_1UiMainWindow.html" title=" " alt="" coords="587,1221,745,1248"/>
+<area shape="rect" id="node26" href="$classwmoge_1_1UiProgressBar.html" title=" " alt="" coords="589,664,743,691"/>
+<area shape="rect" id="node27" href="$classwmoge_1_1UiRadioButton.html" title=" " alt="" coords="589,715,743,741"/>
+<area shape="rect" id="node28" href="$classwmoge_1_1UiSelectable.html" title=" " alt="" coords="594,765,738,792"/>
+<area shape="rect" id="node29" href="$classwmoge_1_1UiSeparator.html" title=" " alt="" coords="597,816,735,843"/>
+<area shape="rect" id="node30" href="$classwmoge_1_1UiSeparatorText.html" title=" " alt="" coords="584,867,748,893"/>
+<area shape="rect" id="node31" href="$classwmoge_1_1UiSliderFloat.html" title=" " alt="" coords="593,917,739,944"/>
+<area shape="rect" id="node32" href="$classwmoge_1_1UiSliderInt.html" title=" " alt="" coords="601,968,731,995"/>
+<area shape="rect" id="node33" href="$classwmoge_1_1UiText.html" title=" " alt="" coords="612,1019,720,1045"/>
+<area shape="rect" id="node34" href="$classwmoge_1_1UiTextLink.html" title=" " alt="" coords="599,1069,733,1096"/>
+<area shape="rect" id="node35" href="$classwmoge_1_1UiTextWrapped.html" title=" " alt="" coords="587,1120,745,1147"/>
+<area shape="rect" id="node23" href="$classwmoge_1_1UiCollapsingPanel.html" title=" " alt="" coords="804,563,980,589"/>
+<area shape="rect" id="node24" href="$classwmoge_1_1UiScrollPanel.html" title=" " alt="" coords="817,613,967,640"/>
+<area shape="rect" id="node25" href="$classwmoge_1_1UiStackPanel.html" title=" " alt="" coords="817,664,967,691"/>
+<area shape="rect" id="node39" href="$classwmoge_1_1UiDockWindow.html" title=" " alt="" coords="587,1171,745,1197"/>
+<area shape="rect" id="node40" href="$classwmoge_1_1UiMainWindow.html" title=" " alt="" coords="587,1221,745,1248"/>
 </map>

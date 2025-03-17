@@ -1,0 +1,4 @@
+<map id="wmoge::UiSubStyle" name="wmoge::UiSubStyle">
+<area shape="rect" id="node1" title="Ui sub style which can be used to customize a sub tree of ui elements." alt="" coords="5,95,140,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="24,5,121,32"/>
+</map>

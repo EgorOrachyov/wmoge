@@ -1,10 +1,9 @@
 <map id="wmoge::UiSeparator" name="wmoge::UiSeparator">
-<area shape="rect" id="node1" title=" " alt="" coords="864,100,1003,127"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="661,100,815,127"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="481,100,612,127"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,5,350,32"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="218,57,371,98"/>
+<area shape="rect" id="node1" title=" " alt="" coords="860,64,999,91"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="657,64,811,91"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="477,64,608,91"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,5,349,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="217,57,371,98"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,64,168,91"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="217,121,372,177"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="229,201,361,242"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="228,122,360,163"/>
 </map>

@@ -118,8 +118,9 @@ Inheritance diagram for wmoge::UiElement:</div>
 <area shape="rect" href="classwmoge_1_1UiText.html" title=" " alt="" coords="612,1019,720,1045"/>
 <area shape="rect" href="classwmoge_1_1UiTextLink.html" title=" " alt="" coords="599,1069,733,1096"/>
 <area shape="rect" href="classwmoge_1_1UiTextWrapped.html" title=" " alt="" coords="587,1120,745,1147"/>
-<area shape="rect" href="classwmoge_1_1UiScrollPanel.html" title=" " alt="" coords="805,588,954,615"/>
-<area shape="rect" href="classwmoge_1_1UiStackPanel.html" title=" " alt="" coords="804,639,955,665"/>
+<area shape="rect" href="classwmoge_1_1UiCollapsingPanel.html" title=" " alt="" coords="804,563,980,589"/>
+<area shape="rect" href="classwmoge_1_1UiScrollPanel.html" title=" " alt="" coords="817,613,967,640"/>
+<area shape="rect" href="classwmoge_1_1UiStackPanel.html" title=" " alt="" coords="817,664,967,691"/>
 <area shape="rect" href="classwmoge_1_1UiDockWindow.html" title=" " alt="" coords="587,1171,745,1197"/>
 <area shape="rect" href="classwmoge_1_1UiMainWindow.html" title=" " alt="" coords="587,1221,745,1248"/>
 </map>
@@ -129,12 +130,11 @@ Collaboration diagram for wmoge::UiElement:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1UiElement__coll__graph.png" border="0" usemap="#awmoge_1_1UiElement_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1UiElement_coll__map" id="awmoge_1_1UiElement_coll__map">
-<area shape="rect" title="Base class for all ui elements." alt="" coords="481,100,612,127"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,5,350,32"/>
-<area shape="rect" href="classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="218,57,371,98"/>
+<area shape="rect" title="Base class for all ui elements." alt="" coords="477,64,608,91"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,5,349,32"/>
+<area shape="rect" href="classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="217,57,371,98"/>
 <area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,64,168,91"/>
-<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="217,121,372,177"/>
-<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="229,201,361,242"/>
+<area shape="rect" href="classwmoge_1_1UiAttribute.html" title=" " alt="" coords="228,122,360,163"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -158,8 +158,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ab23ffca8745e4741a6e24dd41d8bbb8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b781404082284e92e6982eed31e0323"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttributeOpt.html">UiAttributeOpt</a>&lt; <a class="el" href="namespacewmoge.html#abdfb0dfd2bff081ec3eb19e3b7820508">UiCursorType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#a4b781404082284e92e6982eed31e0323">cursor</a></td></tr>
 <tr class="separator:a4b781404082284e92e6982eed31e0323"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4751b0e69adf5e44d58f1a4072e7968e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiUserData.html">UiUserData</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#a4751b0e69adf5e44d58f1a4072e7968e">user_data</a></td></tr>
-<tr class="separator:a4751b0e69adf5e44d58f1a4072e7968e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4e4597bddae77925e2e4be164837f7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#aa4e4597bddae77925e2e4be164837f7a">sub_style</a></td></tr>
+<tr class="separator:aa4e4597bddae77925e2e4be164837f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae836d7d0bc1d5b4c7bf8aecf056d6e4d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3">UiElementType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiElement.html#ae836d7d0bc1d5b4c7bf8aecf056d6e4d">type</a> = <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a88183b946cc5f0e8c96b2e66e1c74a7e">UiElementType::Unknown</a></td></tr>
 <tr class="separator:ae836d7d0bc1d5b4c7bf8aecf056d6e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -215,6 +215,20 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="aa4e4597bddae77925e2e4be164837f7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4e4597bddae77925e2e4be164837f7a">&#9670;&nbsp;</a></span>sub_style</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt;<a class="el" href="classwmoge_1_1Strid.html">Strid</a>&gt; wmoge::UiElement::sub_style</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab23ffca8745e4741a6e24dd41d8bbb8a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab23ffca8745e4741a6e24dd41d8bbb8a">&#9670;&nbsp;</a></span>tag</h2>
 
@@ -237,20 +251,6 @@ Additional Inherited Members</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3">UiElementType</a> wmoge::UiElement::type = <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a88183b946cc5f0e8c96b2e66e1c74a7e">UiElementType::Unknown</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4751b0e69adf5e44d58f1a4072e7968e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4751b0e69adf5e44d58f1a4072e7968e">&#9670;&nbsp;</a></span>user_data</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1UiAttribute.html">UiAttribute</a>&lt;<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1UiUserData.html">UiUserData</a>&gt; &gt; wmoge::UiElement::user_data</td>
         </tr>
       </table>
 </div><div class="memdoc">
