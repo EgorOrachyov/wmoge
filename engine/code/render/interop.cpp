@@ -39,12 +39,14 @@ namespace wmoge {
     }
 
     void ShaderBlit::ParamBlockDefault::pack() {
+        m_ptr->set_var(m_shader_cls->pb_default.gamma, vars.gamma);
         m_ptr->set_var(m_shader_cls->pb_default.inversegamma, vars.inversegamma);
         m_ptr->set_var(m_shader_cls->pb_default.imagetexture, vars.imagetexture->get_texture_ref());
         m_ptr->set_var(m_shader_cls->pb_default.imagetexture, vars.imagetexture_sampler);
     }
 
     void ShaderBlit::ParamBlockMetaDefault::load_from(const Ref<Shader>& shader) {
+        gamma        = shader->find_param_id(gamma_name);
         inversegamma = shader->find_param_id(inversegamma_name);
         imagetexture = shader->find_param_id(imagetexture_name);
     }

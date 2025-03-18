@@ -98,11 +98,11 @@ namespace wmoge {
         }
     }
 
-    void ImguiManager::render(const GfxCmdListRef& cmd_list) {
+    void ImguiManager::render(RdgGraph& graph, RdgTexture* target) {
         WG_PROFILE_CPU_UI("ImguiManager::render");
 
         ImGui::Render();
-        m_driver->render(cmd_list);
+        m_driver->render(graph, target);
 
         if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
             ImGui::UpdatePlatformWindows();

@@ -76,6 +76,7 @@ namespace wmoge {
             ParamBlockDefault(const ShaderBlit* shader_cls, RdgResourceId id);
 
             struct Vars {
+                float           gamma;
                 float           inversegamma;
                 RdgTexture*     imagetexture;
                 Ref<GfxSampler> imagetexture_sampler;
@@ -88,7 +89,9 @@ namespace wmoge {
         };
 
         struct ParamBlockMetaDefault {
-            const Strid   name              = SID("default");
+            const Strid   name       = SID("default");
+            const Strid   gamma_name = SID("Gamma");
+            ShaderParamId gamma;
             const Strid   inversegamma_name = SID("InverseGamma");
             ShaderParamId inversegamma;
             const Strid   imagetexture_name = SID("ImageTexture");

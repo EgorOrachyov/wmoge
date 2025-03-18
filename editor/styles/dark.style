@@ -3,7 +3,7 @@ m_desc:
   disabled_alpha: 0.6
   window_padding: 16 10
   window_rounding: 0
-  window_border_size: 5
+  window_border_size: 0
   window_min_size: 32 32
   window_title_align: 0 0.5
   window_menu_button_position: Right
@@ -28,8 +28,8 @@ m_desc:
   tab_rounding: 4
   tab_border_size: 0
   tab_min_width_for_close_button: 0
-  tab_bar_border_size: 5
-  tab_bar_overline_size: 5
+  tab_bar_border_size: 0
+  tab_bar_overline_size: 4
   table_angled_headers_angle: 0.610865
   table_angled_headers_textAlign: 0.5 0
   color_button_position: Right
@@ -221,20 +221,26 @@ m_desc:
     - type: ModalWindowDimBg
       value: color_17
   fonts:
-    - tag: medium
-      file: "editor/fonts/inter/inter_28pt_medium"
-    - tag: bold
-      file: "editor/fonts/inter/inter_28pt_bold"
-    - tag: black
-      file: "editor/fonts/inter/inter_28pt_black"
-    - tag: italic
-      file: "editor/fonts/inter/inter_28pt_italic"
-    - tag: light
-      file: "editor/fonts/inter/inter_28pt_light"
-    - tag: medium_light
-      file: "editor/fonts/inter/inter_28pt_medium_italic"
     - tag: regular
-      file: "editor/fonts/inter/inter_28pt_regular"
+      file: "editor/fonts/roboto_regular"
+    - tag: light
+      file: "editor/fonts/roboto_light"
+    - tag: medium
+      file: "editor/fonts/roboto_medium"
+    - tag: black
+      file: "editor/fonts/roboto_black"
+    - tag: bold
+      file: "editor/fonts/roboto_bold"
+    - tag: italic
+      file: "editor/fonts/roboto_italic"
+    - tag: light_italic
+      file: "editor/fonts/roboto_light_italic"
+    - tag: medium_italic
+      file: "editor/fonts/roboto_medium_italic"
+    - tag: black_italic
+      file: "editor/fonts/roboto_black_italic"
+    - tag: bold_italic
+      file: "editor/fonts/roboto_bold_italic"
   sub_styles:
     - key: panel
       value:

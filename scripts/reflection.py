@@ -428,7 +428,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--output-dir",
-        default="./engine/runtime/render/",
+        default="./engine/code/render/",
         help="path to dir for output",
     )
     parser.add_argument(

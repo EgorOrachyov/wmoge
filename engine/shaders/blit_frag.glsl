@@ -12,7 +12,10 @@ void main()
     vec3 color = texture(ImageTexture, vsUv).rgb;
 
 #ifdef OUT_MODE_SRGB
-    color.rgb = ColorSrgbToLinear(color.rgb, InverseGamma);
+    color.rgb = ColorSrgbToLinear(color.rgb, Gamma);
+#endif
+#ifdef OUT_MODE_LINEAR
+    color.rgb = ColorLinearToSrgb(color.rgb, InverseGamma);
 #endif
 
     outColor = vec4(color, 1.0f);

@@ -7,8 +7,9 @@ sources:
 param_blocks:
   - name: default
     params:
-      - { name: InverseGamma, type: float, ui_name: "", ui_hint: "" }
-      - { name: ImageTexture, type: sampler2D, value: White, ui_name: "", ui_hint: ""}
+      - { name: Gamma, type: float }
+      - { name: InverseGamma, type: float }
+      - { name: ImageTexture, type: sampler2D, value: White }
 techniques:
   - name: default
     tags: []

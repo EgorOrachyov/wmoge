@@ -177,11 +177,11 @@ namespace wmoge {
 
         m_engine_signals->debug_draw.emit();
 
-        auto cmd_list = m_gfx_driver->acquire_cmd_list();
-        m_ui_manager->update(m_frame_id);
-        m_ui_manager->render(cmd_list);
-        m_gfx_driver->submit_cmd_list(cmd_list);
-        cmd_list.reset();
+        // auto cmd_list = m_gfx_driver->acquire_cmd_list();
+        // m_ui_manager->update(m_frame_id);
+        // m_ui_manager->render(cmd_list);
+        // m_gfx_driver->submit_cmd_list(cmd_list);
+        // cmd_list.reset();
 
         m_profiler_gpu->resolve();
 

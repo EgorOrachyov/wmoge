@@ -185,6 +185,10 @@ public:
         ShaderFuncs::fill(*rdg_graph, SIDDBG("clear"), color, Color::BLACK4f, engine->shader_table());
         aux_draw->flush(engine->time()->get_delta_time());
         aux_draw->render(*rdg_graph, color, depth, Rect2i{0, 0, 1280, 720}, 2.2f, proj * view, engine->shader_table(), engine->texture_manager());
+
+        m_engine->ui_manager()->update(m_engine->time()->get_iteration());
+        m_engine->ui_manager()->render(*rdg_graph, color);
+
         ShaderFuncs::blit(*rdg_graph, SIDDBG("blit"), window, color, engine->shader_table());
 
         rdg_graph->compile({});

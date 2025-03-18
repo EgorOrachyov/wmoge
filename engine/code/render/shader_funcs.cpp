@@ -57,6 +57,7 @@ namespace wmoge {
         WG_PROFILE_RDG_SCOPE("ShaderFuncs::blit", graph);
 
         ShaderBlit::ParamBlockDefault::Vars params;
+        params.gamma                = 2.2f;
         params.inversegamma         = 1.0f / 2.2f;
         params.imagetexture         = source;
         params.imagetexture_sampler = graph.get_sampler(DefaultSampler::Default);
@@ -71,7 +72,7 @@ namespace wmoge {
                 .bind([table, size, param_block](RdgPassContext& context) {
                     auto blit_shader = table->blit();
                     context.viewport(Rect2i{0, 0, size.x(), size.y()});
-                    bind_pso_graphics(context, blit_shader, blit_shader->tq_default.ps_default, {}, {});
+                    bind_pso_graphics(context, blit_shader, blit_shader->tq_default.ps_default, {blit_shader->tq_default.options.out_mode_srgb}, {});
                     bind_param_block(context, param_block);
                     context.draw(3, 0, 1);
                     return WG_OK;

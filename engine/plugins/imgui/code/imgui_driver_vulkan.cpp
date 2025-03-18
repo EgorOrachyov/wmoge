@@ -33,6 +33,7 @@
 #include "gfx/vulkan/vk_sampler.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
 #include "gfx/vulkan/vk_window.hpp"
+#include "rdg/rdg_profiling.hpp"
 
 #include "backends/imgui_impl_vulkan.h"
 
@@ -46,7 +47,7 @@ namespace wmoge {
 
     ImguiDriverVulkan::ImguiDriverVulkan(const Ref<Window>& window, GfxDriver* driver) {
         GfxRenderPassDesc rp_desc;
-        rp_desc.color_target_fmts[0] = driver->get_window_props(window).color_format;
+        rp_desc.color_target_fmts[0] = GfxFormat::RGBA8;
         rp_desc.color_target_ops[0]  = GfxRtOp::LoadStore;
 
         m_render_pass = driver->make_render_pass(rp_desc, SIDDBG("window_pass"));
@@ -89,24 +90,27 @@ namespace wmoge {
         textures_gc();
     }
 
-    void ImguiDriverVulkan::render(const GfxCmdListRef& cmd_list) {
+    void ImguiDriverVulkan::render(RdgGraph& graph, RdgTexture* target) {
+        WG_PROFILE_RDG_SCOPE("ImguiDriverVulkan::render", graph);
+
         ImDrawData* mainDrawData = ImGui::GetDrawData();
         assert(mainDrawData);
 
-        if (mainDrawData->DisplaySize.x > 0.0f && mainDrawData->DisplaySize.y > 0.0f) {
-            VKCmdList* vk_cmd_list = static_cast<VKCmdList*>(cmd_list.get());
-
-            GfxRenderPassWindowBeginInfo rp_info;
-            rp_info.render_pass = m_render_pass;
-            rp_info.window      = m_window;
-            rp_info.clear_color = Color::BLACK4f;
-            rp_info.name        = SIDDBG("imgui_draw");
-            rp_info.area        = Rect2i{0, 0, m_window->fbo_width(), m_window->fbo_height()};
-
-            cmd_list->begin_render_pass(rp_info);
-            ImGui_ImplVulkan_RenderDrawData(mainDrawData, vk_cmd_list->get_handle());
-            cmd_list->end_render_pass();
+        if (mainDrawData->DisplaySize.x <= 0.0f || mainDrawData->DisplaySize.y <= 0.0f) {
+            return;
         }
+
+        graph.add_graphics_pass(SIDDBG("imgui"), {})
+                .color_target(target)
+                .bind([](RdgPassContext& context) {
+                    const GfxCmdListRef& cmd_list    = context.get_cmd_list();
+                    VKCmdList*           vk_cmd_list = static_cast<VKCmdList*>(cmd_list.get());
+
+                    ImDrawData* mainDrawData = ImGui::GetDrawData();
+                    ImGui_ImplVulkan_RenderDrawData(mainDrawData, vk_cmd_list->get_handle());
+
+                    return WG_OK;
+                });
     }
 
     ImTextureID ImguiDriverVulkan::get_texture_id(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {

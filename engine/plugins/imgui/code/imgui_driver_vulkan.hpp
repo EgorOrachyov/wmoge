@@ -46,7 +46,7 @@ namespace wmoge {
         ~ImguiDriverVulkan() override;
 
         void        new_frame(std::size_t frame_id) override;
-        void        render(const GfxCmdListRef& cmd_list) override;
+        void        render(RdgGraph& graph, RdgTexture* target) override;
         ImTextureID get_texture_id(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) override;
 
     private:

@@ -33,14 +33,21 @@ def visit(directory, exts):
 def main():
     parser = argparse.ArgumentParser("Count `loc` in directory recursively")
     parser.add_argument(
-        "--dir", help="directory to count loc", default="./engine/runtime"
+        "--dir",
+        help="directory to count loc",
+        default="./engine/code,./engine/plugins,./editor/code,./editor/plugins",
     )
     parser.add_argument(
         "--ext", help="filter for file extensions", default="cpp,hpp,h,glsl"
     )
     args = parser.parse_args()
     exts = set(["." + ext for ext in args.ext.split(",")])
-    loc = visit(ROOT / args.dir, exts)
+    dirs = str(args.dir).split(",")
+
+    loc_total = 0
+
+    for d in dirs:
+        loc_total = loc_total + visit(ROOT / d, exts)
 
     print("files loc:")
     for file_name, loc in FILE_STATS.items():
@@ -50,7 +57,7 @@ def main():
     for dir_name, loc in DIR_STATS.items():
         print(f" - {dir_name} loc {loc}")
 
-    print(f"total loc {loc}")
+    print(f"total loc {loc_total}")
 
 
 if __name__ == "__main__":

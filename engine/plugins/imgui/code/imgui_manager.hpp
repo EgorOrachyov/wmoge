@@ -53,7 +53,7 @@ namespace wmoge {
         void                set_main_window(Ref<UiMainWindow> window) override;
         void                add_dock_window(Ref<UiDockWindow> window) override;
         void                update(std::size_t frame_id) override;
-        void                render(const GfxCmdListRef& cmd_list) override;
+        void                render(RdgGraph& graph, RdgTexture* target) override;
         void                set_style(const Ref<UiStyle>& style) override;
         const Ref<UiStyle>& get_style() override;
         const Ref<UiStyle>& get_style_default() override;

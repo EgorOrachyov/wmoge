@@ -27,8 +27,9 @@
 
 #pragma once
 
-#include "gfx/gfx_cmd_list.hpp"
+#include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "rdg/rdg_graph.hpp"
 
 #include "imgui.h"
 
@@ -42,7 +43,7 @@ namespace wmoge {
     public:
         virtual ~ImguiDriver()                                                                             = default;
         virtual void        new_frame(std::size_t frame_id)                                                = 0;
-        virtual void        render(const GfxCmdListRef& cmd_list)                                          = 0;
+        virtual void        render(RdgGraph& graph, RdgTexture* target)                                    = 0;
         virtual ImTextureID get_texture_id(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) = 0;
     };
 
