@@ -97,8 +97,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2e7bc7ffec050d62f1c0e6a71a1f04c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ce29f20efc8ab1f12498e69ab1b12ba"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a6ce29f20efc8ab1f12498e69ab1b12ba">update</a> (std::size_t frame_id)=0</td></tr>
 <tr class="separator:a6ce29f20efc8ab1f12498e69ab1b12ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1394f958959703f5e8fa7a5d42d0c7cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a1394f958959703f5e8fa7a5d42d0c7cc">render</a> (const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;cmd_list)=0</td></tr>
-<tr class="separator:a1394f958959703f5e8fa7a5d42d0c7cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf9cac7876840675a16f990545204fa0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#acf9cac7876840675a16f990545204fa0">render</a> (<a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a> &amp;graph, <a class="el" href="classwmoge_1_1RdgTexture.html">RdgTexture</a> *target)=0</td></tr>
+<tr class="separator:acf9cac7876840675a16f990545204fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36716b4aab0214db20bbf4bfe7eb2faf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#a36716b4aab0214db20bbf4bfe7eb2faf">set_style</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiStyle.html">UiStyle</a> &gt; &amp;style)=0</td></tr>
 <tr class="separator:a36716b4aab0214db20bbf4bfe7eb2faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0c37befe49d138bd1843a8aaf37a83b"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiStyle.html">UiStyle</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiManager.html#ad0c37befe49d138bd1843a8aaf37a83b">get_style</a> ()=0</td></tr>
@@ -217,8 +217,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1394f958959703f5e8fa7a5d42d0c7cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1394f958959703f5e8fa7a5d42d0c7cc">&#9670;&nbsp;</a></span>render()</h2>
+<a id="acf9cac7876840675a16f990545204fa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf9cac7876840675a16f990545204fa0">&#9670;&nbsp;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,9 +229,19 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void wmoge::UiManager::render </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>cmd_list</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1RdgTexture.html">RdgTexture</a> *&#160;</td>
+          <td class="paramname"><em>target</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -241,7 +251,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#a6165919cc3de64058e4ff9699a7a074e">wmoge::ImguiManager</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1ImguiManager.html#ae39a6fa54a19a2eccc1b5287557e435d">wmoge::ImguiManager</a>.</p>
 
 </div>
 </div>

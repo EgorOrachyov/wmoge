@@ -1,8 +1,9 @@
 <map id="engine/code/rdg/rdg_profiling.hpp" name="engine/code/rdg/rdg_profiling.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="325,5,461,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="412,5,548,47"/>
 <area shape="rect" id="node2" href="$rdg__graph_8cpp.html" title=" " alt="" coords="5,95,141,136"/>
 <area shape="rect" id="node3" href="$rdg__profiling_8cpp.html" title=" " alt="" coords="165,95,301,136"/>
 <area shape="rect" id="node4" href="$rdg__utils_8cpp.html" title=" " alt="" coords="325,95,461,136"/>
 <area shape="rect" id="node5" href="$aux__draw__manager_8cpp.html" title=" " alt="" coords="485,95,648,136"/>
 <area shape="rect" id="node6" href="$shader__funcs_8cpp.html" title=" " alt="" coords="673,95,805,136"/>
+<area shape="rect" id="node7" href="$imgui__driver__vulkan_8cpp.html" title=" " alt="" coords="829,95,1027,136"/>
 </map>

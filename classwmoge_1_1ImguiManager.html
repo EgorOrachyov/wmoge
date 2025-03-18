@@ -109,8 +109,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a03e419c493e0b7012876082639ced32f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a247ee35c003a3244e9ed0070ee3f99a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#a247ee35c003a3244e9ed0070ee3f99a5">update</a> (std::size_t frame_id) override</td></tr>
 <tr class="separator:a247ee35c003a3244e9ed0070ee3f99a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6165919cc3de64058e4ff9699a7a074e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#a6165919cc3de64058e4ff9699a7a074e">render</a> (const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;cmd_list) override</td></tr>
-<tr class="separator:a6165919cc3de64058e4ff9699a7a074e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae39a6fa54a19a2eccc1b5287557e435d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#ae39a6fa54a19a2eccc1b5287557e435d">render</a> (<a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a> &amp;graph, <a class="el" href="classwmoge_1_1RdgTexture.html">RdgTexture</a> *target) override</td></tr>
+<tr class="separator:ae39a6fa54a19a2eccc1b5287557e435d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a24395e8a36815925ebf8e66e95dc5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#a7a24395e8a36815925ebf8e66e95dc5b">set_style</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiStyle.html">UiStyle</a> &gt; &amp;style) override</td></tr>
 <tr class="separator:a7a24395e8a36815925ebf8e66e95dc5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e2ee56d5227248d9f2ab6ad55fccfe1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiStyle.html">UiStyle</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImguiManager.html#a5e2ee56d5227248d9f2ab6ad55fccfe1">get_style</a> () override</td></tr>
@@ -493,8 +493,8 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6165919cc3de64058e4ff9699a7a074e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6165919cc3de64058e4ff9699a7a074e">&#9670;&nbsp;</a></span>render()</h2>
+<a id="ae39a6fa54a19a2eccc1b5287557e435d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae39a6fa54a19a2eccc1b5287557e435d">&#9670;&nbsp;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -505,9 +505,19 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void wmoge::ImguiManager::render </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>cmd_list</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1RdgTexture.html">RdgTexture</a> *&#160;</td>
+          <td class="paramname"><em>target</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -517,7 +527,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classwmoge_1_1UiManager.html#a1394f958959703f5e8fa7a5d42d0c7cc">wmoge::UiManager</a>.</p>
+<p>Implements <a class="el" href="classwmoge_1_1UiManager.html#acf9cac7876840675a16f990545204fa0">wmoge::UiManager</a>.</p>
 
 </div>
 </div>

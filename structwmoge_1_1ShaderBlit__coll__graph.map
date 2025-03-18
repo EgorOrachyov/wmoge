@@ -1,10 +1,10 @@
 <map id="wmoge::ShaderBlit" name="wmoge::ShaderBlit">
-<area shape="rect" id="node1" title="Auto&#45;generated reflection for &#39;blit&#39; shader." alt="" coords="900,183,1031,210"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1ShaderBlit_1_1ParamBlockMetaDefault.html" title=" " alt="" coords="348,64,511,105"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1SimpleId.html" title=" " alt="" coords="5,5,156,47"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="32,166,129,193"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1ShaderBlit_1_1TechniqueDefault.html" title=" " alt="" coords="648,176,784,217"/>
-<area shape="rect" id="node6" href="$structwmoge_1_1ShaderBlit_1_1TechniqueDefault_1_1Options.html" title=" " alt="" coords="342,193,517,235"/>
-<area shape="rect" id="node7" href="$structwmoge_1_1ShaderBlit_1_1TechniqueDefault_1_1PassDefault.html" title=" " alt="" coords="329,259,529,300"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="641,241,791,283"/>
+<area shape="rect" id="node1" title="Auto&#45;generated reflection for &#39;blit&#39; shader." alt="" coords="900,212,1031,239"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ShaderBlit_1_1ParamBlockMetaDefault.html" title=" " alt="" coords="348,93,511,134"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1SimpleId.html" title=" " alt="" coords="5,19,156,61"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="32,195,129,221"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1ShaderBlit_1_1TechniqueDefault.html" title=" " alt="" coords="648,205,784,246"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1ShaderBlit_1_1TechniqueDefault_1_1Options.html" title=" " alt="" coords="342,222,517,263"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1ShaderBlit_1_1TechniqueDefault_1_1PassDefault.html" title=" " alt="" coords="329,287,529,329"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="641,270,791,311"/>
 </map>
