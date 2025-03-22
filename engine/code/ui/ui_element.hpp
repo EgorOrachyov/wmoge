@@ -30,7 +30,7 @@
 #include "core/ref.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
-#include "ui/ui_attribute.hpp"
+#include "rtti/traits.hpp"
 #include "ui/ui_defs.hpp"
 
 #include <functional>
@@ -40,59 +40,31 @@
 
 namespace wmoge {
 
-    /** @brief Ui element enum type */
-    enum class UiElementType {
-        Unknown = 0,
-        Separator,
-        SeparatorText,
-        ToolTip,
-        ContextMenu,
-        Popup,
-        CompletionPopup,
-        Modal,
-        StackPanel,
-        ScrollPanel,
-        CollapsingPanel,
-        MenuItem,
-        Menu,
-        MenuBar,
-        ToolBar,
-        StatusBar,
-        MainWindow,
-        DockWindow,
-        Text,
-        TextWrapped,
-        TextLink,
-        DragInt,
-        DragFloat,
-        SliderInt,
-        SliderFloat,
-        InputInt,
-        InputFloat,
-        InputText,
-        InputTextExt,
-        Selectable,
-        Button,
-        CheckBoxButton,
-        RadioButton,
-        ComboBox,
-        ListBox,
-        ProgressBar
-    };
-
     /**
      * @class UiElement
      * @brief Base class for all ui elements
      */
-    class UiElement : public RefCnt {
+    class UiElement : public RttiObject {
     public:
-        UiElement(UiElementType type) : type(type) {}
+        WG_RTTI_CLASS(UiElement, RttiObject);
 
-        UiAttribute<Strid>           tag;
-        UiAttributeOpt<UiCursorType> cursor;
-        UiAttribute<Strid>           sub_style;
-        const UiElementType          type = UiElementType::Unknown;
+        UiElement(UiElementType type) : type(type) {}
+        UiElement() = default;
+
+        Strid                       tag;
+        Strid                       sub_style;
+        std::optional<UiCursorType> cursor;
+        Ref<RefCnt>                 user_data;
+        UiElementType               type = UiElementType::Unknown;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiElement) {
+        WG_RTTI_FIELD(tag, {});
+        WG_RTTI_FIELD(cursor, {});
+        WG_RTTI_FIELD(sub_style, {});
+        WG_RTTI_FIELD(type, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiSubElement
@@ -100,7 +72,13 @@ namespace wmoge {
      */
     class UiSubElement : public UiElement {
     public:
+        WG_RTTI_CLASS(UiSubElement, UiElement);
+
         UiSubElement(UiElementType type) : UiElement(type) {}
+        UiSubElement() = default;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiSubElement) {}
+    WG_RTTI_END;
 
 }// namespace wmoge

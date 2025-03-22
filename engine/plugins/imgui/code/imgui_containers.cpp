@@ -37,7 +37,7 @@ namespace wmoge {
     }
 
     void imgui_process_menu(ImguiProcessor& processor, UiMenu& menu) {
-        if (ImGui::BeginMenu(imgui_str(menu.label), menu.enabled.get())) {
+        if (ImGui::BeginMenu(imgui_str(menu.name), menu.enabled)) {
             processor.process(menu.children);
             ImGui::EndMenu();
         }
@@ -80,7 +80,7 @@ namespace wmoge {
     }
 
     void imgui_process_modal(ImguiProcessor& processor, UiModal& modal) {
-        if (ImGui::BeginPopupModal(imgui_str(modal.name))) {
+        if (ImGui::BeginPopupModal(imgui_str(modal.name)), &modal.should_show) {
             processor.process(modal.children);
             ImGui::EndPopup();
         }
@@ -89,11 +89,11 @@ namespace wmoge {
     void imgui_process_stack_panel(ImguiProcessor& processor, UiStackPanel& panel) {
         ImGui::BeginGroup();
 
-        const auto&       children = panel.children.get();
+        const auto&       children = panel.children;
         const std::size_t count    = children.size();
 
         for (std::size_t i = 0; i < count; i++) {
-            processor.process(children[i].get());
+            processor.process(children[i]);
 
             if (i + 1 != count && panel.orientation == UiOrientation::Horizontal) {
                 ImGui::SameLine();
@@ -119,10 +119,10 @@ namespace wmoge {
             window_flags |= ImGuiWindowFlags_HorizontalScrollbar;
         }
 
-        if (panel.has_border.get()) {
+        if (panel.has_border) {
             child_flags |= ImGuiChildFlags_Borders;
         }
-        if (panel.allow_resize.get()) {
+        if (panel.allow_resize) {
             if (panel.scroll_type == UiScroll::Vertical) {
                 child_flags |= ImGuiChildFlags_ResizeX;
             }
@@ -176,9 +176,9 @@ namespace wmoge {
 
         ImGui::PopStyleColor(3);
 
-        if (panel.header.has_value()) {
+        if (panel.header) {
             ImGui::SameLine();
-            processor.process(panel.header.get());
+            processor.process(panel.header);
         }
 
         if (is_open) {

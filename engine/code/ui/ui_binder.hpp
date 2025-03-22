@@ -25,33 +25,49 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "icon.hpp"
+#pragma once
+
+#include "core/flat_map.hpp"
+#include "core/ref.hpp"
+#include "core/weak_ref.hpp"
+#include "ui/ui_bindable.hpp"
+#include "ui/ui_element.hpp"
+#include "ui/ui_markup.hpp"
 
 namespace wmoge {
 
-    void IconAtlas::set_desc(IconAtlasDesc desc) {
-        m_desc = std::move(desc);
-    }
+    /**
+     * @class UiBindMediator
+     * @brief Holds information about bound ui elements and bindable code
+     */
+    class UiBindMediator : public WeakRefCnt<UiBindMediator, RefCnt> {
+    public:
+        flat_map<Strid, UiElement*>            tagged_elements;
+        flat_map<Strid, std::function<void()>> binded_properties;
+        UiElement*                             root_element = nullptr;
+        Ref<UiBindable>                        bindable;
+    };
 
-    const IconInfo& IconAtlas::get_icon_info(int id) const {
-        return m_desc.icons[id];
-    }
+    /**
+     * @class UiBinder
+     * @brief Builds markup and bindable instance into a ui element
+     */
+    class UiBinder {
+    public:
+        UiBinder(Ref<UiElement>& element, const Ref<UiMarkup>& markup, const Ref<UiBindable>& bindalbe);
 
-    const IconAtlasPage& IconAtlas::get_page(int id) const {
-        return m_desc.pages[id];
-    }
+        [[nodiscard]] Status bind();
 
-    std::optional<class Icon> IconAtlas::try_find_icon(Strid name) {
-        auto query = m_desc.icons_map.find(name);
-        if (query != m_desc.icons_map.end()) {
-            return Icon(Ref<IconAtlas>(this), query->second);
-        }
-        return std::nullopt;
-    }
+    private:
+        [[nodiscard]] Status bind_element(Ref<UiElement>& element, int element_id);
+        [[nodiscard]] Status bind_element_slot(const Ref<UiElement>& element, int slot_id);
+        [[nodiscard]] Status bind_element_attribute(const Ref<UiElement>& element, int attribute_id);
 
-    Icon::Icon(AssetRef<IconAtlas> atlas, int id)
-        : m_atlas(std::move(atlas)),
-          m_id(id) {
-    }
+    private:
+        Ref<UiElement>&     m_element;
+        Ref<UiMarkup>       m_markup;
+        Ref<UiBindable>     m_bindalbe;
+        Ref<UiBindMediator> m_mediator;
+    };
 
 }// namespace wmoge

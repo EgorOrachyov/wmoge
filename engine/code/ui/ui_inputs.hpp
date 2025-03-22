@@ -27,7 +27,6 @@
 
 #pragma once
 
-#include "ui/ui_attribute.hpp"
 #include "ui/ui_containers.hpp"
 #include "ui/ui_element.hpp"
 
@@ -39,18 +38,32 @@ namespace wmoge {
      */
     class UiDragInt : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiDragInt, UiSubElement);
+
         UiDragInt() : UiSubElement(UiElementType::DragInt) {}
 
         using OnInput = std::function<void()>;
 
-        UiAttribute<std::string>    label;
-        UiAttribute<int>            value{0};
-        UiAttributeOpt<int>         value_min;
-        UiAttributeOpt<int>         value_max;
-        UiAttributeOpt<float>       speed;
-        UiAttributeOpt<std::string> format;
-        UiEvent<OnInput>            on_input;
+        std::string                label;
+        int                        value{0};
+        std::optional<int>         value_min;
+        std::optional<int>         value_max;
+        std::optional<float>       speed;
+        std::optional<std::string> format;
+        OnInput                    on_input;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiDragInt) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(label, {});
+        WG_RTTI_FIELD(value, {});
+        WG_RTTI_FIELD(value_min, {});
+        WG_RTTI_FIELD(value_max, {});
+        WG_RTTI_FIELD(speed, {});
+        WG_RTTI_FIELD(format, {});
+        WG_RTTI_FIELD(on_input, {RttiNoSaveLoad});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiDragFloat
@@ -58,18 +71,32 @@ namespace wmoge {
      */
     class UiDragFloat : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiDragFloat, UiSubElement);
+
         UiDragFloat() : UiSubElement(UiElementType::DragFloat) {}
 
         using OnInput = std::function<void()>;
 
-        UiAttribute<std::string>    label;
-        UiAttribute<float>          value{0};
-        UiAttributeOpt<float>       value_min;
-        UiAttributeOpt<float>       value_max;
-        UiAttributeOpt<float>       speed;
-        UiAttributeOpt<std::string> format;
-        UiEvent<OnInput>            on_input;
+        std::string                label;
+        float                      value{0};
+        std::optional<float>       value_min;
+        std::optional<float>       value_max;
+        std::optional<float>       speed;
+        std::optional<std::string> format;
+        OnInput                    on_input;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiDragFloat) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(label, {});
+        WG_RTTI_FIELD(value, {});
+        WG_RTTI_FIELD(value_min, {});
+        WG_RTTI_FIELD(value_max, {});
+        WG_RTTI_FIELD(speed, {});
+        WG_RTTI_FIELD(format, {});
+        WG_RTTI_FIELD(on_input, {RttiNoSaveLoad});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiSliderInt
@@ -77,17 +104,30 @@ namespace wmoge {
      */
     class UiSliderInt : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiSliderInt, UiSubElement);
+
         UiSliderInt() : UiSubElement(UiElementType::SliderInt) {}
 
         using OnInput = std::function<void()>;
 
-        UiAttribute<std::string>    label;
-        UiAttribute<int>            value{0};
-        UiAttribute<int>            value_min{0};
-        UiAttribute<int>            value_max{0};
-        UiAttributeOpt<std::string> format;
-        UiEvent<OnInput>            on_input;
+        std::string                label;
+        int                        value{0};
+        int                        value_min{0};
+        int                        value_max{0};
+        std::optional<std::string> format;
+        OnInput                    on_input;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiSliderInt) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(label, {});
+        WG_RTTI_FIELD(value, {});
+        WG_RTTI_FIELD(value_min, {});
+        WG_RTTI_FIELD(value_max, {});
+        WG_RTTI_FIELD(format, {});
+        WG_RTTI_FIELD(on_input, {RttiNoSaveLoad});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiSliderFloat
@@ -95,17 +135,30 @@ namespace wmoge {
      */
     class UiSliderFloat : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiSliderFloat, UiSubElement);
+
         UiSliderFloat() : UiSubElement(UiElementType::SliderFloat) {}
 
         using OnInput = std::function<void()>;
 
-        UiAttribute<std::string>    label;
-        UiAttribute<float>          value{0};
-        UiAttribute<float>          value_min{0};
-        UiAttribute<float>          value_max{0};
-        UiAttributeOpt<std::string> format;
-        UiEvent<OnInput>            on_input;
+        std::string                label;
+        float                      value{0};
+        float                      value_min{0};
+        float                      value_max{0};
+        std::optional<std::string> format;
+        OnInput                    on_input;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiSliderFloat) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(label, {});
+        WG_RTTI_FIELD(value, {});
+        WG_RTTI_FIELD(value_min, {});
+        WG_RTTI_FIELD(value_max, {});
+        WG_RTTI_FIELD(format, {});
+        WG_RTTI_FIELD(on_input, {RttiNoSaveLoad});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiInputInt
@@ -113,16 +166,28 @@ namespace wmoge {
      */
     class UiInputInt : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiInputInt, UiSubElement);
+
         UiInputInt() : UiSubElement(UiElementType::InputInt) {}
 
         using OnInput = std::function<void()>;
 
-        UiAttribute<std::string> label;
-        UiAttribute<int>         value{0};
-        UiAttributeOpt<int>      step;
-        UiAttributeOpt<int>      step_fast;
-        UiEvent<OnInput>         on_input;
+        std::string        label;
+        int                value{0};
+        std::optional<int> step;
+        std::optional<int> step_fast;
+        OnInput            on_input;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiInputInt) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(label, {});
+        WG_RTTI_FIELD(value, {});
+        WG_RTTI_FIELD(step, {});
+        WG_RTTI_FIELD(step_fast, {});
+        WG_RTTI_FIELD(on_input, {RttiNoSaveLoad});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiInputFloat
@@ -130,17 +195,30 @@ namespace wmoge {
      */
     class UiInputFloat : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiInputFloat, UiSubElement);
+
         UiInputFloat() : UiSubElement(UiElementType::InputFloat) {}
 
         using OnInput = std::function<void()>;
 
-        UiAttribute<std::string>    label;
-        UiAttribute<float>          value{0.0f};
-        UiAttributeOpt<float>       step;
-        UiAttributeOpt<float>       step_fast;
-        UiAttributeOpt<std::string> format;
-        UiEvent<OnInput>            on_input;
+        std::string                label;
+        float                      value{0.0f};
+        std::optional<float>       step;
+        std::optional<float>       step_fast;
+        std::optional<std::string> format;
+        OnInput                    on_input;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiInputFloat) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(label, {});
+        WG_RTTI_FIELD(value, {});
+        WG_RTTI_FIELD(step, {});
+        WG_RTTI_FIELD(step_fast, {});
+        WG_RTTI_FIELD(format, {});
+        WG_RTTI_FIELD(on_input, {RttiNoSaveLoad});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiInputText
@@ -148,14 +226,24 @@ namespace wmoge {
      */
     class UiInputText : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiInputText, UiSubElement);
+
         UiInputText() : UiSubElement(UiElementType::InputText) {}
 
         using OnInput = std::function<void()>;
 
-        UiAttribute<std::string>    text;
-        UiAttributeOpt<std::string> hint;
-        UiEvent<OnInput>            on_input;
+        std::string                text;
+        std::optional<std::string> hint;
+        OnInput                    on_input;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiInputText) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(text, {});
+        WG_RTTI_FIELD(hint, {});
+        WG_RTTI_FIELD(on_input, {RttiNoSaveLoad});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiInputTextExt
@@ -163,6 +251,8 @@ namespace wmoge {
      */
     class UiInputTextExt : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiInputTextExt, UiSubElement);
+
         UiInputTextExt() : UiSubElement(UiElementType::InputTextExt) {}
 
         using OnInput      = std::function<void()>;
@@ -170,17 +260,33 @@ namespace wmoge {
         using OnHistory    = std::function<void()>;
         using OnCompletion = std::function<void()>;
 
-        UiAttribute<std::string>    text;
-        UiAttributeOpt<std::string> hint;
-        UiAttribute<bool>           esc_to_clear{true};
-        UiEvent<OnInput>            on_input;
-        UiEvent<OnEnter>            on_enter;
-        UiEvent<OnHistory>          on_history_prev;
-        UiEvent<OnHistory>          on_history_next;
-        UiEvent<OnCompletion>       on_completion;
-        UiSlot<UiCompletionPopup>   completion_popup;
-        UiAttribute<int>            completion_popup_lines{10};
-        UiAttribute<bool>           completion_popup_bottom{false};
+        std::string                text;
+        std::optional<std::string> hint;
+        bool                       esc_to_clear{true};
+        OnInput                    on_input;
+        OnEnter                    on_enter;
+        OnHistory                  on_history_prev;
+        OnHistory                  on_history_next;
+        OnCompletion               on_completion;
+        Ref<UiCompletionPopup>     completion_popup;
+        int                        completion_popup_lines{10};
+        bool                       completion_popup_bottom{false};
     };
+
+    WG_RTTI_CLASS_BEGIN(UiInputTextExt) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(text, {});
+        WG_RTTI_FIELD(hint, {});
+        WG_RTTI_FIELD(esc_to_clear, {});
+        WG_RTTI_FIELD(on_input, {RttiNoSaveLoad});
+        WG_RTTI_FIELD(on_enter, {RttiNoSaveLoad});
+        WG_RTTI_FIELD(on_history_prev, {RttiNoSaveLoad});
+        WG_RTTI_FIELD(on_history_next, {RttiNoSaveLoad});
+        WG_RTTI_FIELD(on_completion, {RttiNoSaveLoad});
+        WG_RTTI_FIELD(completion_popup, {});
+        WG_RTTI_FIELD(completion_popup_lines, {});
+        WG_RTTI_FIELD(completion_popup_bottom, {});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

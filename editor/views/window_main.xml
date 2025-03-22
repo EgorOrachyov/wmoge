@@ -1,0 +1,58 @@
+<UiMainWindow 
+    tag="window_main" 
+    title="Wmoge Engine"
+    meta:bindable="TestWindowMain">
+    <UiMainWindow.menu_bar>
+        <UiMenuBar tag="main_menu_bar">
+            <UiMenu name="File">
+                <UiSeparatorText label="SCENE" sub_style="separator"/>
+                <UiMenuItem label="New Scene"/>
+                <UiMenuItem label="Open Scene"/>
+                <UiMenu name="Open Scene Recent">
+                    <UiMenuItem label="C:/projects/game_1/project.yml"/>
+                    <UiMenuItem label="C:/projects/game_2/project.yml"/>
+                    <UiMenu name="Open Scene Recent">
+                        <UiMenuItem label="C:/projects/game_1/project.yml"/>
+                        <UiMenuItem label="C:/projects/game_2/project.yml"/>
+                    </UiMenu>
+                </UiMenu>
+                <UiSeparatorText label="PROJECT" sub_style="separator"/>
+                <UiMenuItem label="New Project"/>
+                <UiMenuItem label="Open Project" disabled="true"/>
+                <UiMenuItem label="Open Project Recent" selected="true"/>
+            </UiMenu>
+            <UiMenu name="Edit">
+            </UiMenu>
+            <UiMenu name="Window">
+            </UiMenu>
+            <UiMenu name="Tools">
+            </UiMenu>
+            <UiMenu name="Build">
+            </UiMenu>
+            <UiMenu name="Debug">
+                <UiSeparatorText label="UI" sub_style="separator"/>
+                <UiMenuItem 
+                    label="Reload ui" 
+                    bind:disabled="item_reload_ui_disabled"
+                    bind:on_click="item_reload_ui_on_click"/>
+            </UiMenu>
+            <UiMenu name="Help">
+            </UiMenu>
+        </UiMenuBar>
+    </UiMainWindow.menu_bar>
+
+    <UiDockSpace name="main_dock_space">
+        <UiDockWindow title="Hierarchy" sub_style="panel">
+            <UiStackPanel>
+                <UiTextWrapped text="Here will be panel with the scene hierarchy of entities. Visit link to get more information"/>
+                <UiTextLink text="https://github.com/EgorOrachyov/wmoge"/>
+            </UiStackPanel>
+        </UiDockWindow>
+        <UiDockWindow title="Properties" sub_style="panel">
+            <UiStackPanel>
+                <UiTextWrapped text="Here will be panel with properties of the seleceted entity. Visit link to get more information"/>
+                <UiTextLink text="https://github.com/EgorOrachyov/wmoge"/>
+            </UiStackPanel>
+        </UiDockWindow>
+    </UiDockSpace>
+</UiMainWindow>

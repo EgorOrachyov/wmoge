@@ -25,33 +25,30 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "icon.hpp"
+#pragma once
+
+#include "asset/asset_import_data.hpp"
+#include "asset/asset_loader_adapter.hpp"
+#include "ui/ui_markup.hpp"
 
 namespace wmoge {
 
-    void IconAtlas::set_desc(IconAtlasDesc desc) {
-        m_desc = std::move(desc);
-    }
+    /**
+     * @class ShaderAssetLoader
+     * @brief Loader for shader files from a specific shader syntax files
+     */
+    class UiMarkupAssetLoader final : public AssetLoaderTyped<UiMarkup> {
+    public:
+        WG_RTTI_CLASS(UiMarkupAssetLoader, AssetLoader);
 
-    const IconInfo& IconAtlas::get_icon_info(int id) const {
-        return m_desc.icons[id];
-    }
+        Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) override;
+        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<UiMarkup>& asset) override;
+    };
 
-    const IconAtlasPage& IconAtlas::get_page(int id) const {
-        return m_desc.pages[id];
+    WG_RTTI_CLASS_BEGIN(UiMarkupAssetLoader) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
     }
-
-    std::optional<class Icon> IconAtlas::try_find_icon(Strid name) {
-        auto query = m_desc.icons_map.find(name);
-        if (query != m_desc.icons_map.end()) {
-            return Icon(Ref<IconAtlas>(this), query->second);
-        }
-        return std::nullopt;
-    }
-
-    Icon::Icon(AssetRef<IconAtlas> atlas, int id)
-        : m_atlas(std::move(atlas)),
-          m_id(id) {
-    }
+    WG_RTTI_END;
 
 }// namespace wmoge

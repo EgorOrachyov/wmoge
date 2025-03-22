@@ -43,7 +43,7 @@ namespace wmoge {
     */
     class RttiEnum : public RttiType {
     public:
-        RttiEnum(Strid name, std::size_t byte_size) : RttiType(name, byte_size) {}
+        RttiEnum(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Enum) {}
         ~RttiEnum() override = default;
 
         [[nodiscard]] const std::vector<int>&   get_values() const { return m_values; }

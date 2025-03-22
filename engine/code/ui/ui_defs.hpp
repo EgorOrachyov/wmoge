@@ -73,7 +73,6 @@ namespace wmoge {
     enum class UiWindowFlag {
         NoBringToFrontOnFocus,
         NoPadding,
-        NoBackground,
         NoTitleBar,
         NoCollapse,
         NoScrollbar
@@ -149,6 +148,7 @@ namespace wmoge {
         TitleBgActive,
         TitleBgCollapsed,
         MenuBarBg,
+        MenuBarBorder,
         ScrollbarBg,
         ScrollbarGrab,
         ScrollbarGrabHovered,
@@ -197,6 +197,47 @@ namespace wmoge {
         NavWindowingDimBg,
         ModalWindowDimBg,
         Count
+    };
+
+    /** @brief Ui element enum type */
+    enum class UiElementType {
+        Unknown = 0,
+        Separator,
+        SeparatorText,
+        ToolTip,
+        ContextMenu,
+        Popup,
+        CompletionPopup,
+        Modal,
+        StackPanel,
+        ScrollPanel,
+        CollapsingPanel,
+        MenuItem,
+        Menu,
+        MenuBar,
+        ToolBar,
+        StatusBar,
+        MainWindow,
+        DockWindow,
+        DockSpace,
+        Text,
+        TextWrapped,
+        TextLink,
+        DragInt,
+        DragFloat,
+        SliderInt,
+        SliderFloat,
+        InputInt,
+        InputFloat,
+        InputText,
+        InputTextExt,
+        Selectable,
+        Button,
+        CheckBoxButton,
+        RadioButton,
+        ComboBox,
+        ListBox,
+        ProgressBar
     };
 
 }// namespace wmoge

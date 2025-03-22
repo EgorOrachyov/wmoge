@@ -27,7 +27,6 @@
 
 #pragma once
 
-#include "ui/ui_attribute.hpp"
 #include "ui/ui_element.hpp"
 
 namespace wmoge {
@@ -38,12 +37,20 @@ namespace wmoge {
      */
     class UiMenuBar : public UiElement {
     public:
+        WG_RTTI_CLASS(UiMenuBar, UiElement);
+
         UiMenuBar() : UiElement(UiElementType::MenuBar) {}
 
-        using Slot = UiSlot<UiSubElement>;
+        using Slot = Ref<UiSubElement>;
 
-        UiSlots<Slot> children;
+        std::vector<Slot> children;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiMenuBar) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(children, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiToolBar
@@ -51,12 +58,20 @@ namespace wmoge {
      */
     class UiToolBar : public UiElement {
     public:
+        WG_RTTI_CLASS(UiToolBar, UiElement);
+
         UiToolBar() : UiElement(UiElementType::ToolBar) {}
 
-        using Slot = UiSlot<UiSubElement>;
+        using Slot = Ref<UiSubElement>;
 
-        UiSlots<Slot> children;
+        std::vector<Slot> children;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiToolBar) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(children, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiStatusBar
@@ -64,11 +79,19 @@ namespace wmoge {
      */
     class UiStatusBar : public UiElement {
     public:
+        WG_RTTI_CLASS(UiStatusBar, UiElement);
+
         UiStatusBar() : UiElement(UiElementType::StatusBar) {}
 
-        using Slot = UiSlot<UiSubElement>;
+        using Slot = Ref<UiSubElement>;
 
-        UiSlots<Slot> children;
+        std::vector<Slot> children;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiStatusBar) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(children, {});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

@@ -229,20 +229,11 @@ namespace wmoge {
             s << "]";
             return WG_OK;
         }
-        Status add_element(void* src) const override {
-            VecT& vec = *((VecT*) src);
-            vec.emplace_back();
+        Status push_back(void* src, void* value) const {
+            VecT&        vec  = *((VecT*) src);
+            const ElemT& elem = *((const ElemT*) value);
+            vec.push_back(elem);
             return WG_OK;
-        }
-        Status remove_element(void* src, int index) const override {
-            VecT& vec = *((VecT*) src);
-            if (index < vec.size()) {
-                vec.erase(vec.begin() + index);
-            }
-            return WG_OK;
-        }
-        bool is_listable() const override {
-            return true;
         }
     };
 
@@ -266,21 +257,6 @@ namespace wmoge {
             s << "}";
             return WG_OK;
         }
-        Status add_element(void* src) const override {
-            MapT& map = *((MapT*) src);
-            map.emplace();
-            return WG_OK;
-        }
-        Status remove_element(void* src, int index) const override {
-            MapT& map = *((MapT*) src);
-            if (index < map.size()) {
-                map.erase(std::next(map.begin(), index));
-            }
-            return WG_OK;
-        }
-        bool is_listable() const override {
-            return true;
-        }
     };
 
     template<typename SetT, typename KeyT>
@@ -299,21 +275,6 @@ namespace wmoge {
             }
             s << "}";
             return WG_OK;
-        }
-        Status add_element(void* src) const override {
-            SetT& set = *((SetT*) src);
-            set.emplace();
-            return WG_OK;
-        }
-        Status remove_element(void* src, int index) const override {
-            SetT& set = *((SetT*) src);
-            if (index < set.size()) {
-                set.erase(std::next(set.begin(), index));
-            }
-            return WG_OK;
-        }
-        bool is_listable() const override {
-            return true;
         }
     };
 
@@ -357,6 +318,231 @@ namespace wmoge {
             }
             return WG_OK;
         }
+    };
+
+    template<typename ArgT>
+    struct RttiArgInfo {
+        using ActualType    = ArgT;
+        using RemoveRef     = typename std::remove_reference_t<ActualType>;
+        using RemovePointer = typename std::remove_pointer_t<RemoveRef>;
+        using RemoveConst   = typename std::remove_const_t<RemovePointer>;
+        using BaseType      = RemoveConst;
+
+        static constexpr bool is_ref   = std::is_lvalue_reference<ActualType>::value;
+        static constexpr bool is_ptr   = std::is_pointer<RemoveRef>::value;
+        static constexpr bool is_const = std::is_const<RemovePointer>::value;
+    };
+
+    template<typename FuncT, typename TRet, typename... TArgs>
+    struct RttiTypeFunctionBaseT : public RttiTypeFunction {
+        static constexpr int  MAX_ARGS_COUNT  = 5;
+        static constexpr bool HAS_RETURN_TYPE = !std::is_void<TRet>::value;
+
+        using ParentT   = RttiTypeFunction;
+        using FunctionT = FuncT;
+
+        RttiTypeFunctionBaseT(Strid name, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret)
+            : RttiTypeFunction(name, sizeof(FunctionT), stack_size, std::move(args), std::move(ret)) {
+        }
+        Status consturct(void* dst) const override {
+            new (dst) FunctionT();
+            return WG_OK;
+        }
+        Status copy(void* dst, const void* src) const override {
+            *((FunctionT*) dst) = *((const FunctionT*) src);
+            return WG_OK;
+        }
+        Status destruct(void* dst) const override {
+            ((FunctionT*) dst)->~FunctionT();
+            return WG_OK;
+        }
+        Status to_string(const void* src, std::stringstream& s) const override {
+            const FunctionT& self = *((const FunctionT*) src);
+            if (self) {
+                s << "<body>";
+            } else {
+                s << "null";
+            }
+            return WG_OK;
+        }
+
+        template<typename Performer>
+        Status perform_call(Performer& performer, RttiFrame& frame, void* target, array_view<std::uint8_t> args_ret) const {
+            using TArgsTuple = std::tuple<TArgs...>;
+
+            constexpr bool has_return = !std::is_void<TRet>::value;
+            constexpr auto n_args     = std::tuple_size_v<TArgsTuple>;
+
+            void* p_args_ret = args_ret.data();
+
+            if (!target) {
+                WG_LOG_ERROR("null target passed to call " << RttiTypeFunction::get_name());
+                return StatusCode::InvalidParameter;
+            }
+            if (args_ret.size() != m_stack_size) {
+                WG_LOG_ERROR("invalid args_ret passed to call " << RttiTypeFunction::get_name());
+                return StatusCode::InvalidParameter;
+            }
+
+#define OFFSET_OF(info) \
+    ((std::uint8_t*) p_args_ret + info.stack_offset)
+
+#define GET_ARG(index) *([&]() {                                             \
+    using tinfo = RttiArgInfo<std::tuple_element_t<index, TArgsTuple>>;      \
+    if constexpr (tinfo::is_ref) {                                           \
+        return *((typename tinfo::BaseType**) OFFSET_OF(get_args()[index])); \
+    } else if constexpr (tinfo::is_ptr) {                                    \
+        return ((typename tinfo::BaseType**) OFFSET_OF(get_args()[index]));  \
+    } else {                                                                 \
+        return ((typename tinfo::BaseType*) OFFSET_OF(get_args()[index]));   \
+    }                                                                        \
+}())
+
+#define SET_RET(r)                                                          \
+    using tinfo = RttiArgInfo<TRet>;                                        \
+    if constexpr (tinfo::is_ref) {                                          \
+        *((typename tinfo::BaseType**) OFFSET_OF(get_ret())) = &r;          \
+    } else if constexpr (tinfo::is_ptr) {                                   \
+        *((typename tinfo::BaseType**) OFFSET_OF(get_ret())) = r;           \
+    } else {                                                                \
+        *((typename tinfo::BaseType*) OFFSET_OF(get_ret())) = std::move(r); \
+    }
+
+#define DO_CALL(...)                         \
+    do {                                     \
+        if constexpr (has_return) {          \
+            TRet r = performer(__VA_ARGS__); \
+            SET_RET(r);                      \
+        } else {                             \
+            performer(__VA_ARGS__);          \
+        }                                    \
+    } while (0)
+
+            if constexpr (n_args == 0) {
+                DO_CALL(target);
+            } else if constexpr (n_args == 1) {
+                DO_CALL(target, GET_ARG(0));
+            } else if constexpr (n_args == 2) {
+                DO_CALL(target, GET_ARG(0), GET_ARG(1));
+            } else if constexpr (n_args == 3) {
+                DO_CALL(target, GET_ARG(0), GET_ARG(1), GET_ARG(2));
+            } else if constexpr (n_args == 4) {
+                DO_CALL(target, GET_ARG(0), GET_ARG(1), GET_ARG(2), GET_ARG(3));
+            } else if constexpr (n_args == 5) {
+                DO_CALL(target, GET_ARG(0), GET_ARG(1), GET_ARG(2), GET_ARG(3), GET_ARG(4));
+            } else {
+                WG_LOG_ERROR("too much arguments count");
+                return StatusCode::NotImplemented;
+            }
+
+            return WG_OK;
+
+#undef OFFSET_OF
+#undef GET_ARG
+#undef SET_RET
+#undef DO_CALL
+        }
+
+        static void fill_param_info(std::vector<RttiParamInfo>& args, RttiParamInfo& ret, std::size_t& stack_size) {
+            using TArgsTuple = std::tuple<TArgs...>;
+
+            constexpr bool has_return = !std::is_void<TRet>::value;
+            constexpr auto n_args     = std::tuple_size_v<TArgsTuple>;
+
+            static_assert(n_args <= MAX_ARGS_COUNT, "too much arguments");
+
+#define PARAM_INFO(param)                                                                            \
+    param.type         = rtti_type<typename tinfo::BaseType>();                                      \
+    param.is_const     = tinfo::is_const;                                                            \
+    param.is_ref       = tinfo::is_ref;                                                              \
+    param.is_ptr       = tinfo::is_ptr;                                                              \
+    param.stack_offset = stack_size;                                                                 \
+    param.stack_size   = param.is_ptr || param.is_ref ? sizeof(void*) : param.type->get_byte_size(); \
+    stack_size += param.stack_size;
+
+#define ARG_INFO(index)                                                              \
+    if constexpr (index < n_args) {                                                  \
+        using tinfo          = RttiArgInfo<std::tuple_element_t<index, TArgsTuple>>; \
+        RttiParamInfo& param = args.emplace_back();                                  \
+        PARAM_INFO(param)                                                            \
+    }
+
+            ARG_INFO(0);
+            ARG_INFO(1);
+            ARG_INFO(2);
+            ARG_INFO(3);
+            ARG_INFO(4);
+
+            if constexpr (has_return) {
+                using tinfo = RttiArgInfo<TRet>;
+                PARAM_INFO(ret)
+            }
+
+#undef PARAM_INFO
+#undef ARG_INFO
+        }
+    };
+
+    template<typename FuncT, typename TRet, typename... TArgs>
+    class RttiTypeFunctionLambaT : public RttiTypeFunctionBaseT<FuncT, TRet, TArgs...> {
+    public:
+        using ParentT = RttiTypeFunctionBaseT<FuncT, TRet, TArgs...>;
+
+        RttiTypeFunctionLambaT(Strid name, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret)
+            : ParentT(name, stack_size, std::move(args), std::move(ret)) {
+        }
+
+        virtual Status call(RttiFrame& frame, void* target, array_view<std::uint8_t> args_ret) const {
+            struct Performer {
+                TRet operator()(void* target, TArgs... args) const {
+                    const FuncT& self = *((FuncT*) target);
+
+                    if constexpr (ParentT::HAS_RETURN_TYPE) {
+                        return self(args...);
+                    } else {
+                        self(args...);
+                    }
+                }
+            };
+
+            Performer performer;
+            return ParentT::perform_call(performer, frame, target, args_ret);
+        }
+    };
+
+    template<typename ClassT, typename SignatureT, typename TRet, typename... TArgs>
+    class RttiTypeClassMethodT : public RttiTypeFunctionBaseT<void*, TRet, TArgs...> {
+    public:
+        using ParentT = RttiTypeFunctionBaseT<void*, TRet, TArgs...>;
+
+        RttiTypeClassMethodT(Strid name, SignatureT p_method, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret)
+            : ParentT(name, stack_size, std::move(args), std::move(ret)), m_p_method(p_method) {
+        }
+
+        Status call(RttiFrame& frame, void* target, array_view<std::uint8_t> args_ret) const override {
+            struct Performer {
+                SignatureT p_method;
+
+                Performer(SignatureT p_method) : p_method(p_method) {
+                }
+
+                TRet operator()(void* target, TArgs... args) const {
+                    ClassT* self = (ClassT*) target;
+
+                    if constexpr (ParentT::HAS_RETURN_TYPE) {
+                        return (*self.*p_method)(args...);
+                    } else {
+                        (*self.*p_method)(args...);
+                    }
+                }
+            };
+
+            Performer performer(m_p_method);
+            return ParentT::perform_call(performer, frame, target, args_ret);
+        }
+
+    private:
+        SignatureT m_p_method;
     };
 
     template<typename T>
@@ -552,6 +738,41 @@ namespace wmoge {
         }
     };
 
+    template<typename TRet, typename... TArgs>
+    struct RttiTypeOf<std::function<TRet(TArgs...)>> {
+        using FunctionT = std::function<TRet(TArgs...)>;
+        using TraitType = RttiTypeFunctionLambaT<FunctionT, TRet, TArgs...>;
+
+        static Strid name() {
+            RttiParamInfo              ret;
+            std::vector<RttiParamInfo> args;
+            std::size_t                stack_size = 0;
+            TraitType::fill_param_info(args, ret, stack_size);
+
+            std::stringstream function_name;
+            function_name << "function<";
+
+            ret.print_param(function_name);
+            function_name << "(";
+            for (const auto& arg : args) {
+                arg.print_param(function_name);
+                function_name << ",";
+            }
+            function_name << ")>";
+
+            return SID(function_name.str());
+        }
+
+        static Ref<RttiType> make() {
+            RttiParamInfo              ret;
+            std::vector<RttiParamInfo> args;
+            std::size_t                stack_size = 0;
+            TraitType::fill_param_info(args, ret, stack_size);
+
+            return make_ref<TraitType>(name(), stack_size, std::move(args), std::move(ret));
+        }
+    };
+
     template<typename StructT>
     class RttiStructT : public RttiStruct {
     public:
@@ -571,96 +792,6 @@ namespace wmoge {
             field.set_metadata(std::move(meta_data));
             RttiStruct::add_field(std::move(field));
         }
-    };
-
-    template<typename ArgT>
-    struct RttiArgInfo {
-        using ActualType    = ArgT;
-        using RemoveRef     = typename std::remove_reference_t<ActualType>;
-        using RemovePointer = typename std::remove_pointer_t<RemoveRef>;
-        using RemoveConst   = typename std::remove_const_t<RemovePointer>;
-        using BaseType      = RemoveConst;
-
-        static constexpr bool is_ref   = std::is_lvalue_reference<ActualType>::value;
-        static constexpr bool is_ptr   = std::is_pointer<RemoveRef>::value;
-        static constexpr bool is_const = std::is_const<RemovePointer>::value;
-    };
-
-    template<typename TClass, typename TSignature, typename TRet, typename... TArgs>
-    class RttiFunctionT : public RttiFunction {
-    public:
-        RttiFunctionT(Strid name, TSignature p_method, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret) : RttiFunction(name, sizeof(p_method), stack_size, std::move(args), std::move(ret)) {
-            m_p_method = p_method;
-        }
-        ~RttiFunctionT() override = default;
-
-        Status call(RttiFrame& frame, class RttiObject* p_object, void* p_args_ret) override {
-            using TArgsTuple = std::tuple<TArgs...>;
-
-            constexpr bool has_return = !std::is_void<TRet>::value;
-            constexpr auto n_args     = std::tuple_size_v<TArgsTuple>;
-
-            TClass* target = (TClass*) p_object;
-
-#define OFFSET_OF(info) \
-    ((std::uint8_t*) p_args_ret + info.stack_offset)
-
-#define GET_ARG(index) *([&]() {                                             \
-    using tinfo = RttiArgInfo<std::tuple_element_t<index, TArgsTuple>>;      \
-    if constexpr (tinfo::is_ref) {                                           \
-        return *((typename tinfo::BaseType**) OFFSET_OF(get_args()[index])); \
-    } else if constexpr (tinfo::is_ptr) {                                    \
-        return ((typename tinfo::BaseType**) OFFSET_OF(get_args()[index]));  \
-    } else {                                                                 \
-        return ((typename tinfo::BaseType*) OFFSET_OF(get_args()[index]));   \
-    }                                                                        \
-}())
-
-#define SET_RET(r)                                                          \
-    using tinfo = RttiArgInfo<TRet>;                                        \
-    if constexpr (tinfo::is_ref) {                                          \
-        *((typename tinfo::BaseType**) OFFSET_OF(get_ret())) = &r;          \
-    } else if constexpr (tinfo::is_ptr) {                                   \
-        *((typename tinfo::BaseType**) OFFSET_OF(get_ret())) = r;           \
-    } else {                                                                \
-        *((typename tinfo::BaseType*) OFFSET_OF(get_ret())) = std::move(r); \
-    }
-
-#define DO_CALL(...)                                 \
-    if constexpr (has_return) {                      \
-        TRet r = (*target.*m_p_method)(__VA_ARGS__); \
-        SET_RET(r);                                  \
-    } else {                                         \
-        (*target.*m_p_method)(__VA_ARGS__);          \
-    }
-
-            if constexpr (n_args == 0) {
-                DO_CALL();
-            } else if constexpr (n_args == 1) {
-                DO_CALL(GET_ARG(0));
-            } else if constexpr (n_args == 2) {
-                DO_CALL(GET_ARG(0), GET_ARG(1));
-            } else if constexpr (n_args == 3) {
-                DO_CALL(GET_ARG(0), GET_ARG(1), GET_ARG(2));
-            } else if constexpr (n_args == 4) {
-                DO_CALL(GET_ARG(0), GET_ARG(1), GET_ARG(2), GET_ARG(3));
-            } else if constexpr (n_args == 5) {
-                DO_CALL(GET_ARG(0), GET_ARG(1), GET_ARG(2), GET_ARG(3), GET_ARG(4));
-            } else {
-                WG_LOG_ERROR("too much arguments count");
-                return StatusCode::NotImplemented;
-            }
-
-            return WG_OK;
-
-#undef OFFSET_OF
-#undef GET_ARG
-#undef SET_RET
-#undef DO_CALL
-        }
-
-    private:
-        TSignature m_p_method;
     };
 
     template<typename ClassT>
@@ -687,91 +818,42 @@ namespace wmoge {
         template<typename TSignature, typename TRet, typename... TArgs>
         void add_method_t(Strid name, TSignature p_method, const buffered_vector<const char*>& names, RttiMetaData meta_data) {
             using TArgsTuple = std::tuple<TArgs...>;
+            using TraitType  = RttiTypeClassMethodT<ClassT, TSignature, TRet, TArgs...>;
 
             constexpr bool has_return = !std::is_void<TRet>::value;
             constexpr auto n_args     = std::tuple_size_v<TArgsTuple>;
-            constexpr auto n_names    = has_return ? 1 + n_args : n_args;
 
             static_assert(n_args <= MAX_FUCNTION_ARGS, "too much arguments");
 
-            if (n_names != n_args) {
+            if (names.size() != n_args) {
                 WG_LOG_ERROR("mismatched args names size for" << get_name());
                 return;
             }
 
-#define PARAM_INFO(param, str_name)                                                                  \
-    param.type         = rtti_type<typename tinfo::BaseType>();                                      \
-    param.name         = SID(str_name);                                                              \
-    param.is_const     = tinfo::is_const;                                                            \
-    param.is_ref       = tinfo::is_ref;                                                              \
-    param.is_ptr       = tinfo::is_ptr;                                                              \
-    param.stack_offset = stack_size;                                                                 \
-    param.stack_size   = param.is_ptr || param.is_ref ? sizeof(void*) : param.type->get_byte_size(); \
-    stack_size += param.stack_size;
-
-#define ARG_INFO(index)                                                              \
-    if constexpr (index < n_args) {                                                  \
-        using tinfo          = RttiArgInfo<std::tuple_element_t<index, TArgsTuple>>; \
-        RttiParamInfo& param = args.emplace_back();                                  \
-        PARAM_INFO(param, names[index])                                              \
-    }
-
             RttiParamInfo              ret;
             std::vector<RttiParamInfo> args;
             std::size_t                stack_size = 0;
+            TraitType::fill_param_info(args, ret, stack_size);
 
-            ARG_INFO(0);
-            ARG_INFO(1);
-            ARG_INFO(2);
-            ARG_INFO(3);
-            ARG_INFO(4);
-
-            if constexpr (has_return) {
-                using tinfo = RttiArgInfo<TRet>;
-                PARAM_INFO(ret, names.back())
+            for (std::size_t i = 0; i < n_args; i++) {
+                args[i].name = SID(names[i]);
             }
 
             std::stringstream method_name;
 
-            auto print_param = [&](const RttiParamInfo& p) {
-                if (!p.type) {
-                    method_name << "void";
-                    return;
-                }
-
-                if (p.is_const) {
-                    method_name << "const ";
-                }
-
-                method_name << p.type->get_str();
-
-                if (p.is_ptr) {
-                    method_name << "*";
-                }
-                if (p.is_ref) {
-                    method_name << "&";
-                }
-
-                method_name << " ";
-                method_name << p.name.str();
-            };
-
-            print_param(ret);
+            ret.print_param(method_name);
             method_name << " " << get_name().str() << "::";
             method_name << name.str();
             method_name << "(";
             for (const auto& arg : args) {
-                print_param(arg);
+                arg.print_param(method_name);
                 method_name << ",";
             }
             method_name << ")";
 
-            RttiMethod method(name, make_ref<RttiFunctionT<ClassT, TSignature, TRet, TArgs...>>(Strid(method_name.str()), p_method, stack_size, std::move(args), std::move(ret)));
+            RttiMethod method(name, make_ref<TraitType>(Strid(method_name.str()), p_method, stack_size, std::move(args), std::move(ret)));
             method.set_metadata(std::move(meta_data));
             RttiClass::add_method(std::move(method));
-
-#undef PARAM_INFO
-#undef ARG_INFO
         }
         template<typename TRet, typename... TArgs>
         void add_method(Strid name, TRet (ClassT::*p_method)(TArgs...), const buffered_vector<const char*>& names, RttiMetaData meta_data) {

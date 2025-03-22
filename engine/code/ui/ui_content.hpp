@@ -28,7 +28,6 @@
 #pragma once
 
 #include "math/color.hpp"
-#include "ui/ui_attribute.hpp"
 #include "ui/ui_element.hpp"
 
 namespace wmoge {
@@ -39,8 +38,15 @@ namespace wmoge {
      */
     class UiSeparator : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiSeparator, UiSubElement);
+
         UiSeparator() : UiSubElement(UiElementType::Separator) {}
     };
+
+    WG_RTTI_CLASS_BEGIN(UiSeparator) {
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiSeparatorText
@@ -48,10 +54,18 @@ namespace wmoge {
      */
     class UiSeparatorText : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiSeparatorText, UiSubElement);
+
         UiSeparatorText() : UiSubElement(UiElementType::SeparatorText) {}
 
-        UiAttribute<std::string> label;
+        std::string label;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiSeparatorText) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(label, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiText
@@ -59,10 +73,18 @@ namespace wmoge {
      */
     class UiText : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiText, UiSubElement);
+
         UiText() : UiSubElement(UiElementType::Text) {}
 
-        UiAttribute<std::string> text;
+        std::string text;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiText) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(text, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiTextWrapped
@@ -70,10 +92,18 @@ namespace wmoge {
      */
     class UiTextWrapped : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiTextWrapped, UiSubElement);
+
         UiTextWrapped() : UiSubElement(UiElementType::TextWrapped) {}
 
-        UiAttribute<std::string> text;
+        std::string text;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiTextWrapped) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(text, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiTextLink
@@ -81,14 +111,24 @@ namespace wmoge {
      */
     class UiTextLink : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiTextLink, UiSubElement);
+
         UiTextLink() : UiSubElement(UiElementType::TextLink) {}
 
         using OnClick = std::function<void()>;
 
-        UiAttribute<std::string>    text;
-        UiAttributeOpt<std::string> url;
-        UiEvent<OnClick>            on_click;
+        std::string                text;
+        std::optional<std::string> url;
+        OnClick                    on_click;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiTextLink) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(text, {});
+        WG_RTTI_FIELD(url, {});
+        WG_RTTI_FIELD(on_click, {RttiNoSaveLoad});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiProgressBar
@@ -96,10 +136,19 @@ namespace wmoge {
      */
     class UiProgressBar : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiProgressBar, UiSubElement);
+
         UiProgressBar() : UiSubElement(UiElementType::ProgressBar) {}
 
-        UiAttribute<std::string> label;
-        UiAttributeOpt<float>    progress;
+        std::string          label;
+        std::optional<float> progress;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiProgressBar) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(label, {});
+        WG_RTTI_FIELD(progress, {});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

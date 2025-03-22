@@ -25,33 +25,44 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "icon.hpp"
+#pragma once
+
+#include "rtti/object.hpp"
+#include "rtti/traits.hpp"
+#include "ui/ui_element.hpp"
+#include "ui/ui_markup.hpp"
 
 namespace wmoge {
 
-    void IconAtlas::set_desc(IconAtlasDesc desc) {
-        m_desc = std::move(desc);
-    }
+    /** @brief Info passed to a bindable instance on binding */
+    struct UiBindInfo {
+        std::function<void(Strid)>       notify_changed;
+        std::function<UiElement*(Strid)> find_element;
+        UiElement*                       root_element = nullptr;
+    };
 
-    const IconInfo& IconAtlas::get_icon_info(int id) const {
-        return m_desc.icons[id];
-    }
+    /**
+     * @class UiBindable
+     * @brief Base class for programming code behind ui declared in markup files
+     */
+    class UiBindable : public RttiObject {
+    public:
+        WG_RTTI_CLASS(UiBindable, RttiObject);
 
-    const IconAtlasPage& IconAtlas::get_page(int id) const {
-        return m_desc.pages[id];
-    }
+        virtual Status on_bind() { return WG_OK; }
 
-    std::optional<class Icon> IconAtlas::try_find_icon(Strid name) {
-        auto query = m_desc.icons_map.find(name);
-        if (query != m_desc.icons_map.end()) {
-            return Icon(Ref<IconAtlas>(this), query->second);
-        }
-        return std::nullopt;
-    }
+        void                     set_bind_info(UiBindInfo info);
+        void                     notify_changed(Strid poperty_id) const;
+        [[nodiscard]] UiElement* find_element_by(Strid tag) const;
+        [[nodiscard]] UiElement* get_root_element() const;
 
-    Icon::Icon(AssetRef<IconAtlas> atlas, int id)
-        : m_atlas(std::move(atlas)),
-          m_id(id) {
-    }
+    private:
+        UiBindInfo m_bind_info;
+    };
+
+    WG_RTTI_CLASS_BEGIN(UiBindable) {
+        WG_RTTI_FACTORY();
+    };
+    WG_RTTI_END;
 
 }// namespace wmoge

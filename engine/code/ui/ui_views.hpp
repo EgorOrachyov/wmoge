@@ -27,7 +27,6 @@
 
 #pragma once
 
-#include "ui/ui_attribute.hpp"
 #include "ui/ui_element.hpp"
 
 namespace wmoge {

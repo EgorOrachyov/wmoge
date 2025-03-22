@@ -7,6 +7,6 @@ deps: [ ]
 description: "font"
 import_data:
   rtti: FreetypeImportData
-  source_files: [{file: "editor/fonts/roboto_light.ttf"}]
-  height: 32
+  source_files: [{file: "editor/fonts/roboto_italic.ttf"}]
+  height: 38
   glyphs_in_row: 16

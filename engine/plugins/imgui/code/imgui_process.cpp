@@ -40,7 +40,7 @@
 
 namespace wmoge {
 
-    void imgui_push_var(UiParam param, float v) {
+    static void imgui_push_var(UiParam param, float v) {
         switch (param) {
             case UiParam::Alpha:
                 ImGui::PushStyleVar(ImGuiStyleVar_Alpha, v);
@@ -186,6 +186,60 @@ namespace wmoge {
         }
     }
 
+    static bool imgui_need_id(const UiElementType type) {
+        switch (type) {
+            case UiElementType::MainWindow:
+            case UiElementType::DockWindow:
+            case UiElementType::DockSpace:
+                return false;
+
+            case UiElementType::ContextMenu:
+            case UiElementType::Menu:
+            case UiElementType::Popup:
+            case UiElementType::CompletionPopup:
+            case UiElementType::Modal:
+            case UiElementType::StackPanel:
+            case UiElementType::ScrollPanel:
+            case UiElementType::CollapsingPanel:
+                return false;
+
+            case UiElementType::MenuBar:
+            case UiElementType::ToolBar:
+            case UiElementType::StatusBar:
+                return false;
+
+            case UiElementType::Separator:
+            case UiElementType::SeparatorText:
+            case UiElementType::Text:
+            case UiElementType::TextWrapped:
+            case UiElementType::TextLink:
+            case UiElementType::ProgressBar:
+                return false;
+
+            case UiElementType::MenuItem:
+            case UiElementType::Selectable:
+            case UiElementType::Button:
+            case UiElementType::CheckBoxButton:
+            case UiElementType::RadioButton:
+            case UiElementType::ComboBox:
+            case UiElementType::ListBox:
+                return true;
+
+            case UiElementType::DragInt:
+            case UiElementType::DragFloat:
+            case UiElementType::SliderInt:
+            case UiElementType::SliderFloat:
+            case UiElementType::InputInt:
+            case UiElementType::InputFloat:
+            case UiElementType::InputText:
+            case UiElementType::InputTextExt:
+                return false;
+
+            default:
+                return false;
+        }
+    }
+
     ImguiProcessor::ImguiProcessor(ImguiManager* manager)
         : m_manager(manager),
           m_input_buffer(256, '\0'),
@@ -204,11 +258,14 @@ namespace wmoge {
             return;
         }
 
-        const UiElementType type = element->type;
+        const UiElementType type    = element->type;
+        const bool          need_id = imgui_need_id(type);
 
         push_sub_style(element->sub_style);
 
-        ImGui::PushID(element);
+        if (need_id) {
+            ImGui::PushID(element);
+        }
 
         switch (type) {
             case UiElementType::MainWindow:
@@ -216,6 +273,9 @@ namespace wmoge {
                 break;
             case UiElementType::DockWindow:
                 imgui_process_dock_window(*this, *static_cast<UiDockWindow*>(element));
+                break;
+            case UiElementType::DockSpace:
+                imgui_process_dock_space(*this, *static_cast<UiDockSpace*>(element));
                 break;
 
             case UiElementType::ContextMenu:
@@ -324,14 +384,15 @@ namespace wmoge {
                 break;
         }
 
-        ImGui::PopID();
+        if (need_id) {
+            ImGui::PopID();
+        }
 
         pop_sub_style();
     }
 
-    void ImguiProcessor::process(UiSlots<UiSlot<UiSubElement>>& elements) {
-        auto& children = elements.get();
-        for (const auto& child : children) {
+    void ImguiProcessor::process(std::vector<Ref<UiSubElement>>& elements) {
+        for (const auto& child : elements) {
             process(child.get());
         }
     }
@@ -351,10 +412,10 @@ namespace wmoge {
         ImGui::Image(texture_id, texture_size, uv0, uv1, tint, border_color);
     }
 
-    void ImguiProcessor::add_action_event(UiEvent<std::function<void()>>& event) {
-        if (event.has_callback()) {
+    void ImguiProcessor::add_action_event(std::function<void()>& event) {
+        if (event) {
             add_action([e = &event]() {
-                e->get()();
+                (*e)();
             });
         }
     }

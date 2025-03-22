@@ -68,6 +68,7 @@ namespace wmoge {
         rtti_type<IconAtlasPage>();
         rtti_type<IconAtlasDesc>();
         rtti_type<IconAtlas>();
+        rtti_type<Icon>();
     }
 
 }// namespace wmoge

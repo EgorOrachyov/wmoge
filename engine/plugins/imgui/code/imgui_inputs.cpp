@@ -37,7 +37,7 @@ namespace wmoge {
         int         v_max   = element.value_max.has_value() ? element.value_max.value() : 0;
         const char* format  = element.format.has_value() ? element.format.value().c_str() : "%d";
 
-        if (ImGui::DragInt(imgui_str(element.label), element.value.get_ptr(), v_speed, v_min, v_max, format)) {
+        if (ImGui::DragInt(imgui_str(element.label), &element.value, v_speed, v_min, v_max, format)) {
             processor.add_action_event(element.on_input);
         }
     }
@@ -48,7 +48,7 @@ namespace wmoge {
         float       v_max   = element.value_max.has_value() ? element.value_max.value() : 0.0f;
         const char* format  = element.format.has_value() ? element.format.value().c_str() : "%.3f";
 
-        if (ImGui::DragFloat(imgui_str(element.label), element.value.get_ptr(), v_speed, v_min, v_max, format)) {
+        if (ImGui::DragFloat(imgui_str(element.label), &element.value, v_speed, v_min, v_max, format)) {
             processor.add_action_event(element.on_input);
         }
     }
@@ -58,7 +58,7 @@ namespace wmoge {
         int         v_max  = element.value_max;
         const char* format = element.format.has_value() ? element.format.value().c_str() : "%d";
 
-        if (ImGui::SliderInt(imgui_str(element.label), element.value.get_ptr(), v_min, v_max, format)) {
+        if (ImGui::SliderInt(imgui_str(element.label), &element.value, v_min, v_max, format)) {
             processor.add_action_event(element.on_input);
         }
     }
@@ -68,7 +68,7 @@ namespace wmoge {
         float       v_max  = element.value_max;
         const char* format = element.format.has_value() ? element.format.value().c_str() : "%.3f";
 
-        if (ImGui::SliderFloat(imgui_str(element.label), element.value.get_ptr(), v_min, v_max, format)) {
+        if (ImGui::SliderFloat(imgui_str(element.label), &element.value, v_min, v_max, format)) {
             processor.add_action_event(element.on_input);
         }
     }
@@ -77,7 +77,7 @@ namespace wmoge {
         int step      = element.step.has_value() ? element.step.value() : 1;
         int step_fast = element.step_fast.has_value() ? element.step_fast.value() : 100;
 
-        if (ImGui::InputInt(imgui_str(element.label), element.value.get_ptr()), step, step_fast) {
+        if (ImGui::InputInt(imgui_str(element.label), &element.value), step, step_fast) {
             processor.add_action_event(element.on_input);
         }
     }
@@ -86,7 +86,7 @@ namespace wmoge {
         float step      = element.step.has_value() ? element.step.value() : 0.0f;
         float step_fast = element.step_fast.has_value() ? element.step_fast.value() : 0.0f;
 
-        if (ImGui::InputFloat(imgui_str(element.label), element.value.get_ptr()), step, step_fast) {
+        if (ImGui::InputFloat(imgui_str(element.label), &element.value), step, step_fast) {
             processor.add_action_event(element.on_input);
         }
     }
@@ -147,13 +147,13 @@ namespace wmoge {
 
         flags |= ImGuiInputTextFlags_CallbackAlways;
 
-        if (element.on_enter.has_callback()) {
+        if (element.on_enter) {
             flags |= ImGuiInputTextFlags_EnterReturnsTrue;
         }
-        if (element.on_completion.has_callback()) {
+        if (element.on_completion) {
             flags |= ImGuiInputTextFlags_CallbackCompletion;
         }
-        if (element.on_history_prev.has_callback() || element.on_history_next.has_callback()) {
+        if (element.on_history_prev || element.on_history_next) {
             flags |= ImGuiInputTextFlags_CallbackHistory;
         }
         if (element.esc_to_clear) {
@@ -172,14 +172,14 @@ namespace wmoge {
 
         element.text = std::move(processor.pop_str_from_buffer());
 
-        if (element.completion_popup.has_value()) {
-            if (element.completion_popup.get()->should_show) {
-                ImGui::OpenPopup(imgui_str(element.completion_popup.get()->name));
+        if (element.completion_popup) {
+            if (element.completion_popup->should_show) {
+                ImGui::OpenPopup(imgui_str(element.completion_popup->name));
             }
 
             const ImVec2 popup_size = ImVec2(
                     ImGui::GetItemRectSize().x,
-                    ImGui::GetItemRectSize().y * float(element.completion_popup_lines.get()));
+                    ImGui::GetItemRectSize().y * float(element.completion_popup_lines));
 
             const ImVec2 popup_pos = ImVec2(
                     ImGui::GetItemRectMin().x,
@@ -188,7 +188,7 @@ namespace wmoge {
             ImGui::SetNextWindowSize(popup_size);
             ImGui::SetNextWindowPos(popup_pos);
 
-            processor.process(element.completion_popup.get());
+            processor.process(element.completion_popup);
         }
     }
 

@@ -91,7 +91,7 @@ namespace wmoge {
     */
     class RttiStruct : public RttiType {
     public:
-        RttiStruct(Strid name, std::size_t byte_size, RttiStruct* parent);
+        RttiStruct(Strid name, std::size_t byte_size, RttiStruct* parent, RttiArchetype archetype = RttiArchetype::Struct);
         ~RttiStruct() override = default;
 
         std::optional<const RttiField*> find_field(const Strid& name) const;

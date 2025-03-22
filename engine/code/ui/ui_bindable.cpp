@@ -25,33 +25,24 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "icon.hpp"
+#include "ui_bindable.hpp"
 
 namespace wmoge {
 
-    void IconAtlas::set_desc(IconAtlasDesc desc) {
-        m_desc = std::move(desc);
+    void UiBindable::set_bind_info(UiBindInfo info) {
+        m_bind_info = std::move(info);
     }
 
-    const IconInfo& IconAtlas::get_icon_info(int id) const {
-        return m_desc.icons[id];
+    void UiBindable::notify_changed(Strid poperty_id) const {
+        m_bind_info.notify_changed(poperty_id);
     }
 
-    const IconAtlasPage& IconAtlas::get_page(int id) const {
-        return m_desc.pages[id];
+    UiElement* UiBindable::find_element_by(Strid tag) const {
+        return m_bind_info.find_element(tag);
     }
 
-    std::optional<class Icon> IconAtlas::try_find_icon(Strid name) {
-        auto query = m_desc.icons_map.find(name);
-        if (query != m_desc.icons_map.end()) {
-            return Icon(Ref<IconAtlas>(this), query->second);
-        }
-        return std::nullopt;
-    }
-
-    Icon::Icon(AssetRef<IconAtlas> atlas, int id)
-        : m_atlas(std::move(atlas)),
-          m_id(id) {
+    UiElement* UiBindable::get_root_element() const {
+        return m_bind_info.root_element;
     }
 
 }// namespace wmoge

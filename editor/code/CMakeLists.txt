@@ -15,7 +15,7 @@ add_library(wmoge_editor_headers INTERFACE)
 target_include_directories(wmoge_editor_headers INTERFACE ${CMAKE_CURRENT_LIST_DIR}/)
 
 # engine library target link to editor library
-target_link_libraries(wmoge_editor PUBLIC wmoge)
+target_link_libraries(wmoge_editor PUBLIC wmoge_engine)
 
 # editor headers target link to editor library
 target_link_libraries(wmoge_editor PUBLIC wmoge_editor_headers)

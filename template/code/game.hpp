@@ -35,9 +35,37 @@
 
 using namespace wmoge;
 
+class TestWindowMain : public UiBindable {
+public:
+    WG_RTTI_CLASS(TestWindowMain, UiBindable);
+
+    void item_reload_ui_disabled(UiElement* reciever) {
+        WG_LOG_INFO("update property");
+    }
+
+    void item_reload_ui_on_click(UiElement* sender) {
+        WG_LOG_INFO("on event");
+
+        notify_changed(SID("item_reload_ui_disabled"));
+    }
+};
+
+WG_RTTI_CLASS_BEGIN(TestWindowMain) {
+    WG_RTTI_FACTORY();
+    WG_RTTI_METHOD(item_reload_ui_disabled, {"reciever"}, {});
+    WG_RTTI_METHOD(item_reload_ui_on_click, {"sender"}, {});
+}
+WG_RTTI_END;
+
 class TemplateGame : public GamePlugin {
 public:
     TemplateGame() {
+    }
+
+    Status on_register(IocContainer* ioc) {
+        WG_CHECKED(GamePlugin::on_register(ioc));
+        rtti_type<TestWindowMain>();
+        return WG_OK;
     }
 
     Status on_init() override {
@@ -97,66 +125,77 @@ public:
         auto atlas = m_engine->asset_manager()->load(SID("editor/icons/atlas")).cast<IconAtlas>();
         auto icon  = atlas->try_find_icon(SID("general_redo")).value();
 
-        auto editor_style = m_engine->asset_manager()->load(SID("editor/styles/dark")).cast<UiStyle>();
+        // auto button_save      = make_ref<UiButton>();
+        // button_save->label    = "save style";
+        // button_save->icon     = icon;
+        // button_save->on_click = [e = m_engine]() {
+        //     WG_LOG_INFO("saved!");
 
-        auto button_save      = make_ref<UiButton>();
-        button_save->label    = "save style";
-        button_save->icon     = icon;
-        button_save->on_click = [e = m_engine]() {
-            WG_LOG_INFO("saved!");
+        //     IoYamlTree tree;
+        //     IoContext  ctx;
 
-            IoYamlTree tree;
-            IoContext  ctx;
+        //     tree.create_tree();
 
-            tree.create_tree();
+        //     auto s      = e->ui_manager()->get_style();
+        //     auto status = s->write_to_tree(ctx, tree);
 
-            auto s      = e->ui_manager()->get_style();
-            auto status = s->write_to_tree(ctx, tree);
+        //     std::string str;
+        //     tree.save_tree(str);
 
-            std::string str;
-            tree.save_tree(str);
+        //     e->file_system()->save_file("style.yml", str);
+        // };
 
-            e->file_system()->save_file("style.yml", str);
-        };
+        // auto button_load      = make_ref<UiButton>();
+        // button_load->label    = "load style";
+        // button_load->icon     = icon;
+        // button_load->on_click = [e = m_engine, editor_style]() {
+        //     WG_LOG_INFO("loaded!");
 
-        auto button_load      = make_ref<UiButton>();
-        button_load->label    = "load style";
-        button_load->icon     = icon;
-        button_load->on_click = [e = m_engine, editor_style]() {
-            WG_LOG_INFO("loaded!");
+        //     IoYamlTree tree;
+        //     IoContext  ctx;
 
-            IoYamlTree tree;
-            IoContext  ctx;
+        //     auto status = tree.parse_file(e->file_system(), "style.yml");
 
-            auto status = tree.parse_file(e->file_system(), "style.yml");
+        //     auto s = make_ref<UiStyle>();
+        //     s->set_id(SID("loaded_style"));
+        //     s->read_from_tree(ctx, tree);
 
-            auto s = make_ref<UiStyle>();
-            s->set_id(SID("loaded_style"));
-            s->read_from_tree(ctx, tree);
+        //     e->ui_manager()->set_style(s);
+        // };
 
-            e->ui_manager()->set_style(s);
-        };
+        // auto header  = make_ref<UiText>();
+        // header->text = "ELEMENTS";
 
-        auto header  = make_ref<UiText>();
-        header->text = "ELEMENTS";
+        // auto panel    = make_ref<UiCollapsingPanel>();
+        // panel->header = header;
+        // panel->children.push_back(button_save);
+        // panel->children.push_back(button_load);
+        // panel->sub_style = SID("header");
 
-        auto panel                 = make_ref<UiCollapsingPanel>();
-        panel->header              = header;
-        panel->children.add_slot() = button_save;
-        panel->children.add_slot() = button_load;
-        panel->sub_style           = SID("header");
+        // auto dock_window       = make_ref<UiDockWindow>();
+        // dock_window->title     = "Properties";
+        // dock_window->sub_style = SID("panel");
+        // dock_window->content   = panel;
 
-        auto window   = make_ref<UiMainWindow>();
-        window->title = "Wmoge Editor";
+        // auto dock_space  = make_ref<UiDockSpace>();
+        // dock_space->name = "dock_space";
+        // dock_space->children.push_back(dock_window);
 
-        auto dock_window       = make_ref<UiDockWindow>();
-        dock_window->title     = "Wmoge Sub-Editor";
-        dock_window->sub_style = SID("panel");
-        dock_window->panel     = panel;
+        // auto window     = make_ref<UiMainWindow>();
+        // window->title   = "Wmoge Editor";
+        // window->content = dock_space;
 
-        m_engine->ui_manager()->set_main_window(window);
-        m_engine->ui_manager()->add_dock_window(dock_window);
-        m_engine->ui_manager()->set_style(editor_style);
+        auto style  = m_engine->asset_manager()->load(SID("editor/styles/dark.style")).cast<UiStyle>();
+        auto markup = m_engine->asset_manager()->load(SID("editor/views/window_main.xml")).cast<UiMarkup>();
+
+        Ref<UiElement>      window;
+        Ref<TestWindowMain> bindable = make_ref<TestWindowMain>();
+
+        UiBinder binder(window, markup, bindable);
+        WG_CHECKED(binder.bind());
+
+        m_engine->ui_manager()->set_main_window(window.cast<UiMainWindow>());
+        m_engine->ui_manager()->set_style(style);
 
         WG_LOG_INFO("init");
         return WG_OK;
@@ -167,24 +206,29 @@ public:
 
         Engine* engine = m_engine;
 
-        auto view = Math3d::look_at(Vec3f(0, 0, 0), Vec3f(0, 0, 1), Vec3f(0, 1, 0));
-        auto proj = Math3d::perspective(Math::deg_to_rad(90.0f), 128.0f / 72.0f, 0.001f, 1000.0f);
+        Ref<Window> window = engine->window_manager()->get_primary_window();
+        auto        size   = window->fbo_size();
 
-        aux_draw->set_screen_size(Vec2f(1280, 720));
+        if (size[0] <= 0 || size[1] <= 0) {
+            return;
+        }
+
+        auto view = Math3d::look_at(Vec3f(0, 0, 0), Vec3f(0, 0, 1), Vec3f(0, 1, 0));
+        auto proj = Math3d::perspective(Math::deg_to_rad(90.0f), float(size[0]) / float(size[1]), 0.001f, 1000.0f);
+
+        aux_draw->set_screen_size(Vec2f(float(size[0]), float(size[1])));
         aux_draw->set_font(font);
         aux_draw->draw_text_2d("frame id: " + std::to_string(engine->time()->get_iteration()), Vec2f(10, 30), 20.0f, Color::WHITE4f);
         aux_draw->draw_text_2d("scene: <" + scene->get_name().str() + ">", Vec2f(10, 10), 20.f, Color::YELLOW4f);
         aux_draw->draw_box(Vec3f(0, 0, 8.0f), Vec3f(2, 2, 2), Color::RED4f, Quatf::rotation(Vec3f::axis_y(), angle));
         aux_draw->draw_box(Vec3f(0, 0, 8.0f), Vec3f(2, 2, 2), Color::WHITE4f, Quatf::rotation(Vec3f::axis_y(), angle), false);
 
-        Ref<Window> window = engine->window_manager()->get_primary_window();
-
-        RdgTexture* color = rdg_graph->create_texture(GfxTextureDesc::make_2d(GfxFormat::RGBA8, 1280, 720, {GfxTexUsageFlag::ColorTarget, GfxTexUsageFlag::Sampling, GfxTexUsageFlag::Storage}), SIDDBG(""));
-        RdgTexture* depth = rdg_graph->create_texture(GfxTextureDesc::make_2d(GfxFormat::DEPTH32F_STENCIL8, 1280, 720, {GfxTexUsageFlag::DepthStencilTarget}), SIDDBG(""));
+        RdgTexture* color = rdg_graph->create_texture(GfxTextureDesc::make_2d(GfxFormat::RGBA8, size[0], size[1], {GfxTexUsageFlag::ColorTarget, GfxTexUsageFlag::Sampling, GfxTexUsageFlag::Storage}), SIDDBG(""));
+        RdgTexture* depth = rdg_graph->create_texture(GfxTextureDesc::make_2d(GfxFormat::DEPTH32F_STENCIL8, size[0], size[1], {GfxTexUsageFlag::DepthStencilTarget}), SIDDBG(""));
 
         ShaderFuncs::fill(*rdg_graph, SIDDBG("clear"), color, Color::BLACK4f, engine->shader_table());
         aux_draw->flush(engine->time()->get_delta_time());
-        aux_draw->render(*rdg_graph, color, depth, Rect2i{0, 0, 1280, 720}, 2.2f, proj * view, engine->shader_table(), engine->texture_manager());
+        aux_draw->render(*rdg_graph, color, depth, Rect2i{0, 0, size[0], size[1]}, 2.2f, proj * view, engine->shader_table(), engine->texture_manager());
 
         m_engine->ui_manager()->update(m_engine->time()->get_iteration());
         m_engine->ui_manager()->render(*rdg_graph, color);

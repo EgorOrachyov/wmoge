@@ -131,17 +131,26 @@ namespace wmoge {
      */
     class Icon {
     public:
-        Icon() = default;
-        Icon(Ref<IconAtlas> atlas, int id);
+        WG_RTTI_STRUCT(Icon)
 
-        [[nodiscard]] const Ref<IconAtlas>& get_atlas() const { return m_atlas; }
-        [[nodiscard]] const IconInfo&       get_info() const { return m_atlas->get_icon_info(m_id); }
-        [[nodiscard]] int                   get_id() const { return m_id; }
-        [[nodiscard]] bool                  is_empty() const { return !m_atlas; }
+        Icon() = default;
+        Icon(AssetRef<IconAtlas> atlas, int id);
+
+        [[nodiscard]] const AssetRef<IconAtlas>& get_atlas() const { return m_atlas; }
+        [[nodiscard]] const IconInfo&            get_info() const { return m_atlas->get_icon_info(m_id); }
+        [[nodiscard]] int                        get_id() const { return m_id; }
+        [[nodiscard]] bool                       is_empty() const { return !m_atlas; }
 
     private:
-        Ref<IconAtlas> m_atlas;
-        int            m_id = -1;
+        AssetRef<IconAtlas> m_atlas;
+        int                 m_id = -1;
     };
+
+    WG_RTTI_STRUCT_BEGIN(Icon) {
+        WG_RTTI_META_DATA({});
+        WG_RTTI_FIELD(m_atlas, {});
+        WG_RTTI_FIELD(m_id, {});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

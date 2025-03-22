@@ -158,7 +158,8 @@ namespace wmoge {
         m_time->tick();
         m_frame_id = m_time->get_iteration();
 
-        auto windows = m_window_manager->get_windows();
+        buffered_vector<Ref<Window>> windows;
+        windows.push_back(m_window_manager->get_primary_window());
 
         if (m_exit_on_close) {
             for (const WindowEvent& event : m_window_manager->get_window_events()) {

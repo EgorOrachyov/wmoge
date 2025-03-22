@@ -35,7 +35,7 @@
 namespace wmoge {
 
     RttiClass::RttiClass(Strid name, std::size_t byte_size, RttiClass* parent)
-        : RttiStruct(name, byte_size, parent) {
+        : RttiStruct(name, byte_size, parent, RttiArchetype::Class) {
         m_parent_class = parent;
 
         if (parent) {

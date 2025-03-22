@@ -1,5 +1,5 @@
 set(PLUGIN_NAME imgui_plugin)
-set(PLUGIN_DEPENDENCIES wmoge imgui)    
+set(PLUGIN_DEPENDENCIES imgui)    
 file(GLOB_RECURSE PLUGIN_SOURCES ${CMAKE_CURRENT_LIST_DIR}/*.cpp ${CMAKE_CURRENT_LIST_DIR}/*.hpp)
 
 wmoge_plugin(${PLUGIN_NAME} 

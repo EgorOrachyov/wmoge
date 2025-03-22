@@ -60,7 +60,7 @@ namespace wmoge {
         ~VKWindow() override;
 
         void                init();
-        void                acquire_next();
+        bool                acquire_next();
         void                get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const;
         Ref<GfxFrameBuffer> get_or_create_frame_buffer(const GfxFrameBufferDesc& desc, const Strid& name);
 
@@ -71,7 +71,6 @@ namespace wmoge {
         [[nodiscard]] VkSemaphore                            acquire_semaphore() const { return m_acquire_semaphore[m_semaphore_index]; }
         [[nodiscard]] VkSemaphore                            present_semaphore() const { return m_present_semaphore[m_semaphore_index]; }
 
-        [[nodiscard]] int      version() const { return m_version; }
         [[nodiscard]] int      width() const { return int(m_extent.width); }
         [[nodiscard]] int      height() const { return int(m_extent.height); }
         [[nodiscard]] uint32_t current() const { return m_current; }
@@ -107,7 +106,6 @@ namespace wmoge {
 
         uint32_t m_image_count     = 0;
         uint32_t m_current         = 0;
-        int      m_version         = -1;
         int      m_semaphore_index = 0;
         bool     m_use_vsync       = true;
 

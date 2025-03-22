@@ -25,33 +25,51 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "icon.hpp"
+#include "ui_markup_asset_loader.hpp"
+
+#include "asset/ui_markup_xml_parser.hpp"
+#include "core/ioc_container.hpp"
+#include "profiler/profiler_cpu.hpp"
+#include "rtti/type_storage.hpp"
+#include "ui/ui_bindable.hpp"
+
+#include <cassert>
 
 namespace wmoge {
 
-    void IconAtlas::set_desc(IconAtlasDesc desc) {
-        m_desc = std::move(desc);
-    }
-
-    const IconInfo& IconAtlas::get_icon_info(int id) const {
-        return m_desc.icons[id];
-    }
-
-    const IconAtlasPage& IconAtlas::get_page(int id) const {
-        return m_desc.pages[id];
-    }
-
-    std::optional<class Icon> IconAtlas::try_find_icon(Strid name) {
-        auto query = m_desc.icons_map.find(name);
-        if (query != m_desc.icons_map.end()) {
-            return Icon(Ref<IconAtlas>(this), query->second);
+    Status UiMarkupAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
+        Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
+        if (!import_data) {
+            WG_LOG_ERROR("no import data to load " << asset_id);
+            return StatusCode::InvalidData;
         }
-        return std::nullopt;
+        if (!import_data->has_soruce_files()) {
+            WG_LOG_ERROR("no source file " << asset_id);
+            return StatusCode::InvalidData;
+        }
+        request.add_data_file(FILE_TAG, import_data->source_files[0].file);
+        return WG_OK;
     }
 
-    Icon::Icon(AssetRef<IconAtlas> atlas, int id)
-        : m_atlas(std::move(atlas)),
-          m_id(id) {
+    Status UiMarkupAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<UiMarkup>& asset) {
+        WG_PROFILE_CPU_ASSET("UiMarkupAssetLoader::load_typed");
+
+        Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
+        assert(import_data);
+
+        auto         file_content = result.get_data_file(FILE_TAG);
+        auto*        ioc          = context.ioc;
+        auto*        type_storage = ioc->resolve_value<RttiTypeStorage>();
+        UiMarkupDecs desc;
+
+        UiMarkupParser parser(asset_id.sid(), desc, file_content, type_storage);
+        WG_CHECKED(parser.parse());
+
+        asset = make_ref<UiMarkup>();
+        asset->set_id(asset_id);
+        asset->set_desc(std::move(desc));
+
+        return WG_OK;
     }
 
 }// namespace wmoge

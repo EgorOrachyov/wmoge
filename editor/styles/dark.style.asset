@@ -1,0 +1,21 @@
+# Wmoge asset meta file
+version: 1
+uuid: 0
+loader: DefaultAssetLoader
+rtti: UiStyle
+deps: 
+  - "editor/fonts/roboto_light.ttf"
+  - "editor/fonts/roboto_regular.ttf"
+  - "editor/fonts/roboto_medium.ttf"
+  - "editor/fonts/roboto_black.ttf"
+  - "editor/fonts/roboto_bold.ttf"
+  - "editor/fonts/roboto_bold_small.ttf"
+  - "editor/fonts/roboto_italic.ttf"
+  - "editor/fonts/roboto_light_italic.ttf"
+  - "editor/fonts/roboto_medium_italic.ttf"
+  - "editor/fonts/roboto_black_italic.ttf"
+  - "editor/fonts/roboto_bold_italic.ttf"
+description: "default dark style"
+import_data:
+  rtti: AssetImportData
+  source_files: [{file: "editor/styles/dark.style"}]

@@ -101,6 +101,7 @@
         "**/*.asset": "yaml",
         "**/*.shader": "yaml",
         "**/*.scene": "yaml",
+        "**/*.style": "yaml",
         "*.moc": "cpp",
         "coroutine": "cpp",
         "resumable": "cpp",

@@ -38,12 +38,12 @@ namespace wmoge {
     }
 
     void imgui_process_text(ImguiProcessor& processor, UiText& element) {
-        ImGui::TextUnformatted(element.text.get().c_str());
+        ImGui::TextUnformatted(element.text.c_str());
     }
 
     void imgui_process_text_wrapped(ImguiProcessor& processor, UiTextWrapped& element) {
         ImGui::PushTextWrapPos();
-        ImGui::TextUnformatted(element.text.get().c_str());
+        ImGui::TextUnformatted(element.text.c_str());
         ImGui::PopTextWrapPos();
     }
 

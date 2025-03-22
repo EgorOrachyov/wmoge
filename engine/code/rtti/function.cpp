@@ -25,33 +25,47 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "icon.hpp"
+#include "function.hpp"
 
 namespace wmoge {
 
-    void IconAtlas::set_desc(IconAtlasDesc desc) {
-        m_desc = std::move(desc);
-    }
-
-    const IconInfo& IconAtlas::get_icon_info(int id) const {
-        return m_desc.icons[id];
-    }
-
-    const IconAtlasPage& IconAtlas::get_page(int id) const {
-        return m_desc.pages[id];
-    }
-
-    std::optional<class Icon> IconAtlas::try_find_icon(Strid name) {
-        auto query = m_desc.icons_map.find(name);
-        if (query != m_desc.icons_map.end()) {
-            return Icon(Ref<IconAtlas>(this), query->second);
+    void RttiParamInfo::print_param(std::stringstream& function_name) const {
+        if (!type) {
+            function_name << "void";
+            return;
         }
-        return std::nullopt;
+        if (is_const) {
+            function_name << "const ";
+        }
+
+        function_name << type->get_str();
+
+        if (is_ptr) {
+            function_name << "*";
+        }
+        if (is_ref) {
+            function_name << "&";
+        }
+        if (!name.empty()) {
+            function_name << " ";
+            function_name << name.str();
+        }
     }
 
-    Icon::Icon(AssetRef<IconAtlas> atlas, int id)
-        : m_atlas(std::move(atlas)),
-          m_id(id) {
+    Strid RttiTypeFunction::make_signature(array_view<const RttiParamInfo> args, const RttiParamInfo& ret) {
+        std::stringstream signature;
+
+        ret.print_param(signature);
+        signature << "(";
+
+        for (const auto& arg : args) {
+            arg.print_param(signature);
+            signature << ",";
+        }
+
+        signature << ")";
+
+        return Strid(signature.str());
     }
 
 }// namespace wmoge

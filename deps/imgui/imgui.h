@@ -1701,6 +1701,7 @@ enum ImGuiCol_
     ImGuiCol_TitleBgActive,         // Title bar when focused
     ImGuiCol_TitleBgCollapsed,      // Title bar when collapsed
     ImGuiCol_MenuBarBg,
+    ImGuiCol_MenuBarBorder,
     ImGuiCol_ScrollbarBg,
     ImGuiCol_ScrollbarGrab,
     ImGuiCol_ScrollbarGrabHovered,
@@ -2224,6 +2225,7 @@ struct ImGuiStyle
     ImVec2      FramePadding;               // Padding within a framed rectangle (used by most widgets).
     float       FrameRounding;              // Radius of frame corners rounding. Set to 0.0f to have rectangular frame (used by most widgets).
     float       FrameBorderSize;            // Thickness of border around frames. Generally set to 0.0f or 1.0f. (Other values are not well tested and more CPU/GPU costly).
+    float       MenuItemTabSize;			// Tabbing of menu items (menu item and sub menu elements). Set to 0.0f to do no tab
     ImVec2      ItemSpacing;                // Horizontal and vertical spacing between widgets/lines.
     ImVec2      ItemInnerSpacing;           // Horizontal and vertical spacing between within elements of a composed widget (e.g. a slider and its label).
     ImVec2      CellPadding;                // Padding within a table cell. Cellpadding.x is locked for entire table. CellPadding.y may be altered between different rows.

@@ -25,33 +25,38 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "icon.hpp"
+#include "core/array_view.hpp"
+#include "core/string_utils.hpp"
+#include "rtti/type_storage.hpp"
+#include "ui/ui_bindable.hpp"
+#include "ui/ui_element.hpp"
+
+#include <tinyxml2.hpp>
 
 namespace wmoge {
 
-    void IconAtlas::set_desc(IconAtlasDesc desc) {
-        m_desc = std::move(desc);
-    }
+    /**
+     * @class UiMarkupParser
+     * @brief Parses xml markup document into a ui markup desc object
+     */
+    class UiMarkupParser {
+    public:
+    public:
+        UiMarkupParser(Strid name, UiMarkupDecs& desc, array_view<const std::uint8_t> xml_buffer, RttiTypeStorage* type_storage);
 
-    const IconInfo& IconAtlas::get_icon_info(int id) const {
-        return m_desc.icons[id];
-    }
+        [[nodiscard]] Status parse();
 
-    const IconAtlasPage& IconAtlas::get_page(int id) const {
-        return m_desc.pages[id];
-    }
+    private:
+        [[nodiscard]] Status parse_element(tinyxml2::XMLElement* xml_node, UiMarkupElement& out);
+        [[nodiscard]] Status parse_slot(tinyxml2::XMLElement* xml_slot, const std::string& slot_name, UiMarkupSlot& out, RttiClass* cls);
+        [[nodiscard]] Status parse_attribute(const tinyxml2::XMLAttribute* xml_attribute, UiMarkupAttribute& out, RttiClass* cls);
 
-    std::optional<class Icon> IconAtlas::try_find_icon(Strid name) {
-        auto query = m_desc.icons_map.find(name);
-        if (query != m_desc.icons_map.end()) {
-            return Icon(Ref<IconAtlas>(this), query->second);
-        }
-        return std::nullopt;
-    }
-
-    Icon::Icon(AssetRef<IconAtlas> atlas, int id)
-        : m_atlas(std::move(atlas)),
-          m_id(id) {
-    }
+    private:
+        Strid                          m_name;
+        UiMarkupDecs&                  m_desc;
+        tinyxml2::XMLDocument          m_document;
+        array_view<const std::uint8_t> m_xml_buffer;
+        RttiTypeStorage*               m_type_storage;
+    };
 
 }// namespace wmoge

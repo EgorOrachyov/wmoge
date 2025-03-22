@@ -27,7 +27,6 @@
 
 #pragma once
 
-#include "ui/ui_attribute.hpp"
 #include "ui/ui_content.hpp"
 #include "ui/ui_element.hpp"
 
@@ -39,12 +38,20 @@ namespace wmoge {
      */
     class UiContextMenu : public UiElement {
     public:
+        WG_RTTI_CLASS(UiContextMenu, UiElement);
+
         UiContextMenu() : UiElement(UiElementType::ContextMenu) {}
 
-        using Slot = UiSlot<UiSubElement>;
+        using Slot = Ref<UiSubElement>;
 
-        UiSlots<Slot> children;
+        std::vector<Slot> children;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiContextMenu) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(children, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiMenu
@@ -52,14 +59,24 @@ namespace wmoge {
      */
     class UiMenu : public UiSubElement {
     public:
+        WG_RTTI_CLASS(UiMenu, UiSubElement);
+
         UiMenu() : UiSubElement(UiElementType::Menu) {}
 
-        using Slot = UiSlot<UiSubElement>;
+        using Slot = Ref<UiSubElement>;
 
-        UiAttribute<std::string> label;
-        UiAttribute<bool>        enabled{true};
-        UiSlots<Slot>            children;
+        std::string       name;
+        bool              enabled{true};
+        std::vector<Slot> children;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiMenu) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(enabled, {});
+        WG_RTTI_FIELD(children, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiPopup
@@ -67,14 +84,24 @@ namespace wmoge {
      */
     class UiPopup : public UiElement {
     public:
+        WG_RTTI_CLASS(UiPopup, UiElement);
+
         UiPopup() : UiElement(UiElementType::Popup) {}
 
-        using Slot = UiSlot<UiSubElement>;
+        using Slot = Ref<UiSubElement>;
 
-        UiAttribute<std::string> name;
-        UiAttribute<bool>        should_show{false};
-        UiSlots<Slot>            children;
+        std::string       name;
+        bool              should_show{false};
+        std::vector<Slot> children;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiPopup) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(should_show, {});
+        WG_RTTI_FIELD(children, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiCompletionPopup
@@ -82,14 +109,24 @@ namespace wmoge {
      */
     class UiCompletionPopup : public UiElement {
     public:
+        WG_RTTI_CLASS(UiCompletionPopup, UiElement);
+
         UiCompletionPopup() : UiElement(UiElementType::CompletionPopup) {}
 
-        using Slot = UiSlot<UiSubElement>;
+        using Slot = Ref<UiSubElement>;
 
-        UiAttribute<std::string> name;
-        UiAttribute<bool>        should_show{false};
-        UiSlots<Slot>            children;
+        std::string       name;
+        bool              should_show{false};
+        std::vector<Slot> children;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiCompletionPopup) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(should_show, {});
+        WG_RTTI_FIELD(children, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiModal
@@ -97,14 +134,24 @@ namespace wmoge {
      */
     class UiModal : public UiElement {
     public:
+        WG_RTTI_CLASS(UiModal, UiElement);
+
         UiModal() : UiElement(UiElementType::Modal) {}
 
-        using Slot = UiSlot<UiSubElement>;
+        using Slot = Ref<UiSubElement>;
 
-        UiAttribute<std::string> name;
-        UiAttribute<bool>        should_close{false};
-        UiSlots<Slot>            children;
+        std::string       name;
+        bool              should_show{false};
+        std::vector<Slot> children;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiModal) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(should_show, {});
+        WG_RTTI_FIELD(children, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiPanel
@@ -112,11 +159,19 @@ namespace wmoge {
      */
     class UiPanel : public UiSubElement {
     public:
-        using UiSubElement::UiSubElement;
-        using Slot = UiSlot<UiSubElement>;
+        WG_RTTI_CLASS(UiPanel, UiSubElement);
 
-        UiSlots<Slot> children;
+        using UiSubElement::UiSubElement;
+        using Slot = Ref<UiSubElement>;
+
+        std::vector<Slot> children;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiPanel) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(children, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiStackPanel
@@ -124,11 +179,20 @@ namespace wmoge {
      */
     class UiStackPanel : public UiPanel {
     public:
+        WG_RTTI_CLASS(UiStackPanel, UiPanel);
+
         UiStackPanel() : UiPanel(UiElementType::StackPanel) {}
 
-        UiAttribute<std::string>   name;
-        UiAttribute<UiOrientation> orientation{UiOrientation::Vertical};
+        std::string   name;
+        UiOrientation orientation{UiOrientation::Vertical};
     };
+
+    WG_RTTI_CLASS_BEGIN(UiStackPanel) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(orientation, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiScrollPanel
@@ -136,17 +200,32 @@ namespace wmoge {
      */
     class UiScrollPanel : public UiPanel {
     public:
+        WG_RTTI_CLASS(UiScrollPanel, UiPanel);
+
         UiScrollPanel() : UiPanel(UiElementType::ScrollPanel) {}
 
-        UiAttribute<std::string> name;
-        UiAttributeOpt<float>    scroll_value_x;
-        UiAttributeOpt<float>    scroll_value_y;
-        UiAttributeOpt<float>    area_portion_x;
-        UiAttributeOpt<float>    area_portion_y;
-        UiAttribute<bool>        has_border{false};
-        UiAttribute<bool>        allow_resize{false};
-        UiAttribute<UiScroll>    scroll_type{UiScroll::Vertical};
+        std::string          name;
+        std::optional<float> scroll_value_x;
+        std::optional<float> scroll_value_y;
+        std::optional<float> area_portion_x;
+        std::optional<float> area_portion_y;
+        bool                 has_border{false};
+        bool                 allow_resize{false};
+        UiScroll             scroll_type{UiScroll::Vertical};
     };
+
+    WG_RTTI_CLASS_BEGIN(UiScrollPanel) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(scroll_value_x, {});
+        WG_RTTI_FIELD(scroll_value_y, {});
+        WG_RTTI_FIELD(area_portion_x, {});
+        WG_RTTI_FIELD(area_portion_y, {});
+        WG_RTTI_FIELD(has_border, {});
+        WG_RTTI_FIELD(allow_resize, {});
+        WG_RTTI_FIELD(scroll_type, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class UiCollapsingPanel
@@ -154,10 +233,19 @@ namespace wmoge {
      */
     class UiCollapsingPanel : public UiPanel {
     public:
+        WG_RTTI_CLASS(UiCollapsingPanel, UiPanel);
+
         UiCollapsingPanel() : UiPanel(UiElementType::CollapsingPanel) {}
 
-        UiSlot<UiText>    header;
-        UiAttribute<bool> default_open{true};
+        Ref<UiText> header;
+        bool        default_open{true};
     };
+
+    WG_RTTI_CLASS_BEGIN(UiCollapsingPanel) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(header, {});
+        WG_RTTI_FIELD(default_open, {});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

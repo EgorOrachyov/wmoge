@@ -1,5 +1,5 @@
 set(PLUGIN_NAME assimp_plugin)
-set(PLUGIN_DEPENDENCIES wmoge assimp)    
+set(PLUGIN_DEPENDENCIES assimp)    
 file(GLOB_RECURSE PLUGIN_SOURCES ${CMAKE_CURRENT_LIST_DIR}/*.cpp ${CMAKE_CURRENT_LIST_DIR}/*.hpp)
 
 wmoge_plugin(${PLUGIN_NAME} 

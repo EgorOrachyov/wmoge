@@ -410,10 +410,11 @@ namespace wmoge {
 
         for (auto& window : windows) {
             auto vk_window = m_window_manager->get_or_create(window);
-            vk_window->acquire_next();
-            cmd->barrier(vk_window->color()[vk_window->current()].get(), GfxTexBarrierType::Undefined, GfxTexBarrierType::RenderTarget);
-            cmd->barrier(vk_window->depth_stencil().get(), GfxTexBarrierType::Undefined, GfxTexBarrierType::RenderTarget);
-            m_to_present.push_back(vk_window);
+            if (vk_window->acquire_next()) {
+                cmd->barrier(vk_window->color()[vk_window->current()].get(), GfxTexBarrierType::Undefined, GfxTexBarrierType::RenderTarget);
+                cmd->barrier(vk_window->depth_stencil().get(), GfxTexBarrierType::Undefined, GfxTexBarrierType::RenderTarget);
+                m_to_present.push_back(vk_window);
+            }
         }
 
         cmd->flush_barriers();
@@ -499,7 +500,7 @@ namespace wmoge {
         m_cmd_manager->submit(GfxQueueType::Graphics, cmd->get_handle(), {}, {}, m_sync_fence);
         m_cmd_manager->flush(queue_wait, queue_signal);
 
-        if (swap_buffers) {
+        if (swap_buffers && !m_to_present.empty()) {
             buffered_vector<VkSwapchainKHR> swapchains;
             buffered_vector<uint32_t>       image_indices;
 

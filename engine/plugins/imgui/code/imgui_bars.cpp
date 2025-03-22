@@ -30,9 +30,9 @@
 namespace wmoge {
 
     void imgui_process_menu_bar(ImguiProcessor& processor, UiMenuBar& bar) {
-        if (ImGui::BeginMainMenuBar()) {
+        if (ImGui::BeginMenuBar()) {
             processor.process(bar.children);
-            ImGui::EndMainMenuBar();
+            ImGui::EndMenuBar();
         }
     }
 

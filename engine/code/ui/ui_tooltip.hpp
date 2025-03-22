@@ -28,7 +28,6 @@
 #pragma once
 
 #include "core/ref.hpp"
-#include "ui/ui_attribute.hpp"
 #include "ui/ui_element.hpp"
 
 #include <string>
@@ -41,10 +40,19 @@ namespace wmoge {
      */
     class UiToolTip : public UiElement {
     public:
+        WG_RTTI_CLASS(UiToolTip, UiElement);
+
         UiToolTip() : UiElement(UiElementType::ToolTip) {}
 
-        UiAttribute<std::string> text;
-        UiSlot<UiSubElement>     content;
+        std::string       text;
+        Ref<UiSubElement> content;
     };
+
+    WG_RTTI_CLASS_BEGIN(UiToolTip) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(text, {});
+        WG_RTTI_FIELD(content, {});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

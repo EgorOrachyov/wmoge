@@ -37,4 +37,6 @@ namespace wmoge {
 
     void imgui_process_dock_window(ImguiProcessor& processor, UiDockWindow& window);
 
+    void imgui_process_dock_space(ImguiProcessor& processor, UiDockSpace& dock_space);
+
 }// namespace wmoge

@@ -1,7 +1,7 @@
 m_desc:
   alpha: 1
   disabled_alpha: 0.6
-  window_padding: 16 10
+  window_padding: 6 8
   window_rounding: 0
   window_border_size: 0
   window_min_size: 32 32
@@ -10,15 +10,16 @@ m_desc:
   child_rounding: 0
   child_border_size: 2
   popup_rounding: 0
-  popup_border_size: 0
+  popup_border_size: 1
   frame_padding: 18 6
   frame_rounding: 6
   frame_border_size: 3
+  menu_item_tab_size: 36
   item_spacing: 20 12
   item_inner_spacing: 8 4
   cell_padding: 16 10
   touch_extra_padding: 0 0
-  indent_spacing: 15
+  indent_spacing: 30
   columns_min_spacing: 6
   scrollbar_size: 20
   scrollbar_rounding: 12
@@ -35,12 +36,12 @@ m_desc:
   color_button_position: Right
   button_text_align: 0.5 0.5
   selectable_text_align: 0 0
-  separator_text_border_size: 4
-  separator_text_align: 0.5 0.5
-  separator_text_padding: 10 10
+  separator_text_border_size: 3
+  separator_text_align: 0 0.5
+  separator_text_padding: 10 6
   display_window_padding: 19 19
   display_safe_area_padding: 3 3
-  docking_separator_size: 0
+  docking_separator_size: 2
   mouse_cursor_scale: 1
   anti_aliased_lines: 1
   anti_aliased_lines_use_tex: 1
@@ -125,6 +126,8 @@ m_desc:
     - type: TitleBgCollapsed
       value: color_2
     - type: MenuBarBg
+      value: color_2
+    - type: MenuBarBorder
       value: color_2
     - type: ScrollbarBg
       value: color_3
@@ -222,25 +225,27 @@ m_desc:
       value: color_17
   fonts:
     - tag: regular
-      file: "editor/fonts/roboto_regular"
+      file: "editor/fonts/roboto_regular.ttf"
     - tag: light
-      file: "editor/fonts/roboto_light"
+      file: "editor/fonts/roboto_light.ttf"
     - tag: medium
-      file: "editor/fonts/roboto_medium"
+      file: "editor/fonts/roboto_medium.ttf"
     - tag: black
-      file: "editor/fonts/roboto_black"
+      file: "editor/fonts/roboto_black.ttf"
     - tag: bold
-      file: "editor/fonts/roboto_bold"
+      file: "editor/fonts/roboto_bold.ttf"
+    - tag: bold_small
+      file: "editor/fonts/roboto_bold_small.ttf"
     - tag: italic
-      file: "editor/fonts/roboto_italic"
+      file: "editor/fonts/roboto_italic.ttf"
     - tag: light_italic
-      file: "editor/fonts/roboto_light_italic"
+      file: "editor/fonts/roboto_light_italic.ttf"
     - tag: medium_italic
-      file: "editor/fonts/roboto_medium_italic"
+      file: "editor/fonts/roboto_medium_italic.ttf"
     - tag: black_italic
-      file: "editor/fonts/roboto_black_italic"
+      file: "editor/fonts/roboto_black_italic.ttf"
     - tag: bold_italic
-      file: "editor/fonts/roboto_bold_italic"
+      file: "editor/fonts/roboto_bold_italic.ttf"
   sub_styles:
     - key: panel
       value:
@@ -250,3 +255,9 @@ m_desc:
     - key: header
       value:
         font: bold
+    - key: separator
+      value:
+        font: bold_small
+        colors:
+          - type: Text
+            value: color_10

@@ -43,15 +43,32 @@
 
 namespace wmoge {
 
+    /** @brief Rtti archetype of reflected type */
+    enum class RttiArchetype {
+        Fundamental = 0,
+        Vec,
+        Mask,
+        Bitset,
+        Ref,
+        Optional,
+        Vector,
+        Set,
+        Map,
+        Pair,
+        Function,
+        Enum,
+        Struct,
+        Class
+    };
+
     /**
      * @class RttiType
      * @brief Base class for any rtti system type for a reflection
     */
     class RttiType : public RefCnt {
     public:
-        RttiType(Strid name, std::size_t byte_size) {
-            m_name      = name;
-            m_byte_size = byte_size;
+        RttiType(Strid name, std::size_t byte_size, RttiArchetype archetype = RttiArchetype::Fundamental)
+            : m_name(name), m_byte_size(byte_size), m_archetype(archetype) {
         }
 
         ~RttiType() override = default;
@@ -66,19 +83,19 @@ namespace wmoge {
         virtual Status read_from_stream(void* dst, IoStream& stream, IoContext& context) const { return StatusCode::NotImplemented; }
         virtual Status write_to_stream(const void* src, IoStream& stream, IoContext& context) const { return StatusCode::NotImplemented; }
         virtual Status to_string(const void* src, std::stringstream& s) const { return StatusCode::NotImplemented; }
-        virtual Status add_element(void* src) const { return StatusCode::NotImplemented; }
-        virtual Status remove_element(void* src, int index) const { return StatusCode::NotImplemented; }
-        virtual bool   is_listable() const { return false; }
+        virtual bool   archetype_is(RttiArchetype ar) const { return ar == m_archetype; }
 
         [[nodiscard]] const Strid&        get_name() const { return m_name; }
         [[nodiscard]] const std::string&  get_str() const { return m_name.str(); }
         [[nodiscard]] std::size_t         get_byte_size() const { return m_byte_size; }
         [[nodiscard]] const RttiMetaData& get_meta_data() const { return m_meta_data; }
+        [[nodiscard]] RttiArchetype       get_archetype() const { return m_archetype; }
 
     protected:
-        Strid        m_name;
-        std::size_t  m_byte_size = 0;
-        RttiMetaData m_meta_data;
+        Strid         m_name;
+        std::size_t   m_byte_size = 0;
+        RttiMetaData  m_meta_data;
+        RttiArchetype m_archetype;
     };
 
 }// namespace wmoge

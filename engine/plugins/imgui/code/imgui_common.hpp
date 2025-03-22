@@ -29,7 +29,6 @@
 
 #include "core/string_id.hpp"
 #include "math/vec.hpp"
-#include "ui/ui_attribute.hpp"
 #include "ui/ui_defs.hpp"
 
 #include <imgui.h>
@@ -38,12 +37,12 @@
 
 namespace wmoge {
 
-    inline const char* imgui_str(const UiAttribute<std::string>& s) {
-        return s.get().c_str();
+    inline const char* imgui_str(const std::string& s) {
+        return s.c_str();
     }
 
-    inline const char* imgui_str(const UiAttribute<Strid>& s) {
-        return s.get().str().c_str();
+    inline const char* imgui_str(const Strid& s) {
+        return s.str().c_str();
     }
 
     inline ImVec2 imgui_vec2(const Vec2f& v) {

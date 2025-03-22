@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
 #include "core/flat_map.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
@@ -51,6 +52,8 @@ namespace wmoge {
         bool        is_ptr       = false;
         std::size_t stack_size   = 0;
         std::size_t stack_offset = 0;
+
+        void print_param(std::stringstream& function_name) const;
     };
 
     /**
@@ -65,29 +68,30 @@ namespace wmoge {
     using RttiCallable = std::function<Status(RttiFrame& frame, void* p_args_ret)>;
 
     /**
-     * @class RttiFunction
-     * @brief Represents type of something callable with function signature
+     * @class RttiTypeFunction
+     * @brief Base rtti to inspect function like types
     */
-    class RttiFunction : public RefCnt {
+    class RttiTypeFunction : public RttiType {
     public:
-        RttiFunction(Strid name, std::size_t byte_size, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret) {
-            m_name       = name;
-            m_byte_size  = byte_size;
-            m_stack_size = stack_size;
-            m_args       = std::move(args);
-            m_ret        = std::move(ret);
+        RttiTypeFunction(Strid name, std::size_t byte_size, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret)
+            : RttiType(name, byte_size, RttiArchetype::Function),
+              m_stack_size(stack_size),
+              m_args(std::move(args)),
+              m_ret(std::move(ret)) {
+            m_signature = make_signature(m_args, m_ret);
         }
 
-        ~RttiFunction() override = default;
-
-        virtual Status call(RttiFrame& frame, class RttiObject* target, void* p_args_ret) { return StatusCode::NotImplemented; }
+        virtual Status call(RttiFrame& frame, void* target, array_view<std::uint8_t> args_ret) const { return StatusCode::NotImplemented; }
 
         [[nodiscard]] const Strid&                      get_name() const { return m_name; }
+        [[nodiscard]] const Strid&                      get_signature() const { return m_signature; }
         [[nodiscard]] std::size_t                       get_byte_size() const { return m_byte_size; }
         [[nodiscard]] std::size_t                       get_stack_size() const { return m_stack_size; }
         [[nodiscard]] const std::vector<RttiParamInfo>& get_args() const { return m_args; }
         [[nodiscard]] const RttiParamInfo&              get_ret() const { return m_ret; }
         [[nodiscard]] bool                              has_ret() const { return m_ret.type; }
+
+        static Strid make_signature(array_view<const RttiParamInfo> args, const RttiParamInfo& ret);
 
     protected:
         std::vector<RttiParamInfo> m_args;
@@ -95,6 +99,7 @@ namespace wmoge {
         std::size_t                m_byte_size;
         std::size_t                m_stack_size;
         Strid                      m_name;
+        Strid                      m_signature;
     };
 
     /**
@@ -102,9 +107,9 @@ namespace wmoge {
      * @brief Function callable with signal interface
      * 
     */
-    class RttiFunctionSignal : public RttiFunction {
+    class RttiFunctionSignal : public RttiTypeFunction {
     public:
-        RttiFunctionSignal(Strid name, std::size_t byte_size, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret) : RttiFunction(name, byte_size, stack_size, std::move(args), std::move(ret)) {}
+        RttiFunctionSignal(Strid name, std::size_t byte_size, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret) : RttiTypeFunction(name, byte_size, stack_size, std::move(args), std::move(ret)) {}
         ~RttiFunctionSignal() override = default;
 
         virtual Status bind(RttiCallable callable, int& id) { return StatusCode::NotImplemented; }

@@ -51,14 +51,14 @@ namespace wmoge {
     */
     class RttiMethod : public RttiMember {
     public:
-        RttiMethod(Strid name, Ref<RttiFunction> function) : RttiMember(name) {
+        RttiMethod(Strid name, Ref<RttiTypeFunction> function) : RttiMember(name) {
             m_function = std::move(function);
         }
 
-        [[nodiscard]] const Ref<RttiFunction>& get_function() const { return m_function; }
+        [[nodiscard]] const Ref<RttiTypeFunction>& get_function() const { return m_function; }
 
     private:
-        Ref<RttiFunction> m_function;
+        Ref<RttiTypeFunction> m_function;
     };
 
     /**

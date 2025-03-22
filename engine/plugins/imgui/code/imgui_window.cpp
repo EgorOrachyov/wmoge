@@ -32,58 +32,44 @@
 namespace wmoge {
 
     void imgui_process_main_window(ImguiProcessor& processor, UiMainWindow& window) {
-        ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
-        ImGuiWindowFlags   window_flags    = ImGuiWindowFlags_NoDocking;
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking;
 
-        const bool has_menu_bar   = window.menu_bar.has_value();
-        const bool has_tool_bar   = window.tool_bar.has_value();
-        const bool has_status_bar = window.status_bar.has_value();
-        const bool has_panel      = window.panel.has_value();
-        const auto flags          = window.flags.get();
+        const bool has_menu_bar   = window.menu_bar;
+        const bool has_tool_bar   = window.tool_bar;
+        const bool has_status_bar = window.status_bar;
+        const bool has_content    = window.content;
+        const auto flags          = window.flags;
+
+        const ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+        ImGui::SetNextWindowPos(viewport->WorkPos);
+        ImGui::SetNextWindowSize(viewport->WorkSize);
+        ImGui::SetNextWindowViewport(viewport->ID);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+
+        window_flags |= ImGuiWindowFlags_NoCollapse;
+        window_flags |= ImGuiWindowFlags_NoResize;
+        window_flags |= ImGuiWindowFlags_NoMove;
+        window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
+        window_flags |= ImGuiWindowFlags_NoNavFocus;
+        window_flags |= ImGuiWindowFlags_NoTitleBar;
 
         if (has_menu_bar) {
             window_flags |= ImGuiWindowFlags_MenuBar;
-        }
-        if (window.is_fullscreen) {
-            const ImGuiViewport* viewport = ImGui::GetMainViewport();
-
-            ImGui::SetNextWindowPos(viewport->WorkPos);
-            ImGui::SetNextWindowSize(viewport->WorkSize);
-            ImGui::SetNextWindowViewport(viewport->ID);
-            ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-            ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-
-            window_flags |= ImGuiWindowFlags_NoTitleBar;
-            window_flags |= ImGuiWindowFlags_NoCollapse;
-            window_flags |= ImGuiWindowFlags_NoResize;
-            window_flags |= ImGuiWindowFlags_NoMove;
-            window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
-            window_flags |= ImGuiWindowFlags_NoNavFocus;
-        }
-        if (flags.get(UiWindowFlag::NoBackground)) {
-            window_flags |= ImGuiWindowFlags_NoBackground;
-            dockspace_flags |= ImGuiDockNodeFlags_PassthruCentralNode;
-        }
-        if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) {
-            window_flags |= ImGuiWindowFlags_NoBackground;
         }
 
         if (flags.get(UiWindowFlag::NoPadding)) {
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         }
 
-        ImGui::Begin(window.title.get().c_str(), window.is_open.get_ptr(), window_flags);
+        ImGui::Begin(imgui_str(window.title), &window.is_open, window_flags);
 
         if (flags.get(UiWindowFlag::NoPadding)) {
             ImGui::PopStyleVar();
         }
-        if (window.is_fullscreen) {
-            ImGui::PopStyleVar(2);
-        }
-        if (processor.get_manager()->is_docking_enable()) {
-            ImGuiID dockspace_id = ImGui::GetID(window.title.get().c_str());
-            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
-        }
+
+        ImGui::PopStyleVar(2);
 
         if (has_menu_bar) {
             processor.process(window.menu_bar.get());
@@ -91,8 +77,8 @@ namespace wmoge {
         if (has_tool_bar) {
             processor.process(window.tool_bar.get());
         }
-        if (has_panel) {
-            processor.process(window.panel.get());
+        if (has_content) {
+            processor.process(window.content.get());
         }
         if (has_status_bar) {
             processor.process(window.status_bar.get());
@@ -108,17 +94,14 @@ namespace wmoge {
 
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_None;
 
-        const bool has_menu_bar   = window.menu_bar.has_value();
-        const bool has_tool_bar   = window.tool_bar.has_value();
-        const bool has_status_bar = window.status_bar.has_value();
-        const bool has_panel      = window.panel.has_value();
-        const auto flags          = window.flags.get();
+        const bool has_menu_bar   = window.menu_bar;
+        const bool has_tool_bar   = window.tool_bar;
+        const bool has_status_bar = window.status_bar;
+        const bool has_content    = window.content;
+        const auto flags          = window.flags;
 
         if (flags.get(UiWindowFlag::NoBringToFrontOnFocus)) {
             window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
-        }
-        if (flags.get(UiWindowFlag::NoBackground)) {
-            window_flags |= ImGuiWindowFlags_NoBackground;
         }
         if (flags.get(UiWindowFlag::NoTitleBar)) {
             window_flags |= ImGuiWindowFlags_NoTitleBar;
@@ -134,7 +117,7 @@ namespace wmoge {
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         }
 
-        ImGui::Begin(imgui_str(window.title), window.is_open.get_ptr(), window_flags);
+        ImGui::Begin(imgui_str(window.title), &window.is_open, window_flags);
 
         if (flags.get(UiWindowFlag::NoPadding)) {
             ImGui::PopStyleVar();
@@ -146,14 +129,32 @@ namespace wmoge {
         if (has_tool_bar) {
             processor.process(window.tool_bar.get());
         }
-        if (has_panel) {
-            processor.process(window.panel.get());
+        if (has_content) {
+            processor.process(window.content.get());
         }
         if (has_status_bar) {
             processor.process(window.status_bar.get());
         }
 
         ImGui::End();
+    }
+
+    void imgui_process_dock_space(ImguiProcessor& processor, UiDockSpace& dock_space) {
+        std::optional<ImGuiID> dockspace_id;
+
+        if (processor.get_manager()->is_docking_enable()) {
+            ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+
+            dockspace_id = ImGui::GetID(imgui_str(dock_space.name));
+            ImGui::DockSpace(*dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+        }
+
+        for (const auto& child_window : dock_space.children) {
+            if (dockspace_id) {
+                ImGui::SetNextWindowDockID(*dockspace_id, ImGuiCond_FirstUseEver);
+            }
+            processor.process(child_window.get());
+        }
     }
 
 }// namespace wmoge

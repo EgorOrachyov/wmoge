@@ -216,13 +216,14 @@ namespace wmoge {
         m_depth_stencil_target->create_2d(width(), height(), 1, GfxFormat::DEPTH24_STENCIL8, depth_stencil_usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, m_window->id());
 
         m_requested_extent = m_extent;
-        m_version += 1;
     }
 
     void VKWindow::release_swapchain() {
         WG_PROFILE_CPU_VULKAN("VKWindow::release_swapchain");
 
         if (m_swapchain) {
+            WG_VK_CHECK(vkDeviceWaitIdle(m_driver.device()));
+
             m_color_targets.clear();
             m_depth_stencil_target.reset();
             m_frame_buffers.clear();
@@ -246,14 +247,25 @@ namespace wmoge {
         m_requested_extent.height = m_window->fbo_height();
     }
 
-    void VKWindow::acquire_next() {
+    bool VKWindow::acquire_next() {
         WG_PROFILE_CPU_VULKAN("VKWindow::acquire_next");
 
         check_requested_size();
 
         if (m_requested_extent.width != m_extent.width ||
             m_requested_extent.height != m_extent.height) {
-            recreate_swapchain();
+
+            if (m_requested_extent.width > 0 &&
+                m_requested_extent.height > 0) {
+                recreate_swapchain();
+            } else {
+                release_swapchain();
+                m_extent = m_requested_extent;
+            }
+        }
+
+        if (m_swapchain == VK_NULL_HANDLE) {
+            return false;
         }
 
         m_semaphore_index = (m_semaphore_index + 1) % GfxLimits::FRAMES_IN_FLIGHT;
@@ -264,13 +276,13 @@ namespace wmoge {
             auto vk_result = vkAcquireNextImageKHR(m_driver.device(), m_swapchain, timeout, semaphore, VK_NULL_HANDLE, &m_current);
 
             if (vk_result == VK_SUCCESS) {
-                break;
+                return true;
             } else if (vk_result == VK_ERROR_OUT_OF_DATE_KHR || vk_result == VK_SUBOPTIMAL_KHR) {
                 recreate_swapchain();
-                break;
+                return true;
             } else {
                 WG_LOG_ERROR("failed to acquired next image");
-                return;
+                return false;
             }
         }
     }

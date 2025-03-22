@@ -27,7 +27,10 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
 #include "rtti/type.hpp"
+
+#include <vector>
 
 namespace wmoge {
 
@@ -37,8 +40,7 @@ namespace wmoge {
     */
     class RttiTypeVec : public RttiType {
     public:
-        using RttiType::RttiType;
-        ~RttiTypeVec() override = default;
+        RttiTypeVec(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Vec) {}
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
         [[nodiscard]] int             get_dimension() const { return m_dimension; }
@@ -54,8 +56,7 @@ namespace wmoge {
     */
     class RttiTypeMask : public RttiType {
     public:
-        using RttiType::RttiType;
-        ~RttiTypeMask() override = default;
+        RttiTypeMask(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Mask) {}
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
         [[nodiscard]] int             get_dimension() const { return m_dimension; }
@@ -71,8 +72,7 @@ namespace wmoge {
     */
     class RttiTypeBitset : public RttiType {
     public:
-        using RttiType::RttiType;
-        ~RttiTypeBitset() override = default;
+        RttiTypeBitset(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Bitset) {}
 
         [[nodiscard]] int get_dimension() const { return m_dimension; }
 
@@ -86,8 +86,7 @@ namespace wmoge {
     */
     class RttiTypeRef : public RttiType {
     public:
-        using RttiType::RttiType;
-        ~RttiTypeRef() override = default;
+        RttiTypeRef(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Ref) {}
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
 
@@ -101,8 +100,7 @@ namespace wmoge {
     */
     class RttiTypeOptional : public RttiType {
     public:
-        using RttiType::RttiType;
-        ~RttiTypeOptional() override = default;
+        RttiTypeOptional(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Optional) {}
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
 
@@ -116,8 +114,9 @@ namespace wmoge {
     */
     class RttiTypeVector : public RttiType {
     public:
-        using RttiType::RttiType;
-        ~RttiTypeVector() override = default;
+        RttiTypeVector(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Vector) {}
+
+        virtual Status push_back(void* src, void* value) const { return StatusCode::NotImplemented; }
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
 
@@ -131,8 +130,7 @@ namespace wmoge {
     */
     class RttiTypeSet : public RttiType {
     public:
-        using RttiType::RttiType;
-        ~RttiTypeSet() override = default;
+        RttiTypeSet(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Set) {}
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
 
@@ -146,8 +144,7 @@ namespace wmoge {
     */
     class RttiTypeMap : public RttiType {
     public:
-        using RttiType::RttiType;
-        ~RttiTypeMap() override = default;
+        RttiTypeMap(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Map) {}
 
         [[nodiscard]] const RttiType* get_key_type() const { return m_key_type; }
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
@@ -163,8 +160,7 @@ namespace wmoge {
     */
     class RttiTypePair : public RttiType {
     public:
-        using RttiType::RttiType;
-        ~RttiTypePair() override = default;
+        RttiTypePair(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Pair) {}
 
         [[nodiscard]] const RttiType* get_key_type() const { return m_key_type; }
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }

@@ -73,6 +73,7 @@ namespace wmoge {
         IMGUI_SET_VAL_VEC2(FramePadding, frame_padding);
         IMGUI_SET_VAL(FrameRounding, frame_rounding);
         IMGUI_SET_VAL(FrameBorderSize, frame_border_size);
+        IMGUI_SET_VAL(MenuItemTabSize, menu_item_tab_size);
         IMGUI_SET_VAL_VEC2(ItemSpacing, item_spacing);
         IMGUI_SET_VAL_VEC2(ItemInnerSpacing, item_inner_spacing);
         IMGUI_SET_VAL_VEC2(CellPadding, cell_padding);
@@ -140,6 +141,7 @@ namespace wmoge {
         IMGUI_GET_VAL_VEC2(FramePadding, frame_padding);
         IMGUI_GET_VAL(FrameRounding, frame_rounding);
         IMGUI_GET_VAL(FrameBorderSize, frame_border_size);
+        IMGUI_GET_VAL(MenuItemTabSize, menu_item_tab_size);
         IMGUI_GET_VAL_VEC2(ItemSpacing, item_spacing);
         IMGUI_GET_VAL_VEC2(ItemInnerSpacing, item_inner_spacing);
         IMGUI_GET_VAL_VEC2(CellPadding, cell_padding);

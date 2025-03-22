@@ -35,6 +35,7 @@
 #include "asset/shader_asset_loader.hpp"
 #include "asset/texture_asset_loader.hpp"
 #include "asset/texture_import_data.hpp"
+#include "asset/ui_markup_asset_loader.hpp"
 #include "asset/wav_asset_loader.hpp"
 #include "asset/wav_import_data.hpp"
 
@@ -52,6 +53,7 @@ namespace wmoge {
         rtti_type<TextureCubeImportData>();
         rtti_type<IconAtlasAssetLoader>();
         rtti_type<IconAtlasImportData>();
+        rtti_type<UiMarkupAssetLoader>();
         rtti_type<WavAssetLoader>();
         rtti_type<WavImportData>();
     }

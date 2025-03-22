@@ -133,6 +133,7 @@ namespace wmoge {
         std::optional<Vec2f>        frame_padding;
         std::optional<float>        frame_rounding;
         std::optional<float>        frame_border_size;
+        std::optional<float>        menu_item_tab_size;
         std::optional<Vec2f>        item_spacing;
         std::optional<Vec2f>        item_inner_spacing;
         std::optional<Vec2f>        cell_padding;
@@ -192,6 +193,7 @@ namespace wmoge {
         WG_RTTI_FIELD(frame_padding, {RttiOptional});
         WG_RTTI_FIELD(frame_rounding, {RttiOptional});
         WG_RTTI_FIELD(frame_border_size, {RttiOptional});
+        WG_RTTI_FIELD(menu_item_tab_size, {RttiOptional});
         WG_RTTI_FIELD(item_spacing, {RttiOptional});
         WG_RTTI_FIELD(item_inner_spacing, {RttiOptional});
         WG_RTTI_FIELD(cell_padding, {RttiOptional});

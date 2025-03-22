@@ -33,7 +33,7 @@
 namespace wmoge {
 
     /**
-     * @class DefaultAssetLoader
+     * @class ShaderAssetLoader
      * @brief Loader for shader files from a specific shader syntax files
      */
     class ShaderAssetLoader final : public AssetLoaderTyped<Shader> {

@@ -27,87 +27,83 @@
 
 #pragma once
 
-#include "core/array_view.hpp"
-#include "core/ref.hpp"
-
-#include <optional>
-#include <vector>
+#include "asset/asset.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
+#include "core/var.hpp"
+#include "ui/ui_defs.hpp"
 
 namespace wmoge {
 
-    template<typename T>
-    class UiAttribute {
-    public:
-        UiAttribute() = default;
-        UiAttribute(T value) : m_value(std::move(value)) {}
+    /** @brief */
+    struct UiMarkupSlot {
+        WG_RTTI_STRUCT(UiMarkupSlot);
 
-        UiAttribute& operator=(const T& value) {
-            m_value = value;
-            return *this;
-        }
-
-        UiAttribute& operator=(T&& value) {
-            m_value = std::move(value);
-            return *this;
-        }
-
-        void set(T value) { m_value = std::move(value); }
-
-        operator T() const { return m_value; }
-
-        [[nodiscard]] const T& get() const { return m_value; }
-        [[nodiscard]] T&       get() { return m_value; }
-        [[nodiscard]] const T* get_ptr() const { return &m_value; }
-        [[nodiscard]] T*       get_ptr() { return &m_value; }
-
-    protected:
-        T m_value;
+        const RttiField* field         = nullptr;
+        int              child_element = -1;
     };
 
-    template<typename T>
-    class UiAttributeList : public UiAttribute<std::vector<T>> {
-    public:
-        using UiAttribute<std::vector<T>>::m_value;
+    WG_RTTI_STRUCT_BEGIN(UiMarkupSlot) {}
+    WG_RTTI_END;
 
-        void add_element(T element) { m_value.push_back(std::move(element)); }
+    /** @brief */
+    struct UiMarkupAttribute {
+        WG_RTTI_STRUCT(UiMarkupAttribute);
+
+        const RttiField*  field       = nullptr;
+        const RttiMethod* bind_method = nullptr;
+        Var               value;
     };
 
-    template<typename T>
-    class UiAttributeOpt : public UiAttribute<std::optional<T>> {
-    public:
-        using UiAttribute<std::optional<T>>::m_value;
-        using UiAttribute<std::optional<T>>::operator=;
+    WG_RTTI_STRUCT_BEGIN(UiMarkupAttribute) {}
+    WG_RTTI_END;
 
-        bool     has_value() const { return m_value.has_value(); }
-        const T& value() const { return m_value.value(); }
-        void     reset() { m_value.reset(); }
+    /** @brief */
+    struct UiMarkupElement {
+        WG_RTTI_STRUCT(UiMarkupElement);
+
+        RttiClass*       cls = nullptr;
+        std::vector<int> slots;
+        std::vector<int> attributes;
     };
 
-    template<typename T>
-    class UiEvent : public UiAttribute<T> {
-    public:
-        using UiAttribute<T>::m_value;
-        using UiAttribute<T>::operator=;
+    WG_RTTI_STRUCT_BEGIN(UiMarkupElement) {}
+    WG_RTTI_END;
 
-        bool has_callback() const { return (bool) m_value; }
+    /** @brief */
+    struct UiMarkupDecs {
+        WG_RTTI_STRUCT(UiMarkupDecs);
+
+        RttiClass*                     bindable     = nullptr;
+        int                            root_element = -1;
+        std::vector<UiMarkupSlot>      slots;
+        std::vector<UiMarkupElement>   elements;
+        std::vector<UiMarkupAttribute> attributes;
     };
 
-    template<typename T>
-    class UiSlot : public UiAttribute<Ref<T>> {
-    public:
-        using UiAttribute<Ref<T>>::m_value;
-        using UiAttribute<Ref<T>>::operator=;
+    WG_RTTI_STRUCT_BEGIN(UiMarkupDecs) {}
+    WG_RTTI_END;
 
-        bool has_value() const { return m_value; }
+    /**
+     * @class UiMarkup
+     * @brief Ui layout and structure which can be loaded from disc and instantiated
+     */
+    class UiMarkup : public Asset {
+    public:
+        WG_RTTI_CLASS(UiMarkup, Asset);
+
+        void set_desc(UiMarkupDecs desc) { m_desc = std::move(desc); }
+
+        [[nodiscard]] const UiMarkupDecs& get_desc() const { return m_desc; }
+
+    private:
+        UiMarkupDecs m_desc;
     };
 
-    template<typename T>
-    class UiSlots : public UiAttribute<std::vector<T>> {
-    public:
-        using UiAttribute<std::vector<T>>::m_value;
-
-        T&                  add_slot() { return m_value.emplace_back(); }
-        array_view<const T> get_slots() const { return m_value; }
-    };
+    WG_RTTI_CLASS_BEGIN(UiMarkup) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(m_desc, {});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge
