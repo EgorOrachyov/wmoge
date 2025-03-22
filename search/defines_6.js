@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['offset_5fof_10868',['OFFSET_OF',['../traits_8hpp.html#ac264a67ed110a7ca0dd5be4a5e893c1c',1,'OFFSET_OF():&#160;traits.hpp'],['../traits_8hpp.html#ac264a67ed110a7ca0dd5be4a5e893c1c',1,'OFFSET_OF():&#160;traits.hpp']]]
+  ['offset_5fof_10865',['OFFSET_OF',['../traits_8hpp.html#ac264a67ed110a7ca0dd5be4a5e893c1c',1,'traits.hpp']]]
 ];

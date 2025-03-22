@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['defaultsampler_10081',['DefaultSampler',['../namespacewmoge.html#a34a113ab414c098093d0da12bfd6322b',1,'wmoge']]],
-  ['defaulttexture_10082',['DefaultTexture',['../namespacewmoge.html#aff93c57829acd42a3c74602b395116bc',1,'wmoge']]]
+  ['defaultsampler_10078',['DefaultSampler',['../namespacewmoge.html#a34a113ab414c098093d0da12bfd6322b',1,'wmoge']]],
+  ['defaulttexture_10079',['DefaultTexture',['../namespacewmoge.html#aff93c57829acd42a3c74602b395116bc',1,'wmoge']]]
 ];
