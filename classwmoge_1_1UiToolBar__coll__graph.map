@@ -1,9 +1,8 @@
 <map id="wmoge::UiToolBar" name="wmoge::UiToolBar">
-<area shape="rect" id="node1" title=" " alt="" coords="765,122,893,149"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="585,79,716,106"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,71,349,98"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="217,123,371,164"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,173,168,199"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1UiSlots.html" title=" " alt="" coords="395,169,561,211"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="228,5,360,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="143,276,271,303"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="141,200,272,227"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="5,89,133,115"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="14,5,125,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="158,89,255,115"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="280,81,429,123"/>
 </map>

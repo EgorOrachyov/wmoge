@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1ImguiInputTextUserData.html" title=" " alt="" coords="5,5,216,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1ImguiDriver.html" title="Base class for imgui video drive API integration." alt="" coords="5,5,141,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiDriverVulkan.html" title="Driver implementation for vulkan imgui driver." alt="" coords="189,5,365,32"/>
 </map>

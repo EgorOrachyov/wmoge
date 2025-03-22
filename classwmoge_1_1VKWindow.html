@@ -104,8 +104,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a98301b35283902dd0780f0c72cf5fbb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33f3a7aa0d92e509c50798b33a251869"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKWindow.html#a33f3a7aa0d92e509c50798b33a251869">init</a> ()</td></tr>
 <tr class="separator:a33f3a7aa0d92e509c50798b33a251869"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c6fe735a1f98771b58cbba2752ced39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKWindow.html#a2c6fe735a1f98771b58cbba2752ced39">acquire_next</a> ()</td></tr>
-<tr class="separator:a2c6fe735a1f98771b58cbba2752ced39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a870b5e904d1e52942434b7b1c437545a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKWindow.html#a870b5e904d1e52942434b7b1c437545a">acquire_next</a> ()</td></tr>
+<tr class="separator:a870b5e904d1e52942434b7b1c437545a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f572fc25d374208f26887886c5d594a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKWindow.html#a8f572fc25d374208f26887886c5d594a">get_support_info</a> (VkPhysicalDevice device, uint32_t prs_family, <a class="el" href="structwmoge_1_1VKSwapChainSupportInfo.html">VKSwapChainSupportInfo</a> &amp;info) const</td></tr>
 <tr class="separator:a8f572fc25d374208f26887886c5d594a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cff8713d57c0b7952905270a12e9c4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxFrameBuffer.html">GfxFrameBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKWindow.html#a0cff8713d57c0b7952905270a12e9c4f">get_or_create_frame_buffer</a> (const <a class="el" href="structwmoge_1_1GfxFrameBufferDesc.html">GfxFrameBufferDesc</a> &amp;desc, const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;name)</td></tr>
@@ -122,8 +122,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a28a66cc1ce5ce24995fdca166fc86eb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b89891cd867428eac62b4dd08904b46"><td class="memItemLeft" align="right" valign="top">VkSemaphore&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKWindow.html#a9b89891cd867428eac62b4dd08904b46">present_semaphore</a> () const</td></tr>
 <tr class="separator:a9b89891cd867428eac62b4dd08904b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0a1851c0925edce8ec2852faf315ee5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKWindow.html#ac0a1851c0925edce8ec2852faf315ee5">version</a> () const</td></tr>
-<tr class="separator:ac0a1851c0925edce8ec2852faf315ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad58ee8e28aa88e5074dbc8ddecb9b86e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKWindow.html#ad58ee8e28aa88e5074dbc8ddecb9b86e">width</a> () const</td></tr>
 <tr class="separator:ad58ee8e28aa88e5074dbc8ddecb9b86e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b3a7b6b7c23637ab5b63436904d1265"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKWindow.html#a7b3a7b6b7c23637ab5b63436904d1265">height</a> () const</td></tr>
@@ -215,14 +213,14 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2c6fe735a1f98771b58cbba2752ced39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c6fe735a1f98771b58cbba2752ced39">&#9670;&nbsp;</a></span>acquire_next()</h2>
+<a id="a870b5e904d1e52942434b7b1c437545a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a870b5e904d1e52942434b7b1c437545a">&#9670;&nbsp;</a></span>acquire_next()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::VKWindow::acquire_next </td>
+          <td class="memname">bool wmoge::VKWindow::acquire_next </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -547,31 +545,6 @@ Additional Inherited Members</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">VkSwapchainKHR wmoge::VKWindow::swapchain </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac0a1851c0925edce8ec2852faf315ee5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0a1851c0925edce8ec2852faf315ee5">&#9670;&nbsp;</a></span>version()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int wmoge::VKWindow::version </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

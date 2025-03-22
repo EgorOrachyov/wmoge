@@ -1,5 +1,6 @@
 <map id="wmoge::UiStatusBar" name="wmoge::UiStatusBar">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,147,181"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="11,80,141,107"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="21,5,131,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,229,147,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="11,155,141,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="12,80,140,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="21,5,131,32"/>
 </map>

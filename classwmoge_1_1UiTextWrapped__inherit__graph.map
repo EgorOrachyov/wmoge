@@ -1,6 +1,7 @@
 <map id="wmoge::UiTextWrapped" name="wmoge::UiTextWrapped">
-<area shape="rect" id="node1" title=" " alt="" coords="5,229,164,256"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="8,155,161,181"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="19,80,150,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="29,5,140,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,304,164,331"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="8,229,161,256"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="19,155,150,181"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="21,80,149,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="29,5,140,32"/>
 </map>

@@ -68,7 +68,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">ui_element.hpp File Reference</div>  </div>
 </div><!--header-->
@@ -76,7 +76,7 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="ref_8hpp_source.html">core/ref.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="status_8hpp_source.html">core/status.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="string__id_8hpp_source.html">core/string_id.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ui__attribute_8hpp_source.html">ui/ui_attribute.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="traits_8hpp_source.html">rtti/traits.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ui__defs_8hpp_source.html">ui/ui_defs.hpp</a>&quot;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
@@ -87,30 +87,56 @@ Include dependency graph for ui_element.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="ui__element_8hpp__incl.png" border="0" usemap="#aengine_2code_2ui_2ui__element_8hpp" alt=""/></div>
 <map name="aengine_2code_2ui_2ui__element_8hpp" id="aengine_2code_2ui_2ui__element_8hpp">
-<area shape="rect" title=" " alt="" coords="747,5,944,32"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="293,155,384,181"/>
-<area shape="rect" title=" " alt="" coords="67,379,146,405"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="542,155,653,181"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="459,304,583,331"/>
-<area shape="rect" title=" " alt="" coords="1034,379,1089,405"/>
-<area shape="rect" href="ui__attribute_8hpp.html" title=" " alt="" coords="921,80,1045,107"/>
-<area shape="rect" title=" " alt="" coords="1377,229,1436,256"/>
-<area shape="rect" title=" " alt="" coords="1303,155,1369,181"/>
-<area shape="rect" href="ui__defs_8hpp.html" title=" " alt="" coords="794,80,897,107"/>
-<area shape="rect" title=" " alt="" coords="221,229,283,256"/>
-<area shape="rect" title=" " alt="" coords="662,229,727,256"/>
-<area shape="rect" title=" " alt="" coords="380,379,463,405"/>
-<area shape="rect" title=" " alt="" coords="145,229,197,256"/>
-<area shape="rect" title=" " alt="" coords="639,379,705,405"/>
-<area shape="rect" title=" " alt="" coords="516,379,585,405"/>
-<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="967,229,1059,256"/>
-<area shape="rect" title=" " alt="" coords="904,304,1024,331"/>
-<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="830,155,967,181"/>
-<area shape="rect" title=" " alt="" coords="854,229,943,256"/>
-<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="1067,155,1173,181"/>
-<area shape="rect" title=" " alt="" coords="1178,229,1233,256"/>
-<area shape="rect" title=" " alt="" coords="1257,229,1353,256"/>
-<area shape="rect" title=" " alt="" coords="1084,229,1153,256"/>
+<area shape="rect" title=" " alt="" coords="2484,5,2681,32"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1119,677,1209,704"/>
+<area shape="rect" title=" " alt="" coords="1661,901,1739,928"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="1717,677,1827,704"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="1839,827,1963,853"/>
+<area shape="rect" title=" " alt="" coords="3074,901,3129,928"/>
+<area shape="rect" href="traits_8hpp.html" title=" " alt="" coords="2535,80,2630,107"/>
+<area shape="rect" title=" " alt="" coords="3269,752,3328,779"/>
+<area shape="rect" title=" " alt="" coords="2897,677,2964,704"/>
+<area shape="rect" href="ui__defs_8hpp.html" title=" " alt="" coords="4161,603,4263,629"/>
+<area shape="rect" title=" " alt="" coords="1119,752,1180,779"/>
+<area shape="rect" title=" " alt="" coords="927,752,993,779"/>
+<area shape="rect" title=" " alt="" coords="2061,901,2144,928"/>
+<area shape="rect" title=" " alt="" coords="1255,752,1307,779"/>
+<area shape="rect" title=" " alt="" coords="1081,901,1146,928"/>
+<area shape="rect" title=" " alt="" coords="1180,901,1249,928"/>
+<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="3403,752,3495,779"/>
+<area shape="rect" title=" " alt="" coords="2140,827,2260,853"/>
+<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="3337,528,3501,555"/>
+<area shape="rect" href="stream_8hpp.html" title=" " alt="" coords="2198,603,2298,629"/>
+<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="3387,677,3493,704"/>
+<area shape="rect" title=" " alt="" coords="3190,752,3245,779"/>
+<area shape="rect" title=" " alt="" coords="2799,677,2873,704"/>
+<area shape="rect" title=" " alt="" coords="2258,677,2369,704"/>
+<area shape="rect" title=" " alt="" coords="1436,677,1540,704"/>
+<area shape="rect" href="tree_8hpp.html" title=" " alt="" coords="1787,603,1869,629"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="1079,379,1179,405"/>
+<area shape="rect" href="sha256_8hpp.html" title=" " alt="" coords="1725,528,1843,555"/>
+<area shape="rect" href="date__time_8hpp.html" title=" " alt="" coords="1303,827,1435,853"/>
+<area shape="rect" href="flat__map_8hpp.html" title=" " alt="" coords="2529,453,2653,480"/>
+<area shape="rect" href="flat__set_8hpp.html" title=" " alt="" coords="1819,453,1936,480"/>
+<area shape="rect" href="uuid_8hpp.html" title=" " alt="" coords="3880,528,3979,555"/>
+<area shape="rect" href="aabb_8hpp.html" title=" " alt="" coords="613,379,720,405"/>
+<area shape="rect" href="mat_8hpp.html" title=" " alt="" coords="397,453,499,480"/>
+<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="327,528,393,555"/>
+<area shape="rect" href="quat_8hpp.html" title=" " alt="" coords="485,379,589,405"/>
+<area shape="rect" href="transform_8hpp.html" title=" " alt="" coords="297,304,431,331"/>
+<area shape="rect" href="builtin_8hpp.html" title=" " alt="" coords="3539,304,3637,331"/>
+<area shape="rect" href="type_8hpp.html" title=" " alt="" coords="2454,379,2543,405"/>
+<area shape="rect" href="class_8hpp.html" title=" " alt="" coords="2687,229,2783,256"/>
+<area shape="rect" href="struct_8hpp.html" title=" " alt="" coords="2077,304,2176,331"/>
+<area shape="rect" href="rtti_2enum_8hpp.html" title=" " alt="" coords="1545,304,1642,331"/>
+<area shape="rect" href="object_8hpp.html" title=" " alt="" coords="2577,155,2677,181"/>
+<area shape="rect" href="type__storage_8hpp.html" title=" " alt="" coords="2913,155,3052,181"/>
+<area shape="rect" title=" " alt="" coords="3355,229,3413,256"/>
+<area shape="rect" title=" " alt="" coords="3400,155,3451,181"/>
+<area shape="rect" title=" " alt="" coords="3387,603,3477,629"/>
+<area shape="rect" href="crc32_8hpp.html" title=" " alt="" coords="979,453,1085,480"/>
+<area shape="rect" href="string__utils_8hpp.html" title=" " alt="" coords="2061,453,2200,480"/>
+<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="713,603,852,629"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -118,36 +144,44 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="ui__element_8hpp__dep__incl.png" border="0" usemap="#aengine_2code_2ui_2ui__element_8hppdep" alt=""/></div>
 <map name="aengine_2code_2ui_2ui__element_8hppdep" id="aengine_2code_2ui_2ui__element_8hppdep">
-<area shape="rect" title=" " alt="" coords="752,5,949,32"/>
-<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="331,401,490,427"/>
-<area shape="rect" href="ui__bars_8hpp.html" title=" " alt="" coords="508,155,684,181"/>
-<area shape="rect" href="ui__window_8hpp.html" title=" " alt="" coords="540,229,735,256"/>
-<area shape="rect" href="ui__containers_8hpp.html" title=" " alt="" coords="809,155,1020,181"/>
-<area shape="rect" href="ui__inputs_8hpp.html" title=" " alt="" coords="937,229,1124,256"/>
-<area shape="rect" href="ui__content_8hpp.html" title=" " alt="" coords="821,80,1016,107"/>
-<area shape="rect" href="ui__controls_8hpp.html" title=" " alt="" coords="911,311,1108,338"/>
-<area shape="rect" href="ui__tooltip_8hpp.html" title=" " alt="" coords="1577,80,1764,107"/>
-<area shape="rect" href="ui__views_8hpp.html" title=" " alt="" coords="19,229,205,256"/>
-<area shape="rect" href="imgui__process_8hpp.html" title=" " alt="" coords="1133,304,1299,345"/>
-<area shape="rect" href="imgui__bars_8hpp.html" title=" " alt="" coords="1089,393,1234,435"/>
-<area shape="rect" href="ui__manager_8hpp.html" title=" " alt="" coords="281,311,482,338"/>
-<area shape="rect" href="imgui__window_8hpp.html" title=" " alt="" coords="710,393,874,435"/>
-<area shape="rect" href="engine_8cpp.html" title=" " alt="" coords="5,393,144,435"/>
-<area shape="rect" href="engine__app_8cpp.html" title=" " alt="" coords="168,393,307,435"/>
-<area shape="rect" href="imgui__manager_8hpp.html" title=" " alt="" coords="515,393,685,435"/>
-<area shape="rect" href="imgui__controls_8cpp.html" title=" " alt="" coords="793,483,959,524"/>
-<area shape="rect" href="imgui__manager_8cpp.html" title=" " alt="" coords="409,483,580,524"/>
-<area shape="rect" href="imgui__plugin_8cpp.html" title=" " alt="" coords="231,483,385,524"/>
-<area shape="rect" href="imgui__process_8cpp.html" title=" " alt="" coords="1153,483,1319,524"/>
-<area shape="rect" href="imgui__window_8cpp.html" title=" " alt="" coords="605,483,769,524"/>
-<area shape="rect" href="imgui__bars_8cpp.html" title=" " alt="" coords="983,483,1129,524"/>
-<area shape="rect" href="imgui__containers_8hpp.html" title=" " alt="" coords="1489,393,1669,435"/>
-<area shape="rect" href="imgui__inputs_8hpp.html" title=" " alt="" coords="1309,393,1464,435"/>
-<area shape="rect" href="imgui__inputs_8cpp.html" title=" " alt="" coords="1344,483,1499,524"/>
-<area shape="rect" href="imgui__containers_8cpp.html" title=" " alt="" coords="1523,483,1703,524"/>
-<area shape="rect" href="imgui__content_8hpp.html" title=" " alt="" coords="1693,393,1856,435"/>
-<area shape="rect" href="imgui__content_8cpp.html" title=" " alt="" coords="1728,483,1891,524"/>
-<area shape="rect" href="imgui__controls_8hpp.html" title=" " alt="" coords="898,393,1065,435"/>
+<area shape="rect" title=" " alt="" coords="1264,5,1461,32"/>
+<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="963,459,1122,486"/>
+<area shape="rect" href="code_2ui_2__rtti_8cpp.html" title=" " alt="" coords="1597,370,1753,397"/>
+<area shape="rect" href="ui__bars_8hpp.html" title=" " alt="" coords="1929,169,2105,196"/>
+<area shape="rect" href="ui__window_8hpp.html" title=" " alt="" coords="1920,273,2115,300"/>
+<area shape="rect" href="ui__bindable_8hpp.html" title=" " alt="" coords="811,80,1010,107"/>
+<area shape="rect" href="ui__binder_8hpp.html" title=" " alt="" coords="133,169,320,196"/>
+<area shape="rect" href="ui__markup__xml__parser_8hpp.html" title=" " alt="" coords="1033,155,1188,211"/>
+<area shape="rect" href="ui__containers_8hpp.html" title=" " alt="" coords="1529,169,1740,196"/>
+<area shape="rect" href="ui__inputs_8hpp.html" title=" " alt="" coords="1235,273,1421,300"/>
+<area shape="rect" href="ui__content_8hpp.html" title=" " alt="" coords="1537,80,1732,107"/>
+<area shape="rect" href="ui__controls_8hpp.html" title=" " alt="" coords="1445,273,1643,300"/>
+<area shape="rect" href="ui__tooltip_8hpp.html" title=" " alt="" coords="304,273,491,300"/>
+<area shape="rect" href="ui__views_8hpp.html" title=" " alt="" coords="566,273,751,300"/>
+<area shape="rect" href="imgui__process_8hpp.html" title=" " alt="" coords="2157,363,2323,404"/>
+<area shape="rect" href="imgui__bars_8hpp.html" title=" " alt="" coords="2482,452,2627,493"/>
+<area shape="rect" href="ui__manager_8hpp.html" title=" " alt="" coords="1879,370,2081,397"/>
+<area shape="rect" href="imgui__window_8hpp.html" title=" " alt="" coords="2038,452,2202,493"/>
+<area shape="rect" href="engine_8cpp.html" title=" " alt="" coords="1309,452,1448,493"/>
+<area shape="rect" href="engine__app_8cpp.html" title=" " alt="" coords="1147,452,1285,493"/>
+<area shape="rect" href="imgui__manager_8hpp.html" title=" " alt="" coords="1843,452,2013,493"/>
+<area shape="rect" href="imgui__controls_8cpp.html" title=" " alt="" coords="1438,541,1605,583"/>
+<area shape="rect" href="imgui__manager_8cpp.html" title=" " alt="" coords="1808,541,1979,583"/>
+<area shape="rect" href="imgui__plugin_8cpp.html" title=" " alt="" coords="1629,541,1784,583"/>
+<area shape="rect" href="imgui__process_8cpp.html" title=" " alt="" coords="2191,541,2358,583"/>
+<area shape="rect" href="imgui__window_8cpp.html" title=" " alt="" coords="2003,541,2167,583"/>
+<area shape="rect" href="imgui__bars_8cpp.html" title=" " alt="" coords="2586,541,2731,583"/>
+<area shape="rect" href="ui__bindable_8cpp.html" title=" " alt="" coords="811,169,1010,196"/>
+<area shape="rect" href="ui__markup__asset__loader_8cpp.html" title=" " alt="" coords="776,259,931,315"/>
+<area shape="rect" href="ui__binder_8cpp.html" title=" " alt="" coords="93,273,280,300"/>
+<area shape="rect" href="ui__markup__xml__parser_8cpp.html" title=" " alt="" coords="955,259,1109,315"/>
+<area shape="rect" href="imgui__containers_8hpp.html" title=" " alt="" coords="2278,452,2458,493"/>
+<area shape="rect" href="imgui__inputs_8hpp.html" title=" " alt="" coords="1472,452,1627,493"/>
+<area shape="rect" href="imgui__inputs_8cpp.html" title=" " alt="" coords="1259,541,1413,583"/>
+<area shape="rect" href="imgui__containers_8cpp.html" title=" " alt="" coords="2382,541,2562,583"/>
+<area shape="rect" href="imgui__content_8hpp.html" title=" " alt="" coords="2652,452,2815,493"/>
+<area shape="rect" href="imgui__content_8cpp.html" title=" " alt="" coords="2756,541,2919,583"/>
+<area shape="rect" href="imgui__controls_8hpp.html" title=" " alt="" coords="1651,452,1818,493"/>
 </map>
 </div>
 </div>
@@ -167,57 +201,12 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacewmoge"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html">wmoge</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a152bed11129dafb02376c3156a8b75d3"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3">wmoge::UiElementType</a> { <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a88183b946cc5f0e8c96b2e66e1c74a7e">wmoge::Unknown</a> = 0
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a04b2e4188d4ef8051e4699da8af01335">wmoge::Separator</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a6c89577076a97afbee7b680ab1c00d7a">wmoge::SeparatorText</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3af2740703e3fef3d0f513acb7ab1d7a36">wmoge::ToolTip</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a765b5c592d27653eb7102ee719640108">wmoge::ContextMenu</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a0d4c14a20b4d98a5de54e1480bf99a25">wmoge::Popup</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a09e0da362d89c4431984635020eab080">wmoge::CompletionPopup</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3ac59d6df802c32f037c2a15ff75faec17">wmoge::Modal</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a3bfafb12db569d3016033f2b4c14b941">wmoge::StackPanel</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3aeb205c9d32da65593fe972994315138a">wmoge::ScrollPanel</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a4512516a43b564dc4a69db4b722a5657">wmoge::CollapsingPanel</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3ac9a123faa6ec225161d25f26796b2960">wmoge::MenuItem</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3ab61541208db7fa7dba42c85224405911">wmoge::Menu</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3ab15b459eaa92682a221cb9b792c98add">wmoge::MenuBar</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3ae55ba46f0888fd8dff20a48a3ab8d471">wmoge::ToolBar</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3af93e1d0cafe7b3b9c34f8fac9497e858">wmoge::StatusBar</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a85644ee843dfffda19287556b9e18ea3">wmoge::MainWindow</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a4f14639390563b4a44dc1945187f393d">wmoge::DockWindow</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a9dffbf69ffba8bc38bc4e01abf4b1675">wmoge::Text</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a52fa1fc9ab7300d30c0212675dc4ff19">wmoge::TextWrapped</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a7f01c2ecef93cd509dab0bb85ff03f49">wmoge::TextLink</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3ae20e16c3e5a9f2e468e434ae7432ce22">wmoge::DragInt</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3adce221ec751adb241fc410626bb572c0">wmoge::DragFloat</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a82deea776b1de256a33efdcfa93ec1f8">wmoge::SliderInt</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a8c2a3fac8e26914dd92860e7caae451f">wmoge::SliderFloat</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3aa79aeb98bc7d96634a6cde086b494552">wmoge::InputInt</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a28f5d2f4dd6ddb7143f6a25f03b7e50c">wmoge::InputFloat</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a00a4e38dc612f355302803836c12f9a2">wmoge::InputText</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a0fa26835966a9aa0b4a70b43f5844c7e">wmoge::InputTextExt</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a8318ce1c96df6ce21eb2ed428c6d0f85">wmoge::Selectable</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a87b7760f14fbff78d8819291f36ab9a0">wmoge::Button</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3aff028a1ed2d87f9cc63416b07c57917e">wmoge::CheckBoxButton</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3accf0503df958552a245a3593e1063cd8">wmoge::RadioButton</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3afd249a0c28275ebf9d4c8464ca2225cf">wmoge::ComboBox</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3aa0270328c25f151f4e3eda791d349a1e">wmoge::ListBox</a>
-, <a class="el" href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3a0af8128a43d9b5e2b1d76084b5163ce4">wmoge::ProgressBar</a>
-<br />
- }</td></tr>
-<tr class="memdesc:a152bed11129dafb02376c3156a8b75d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ui element enum type.  <a href="namespacewmoge.html#a152bed11129dafb02376c3156a8b75d3">More...</a><br /></td></tr>
-<tr class="separator:a152bed11129dafb02376c3156a8b75d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae6414eb87bfeb0ce14564a46737d2e8d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae6414eb87bfeb0ce14564a46737d2e8d">wmoge::WG_RTTI_CLASS_BEGIN</a> (UiElement)</td></tr>
+<tr class="separator:ae6414eb87bfeb0ce14564a46737d2e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6dc26a3031eda76af6fb6c25577b66e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab6dc26a3031eda76af6fb6c25577b66e">wmoge::WG_RTTI_CLASS_BEGIN</a> (UiSubElement)</td></tr>
+<tr class="separator:ab6dc26a3031eda76af6fb6c25577b66e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

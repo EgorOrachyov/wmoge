@@ -1,7 +1,7 @@
 <map id="wmoge::UiElement" name="wmoge::UiElement">
-<area shape="rect" id="node1" title="Base class for all ui elements." alt="" coords="477,64,608,91"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="239,5,349,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UiAttributeOpt.html" title=" " alt="" coords="217,57,371,98"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="5,64,168,91"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1UiAttribute.html" title=" " alt="" coords="228,122,360,163"/>
+<area shape="rect" id="node1" title="Base class for all ui elements." alt="" coords="141,200,272,227"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="5,89,133,115"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="14,5,125,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="158,89,255,115"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="280,81,429,123"/>
 </map>

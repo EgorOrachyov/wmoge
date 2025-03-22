@@ -1,5 +1,5 @@
 <map id="wmoge::AssetLoader" name="wmoge::AssetLoader">
-<area shape="rect" id="node1" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="340,307,484,334"/>
+<area shape="rect" id="node1" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="340,339,484,366"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="547,5,726,47"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="547,71,726,112"/>
 <area shape="rect" id="node8" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="547,136,726,177"/>
@@ -9,16 +9,18 @@
 <area shape="rect" id="node16" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="547,397,726,439"/>
 <area shape="rect" id="node18" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="547,463,726,504"/>
 <area shape="rect" id="node20" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="547,528,726,569"/>
-<area shape="rect" id="node22" href="$classwmoge_1_1AssetLoaderTyped.html" title="Adapter to implement asset loaders of a particular asset type." alt="" coords="532,594,741,621"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,307,292,334"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,307,116,334"/>
+<area shape="rect" id="node22" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="547,593,726,635"/>
+<area shape="rect" id="node24" href="$classwmoge_1_1AssetLoaderTyped.html" title="Adapter to implement asset loaders of a particular asset type." alt="" coords="532,659,741,686"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,339,292,366"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,339,116,366"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1IconAtlasAssetLoader.html" title="Loader for ui icons atlas." alt="" coords="800,13,999,39"/>
 <area shape="rect" id="node7" href="$classwmoge_1_1WavAssetLoader.html" title="Loader for wav audio sources using audio file library." alt="" coords="814,78,985,105"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1ShaderAssetLoader.html" title=" " alt="" coords="807,143,992,170"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1ShaderAssetLoader.html" title="Loader for shader files from a specific shader syntax files." alt="" coords="807,143,992,170"/>
 <area shape="rect" id="node11" href="$classwmoge_1_1TextureCubeAssetLoader.html" title="Loader for cube&#45;map textures through stb image library." alt="" coords="791,209,1008,235"/>
 <area shape="rect" id="node13" href="$classwmoge_1_1ImageAssetLoader.html" title="Loader for images through stb image library." alt="" coords="809,274,989,301"/>
 <area shape="rect" id="node15" href="$classwmoge_1_1DefaultAssetLoader.html" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="807,339,992,366"/>
-<area shape="rect" id="node17" href="$classwmoge_1_1FreetypeAssetLoader.html" title="Loader for ttf fonts through freetype2 library." alt="" coords="802,405,997,431"/>
-<area shape="rect" id="node19" href="$classwmoge_1_1AssimpMeshAssetLoader.html" title="Loader for a mesh data based on assimp library." alt="" coords="789,470,1009,497"/>
-<area shape="rect" id="node21" href="$classwmoge_1_1Texture2dAssetLoader.html" title="Loader for 2d textures through stb image library." alt="" coords="799,535,1000,562"/>
+<area shape="rect" id="node17" href="$classwmoge_1_1UiMarkupAssetLoader.html" title=" " alt="" coords="799,405,999,431"/>
+<area shape="rect" id="node19" href="$classwmoge_1_1FreetypeAssetLoader.html" title="Loader for ttf fonts through freetype2 library." alt="" coords="802,470,997,497"/>
+<area shape="rect" id="node21" href="$classwmoge_1_1AssimpMeshAssetLoader.html" title="Loader for a mesh data based on assimp library." alt="" coords="789,535,1009,562"/>
+<area shape="rect" id="node23" href="$classwmoge_1_1Texture2dAssetLoader.html" title="Loader for 2d textures through stb image library." alt="" coords="799,601,1000,627"/>
 </map>
