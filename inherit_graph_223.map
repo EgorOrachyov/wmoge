@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1ImguiInputTextUserData.html" title=" " alt="" coords="5,5,216,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1ImguiPlatform.html" title="Interface for imgui platform (os and window system) integration." alt="" coords="5,5,156,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiPlatformGlfw.html" title="Implementation for GLFW based platform." alt="" coords="204,5,383,32"/>
 </map>
