@@ -109,7 +109,7 @@ namespace wmoge {
     };
 
     /**
-     * @class GraphicsPipelineShared
+     * @class GraphicsPipelineAssets
      * @brief Shared state of pipeline required for rendering
     */
     struct GraphicsPipelineAssets {

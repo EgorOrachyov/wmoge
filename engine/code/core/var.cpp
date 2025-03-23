@@ -634,4 +634,18 @@ namespace wmoge {
         }
     }
 
+    Status tree_read(IoContext& context, IoTree& tree, Var& value) {
+        return StatusCode::NotImplemented;
+    }
+    Status tree_write(IoContext& context, IoTree& tree, const Var& value) {
+        return StatusCode::NotImplemented;
+    }
+
+    Status stream_read(IoContext& context, IoStream& stream, Var& value) {
+        return StatusCode::NotImplemented;
+    }
+    Status stream_write(IoContext& context, IoStream& stream, const Var& value) {
+        return StatusCode::NotImplemented;
+    }
+
 }// namespace wmoge

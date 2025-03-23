@@ -27,8 +27,11 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
+#include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
+#include "rtti/traits.hpp"
 
 #include <functional>
 #include <string>
@@ -36,51 +39,126 @@
 
 namespace wmoge {
 
-    enum class ConsoleObjType {
-        Var,    // Console variable holding single value
-        Cmd,    // Console command which can execute custom code with arguments
-        Trigger,// Console trigger which can be triggered once in frame
-        Slider, // Console slider for range of value with step movement
-        Selector// Console selector to chose from pre-defined set of value
-    };
-
-    class ConsoleObj {
+    /**
+     * @class ConsoleObject
+     * @brief Base class for any console object
+     */
+    class ConsoleObject : public RttiObject {
     public:
-    private:
-        std::string m_name;
+        WG_RTTI_CLASS(ConsoleObject, RttiObject)
+
+        ConsoleObject() = default;
+
+        ConsoleObject(Strid name, std::string help)
+            : m_name(name), m_help(std::move(help)) {
+        }
+
+        [[nodiscard]] const Strid&       get_name() const { return m_name; }
+        [[nodiscard]] const std::string& get_help() const { return m_help; }
+
+    protected:
+        friend class ConsoleManager;
+
+        Strid       m_name;
         std::string m_help;
-        std::string m_id;
     };
 
-    class ConsoleVar {
+    WG_RTTI_CLASS_BEGIN(ConsoleObject) {
+        WG_RTTI_FIELD(m_name, {});
+        WG_RTTI_FIELD(m_help, {});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class ConsoleVar
+     * @brief Console var which can hold some value
+     */
+    class ConsoleVar : public ConsoleObject {
     public:
-    private:
+        WG_RTTI_CLASS(ConsoleVar, ConsoleObject)
+
+        ConsoleVar() = default;
+
+        ConsoleVar(Strid name, std::string help, Var value)
+            : ConsoleObject(name, std::move(help)),
+              m_value(value),
+              m_defaul_value(value) {
+        }
+
+        [[nodiscard]] const Var& get_value() const { return m_value; }
+        [[nodiscard]] const Var& get_defaul_value() const { return m_defaul_value; }
+        [[nodiscard]] VarType    get_value_type() const { return m_defaul_value.type(); }
+
+    protected:
+        friend class ConsoleManager;
+
         Var m_value;
+        Var m_defaul_value;
     };
 
-    class ConsoleCmd {
+    WG_RTTI_CLASS_BEGIN(ConsoleVar) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(m_value, {});
+        WG_RTTI_FIELD(m_defaul_value, {});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class ConsoleCmd
+     * @brief Console command which can be executed from console
+     */
+    class ConsoleCmd : public ConsoleObject {
     public:
-    private:
+        WG_RTTI_CLASS(ConsoleCmd, ConsoleObject)
+
+        using OnExecute = std::function<Status(array_view<std::string> args)>;
+
+        ConsoleCmd() = default;
+
+        ConsoleCmd(Strid name, std::string help, OnExecute on_execute)
+            : ConsoleObject(name, std::move(help)),
+              m_on_execute(std::move(on_execute)) {
+        }
+
+        [[nodiscard]] const OnExecute& get_on_execute() const { return m_on_execute; }
+
+    protected:
+        friend class ConsoleManager;
+
+        OnExecute m_on_execute;
     };
 
-    class ConsoleTrigger {
+    WG_RTTI_CLASS_BEGIN(ConsoleCmd) {
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class ConsoleTrigger
+     * @brief Console trigger which can be triggered for one frame
+     */
+    class ConsoleTrigger : public ConsoleObject {
     public:
-    private:
+        WG_RTTI_CLASS(ConsoleTrigger, ConsoleObject)
+
+        ConsoleTrigger() = default;
+
+        ConsoleTrigger(Strid name, std::string help)
+            : ConsoleObject(name, std::move(help)) {
+        }
+
+        [[nodiscard]] bool is_triggered() const { return m_triggered; }
+
+    protected:
+        friend class ConsoleManager;
+
+        bool m_triggered = false;
     };
 
-    class ConsoleSlider {
-    public:
-    private:
-        Var m_min;
-        Var m_max;
-        Var m_step;
-        Var m_value;
-    };
-
-    class ConsoleSelector {
-    public:
-    private:
-        std::vector<Var> m_variants;
-    };
+    WG_RTTI_CLASS_BEGIN(ConsoleTrigger) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(m_triggered, {});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

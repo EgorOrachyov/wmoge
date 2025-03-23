@@ -36,6 +36,7 @@
 #include "core/sha256.hpp"
 #include "core/status.hpp"
 #include "core/uuid.hpp"
+#include "core/var.hpp"
 #include "io/enum.hpp"
 #include "io/stream.hpp"
 #include "io/tree.hpp"
@@ -600,6 +601,7 @@ namespace wmoge {
 
 #define WG_RTTI_DECL(type, pretty_name) WG_RTTI_FUNDAMENTAL_DECL(type, pretty_name)
 
+    WG_RTTI_FUNDAMENTAL_DECL(Var, "var");
     WG_RTTI_FUNDAMENTAL_DECL(std::int16_t, "int16_t");
     WG_RTTI_FUNDAMENTAL_DECL(int, "int");
     WG_RTTI_FUNDAMENTAL_DECL(unsigned int, "uint");

@@ -50,7 +50,7 @@ namespace wmoge {
     };
 
     /**
-     * @class AssetDataDesc
+     * @class AssetDataMeta
      * @brief Describes asset associated data stored in asset system
      */
     struct AssetDataMeta {

@@ -76,7 +76,7 @@ namespace wmoge {
         class TextureManager* texture_manager();
         class MeshManager*    mesh_manager();
         class SceneManager*   scene_manager();
-        class Console*        console();
+        class ConsoleManager* console_manager();
         class AudioEngine*    audio_engine();
         class RenderEngine*   render_engine();
         class ViewManager*    view_manager();
@@ -109,7 +109,7 @@ namespace wmoge {
         class TextureManager* m_texture_manager = nullptr;
         class MeshManager*    m_mesh_manager    = nullptr;
         class SceneManager*   m_scene_manager   = nullptr;
-        class Console*        m_console         = nullptr;
+        class ConsoleManager* m_console_manager = nullptr;
         class AudioEngine*    m_audio_engine    = nullptr;
         class RenderEngine*   m_render_engine   = nullptr;
         class ViewManager*    m_view_manager    = nullptr;

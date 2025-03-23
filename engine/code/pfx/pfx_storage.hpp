@@ -40,7 +40,6 @@
 namespace wmoge {
 
     /**
-     * @class PfxAttribute
      * @brief Attributes of the particle system
      */
     enum class PfxAttribute {
@@ -65,7 +64,6 @@ namespace wmoge {
     };
 
     /**
-     * @class PfxAttributes
      * @brief Attributes mask of the particle system
      */
     using PfxAttributes = Mask<PfxAttribute>;

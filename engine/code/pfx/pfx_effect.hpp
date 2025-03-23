@@ -37,7 +37,6 @@
 namespace wmoge {
 
     /**
-     * @class PfxEffectType
      * @brief Type of pfx effect (for 2d and 3d support)
      */
     enum class PfxEffectType {

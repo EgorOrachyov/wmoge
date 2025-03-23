@@ -25,8 +25,17 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "console_storage.hpp"
+#include "_rtti.hpp"
+
+#include "console/console_objects.hpp"
 
 namespace wmoge {
+
+    void rtti_console() {
+        rtti_type<ConsoleObject>();
+        rtti_type<ConsoleVar>();
+        rtti_type<ConsoleCmd>();
+        rtti_type<ConsoleTrigger>();
+    }
 
 }// namespace wmoge

@@ -29,6 +29,7 @@
 
 #include "asset/asset_manager.hpp"
 #include "audio/openal/al_engine.hpp"
+#include "console/console_manager.hpp"
 #include "core/callback_queue.hpp"
 #include "core/cmd_line.hpp"
 #include "core/ioc_container.hpp"
@@ -68,6 +69,7 @@
 
 #include "asset/_rtti.hpp"
 #include "audio/_rtti.hpp"
+#include "console/_rtti.hpp"
 #include "game/_rtti.hpp"
 #include "glsl/_rtti.hpp"
 #include "grc/_rtti.hpp"
@@ -85,6 +87,7 @@ namespace wmoge {
     static void bind_globals(IocContainer* ioc) {
         ioc->bind_by_pointer<Log>(Log::instance());
         ioc->bind_by_pointer<RttiTypeStorage>(RttiTypeStorage::instance());
+        ioc->bind<ConsoleManager>();
         ioc->bind<PluginManager>();
         ioc->bind<Time>();
         ioc->bind<FileSystem>();
@@ -180,6 +183,7 @@ namespace wmoge {
         ioc->unbind<IoAsyncFileSystem>();
         ioc->unbind<PluginManager>();
         ioc->unbind<DllManager>();
+        ioc->unbind<ConsoleManager>();
         return WG_OK;
     }
 
@@ -188,6 +192,7 @@ namespace wmoge {
         rtti_rtti();
         rtti_asset();
         rtti_audio();
+        rtti_console();
         rtti_grc();
         rtti_glsl();
         rtti_material();

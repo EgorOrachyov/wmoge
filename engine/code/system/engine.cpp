@@ -30,6 +30,7 @@
 #include "asset/asset_library_fs.hpp"
 #include "asset/asset_manager.hpp"
 #include "audio/openal/al_engine.hpp"
+#include "console/console_manager.hpp"
 #include "core/callback_queue.hpp"
 #include "core/cmd_line.hpp"
 #include "core/ioc_container.hpp"
@@ -75,15 +76,15 @@ namespace wmoge {
     }
 
     Status Engine::setup() {
-        m_application = m_ioc_container->resolve_value<Application>();
-        m_time        = m_ioc_container->resolve_value<Time>();
-        m_file_system = m_ioc_container->resolve_value<FileSystem>();
-        m_config      = m_ioc_container->resolve_value<Config>();
-        // m_console        = m_ioc_container->resolve_value<Console>();
-        m_dll_manager    = m_ioc_container->resolve_value<DllManager>();
-        m_plugin_manager = m_ioc_container->resolve_value<PluginManager>();
-        m_engine_config  = m_ioc_container->resolve_value<EngineConfig>();
-        m_engine_signals = m_ioc_container->resolve_value<EngineSignals>();
+        m_application     = m_ioc_container->resolve_value<Application>();
+        m_time            = m_ioc_container->resolve_value<Time>();
+        m_file_system     = m_ioc_container->resolve_value<FileSystem>();
+        m_config          = m_ioc_container->resolve_value<Config>();
+        m_console_manager = m_ioc_container->resolve_value<ConsoleManager>();
+        m_dll_manager     = m_ioc_container->resolve_value<DllManager>();
+        m_plugin_manager  = m_ioc_container->resolve_value<PluginManager>();
+        m_engine_config   = m_ioc_container->resolve_value<EngineConfig>();
+        m_engine_signals  = m_ioc_container->resolve_value<EngineSignals>();
 
         m_engine_signals->setup.emit();
         m_plugin_manager->setup(m_ioc_container);
@@ -141,8 +142,6 @@ namespace wmoge {
         m_shader_table = m_ioc_container->resolve_value<ShaderTable>();
         WG_CHECKED(m_shader_table->reflect_types(m_shader_manager));
         WG_CHECKED(m_shader_table->load_shaders(m_asset_manager));
-
-        // m_console->init(m_asset_manager);
 
         m_config->get_bool(SID("engine.window.exit"), m_exit_on_close);
 
@@ -235,7 +234,7 @@ namespace wmoge {
     TextureManager* Engine::texture_manager() { return m_texture_manager; }
     MeshManager*    Engine::mesh_manager() { return m_mesh_manager; }
     SceneManager*   Engine::scene_manager() { return m_scene_manager; }
-    Console*        Engine::console() { return m_console; }
+    ConsoleManager* Engine::console_manager() { return m_console_manager; }
     AudioEngine*    Engine::audio_engine() { return m_audio_engine; }
     RenderEngine*   Engine::render_engine() { return m_render_engine; }
     ViewManager*    Engine::view_manager() { return m_view_manager; }

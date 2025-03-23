@@ -27,6 +27,30 @@
 
 #pragma once
 
+#include "console/console_objects.hpp"
+#include "core/flat_map.hpp"
+
+#include <vector>
+
 namespace wmoge {
+
+    /**
+     * @class ConsoleManager
+     * @brief Stores and processes all console objects
+     */
+    class ConsoleManager {
+    public:
+        void               add_object(Ref<ConsoleObject> object);
+        Status             set_var(Strid name, Var value);
+        Status             set_trigger(Strid name, bool value);
+        Status             exec_command(Strid name, array_view<std::string> args);
+        Ref<ConsoleObject> try_find_object(Strid name);
+        bool               has_object(Strid name);
+        void               update();
+
+    private:
+        flat_map<Strid, Ref<ConsoleObject>> m_objects;
+        std::vector<Ref<ConsoleTrigger>>    m_triggered;
+    };
 
 }// namespace wmoge

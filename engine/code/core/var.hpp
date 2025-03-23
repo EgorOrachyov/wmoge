@@ -31,6 +31,8 @@
 #include "core/string_id.hpp"
 #include "core/typed_array.hpp"
 #include "core/typed_map.hpp"
+#include "io/stream.hpp"
+#include "io/tree.hpp"
 #include "math/math_utils.hpp"
 #include "math/vec.hpp"
 
@@ -49,19 +51,19 @@ namespace wmoge {
      * @brief Types supported for storing inside a variant
      */
     enum class VarType : int {
-        Nil         = 0,
-        Int         = 1,
-        Float       = 2,
-        String      = 3,
-        Strid       = 4,
-        Array       = 5,
-        Map         = 6,
-        ArrayInt    = 8,
-        ArrayFloat  = 9,
-        ArrayByte   = 10,
-        ArrayString = 11,
-        ArrayVec2f  = 12,
-        ArrayVec3f  = 13
+        Nil         = 0, // Null or empty value type
+        Int         = 1, // Integer number type
+        Float       = 2, // Floating point number type
+        String      = 3, // String type
+        Strid       = 4, // Strid (string id) type
+        Array       = 5, // Array (dynamic vector) of var values
+        Map         = 6, // Map of var to var value
+        ArrayInt    = 8, // Array of int values
+        ArrayFloat  = 9, // Array of float values
+        ArrayByte   = 10,// Array of byte (uint8) value
+        ArrayString = 11,// Array of strings
+        ArrayVec2f  = 12,// Array of vec2f values
+        ArrayVec3f  = 13 // Array of vec3f values
     };
 
     /** 
@@ -173,6 +175,12 @@ namespace wmoge {
         stream << var.to_string();
         return stream;
     }
+
+    Status tree_read(IoContext& context, IoTree& tree, Var& value);
+    Status tree_write(IoContext& context, IoTree& tree, const Var& value);
+
+    Status stream_read(IoContext& context, IoStream& stream, Var& value);
+    Status stream_write(IoContext& context, IoStream& stream, const Var& value);
 
 }// namespace wmoge
 

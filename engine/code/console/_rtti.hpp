@@ -27,69 +27,8 @@
 
 #pragma once
 
-#include "date_time.hpp"
-#include "io/serialization.hpp"
-
-#include <chrono>
-#include <cstddef>
-#include <ctime>
-#include <functional>
-#include <ostream>
-#include <string>
-#include <type_traits>
-
 namespace wmoge {
 
-    /**
-     * @class DateTimeTm
-     * @brief Decomposed time struct
-    */
-    struct DateTimeTm {
-        int year   = 1900;
-        int month  = 1;
-        int day    = 1;
-        int hour   = 0;
-        int minute = 0;
-        int second = 0;
-    };
-
-    /**
-     * @class DateTime
-     * @brief Represents a date and time value.
-    */
-    class DateTime {
-    public:
-        using Clock     = std::chrono::system_clock;
-        using TimePoint = Clock::time_point;
-
-        DateTime() = default;
-        DateTime(TimePoint tp);
-        DateTime(const DateTimeTm& tm);
-        DateTime(const std::string& source);
-
-        [[nodiscard]] DateTimeTm  to_tm() const;
-        [[nodiscard]] std::time_t to_time_t() const;
-        [[nodiscard]] std::tm     to_tm_t() const;
-        [[nodiscard]] std::string to_string() const;
-        [[nodiscard]] std::string to_formatted(const std::string& format) const;
-        [[nodiscard]] std::string to_pretty_string() const;
-
-        [[nodiscard]] TimePoint get_time_point() const { return m_value; }
-
-        static DateTime now();
-
-        friend Status tree_read(IoContext& context, IoTree& tree, DateTime& value);
-        friend Status tree_write(IoContext& context, IoTree& tree, const DateTime& value);
-        friend Status stream_read(IoContext& context, IoStream& stream, DateTime& value);
-        friend Status stream_write(IoContext& context, IoStream& stream, const DateTime& value);
-
-    private:
-        TimePoint m_value{};
-    };
-
-    inline std::ostream& operator<<(std::ostream& stream, const DateTime& dt) {
-        stream << dt.to_pretty_string();
-        return stream;
-    }
+    void rtti_console();
 
 }// namespace wmoge

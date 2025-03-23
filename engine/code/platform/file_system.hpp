@@ -57,7 +57,7 @@ namespace wmoge {
     };
 
     /**
-     * @class EventFileSystem
+     * @class FileSystemEvent
      * @brief Action event dispatch from raw input and active mapping
      */
     struct FileSystemEvent {

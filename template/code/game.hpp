@@ -33,29 +33,33 @@
 #include "io/tree_yaml.hpp"
 #include "render/shader_funcs.hpp"
 
+namespace wmoge {
+
+    class TestWindowMain : public UiBindable {
+    public:
+        WG_RTTI_CLASS(TestWindowMain, UiBindable);
+
+        void item_reload_ui_disabled(UiElement* reciever) {
+            WG_LOG_INFO("update property");
+        }
+
+        void item_reload_ui_on_click(UiElement* sender) {
+            WG_LOG_INFO("on event");
+
+            notify_changed(SID("item_reload_ui_disabled"));
+        }
+    };
+
+    WG_RTTI_CLASS_BEGIN(TestWindowMain) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_METHOD(item_reload_ui_disabled, {"reciever"}, {});
+        WG_RTTI_METHOD(item_reload_ui_on_click, {"sender"}, {});
+    }
+    WG_RTTI_END;
+
+}// namespace wmoge
+
 using namespace wmoge;
-
-class TestWindowMain : public UiBindable {
-public:
-    WG_RTTI_CLASS(TestWindowMain, UiBindable);
-
-    void item_reload_ui_disabled(UiElement* reciever) {
-        WG_LOG_INFO("update property");
-    }
-
-    void item_reload_ui_on_click(UiElement* sender) {
-        WG_LOG_INFO("on event");
-
-        notify_changed(SID("item_reload_ui_disabled"));
-    }
-};
-
-WG_RTTI_CLASS_BEGIN(TestWindowMain) {
-    WG_RTTI_FACTORY();
-    WG_RTTI_METHOD(item_reload_ui_disabled, {"reciever"}, {});
-    WG_RTTI_METHOD(item_reload_ui_on_click, {"sender"}, {});
-}
-WG_RTTI_END;
 
 class TemplateGame : public GamePlugin {
 public:
