@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structstd_1_1hash_3_01wmoge_1_1TVecN_3_01T_00_01N_01_4_01_4.html" title=" " alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1Application.html" title="Base class for any application which is an entry point to run." alt="" coords="5,31,140,57"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1EngineApplication.html" title="Base class for application based on engine runtime." alt="" coords="188,31,361,57"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1EdtApplication.html" title=" " alt="" coords="417,5,571,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GameApplication.html" title="Base class for application to run stand&#45;alone game." alt="" coords="409,56,579,83"/>
 </map>

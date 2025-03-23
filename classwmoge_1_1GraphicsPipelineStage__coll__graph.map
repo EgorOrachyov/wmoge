@@ -1,7 +1,7 @@
 <map id="wmoge::GraphicsPipelineStage" name="wmoge::GraphicsPipelineStage">
 <area shape="rect" id="node1" title=" " alt="" coords="959,283,1161,309"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1GraphicsPipeline.html" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="677,283,845,309"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1GraphicsPipelineAssets.html" title=" " alt="" coords="345,148,554,175"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1GraphicsPipelineAssets.html" title="Shared state of pipeline required for rendering." alt="" coords="345,148,554,175"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="30,7,179,49"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="30,141,179,182"/>
 <area shape="rect" id="node6" href="$structwmoge_1_1GraphicsPipelineSettings.html" title="Graphics pipeline settings for rendering scene." alt="" coords="341,232,557,259"/>

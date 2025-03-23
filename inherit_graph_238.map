@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1IniSection.html" title="Ini file section with values." alt="" coords="5,5,133,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1IoTree.html" title="Structured property serialization and de&#45;serialization tree." alt="" coords="5,5,112,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1IoYamlTree.html" title="Yaml tree implementation for serialization and de&#45;serialization." alt="" coords="160,5,297,32"/>
 </map>

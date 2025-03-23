@@ -1,3 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1ModelLod.html" title="Serializable struct to hold single lod params." alt="" coords="5,5,132,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1Plugin.html" title="Base class for any engine plug&#45;in." alt="" coords="5,107,112,133"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssimpPlugin.html" title="Plugin which brings assimp support to the engine." alt="" coords="163,5,313,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1FreetypePlugin.html" title="Plugin which brings freetype fonts support." alt="" coords="160,56,316,83"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GamePlugin.html" title="Base class for a custom user game." alt="" coords="167,107,309,133"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1ImguiPlugin.html" title="Plugin supporting ui backend with imgui." alt="" coords="169,157,307,184"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1RuntimePlugin.html" title="Plugin for standard engine runtime workflows." alt="" coords="161,208,315,235"/>
 </map>
