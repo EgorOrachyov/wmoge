@@ -74,7 +74,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(PfxEffect) {
-        WG_RTTI_META_DATA(RttiUiHint(""));
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;

@@ -53,7 +53,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(IconInfo) {
-        WG_RTTI_META_DATA({});
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(page_id, {});
         WG_RTTI_FIELD(uv_pos, {});
@@ -75,7 +74,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(IconAtlasPage) {
-        WG_RTTI_META_DATA({});
         WG_RTTI_FIELD(texture, {});
         WG_RTTI_FIELD(source_images, {});
     }
@@ -94,7 +92,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(IconAtlasDesc) {
-        WG_RTTI_META_DATA({});
         WG_RTTI_FIELD(icons_map, {});
         WG_RTTI_FIELD(icons, {});
         WG_RTTI_FIELD(pages, {});
@@ -119,7 +116,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(IconAtlas) {
-        WG_RTTI_META_DATA({});
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(m_desc, {});
     }
@@ -147,7 +143,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(Icon) {
-        WG_RTTI_META_DATA({});
         WG_RTTI_FIELD(m_atlas, {});
         WG_RTTI_FIELD(m_id, {});
     }

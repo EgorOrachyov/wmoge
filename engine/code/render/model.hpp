@@ -93,7 +93,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(ModelDesc) {
-        WG_RTTI_META_DATA(RttiUiHint(""));
     }
     WG_RTTI_END;
 
@@ -131,7 +130,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(Model) {
-        WG_RTTI_META_DATA(RttiUiHint(""));
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;

@@ -1,8 +1,5 @@
-<UiMainWindow 
-    tag="window_main" 
-    title="Wmoge Engine"
-    meta:bindable="TestWindowMain">
-    <UiMainWindow.menu_bar>
+<UiMainWindow tag="window_main" title="Wmoge Engine">
+    <menu_bar>
         <UiMenuBar tag="main_menu_bar">
             <UiMenu name="File">
                 <UiSeparatorText label="SCENE" sub_style="separator"/>
@@ -20,6 +17,11 @@
                 <UiMenuItem label="New Project"/>
                 <UiMenuItem label="Open Project" disabled="true"/>
                 <UiMenuItem label="Open Project Recent" selected="true"/>
+                <UiMenuItem>
+                    <bindings>
+                        <UiBinding property="label" data_path="m_text" type="ToTarget"/>
+                    </bindings>
+                </UiMenuItem>
             </UiMenu>
             <UiMenu name="Edit">
             </UiMenu>
@@ -31,15 +33,12 @@
             </UiMenu>
             <UiMenu name="Debug">
                 <UiSeparatorText label="UI" sub_style="separator"/>
-                <UiMenuItem 
-                    label="Reload ui" 
-                    bind:disabled="item_reload_ui_disabled"
-                    bind:on_click="item_reload_ui_on_click"/>
+                <UiMenuItem label="Reload ui"/>
             </UiMenu>
             <UiMenu name="Help">
             </UiMenu>
         </UiMenuBar>
-    </UiMainWindow.menu_bar>
+    </menu_bar>
 
     <UiDockSpace name="main_dock_space">
         <UiDockWindow title="Hierarchy" sub_style="panel">
@@ -50,6 +49,11 @@
         </UiDockWindow>
         <UiDockWindow title="Properties" sub_style="panel">
             <UiStackPanel>
+                <UiSliderInt label="Bound int" value_min="0" value_max="10">
+                    <bindings>
+                        <UiBinding property="value" data_path="m_value" type="ToSource"/>
+                    </bindings>
+                </UiSliderInt>
                 <UiTextWrapped text="Here will be panel with properties of the seleceted entity. Visit link to get more information"/>
                 <UiTextLink text="https://github.com/EgorOrachyov/wmoge"/>
             </UiStackPanel>

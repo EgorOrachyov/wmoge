@@ -255,7 +255,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(UiStyle) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(m_desc, {RttiOptional});
     }

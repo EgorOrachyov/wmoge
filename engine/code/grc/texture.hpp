@@ -147,7 +147,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(Texture) {
-        WG_RTTI_META_DATA(RttiUiHint(""));
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
@@ -167,7 +166,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(Texture2d) {
-        WG_RTTI_META_DATA(RttiUiHint(""));
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
@@ -187,7 +185,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(TextureCube) {
-        WG_RTTI_META_DATA(RttiUiHint(""));
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;

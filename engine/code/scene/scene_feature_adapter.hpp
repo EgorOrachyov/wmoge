@@ -67,14 +67,6 @@ namespace wmoge {
         Status build_entity(EcsEntity entity, const EntityFeature& feature, EntityBuildContext& context) override {
             return build_entity_typed(entity, dynamic_cast<const FeatureType&>(feature).elem, context);
         }
-
-        Status build_entities(array_view<EcsEntity> entities, const EntityFeatureVector& features, EntityBuildContext& context) override {
-            const auto& elems = dynamic_cast<const VectorType&>(features).elems;
-            for (const std::pair<int, T>& entry : elems) {
-                WG_CHECKED(build_entity_typed(entities[entry.first], entry.second, context));
-            }
-            return WG_OK;
-        }
     };
 
 #define WG_NAME_ENTITY_FEATURE(type) \

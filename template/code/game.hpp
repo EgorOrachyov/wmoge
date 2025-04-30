@@ -35,25 +35,24 @@
 
 namespace wmoge {
 
-    class TestWindowMain : public UiBindable {
+    class TestWindowMain : public RttiObject {
     public:
-        WG_RTTI_CLASS(TestWindowMain, UiBindable);
+        WG_RTTI_CLASS(TestWindowMain, RttiObject);
 
-        void item_reload_ui_disabled(UiElement* reciever) {
-            WG_LOG_INFO("update property");
-        }
-
-        void item_reload_ui_on_click(UiElement* sender) {
+        void on_event() {
             WG_LOG_INFO("on event");
-
-            notify_changed(SID("item_reload_ui_disabled"));
         }
+
+    protected:
+        std::string m_text  = "Do some work";
+        int         m_value = 0;
     };
 
     WG_RTTI_CLASS_BEGIN(TestWindowMain) {
         WG_RTTI_FACTORY();
-        WG_RTTI_METHOD(item_reload_ui_disabled, {"reciever"}, {});
-        WG_RTTI_METHOD(item_reload_ui_on_click, {"sender"}, {});
+        WG_RTTI_FIELD(m_text, {});
+        WG_RTTI_FIELD(m_value, {});
+        WG_RTTI_METHOD(on_event, {}, {});
     }
     WG_RTTI_END;
 
@@ -97,30 +96,7 @@ public:
         scene = m_engine->game_manager()->make_scene(SID("test_scene"));
         m_engine->scene_manager()->build_scene(scene, scene_data->get_data());
 
-        shader = m_engine->asset_manager()->load(SID("engine/shaders/canvas")).cast<Shader>();
-
-        ShaderParamId p_clip_proj_view = shader->find_param_id(SID("ClipProjView"));
-        ShaderParamId p_inverse_gamma  = shader->find_param_id(SID("InverseGamma"));
-
-        ShaderParamBlock block(*shader, 0, SID("canvas"));
-        block.set_var(p_clip_proj_view, Math3d::perspective(1.0f, 1.0f, 0.1f, 100000.f));
-        block.set_var(p_inverse_gamma, 1.0f / 4.0f);
-        // block.validate(Engine::instance()->gfx_driver(), Engine::instance()->gfx_ctx());
-
         Engine* engine = m_engine;
-
-        // IoContext context;
-        // context.add<ShaderManager*>(Engine::instance()->shader_manager());
-        // IoYamlTree   tree;
-        // IoStreamFile stream;
-        // std::string  content;
-
-        // WG_CHECKED(tree.create_tree());
-        // WG_TREE_WRITE(context, tree, shader->get_reflection());
-        // WG_CHECKED(tree.save_tree(content));
-        // WG_CHECKED(Engine::instance()->file_system()->save_file("canvas.reflection.yaml", content));
-        // WG_CHECKED(stream.open("canvas.reflection.bin", {FileOpenMode::Out, FileOpenMode::Binary}));
-        // WG_ARCHIVE_WRITE(context, stream, shader->get_reflection());
 
         aux_draw  = std::make_unique<AuxDrawManager>();
         rdg_pool  = std::make_unique<RdgPool>(engine->gfx_driver());
@@ -129,73 +105,13 @@ public:
         auto atlas = m_engine->asset_manager()->load(SID("editor/icons/atlas")).cast<IconAtlas>();
         auto icon  = atlas->try_find_icon(SID("general_redo")).value();
 
-        // auto button_save      = make_ref<UiButton>();
-        // button_save->label    = "save style";
-        // button_save->icon     = icon;
-        // button_save->on_click = [e = m_engine]() {
-        //     WG_LOG_INFO("saved!");
-
-        //     IoYamlTree tree;
-        //     IoContext  ctx;
-
-        //     tree.create_tree();
-
-        //     auto s      = e->ui_manager()->get_style();
-        //     auto status = s->write_to_tree(ctx, tree);
-
-        //     std::string str;
-        //     tree.save_tree(str);
-
-        //     e->file_system()->save_file("style.yml", str);
-        // };
-
-        // auto button_load      = make_ref<UiButton>();
-        // button_load->label    = "load style";
-        // button_load->icon     = icon;
-        // button_load->on_click = [e = m_engine, editor_style]() {
-        //     WG_LOG_INFO("loaded!");
-
-        //     IoYamlTree tree;
-        //     IoContext  ctx;
-
-        //     auto status = tree.parse_file(e->file_system(), "style.yml");
-
-        //     auto s = make_ref<UiStyle>();
-        //     s->set_id(SID("loaded_style"));
-        //     s->read_from_tree(ctx, tree);
-
-        //     e->ui_manager()->set_style(s);
-        // };
-
-        // auto header  = make_ref<UiText>();
-        // header->text = "ELEMENTS";
-
-        // auto panel    = make_ref<UiCollapsingPanel>();
-        // panel->header = header;
-        // panel->children.push_back(button_save);
-        // panel->children.push_back(button_load);
-        // panel->sub_style = SID("header");
-
-        // auto dock_window       = make_ref<UiDockWindow>();
-        // dock_window->title     = "Properties";
-        // dock_window->sub_style = SID("panel");
-        // dock_window->content   = panel;
-
-        // auto dock_space  = make_ref<UiDockSpace>();
-        // dock_space->name = "dock_space";
-        // dock_space->children.push_back(dock_window);
-
-        // auto window     = make_ref<UiMainWindow>();
-        // window->title   = "Wmoge Editor";
-        // window->content = dock_space;
-
         auto style  = m_engine->asset_manager()->load(SID("editor/styles/dark.style")).cast<UiStyle>();
         auto markup = m_engine->asset_manager()->load(SID("editor/views/window_main.xml")).cast<UiMarkup>();
 
-        Ref<UiElement>      window;
+        Ref<UiElement>      window   = markup->make_elements();
         Ref<TestWindowMain> bindable = make_ref<TestWindowMain>();
 
-        UiBinder binder(window, markup, bindable);
+        UiBinder binder(window, bindable);
         WG_CHECKED(binder.bind());
 
         m_engine->ui_manager()->set_main_window(window.cast<UiMainWindow>());
@@ -257,7 +173,6 @@ public:
         font.reset();
         tex2d.reset();
         texCube.reset();
-        shader.reset();
         mesh.reset();
         scene.reset();
 
@@ -269,7 +184,6 @@ public:
     Ref<Texture2d>                  tex2d;
     Ref<TextureCube>                texCube;
     Ref<Mesh>                       mesh;
-    Ref<Shader>                     shader;
     Ref<Font>                       font;
     std::unique_ptr<AuxDrawManager> aux_draw;
     std::unique_ptr<RdgPool>        rdg_pool;

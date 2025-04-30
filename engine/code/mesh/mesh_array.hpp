@@ -61,7 +61,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(MeshVertStream) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(attribs, {});
         WG_RTTI_FIELD(buffer, {});
         WG_RTTI_FIELD(offset, {});
@@ -84,7 +83,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(MeshIndexStream) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(index_type, {});
         WG_RTTI_FIELD(buffer, {});
         WG_RTTI_FIELD(offset, {});
@@ -130,7 +128,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(MeshArrayData) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(faces, {});
         WG_RTTI_FIELD(lines, {});
         WG_RTTI_FIELD(pos3, {});
@@ -180,7 +177,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(MeshArray) {
-        WG_RTTI_META_DATA(RttiUiHint(""));
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(m_data, {});
     }

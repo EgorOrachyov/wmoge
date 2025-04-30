@@ -31,171 +31,107 @@
 
 namespace wmoge {
 
-    UiBinder::UiBinder(Ref<UiElement>& element, const Ref<UiMarkup>& markup, const Ref<UiBindable>& bindalbe)
-        : m_element(element), m_markup(markup), m_bindalbe(bindalbe) {
+    UiBinder::UiBinder(const Ref<UiElement>& element, const Ref<RttiObject>& data_source)
+        : m_element(element), m_data_source(data_source) {
     }
 
     Status UiBinder::bind() {
         WG_PROFILE_CPU_UI("UiBinder::bind");
 
-        const UiMarkupDecs& desc = m_markup->get_desc();
+        WG_CHECKED(bind_element(m_element));
+        m_element->data_source = m_data_source;
 
-        m_mediator = make_ref<UiBindMediator>();
-
-        WG_CHECKED(bind_element(m_element, desc.root_element));
-
-        m_mediator->bindable     = m_bindalbe;
-        m_mediator->root_element = m_element.get();
-        m_element->user_data     = m_mediator;
-
-        UiBindInfo bind_info;
-        bind_info.find_element = [m = m_mediator.get()](Strid tag) -> UiElement* {
-            auto query = m->tagged_elements.find(tag);
-            if (query != m->tagged_elements.end()) {
-                return query->second;
-            }
-            return nullptr;
-        };
-        bind_info.notify_changed = [m = m_mediator.get()](Strid property) -> void {
-            auto query = m->binded_properties.find(property);
-            if (query != m->binded_properties.end()) {
-                query->second();
-            }
-        };
-
-        m_bindalbe->set_bind_info(std::move(bind_info));
-
-        return m_bindalbe->on_bind();
+        return WG_OK;
     }
 
-    Status UiBinder::bind_element(Ref<UiElement>& element, int element_id) {
-        const UiMarkupDecs&    desc         = m_markup->get_desc();
-        const UiMarkupElement& element_info = desc.elements[element_id];
-        element                             = element_info.cls->instantiate().cast<UiElement>();
+    Status UiBinder::bind_element(const Ref<UiElement>& element) {
+        assert(element);
 
-        for (int attribute_id : element_info.attributes) {
-            WG_CHECKED(bind_element_attribute(element, attribute_id));
+        WG_CHECKED(bind_attributes(element));
+
+        for (const Ref<UiElement>& child : element->children) {
+            WG_CHECKED(bind_element(child));
         }
 
-        for (int slot_id : element_info.slots) {
-            WG_CHECKED(bind_element_slot(element, slot_id));
-        }
+        RttiClass* cls = element->get_class();
+        for (const RttiField& field : cls->get_fields()) {
+            const RttiType* type = field.get_type();
+            if (!type->archetype_is(RttiArchetype::Ref)) {
+                continue;
+            }
+            const RttiType* type_elem = static_cast<const RttiTypeRef*>(type)->get_value_type();
+            if (!type_elem->archetype_is(RttiArchetype::Class)) {
+                continue;
+            }
+            const RttiClass* type_cls = static_cast<const RttiClass*>(type_elem);
+            if (!type_cls->is_subtype_of(UiElement::get_class_static())) {
+                continue;
+            }
 
-        if (!element->tag.empty()) {
-            m_mediator->tagged_elements[element->tag] = element.get();
+            const Ref<UiElement>& slot = *(reinterpret_cast<const Ref<UiElement>*>(
+                    reinterpret_cast<const std::uint8_t*>(element.get()) + field.get_byte_offset()));
+
+            if (slot) {
+                WG_CHECKED(bind_element(slot));
+            }
         }
 
         return WG_OK;
     }
 
-    Status UiBinder::bind_element_slot(const Ref<UiElement>& element, int slot_id) {
-        const UiMarkupDecs& desc      = m_markup->get_desc();
-        const UiMarkupSlot& slot_info = desc.slots[slot_id];
-
-        const RttiField* field = slot_info.field;
-        const RttiType*  type  = field->get_type();
-
-        const bool is_ref    = type->archetype_is(RttiArchetype::Ref);
-        const bool is_vector = type->archetype_is(RttiArchetype::Vector);
-
-        assert(is_ref || is_vector);
-
-        std::uint8_t* object       = reinterpret_cast<std::uint8_t*>(element.get());
-        std::size_t   field_offset = field->get_byte_offset();
-
-        Ref<UiElement> child;
-        WG_CHECKED(bind_element(child, slot_info.child_element));
-
-        if (is_vector) {
-            const RttiTypeVector* type_vector = static_cast<const RttiTypeVector*>(type);
-            WG_CHECKED(type_vector->push_back(object + field_offset, &child));
-        }
-        if (is_ref) {
-            WG_CHECKED(type->copy(object + field_offset, &child));
+    Status UiBinder::bind_attributes(const Ref<UiElement>& element) {
+        if (element->bindings.empty()) {
+            return WG_OK;
         }
 
-        return WG_OK;
-    }
+        element->bindings_updater.reserve(element->bindings.size());
 
-    Status UiBinder::bind_element_attribute(const Ref<UiElement>& element, int attribute_id) {
-        const UiMarkupDecs&      desc           = m_markup->get_desc();
-        const UiMarkupAttribute& attribute_info = desc.attributes[attribute_id];
+        for (std::size_t i = 0; i < element->bindings.size(); i++) {
+            const UiBinding& binding = element->bindings[i];
 
-        const RttiField* field = attribute_info.field;
-        const RttiType*  type  = field->get_type();
-
-        std::uint8_t* object = reinterpret_cast<std::uint8_t*>(element.get());
-        std::size_t   offset = field->get_byte_offset();
-
-        const bool is_bind = attribute_info.bind_method;
-
-        if (!is_bind) {
-            const RttiTypeOptional* optional_type = nullptr;
-            const RttiType*         value_type    = type;
-
-            if (type->archetype_is(RttiArchetype::Optional)) {
-                optional_type = static_cast<const RttiTypeOptional*>(type);
-                value_type    = optional_type->get_value_type();
+            const RttiField* target = element->get_class()->find_field(binding.property).value_or(nullptr);
+            if (!target) {
+                WG_LOG_ERROR("no target property " << binding.property);
+                return StatusCode::InvalidData;
             }
 
-            auto set_field = [&](const void* value, const void* value_inside_opt) {
-                if (optional_type) {
-                    WG_CHECKED(type->copy(object + offset, value_inside_opt));
-                } else {
-                    WG_CHECKED(type->copy(object + offset, value));
+            const RttiField* source = m_data_source->get_class()->find_field(binding.data_path).value_or(nullptr);
+            if (!source) {
+                WG_LOG_ERROR("no source property " << binding.data_path);
+                return StatusCode::InvalidData;
+            }
+
+            if (target->get_type() != source->get_type()) {
+                WG_LOG_ERROR("types for target and source property must match");
+                return StatusCode::InvalidData;
+            }
+
+            auto update_func = [type = binding.type, target, source, element, data_source = m_data_source]() {
+                std::size_t   offset_target = target->get_byte_offset();
+                std::uint8_t* ptr_target    = reinterpret_cast<std::uint8_t*>(element.get()) + offset_target;
+
+                std::size_t   offset_source = source->get_byte_offset();
+                std::uint8_t* ptr_source    = reinterpret_cast<std::uint8_t*>(data_source.get()) + offset_source;
+
+                const RttiType* t = target->get_type();
+
+                if (type == UiBindingType::ToTarget) {
+                    t->copy(ptr_target, ptr_source);
                 }
-
-                return WG_OK;
-            };
-
-            const RttiType* type_bool   = rtti_type<bool>();
-            const RttiType* type_int    = rtti_type<int>();
-            const RttiType* type_float  = rtti_type<float>();
-            const RttiType* type_strid  = rtti_type<Strid>();
-            const RttiType* type_string = rtti_type<std::string>();
-
-            if (value_type == type_bool) {
-                bool                v_val = attribute_info.value;
-                std::optional<bool> v     = v_val;
-                WG_CHECKED(set_field(&(v.value()), &v));
-            } else if (value_type == type_int) {
-                int                v_val = attribute_info.value;
-                std::optional<int> v     = v_val;
-                WG_CHECKED(set_field(&(v.value()), &v));
-            } else if (value_type == type_float) {
-                float                v_val = attribute_info.value;
-                std::optional<float> v     = v_val;
-                WG_CHECKED(set_field(&(v.value()), &v));
-            } else if (value_type == type_strid) {
-                Strid                v_val = attribute_info.value;
-                std::optional<Strid> v     = v_val;
-                WG_CHECKED(set_field(&(v.value()), &v));
-            } else if (value_type == type_string) {
-                std::string                v_val = attribute_info.value;
-                std::optional<std::string> v     = std::move(v_val);
-                WG_CHECKED(set_field(&(v.value()), &v));
-            }
-        } else {
-            const RttiMethod*       method   = attribute_info.bind_method;
-            const RttiTypeFunction* function = method->get_function();
-
-            const bool is_function = type->archetype_is(RttiArchetype::Function);
-
-            std::function<void()> callback = [e = element.get(),
-                                              b = m_bindalbe.get(),
-                                              f = function]() {
-                RttiFrame frame;
-
-                if (!f->call(frame, b, array_view<std::uint8_t>((std::uint8_t*) &e, sizeof(e)))) {
-                    WG_LOG_ERROR("failed to call function " << f->get_name());
+                if (type == UiBindingType::ToSource) {
+                    t->copy(ptr_source, ptr_target);
                 }
             };
 
-            if (is_function) {
-                type->copy(object + offset, &callback);
-            } else {
-                m_mediator->binded_properties[method->get_name()] = std::move(callback);
+            if (binding.type == UiBindingType::ToTargetOnce) {
+                update_func();
+                continue;
             }
+            if (binding.type == UiBindingType::ToTarget) {
+                update_func();
+            }
+
+            element->bindings_updater.emplace_back(update_func);
         }
 
         return WG_OK;

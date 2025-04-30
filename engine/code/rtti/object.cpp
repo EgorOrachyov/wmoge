@@ -40,7 +40,7 @@ namespace wmoge {
     Status RttiObject::clone(Ref<RttiObject>& object) const {
         RttiClass* rtti_class = get_class();
         object                = rtti_class->instantiate();
-        return rtti_class->copy(object.get(), this);
+        return object ? rtti_class->clone(object.get(), this) : StatusCode::FailedInstantiate;
     }
     Status RttiObject::read_from_tree(IoContext& context, IoTree& tree) {
         return get_class()->read_from_tree(this, tree, context);

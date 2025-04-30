@@ -51,7 +51,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(GmTransform) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(transform, {RttiOptional});
         WG_RTTI_FIELD(type, {RttiOptional});
         WG_RTTI_FIELD(parent, {RttiOptional});

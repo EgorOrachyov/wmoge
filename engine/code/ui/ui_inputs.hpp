@@ -34,13 +34,13 @@ namespace wmoge {
 
     /**
      * @class UiDragInt
-     * @brief
+     * @brief Ui int field with drag option
      */
-    class UiDragInt : public UiSubElement {
+    class UiDragInt : public UiElement {
     public:
-        WG_RTTI_CLASS(UiDragInt, UiSubElement);
+        WG_RTTI_CLASS(UiDragInt, UiElement);
 
-        UiDragInt() : UiSubElement(UiElementType::DragInt) {}
+        UiDragInt() : UiElement(UiElementType::DragInt) {}
 
         using OnInput = std::function<void()>;
 
@@ -67,13 +67,13 @@ namespace wmoge {
 
     /**
      * @class UiDragFloat
-     * @brief
+     * @brief Ui float field with drag option
      */
-    class UiDragFloat : public UiSubElement {
+    class UiDragFloat : public UiElement {
     public:
-        WG_RTTI_CLASS(UiDragFloat, UiSubElement);
+        WG_RTTI_CLASS(UiDragFloat, UiElement);
 
-        UiDragFloat() : UiSubElement(UiElementType::DragFloat) {}
+        UiDragFloat() : UiElement(UiElementType::DragFloat) {}
 
         using OnInput = std::function<void()>;
 
@@ -100,13 +100,13 @@ namespace wmoge {
 
     /**
      * @class UiSliderInt
-     * @brief 
+     * @brief Ui int slider with bar for selection
      */
-    class UiSliderInt : public UiSubElement {
+    class UiSliderInt : public UiElement {
     public:
-        WG_RTTI_CLASS(UiSliderInt, UiSubElement);
+        WG_RTTI_CLASS(UiSliderInt, UiElement);
 
-        UiSliderInt() : UiSubElement(UiElementType::SliderInt) {}
+        UiSliderInt() : UiElement(UiElementType::SliderInt) {}
 
         using OnInput = std::function<void()>;
 
@@ -131,13 +131,13 @@ namespace wmoge {
 
     /**
      * @class UiSliderFloat
-     * @brief
+     * @brief Ui float slider with bar for selection
      */
-    class UiSliderFloat : public UiSubElement {
+    class UiSliderFloat : public UiElement {
     public:
-        WG_RTTI_CLASS(UiSliderFloat, UiSubElement);
+        WG_RTTI_CLASS(UiSliderFloat, UiElement);
 
-        UiSliderFloat() : UiSubElement(UiElementType::SliderFloat) {}
+        UiSliderFloat() : UiElement(UiElementType::SliderFloat) {}
 
         using OnInput = std::function<void()>;
 
@@ -162,13 +162,13 @@ namespace wmoge {
 
     /**
      * @class UiInputInt
-     * @brief
+     * @brief Ui int input field with step editing
      */
-    class UiInputInt : public UiSubElement {
+    class UiInputInt : public UiElement {
     public:
-        WG_RTTI_CLASS(UiInputInt, UiSubElement);
+        WG_RTTI_CLASS(UiInputInt, UiElement);
 
-        UiInputInt() : UiSubElement(UiElementType::InputInt) {}
+        UiInputInt() : UiElement(UiElementType::InputInt) {}
 
         using OnInput = std::function<void()>;
 
@@ -191,13 +191,13 @@ namespace wmoge {
 
     /**
      * @class UiInputFloat
-     * @brief
+     * @brief Ui float input field with step editing
      */
-    class UiInputFloat : public UiSubElement {
+    class UiInputFloat : public UiElement {
     public:
-        WG_RTTI_CLASS(UiInputFloat, UiSubElement);
+        WG_RTTI_CLASS(UiInputFloat, UiElement);
 
-        UiInputFloat() : UiSubElement(UiElementType::InputFloat) {}
+        UiInputFloat() : UiElement(UiElementType::InputFloat) {}
 
         using OnInput = std::function<void()>;
 
@@ -222,13 +222,13 @@ namespace wmoge {
 
     /**
      * @class UiInputText
-     * @brief
+     * @brief Ui text input field
      */
-    class UiInputText : public UiSubElement {
+    class UiInputText : public UiElement {
     public:
-        WG_RTTI_CLASS(UiInputText, UiSubElement);
+        WG_RTTI_CLASS(UiInputText, UiElement);
 
-        UiInputText() : UiSubElement(UiElementType::InputText) {}
+        UiInputText() : UiElement(UiElementType::InputText) {}
 
         using OnInput = std::function<void()>;
 
@@ -247,13 +247,13 @@ namespace wmoge {
 
     /**
      * @class UiInputTextExt
-     * @brief
+     * @brief Ui extended text input field with rich callbacks and completion
      */
-    class UiInputTextExt : public UiSubElement {
+    class UiInputTextExt : public UiElement {
     public:
-        WG_RTTI_CLASS(UiInputTextExt, UiSubElement);
+        WG_RTTI_CLASS(UiInputTextExt, UiElement);
 
-        UiInputTextExt() : UiSubElement(UiElementType::InputTextExt) {}
+        UiInputTextExt() : UiElement(UiElementType::InputTextExt) {}
 
         using OnInput      = std::function<void()>;
         using OnEnter      = std::function<void()>;

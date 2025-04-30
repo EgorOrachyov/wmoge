@@ -25,44 +25,38 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include "rtti/object.hpp"
-#include "rtti/traits.hpp"
+#include "core/array_view.hpp"
+#include "core/string_utils.hpp"
+#include "rtti/type_storage.hpp"
 #include "ui/ui_element.hpp"
 #include "ui/ui_markup.hpp"
 
+#include <tinyxml2.hpp>
+
 namespace wmoge {
 
-    /** @brief Info passed to a bindable instance on binding */
-    struct UiBindInfo {
-        std::function<void(Strid)>       notify_changed;
-        std::function<UiElement*(Strid)> find_element;
-        UiElement*                       root_element = nullptr;
-    };
-
     /**
-     * @class UiBindable
-     * @brief Base class for programming code behind ui declared in markup files
+     * @class UiMarkupParser
+     * @brief Parses xml markup document into a ui markup desc object
      */
-    class UiBindable : public RttiObject {
+    class UiMarkupParser {
     public:
-        WG_RTTI_CLASS(UiBindable, RttiObject);
+    public:
+        UiMarkupParser(Strid name, UiMarkupDecs& desc, array_view<const std::uint8_t> xml_buffer, RttiTypeStorage* type_storage);
 
-        virtual Status on_bind() { return WG_OK; }
-
-        void                     set_bind_info(UiBindInfo info);
-        void                     notify_changed(Strid poperty_id) const;
-        [[nodiscard]] UiElement* find_element_by(Strid tag) const;
-        [[nodiscard]] UiElement* get_root_element() const;
+        [[nodiscard]] Status parse();
 
     private:
-        UiBindInfo m_bind_info;
-    };
+        [[nodiscard]] Status parse_element(tinyxml2::XMLElement* xml_node, Ref<UiElement>& out);
+        [[nodiscard]] Status parse_binding(const tinyxml2::XMLElement* xml_binding, Ref<UiElement>& out);
+        [[nodiscard]] Status parse_attribute(const tinyxml2::XMLAttribute* xml_attribute, Ref<UiElement>& out, RttiClass* cls);
 
-    WG_RTTI_CLASS_BEGIN(UiBindable) {
-        WG_RTTI_FACTORY();
+    private:
+        Strid                          m_name;
+        UiMarkupDecs&                  m_desc;
+        tinyxml2::XMLDocument          m_document;
+        array_view<const std::uint8_t> m_xml_buffer;
+        RttiTypeStorage*               m_type_storage;
     };
-    WG_RTTI_END;
 
 }// namespace wmoge

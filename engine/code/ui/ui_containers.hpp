@@ -34,53 +34,44 @@ namespace wmoge {
 
     /**
      * @class UiContextMenu
-     * @brief
+     * @brief Ui context menu which can be shown on an element
      */
     class UiContextMenu : public UiElement {
     public:
         WG_RTTI_CLASS(UiContextMenu, UiElement);
 
         UiContextMenu() : UiElement(UiElementType::ContextMenu) {}
-
-        using Slot = Ref<UiSubElement>;
-
-        std::vector<Slot> children;
     };
 
     WG_RTTI_CLASS_BEGIN(UiContextMenu) {
         WG_RTTI_FACTORY();
-        WG_RTTI_FIELD(children, {});
     }
     WG_RTTI_END;
 
     /**
      * @class UiMenu
-     * @brief
+     * @brief Ui menu which can store menu items
      */
-    class UiMenu : public UiSubElement {
+    class UiMenu : public UiElement {
     public:
-        WG_RTTI_CLASS(UiMenu, UiSubElement);
+        WG_RTTI_CLASS(UiMenu, UiElement);
 
-        UiMenu() : UiSubElement(UiElementType::Menu) {}
+        UiMenu() : UiElement(UiElementType::Menu) {}
 
-        using Slot = Ref<UiSubElement>;
-
-        std::string       name;
-        bool              enabled{true};
-        std::vector<Slot> children;
+        std::string name;
+        bool        enabled{true};
     };
 
     WG_RTTI_CLASS_BEGIN(UiMenu) {
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(enabled, {});
-        WG_RTTI_FIELD(children, {});
     }
     WG_RTTI_END;
 
     /**
      * @class UiPopup
-     * @brief
+     * @brief Ui basic popup window which can be shown anywhere
      */
     class UiPopup : public UiElement {
     public:
@@ -88,24 +79,20 @@ namespace wmoge {
 
         UiPopup() : UiElement(UiElementType::Popup) {}
 
-        using Slot = Ref<UiSubElement>;
-
-        std::string       name;
-        bool              should_show{false};
-        std::vector<Slot> children;
+        std::string name;
+        bool        should_show{false};
     };
 
     WG_RTTI_CLASS_BEGIN(UiPopup) {
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(should_show, {});
-        WG_RTTI_FIELD(children, {});
     }
     WG_RTTI_END;
 
     /**
      * @class UiCompletionPopup
-     * @brief
+     * @brief Ui completion popup for text input
      */
     class UiCompletionPopup : public UiElement {
     public:
@@ -113,24 +100,20 @@ namespace wmoge {
 
         UiCompletionPopup() : UiElement(UiElementType::CompletionPopup) {}
 
-        using Slot = Ref<UiSubElement>;
-
-        std::string       name;
-        bool              should_show{false};
-        std::vector<Slot> children;
+        std::string name;
+        bool        should_show{false};
     };
 
     WG_RTTI_CLASS_BEGIN(UiCompletionPopup) {
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(should_show, {});
-        WG_RTTI_FIELD(children, {});
     }
     WG_RTTI_END;
 
     /**
      * @class UiModal
-     * @brief
+     * @brief Ui modal window block other input and grabbing focus
      */
     class UiModal : public UiElement {
     public:
@@ -138,44 +121,36 @@ namespace wmoge {
 
         UiModal() : UiElement(UiElementType::Modal) {}
 
-        using Slot = Ref<UiSubElement>;
-
-        std::string       name;
-        bool              should_show{false};
-        std::vector<Slot> children;
+        std::string name;
+        bool        should_show{false};
     };
 
     WG_RTTI_CLASS_BEGIN(UiModal) {
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(should_show, {});
-        WG_RTTI_FIELD(children, {});
     }
     WG_RTTI_END;
 
     /**
      * @class UiPanel
-     * @brief
+     * @brief Ui base class for a panel with children elements
      */
-    class UiPanel : public UiSubElement {
+    class UiPanel : public UiElement {
     public:
-        WG_RTTI_CLASS(UiPanel, UiSubElement);
+        WG_RTTI_CLASS(UiPanel, UiElement);
 
-        using UiSubElement::UiSubElement;
-        using Slot = Ref<UiSubElement>;
-
-        std::vector<Slot> children;
+        using UiElement::UiElement;
     };
 
     WG_RTTI_CLASS_BEGIN(UiPanel) {
         WG_RTTI_FACTORY();
-        WG_RTTI_FIELD(children, {});
     }
     WG_RTTI_END;
 
     /**
      * @class UiStackPanel
-     * @brief
+     * @brief Ui panel to show elements in vertical or horizontal stack
      */
     class UiStackPanel : public UiPanel {
     public:
@@ -196,7 +171,7 @@ namespace wmoge {
 
     /**
      * @class UiScrollPanel
-     * @brief
+     * @brief Ui panel which can be srollled
      */
     class UiScrollPanel : public UiPanel {
     public:
@@ -229,7 +204,7 @@ namespace wmoge {
 
     /**
      * @class UiCollapsingPanel
-     * @brief
+     * @brief Ui pannel which can be collapsed
      */
     class UiCollapsingPanel : public UiPanel {
     public:

@@ -61,7 +61,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(GfxSamplerDesc) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(min_lod, {RttiOptional});
         WG_RTTI_FIELD(max_lod, {RttiOptional});
         WG_RTTI_FIELD(max_anisotropy, {RttiOptional});

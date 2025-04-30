@@ -60,7 +60,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(TexResizeParams) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(preset, {RttiOptional});
         WG_RTTI_FIELD(auto_adjust, {RttiOptional});
         WG_RTTI_FIELD(minify, {RttiOptional});

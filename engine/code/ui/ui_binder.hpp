@@ -30,44 +30,28 @@
 #include "core/flat_map.hpp"
 #include "core/ref.hpp"
 #include "core/weak_ref.hpp"
-#include "ui/ui_bindable.hpp"
 #include "ui/ui_element.hpp"
 #include "ui/ui_markup.hpp"
 
 namespace wmoge {
 
     /**
-     * @class UiBindMediator
-     * @brief Holds information about bound ui elements and bindable code
-     */
-    class UiBindMediator : public WeakRefCnt<UiBindMediator, RefCnt> {
-    public:
-        flat_map<Strid, UiElement*>            tagged_elements;
-        flat_map<Strid, std::function<void()>> binded_properties;
-        UiElement*                             root_element = nullptr;
-        Ref<UiBindable>                        bindable;
-    };
-
-    /**
      * @class UiBinder
-     * @brief Builds markup and bindable instance into a ui element
+     * @brief Binds ui elements tree to a data source using binding info and rtti
      */
     class UiBinder {
     public:
-        UiBinder(Ref<UiElement>& element, const Ref<UiMarkup>& markup, const Ref<UiBindable>& bindalbe);
+        UiBinder(const Ref<UiElement>& element, const Ref<RttiObject>& data_source);
 
         [[nodiscard]] Status bind();
 
     private:
-        [[nodiscard]] Status bind_element(Ref<UiElement>& element, int element_id);
-        [[nodiscard]] Status bind_element_slot(const Ref<UiElement>& element, int slot_id);
-        [[nodiscard]] Status bind_element_attribute(const Ref<UiElement>& element, int attribute_id);
+        [[nodiscard]] Status bind_element(const Ref<UiElement>& element);
+        [[nodiscard]] Status bind_attributes(const Ref<UiElement>& element);
 
     private:
-        Ref<UiElement>&     m_element;
-        Ref<UiMarkup>       m_markup;
-        Ref<UiBindable>     m_bindalbe;
-        Ref<UiBindMediator> m_mediator;
+        Ref<UiElement>  m_element;
+        Ref<RttiObject> m_data_source;
     };
 
 }// namespace wmoge

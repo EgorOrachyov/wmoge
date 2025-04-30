@@ -81,6 +81,10 @@ namespace wmoge {
                 Ref<RttiType> type = RttiTypeOf<T>::make();
                 RttiTypeStorage::instance()->add(type);
                 g_type = type.get();
+
+                if constexpr (std::is_base_of_v<RttiObject, T>) {
+                    RttiTypeOf<T>::bind(type);
+                }
             }
         }
 
@@ -98,6 +102,10 @@ namespace wmoge {
             return WG_OK;
         }
         Status copy(void* dst, const void* src) const override {
+            *((T*) dst) = *((const T*) src);
+            return WG_OK;
+        }
+        Status clone(void* dst, const void* src) const override {
             *((T*) dst) = *((const T*) src);
             return WG_OK;
         }
@@ -127,12 +135,19 @@ namespace wmoge {
             RttiTypePair::m_value_type = rtti_type<ValueT>();
         }
         ~RttiTypePairT() override = default;
+        Status clone(void* dst, const void* src) const override {
+            const PairT& source = *((const PairT*) src);
+            PairT&       target = *((PairT*) dst);
+            WG_CHECKED(RttiTypePair::m_key_type->clone(&(target.first), &(source.first)));
+            WG_CHECKED(RttiTypePair::m_value_type->clone(&(target.second), &(source.second)));
+            return WG_OK;
+        }
         Status to_string(const void* src, std::stringstream& s) const override {
             const PairT& pair = *((const PairT*) src);
             s << "{";
             RttiTypePair::m_key_type->to_string(&(pair.first), s);
             s << ":";
-            RttiTypePair::m_value_type->to_string(&(pair.first), s);
+            RttiTypePair::m_value_type->to_string(&(pair.second), s);
             s << "}";
             return WG_OK;
         }
@@ -220,6 +235,16 @@ namespace wmoge {
             RttiTypeVector::m_value_type = rtti_type<ElemT>();
         }
         ~RttiTypeBaseVectorT() override = default;
+        Status clone(void* dst, const void* src) const override {
+            const VecT& source = *((const VecT*) src);
+            VecT&       target = *((VecT*) dst);
+            target.clear();
+            target.resize(source.size());
+            for (std::size_t i = 0; i < target.size(); i++) {
+                WG_CHECKED(RttiTypeVector::m_value_type->clone(&target[i], &source[i]));
+            }
+            return WG_OK;
+        }
         Status to_string(const void* src, std::stringstream& s) const override {
             const VecT& vec = *((const VecT*) src);
             s << "[";
@@ -246,6 +271,20 @@ namespace wmoge {
             RttiTypeMap::m_value_type = rtti_type<ValueT>();
         }
         ~RttiTypeBaseMapT() override = default;
+        Status clone(void* dst, const void* src) const override {
+            const MapT& source = *((const MapT*) src);
+            MapT&       target = *((MapT*) dst);
+            target.clear();
+            target.reserve(source.size());
+            for (const auto& source_entry : source) {
+                KeyT   key;
+                ValueT val;
+                WG_CHECKED(RttiTypeMap::m_key_type->clone(&key, &(source_entry.first)));
+                WG_CHECKED(RttiTypeMap::m_value_type->clone(&val, &(source_entry.second)));
+                target.emplace(std::move(key), std::move(val));
+            }
+            return WG_OK;
+        }
         Status to_string(const void* src, std::stringstream& s) const override {
             const MapT& map = *((const MapT*) src);
             s << "{";
@@ -267,6 +306,18 @@ namespace wmoge {
             RttiTypeSet::m_value_type = rtti_type<KeyT>();
         }
         ~RttiTypeBaseSetT() override = default;
+        Status clone(void* dst, const void* src) const override {
+            const SetT& source = *((const SetT*) src);
+            SetT&       target = *((SetT*) dst);
+            target.clear();
+            target.reserve(source.size());
+            for (const auto& source_entry : source) {
+                KeyT key;
+                WG_CHECKED(RttiTypeSet::m_value_type->clone(&key, &source_entry));
+                target.emplace(std::move(key));
+            }
+            return WG_OK;
+        }
         Status to_string(const void* src, std::stringstream& s) const override {
             const SetT& set = *((const SetT*) src);
             s << "{";
@@ -282,6 +333,8 @@ namespace wmoge {
     template<typename HolderT, typename PtrT>
     class RttiTypeRefT : public RttiTypeT<HolderT, RttiTypeRef> {
     public:
+        static_assert(std::is_base_of_v<RttiObject, PtrT>, "Must be an rtti object base type");
+
         using ParentT = RttiTypeT<HolderT, RttiTypeRef>;
         using RefT    = Ref<PtrT>;
 
@@ -289,6 +342,21 @@ namespace wmoge {
             RttiTypeRef::m_value_type = rtti_type<PtrT>();
         }
         ~RttiTypeRefT() override = default;
+        Status clone(void* dst, const void* src) const override {
+            const RefT& source = *((const RefT*) src);
+            RefT&       target = *((RefT*) dst);
+            if (!source) {
+                target = source;
+                return WG_OK;
+            }
+            const RttiClass* cls = source->get_class();
+            target               = cls->instantiate().cast<PtrT>();
+            if (!target) {
+                return StatusCode::FailedInstantiate;
+            }
+            WG_CHECKED(cls->clone(target.get(), source.get()));
+            return WG_OK;
+        }
         Status to_string(const void* src, std::stringstream& s) const override {
             const RefT& self = *((const RefT*) src);
             if (self) {
@@ -310,6 +378,22 @@ namespace wmoge {
             RttiTypeOptional::m_value_type = rtti_type<T>();
         }
         ~RttiTypeOptionalT() override = default;
+        Status set_value(void* dst, const void* src) const override {
+            OptionalT& self = *((OptionalT*) src);
+            const T&   val  = *((const T*) src);
+            self            = val;
+            return WG_OK;
+        }
+        Status clone(void* dst, const void* src) const override {
+            const OptionalT& source = *((const OptionalT*) src);
+            OptionalT&       target = *((OptionalT*) dst);
+            if (source) {
+                T val;
+                WG_CHECKED(RttiTypeOptional::m_value_type->clone(&val, &source.value()));
+                target = std::move(val);
+            }
+            return WG_OK;
+        }
         Status to_string(const void* src, std::stringstream& s) const override {
             const OptionalT& self = *((const OptionalT*) src);
             if (self) {
@@ -350,6 +434,10 @@ namespace wmoge {
             return WG_OK;
         }
         Status copy(void* dst, const void* src) const override {
+            *((FunctionT*) dst) = *((const FunctionT*) src);
+            return WG_OK;
+        }
+        Status clone(void* dst, const void* src) const override {
             *((FunctionT*) dst) = *((const FunctionT*) src);
             return WG_OK;
         }
@@ -875,6 +963,9 @@ namespace wmoge {
         static Ref<RttiType> make() {
             return make_ref<RttiClassT<RttiObject>>();
         }
+        static Ref<RttiType> bind(const Ref<RttiType>& type) {
+            return type;
+        }
     };
 
 #define WG_RTTI_GENERATED_TYPE(struct_type, parent_type, rtti_type, rtti_type_getter, modifier)                    \
@@ -947,18 +1038,21 @@ public:                                                                         
             RttiTypeStorage::instance()->add(t.as<RttiType>());       \
             auto binder = [&]()
 
-#define WG_RTTI_CLASS_BEGIN(class_type)                             \
-    template<>                                                      \
-    struct RttiTypeOf<class_type> {                                 \
-        using Type = class_type;                                    \
-        static Strid name() {                                       \
-            return SID(#class_type);                                \
-        }                                                           \
-        static Ref<RttiType> make() {                               \
-            Ref<RttiClassT<Type>> t = make_ref<RttiClassT<Type>>(); \
-            RttiMetaData          meta_data;                        \
-            RttiTypeStorage::instance()->add(t.as<RttiType>());     \
-            auto binder = [&]()
+#define WG_RTTI_CLASS_BEGIN(class_type)                                   \
+    template<>                                                            \
+    struct RttiTypeOf<class_type> {                                       \
+        using Type = class_type;                                          \
+        static Strid name() {                                             \
+            return SID(#class_type);                                      \
+        }                                                                 \
+        static Ref<RttiType> make() {                                     \
+            Ref<RttiClassT<Type>> t = make_ref<RttiClassT<Type>>();       \
+            return t.as<RttiType>();                                      \
+        }                                                                 \
+        static Ref<RttiType> bind(const Ref<RttiType>& type) {            \
+            RttiMetaData          meta_data;                              \
+            Ref<RttiClassT<Type>> t      = type.cast<RttiClassT<Type>>(); \
+            auto                  binder = [&]()
 
 #define WG_RTTI_END                        \
     ;                                      \
@@ -969,7 +1063,7 @@ public:                                                                         
     }
 
 #define WG_RTTI_META_DATA(...) \
-    meta_data = std::move(RttiMetaData({__VA_ARGS__}))
+    meta_data = std::move(RttiMetaData(__VA_ARGS__))
 
 #define WG_RTTI_FACTORY() \
     t->add_factory([]() -> RttiObject* { return new Type(); })

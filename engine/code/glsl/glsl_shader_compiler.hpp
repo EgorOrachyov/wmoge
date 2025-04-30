@@ -92,7 +92,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(GlslShaderCompilerVulkanLinux) {
-        WG_RTTI_META_DATA();
     }
     WG_RTTI_END;
 
@@ -109,7 +108,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(GlslShaderCompilerVulkanWindows) {
-        WG_RTTI_META_DATA();
     }
     WG_RTTI_END;
 
@@ -126,7 +124,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(GlslShaderCompilerVulkanMacOS) {
-        WG_RTTI_META_DATA();
     }
     WG_RTTI_END;
 

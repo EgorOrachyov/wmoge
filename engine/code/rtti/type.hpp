@@ -77,6 +77,7 @@ namespace wmoge {
 
         virtual Status consturct(void* dst) const { return StatusCode::NotImplemented; }
         virtual Status copy(void* dst, const void* src) const { return StatusCode::NotImplemented; }
+        virtual Status clone(void* dst, const void* src) const { return StatusCode::NotImplemented; }
         virtual Status destruct(void* dst) const { return StatusCode::NotImplemented; }
         virtual Status read_from_tree(void* dst, IoTree& tree, IoContext& context) const { return StatusCode::NotImplemented; }
         virtual Status write_to_tree(const void* src, IoTree& tree, IoContext& context) const { return StatusCode::NotImplemented; }
@@ -90,6 +91,8 @@ namespace wmoge {
         [[nodiscard]] std::size_t         get_byte_size() const { return m_byte_size; }
         [[nodiscard]] const RttiMetaData& get_meta_data() const { return m_meta_data; }
         [[nodiscard]] RttiArchetype       get_archetype() const { return m_archetype; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Fundamental; }
 
     protected:
         Strid         m_name;

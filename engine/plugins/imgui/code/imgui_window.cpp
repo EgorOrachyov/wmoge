@@ -37,7 +37,7 @@ namespace wmoge {
         const bool has_menu_bar   = window.menu_bar;
         const bool has_tool_bar   = window.tool_bar;
         const bool has_status_bar = window.status_bar;
-        const bool has_content    = window.content;
+        const bool has_content    = !window.children.empty();
         const auto flags          = window.flags;
 
         const ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -78,7 +78,7 @@ namespace wmoge {
             processor.process(window.tool_bar.get());
         }
         if (has_content) {
-            processor.process(window.content.get());
+            processor.process(window.children);
         }
         if (has_status_bar) {
             processor.process(window.status_bar.get());
@@ -97,7 +97,7 @@ namespace wmoge {
         const bool has_menu_bar   = window.menu_bar;
         const bool has_tool_bar   = window.tool_bar;
         const bool has_status_bar = window.status_bar;
-        const bool has_content    = window.content;
+        const bool has_content    = !window.children.empty();
         const auto flags          = window.flags;
 
         if (flags.get(UiWindowFlag::NoBringToFrontOnFocus)) {
@@ -130,7 +130,7 @@ namespace wmoge {
             processor.process(window.tool_bar.get());
         }
         if (has_content) {
-            processor.process(window.content.get());
+            processor.process(window.children);
         }
         if (has_status_bar) {
             processor.process(window.status_bar.get());

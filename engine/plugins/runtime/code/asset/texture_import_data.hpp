@@ -53,7 +53,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(TextureImportData) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(sampling, {RttiOptional});
         WG_RTTI_FIELD(compression, {RttiOptional});
@@ -79,7 +78,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(Texture2dImportData) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
@@ -97,7 +95,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(TextureCubeImportData) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;

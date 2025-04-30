@@ -31,6 +31,7 @@
 #include "core/uuid.hpp"
 #include "ecs/ecs_entity.hpp"
 #include "rtti/traits.hpp"
+#include "rtti/type_ref.hpp"
 
 namespace wmoge {
 
@@ -46,7 +47,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(EntityFeature) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
@@ -63,7 +63,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(EntityFeatureVector) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;

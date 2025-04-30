@@ -53,7 +53,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(AssimpProcess) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(triangulate, {RttiOptional});
         WG_RTTI_FIELD(tangent_space, {RttiOptional});
         WG_RTTI_FIELD(flip_uv, {RttiOptional});
@@ -83,7 +82,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(AssimpMeshImportData) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(process, {RttiOptional});
         WG_RTTI_FIELD(attributes, {});

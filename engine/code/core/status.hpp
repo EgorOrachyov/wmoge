@@ -65,6 +65,7 @@ namespace wmoge {
         NoProperty,       // No such property in object to get/set
         NoMethod,         // No such method in object to call
         NoClass,          // No registered class
+        NoType,           // No registered type
         NoValue,          // No value to return
         NoAsset,          // No such asset in engine files
         ExitCode0,        // App should exit, code 0 - everything is Ok, normal close

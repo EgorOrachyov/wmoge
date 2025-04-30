@@ -85,7 +85,7 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(AssetLoader) {
-        WG_RTTI_META_DATA(RttiUiHint("Interface for an asset loader to implement custom loading"));
+        WG_RTTI_META_DATA({RttiUiHint("Interface for an asset loader to implement custom loading")});
     }
     WG_RTTI_END;
 

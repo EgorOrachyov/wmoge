@@ -27,20 +27,23 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
 #include "core/flat_map.hpp"
 #include "core/mask.hpp"
+#include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
 #include "core/var.hpp"
 
 #include <initializer_list>
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @brief List of available meta attributes
+     * @brief List of built-in meta attributes
     */
-    enum class RttiMetaAttribute {
+    enum class RttiAttributeType {
         NoSaveLoad,    // Property must not be saved and loaded in serialization
         NoCopy,        // Property must not be copied on duplication
         NoScriptExport,// Property must not be exported to scrip binding
@@ -50,19 +53,23 @@ namespace wmoge {
         UiHint,        // Ui hint for the user
         UiCategory,    // Ui category for the search
         UiInline,      // Ui inline content of field into parent in view
-        UiHidden       // Ui view is hidden from user
+        UiHidden,      // Ui view is hidden from user
+        Custom         // Custom attribute
     };
 
     /**
-     * @class RttiMetaProperty
-     * @brief Holds meta attribute with value
+     * @class RttiAttribute
+     * @brief Base class for any rtti attribute
     */
-    struct RttiMetaProperty {
-        RttiMetaProperty(RttiMetaAttribute attribute) : attribute(attribute), value(Var()) {}
-        RttiMetaProperty(RttiMetaAttribute attribute, Var value) : attribute(attribute), value(std::move(value)) {}
+    class RttiAttribute : public RefCnt {
+    public:
+        RttiAttribute(RttiAttributeType type) : m_type(type) {}
+        virtual ~RttiAttribute() = default;
 
-        const RttiMetaAttribute attribute;
-        const Var               value;
+        [[nodiscard]] RttiAttributeType get_type() const { return m_type; }
+
+    private:
+        const RttiAttributeType m_type;
     };
 
     /**
@@ -72,31 +79,61 @@ namespace wmoge {
     class RttiMetaData {
     public:
         RttiMetaData() = default;
-        RttiMetaData(const std::initializer_list<const RttiMetaProperty>& properties_list);
+        RttiMetaData(const std::initializer_list<Ref<RttiAttribute>>& attributes);
 
         [[nodiscard]] bool is_no_save_load() const;
         [[nodiscard]] bool is_no_copy() const;
         [[nodiscard]] bool is_no_script_exprot() const;
         [[nodiscard]] bool is_optional() const;
         [[nodiscard]] bool is_inline() const;
-        [[nodiscard]] bool has_attribute(RttiMetaAttribute attribute);
+        [[nodiscard]] bool has_attribute_of_type(RttiAttributeType type);
 
-        [[nodiscard]] const flat_map<RttiMetaAttribute, Var>& get_properties() const { return m_properties; }
+        [[nodiscard]] array_view<const Ref<RttiAttribute>> get_attributes() const { return m_attributes; }
 
     private:
-        flat_map<RttiMetaAttribute, Var> m_properties;
-        Mask<RttiMetaAttribute>          m_attributes;
+        std::vector<Ref<RttiAttribute>> m_attributes;
+        Mask<RttiAttributeType>         m_flags;
     };
 
-#define RttiNoSaveLoad      RttiMetaProperty(RttiMetaAttribute::NoSaveLoad)
-#define RttiNoCopy          RttiMetaProperty(RttiMetaAttribute::NoCopy)
-#define RttiNoScriptExport  RttiMetaProperty(RttiMetaAttribute::NoScriptExport)
-#define RttiOptional        RttiMetaProperty(RttiMetaAttribute::Optional)
-#define RttiInline          RttiMetaProperty(RttiMetaAttribute::Inline)
-#define RttiUiName(str)     RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))
-#define RttiUiHint(str)     RttiMetaProperty(RttiMetaAttribute::UiName, std::string(str))
-#define RttiUiCategory(str) RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))
-#define RttiUiInline        RttiMetaProperty(RttiMetaAttribute::UiInline)
-#define RttiUiHidden        RttiMetaProperty(RttiMetaAttribute::UiHidden)
+    /** @brief Rtti attribute template wrapper */
+    template<RttiAttributeType type>
+    class RttiAttributeBaseT : public RttiAttribute {
+    public:
+        RttiAttributeBaseT() : RttiAttribute(type) {}
+    };
+
+    /** @brief Rtti attribute template wrapper */
+    template<RttiAttributeType type>
+    class RttiAttributeBaseStringT : public RttiAttribute {
+    public:
+        RttiAttributeBaseStringT(std::string value) : RttiAttribute(type), m_value(std::move(value)) {}
+
+        [[nodiscard]] const std::string& get_value() const { return m_value; }
+
+    private:
+        std::string m_value;
+    };
+
+    using RttiAttributeNoSaveLoad     = RttiAttributeBaseT<RttiAttributeType::NoSaveLoad>;
+    using RttiAttributeNoCopy         = RttiAttributeBaseT<RttiAttributeType::NoCopy>;
+    using RttiAttributeNoScriptExport = RttiAttributeBaseT<RttiAttributeType::NoScriptExport>;
+    using RttiAttributeOptional       = RttiAttributeBaseT<RttiAttributeType::Optional>;
+    using RttiAttributeInline         = RttiAttributeBaseT<RttiAttributeType::Inline>;
+    using RttiAttributeUiName         = RttiAttributeBaseStringT<RttiAttributeType::UiName>;
+    using RttiAttributeUiHint         = RttiAttributeBaseStringT<RttiAttributeType::UiHint>;
+    using RttiAttributeUiCategory     = RttiAttributeBaseStringT<RttiAttributeType::UiCategory>;
+    using RttiAttributeUiInline       = RttiAttributeBaseT<RttiAttributeType::UiInline>;
+    using RttiAttributeUiHidden       = RttiAttributeBaseT<RttiAttributeType::UiHidden>;
+
+#define RttiNoSaveLoad      make_ref<RttiAttributeNoSaveLoad>().as<RttiAttribute>()
+#define RttiNoCopy          make_ref<RttiAttributeNoCopy>().as<RttiAttribute>()
+#define RttiNoScriptExport  make_ref<RttiAttributeNoScriptExport>().as<RttiAttribute>()
+#define RttiOptional        make_ref<RttiAttributeOptional>().as<RttiAttribute>()
+#define RttiInline          make_ref<RttiAttributeInline>().as<RttiAttribute>()
+#define RttiUiName(str)     make_ref<RttiAttributeUiName>(str).as<RttiAttribute>()
+#define RttiUiHint(str)     make_ref<RttiAttributeUiHint>(str).as<RttiAttribute>()
+#define RttiUiCategory(str) make_ref<RttiAttributeUiCategory>(str).as<RttiAttribute>()
+#define RttiUiInline        make_ref<RttiAttributeUiInline>().as<RttiAttribute>()
+#define RttiUiHidden        make_ref<RttiAttributeUiHidden>().as<RttiAttribute>()
 
 }// namespace wmoge

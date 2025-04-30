@@ -49,7 +49,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(GmDebugMesh) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(mesh, {RttiOptional});
         WG_RTTI_FIELD(color, {RttiOptional});
         WG_RTTI_FIELD(dist_min, {RttiOptional});
@@ -68,7 +67,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(GmDebugLabel) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(text, {RttiOptional});
         WG_RTTI_FIELD(color, {RttiOptional});
         WG_RTTI_FIELD(size, {RttiOptional});
@@ -87,7 +85,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(GmDebugPrimitive) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(type, {RttiOptional});
         WG_RTTI_FIELD(color, {RttiOptional});
         WG_RTTI_FIELD(dist_min, {RttiOptional});

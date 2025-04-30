@@ -33,64 +33,49 @@ namespace wmoge {
 
     /**
      * @class UiMenuBar
-     * @brief
+     * @brief Ui window top menu bar
      */
     class UiMenuBar : public UiElement {
     public:
         WG_RTTI_CLASS(UiMenuBar, UiElement);
 
         UiMenuBar() : UiElement(UiElementType::MenuBar) {}
-
-        using Slot = Ref<UiSubElement>;
-
-        std::vector<Slot> children;
     };
 
     WG_RTTI_CLASS_BEGIN(UiMenuBar) {
         WG_RTTI_FACTORY();
-        WG_RTTI_FIELD(children, {});
     }
     WG_RTTI_END;
 
     /**
      * @class UiToolBar
-     * @brief
+     * @brief Ui tool bar for window (mostly shown on top)
      */
     class UiToolBar : public UiElement {
     public:
         WG_RTTI_CLASS(UiToolBar, UiElement);
 
         UiToolBar() : UiElement(UiElementType::ToolBar) {}
-
-        using Slot = Ref<UiSubElement>;
-
-        std::vector<Slot> children;
     };
 
     WG_RTTI_CLASS_BEGIN(UiToolBar) {
         WG_RTTI_FACTORY();
-        WG_RTTI_FIELD(children, {});
     }
     WG_RTTI_END;
 
     /**
      * @class UiStatusBar
-     * @brief
+     * @brief Ui status bar for window (mostly shown bottom)
      */
     class UiStatusBar : public UiElement {
     public:
         WG_RTTI_CLASS(UiStatusBar, UiElement);
 
         UiStatusBar() : UiElement(UiElementType::StatusBar) {}
-
-        using Slot = Ref<UiSubElement>;
-
-        std::vector<Slot> children;
     };
 
     WG_RTTI_CLASS_BEGIN(UiStatusBar) {
         WG_RTTI_FACTORY();
-        WG_RTTI_FIELD(children, {});
     }
     WG_RTTI_END;
 

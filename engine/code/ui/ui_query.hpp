@@ -25,24 +25,41 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "ui_bindable.hpp"
+#pragma once
+
+#include "core/buffered_vector.hpp"
+#include "core/string_id.hpp"
+#include "rtti/class.hpp"
+#include "ui/ui_element.hpp"
 
 namespace wmoge {
 
-    void UiBindable::set_bind_info(UiBindInfo info) {
-        m_bind_info = std::move(info);
-    }
+    /**
+     * @class UiQuery 
+     * @brief Ui query allows to search elements within ui tree using selected options
+     */
+    class UiQuery {
+    public:
+        UiQuery() = default;
 
-    void UiBindable::notify_changed(Strid poperty_id) const {
-        m_bind_info.notify_changed(poperty_id);
-    }
+        UiQuery& tag(Strid tag);
+        UiQuery& cls(RttiClass* cls);
+        UiQuery& multiple();
 
-    UiElement* UiBindable::find_element_by(Strid tag) const {
-        return m_bind_info.find_element(tag);
-    }
+        [[nodiscard]] Status exec(const Ref<UiElement>& root);
 
-    UiElement* UiBindable::get_root_element() const {
-        return m_bind_info.root_element;
-    }
+        [[nodiscard]] Ref<UiElement>              first() const;
+        [[nodiscard]] Ref<UiElement>              at_index(int i) const;
+        [[nodiscard]] std::vector<Ref<UiElement>> all() const;
+
+    private:
+        [[nodiscard]] Status exec(UiElement* element);
+
+    private:
+        std::optional<Strid>            m_tag;
+        std::optional<RttiClass*>       m_cls;
+        bool                            m_multiple = false;
+        buffered_vector<Ref<UiElement>> m_results;
+    };
 
 }// namespace wmoge

@@ -53,14 +53,6 @@
 namespace wmoge {
 
     /**
-     * @class RenderSettings
-     * @brief Global rendering settings for the engine
-    */
-    struct RenderSettings {
-        float gamma = 2.2f;
-    };
-
-    /**
      * @class RenderView
      * @brief Holds data required to render a single view
     */
@@ -74,108 +66,14 @@ namespace wmoge {
     };
 
     /**
-     * @class LodValue
-     * @brief Selector to draw model lods with otional transition
-    */
-    struct LodValue {
-        int                  current_lod = 0;
-        std::optional<int>   next_lod;
-        std::optional<float> transition;
-    };
-
-    /**
-     * @class RenderParams
-     * @brief Params passed to draw a particular object
-    */
-    struct RenderParams {
-        LodValue                                          lod_value;
-        RenderCameraMask                                  camera_mask;
-        buffered_vector<float, RenderLimits::MAX_CAMERAS> camera_dists;
-    };
-
-    /**
-     * @class RenderPassInfo
-     * @brief Global render state passed to objects during rendering
-    */
-    struct RenderPassInfo {
-        array_view<RenderView> views;
-        CameraList*            cameras   = nullptr;
-        MeshBatchCollector*    collector = nullptr;
-    };
-
-    /**
      * @class RenderEngine
-     * @brief Global rendering engine responsible for visualization of render objects
-     * 
-     * Render engine is a global manager responsiple for rendering of objects for each frame.
-     * It is used by a scene manager to render an active scene to a screen.
-     * 
-     * Render engine itself is lower-level class, which operates render objects,
-     * list of cameras, params and etc. to collect requrest of batch elements from 
-     * different objects (which wants to be rendered), compile it into optimized
-     * render commands and submit commands to the GPU using selected rendering path.
-     * 
-     * @see RenderObject
-     * @see RenderCamera
-     * @see RenderCameras
-     * @see RenderObjectCollector
-     * @see MeshBatchCollector
-     * @see MeshBatchCompiler
+     * @brief Rendering engine
     */
     class RenderEngine {
     public:
         RenderEngine(class IocContainer* ioc);
 
-        void set_time(float time);
-        void set_delta_time(float delta_time);
-        void set_scene(RenderScene* scene);
-
-        void begin_rendering();
-        void end_rendering();
-
-        void prepare_frame_data();
-        void allocate_veiws();
-        void compile_batches();
-        void group_queues();
-        void sort_queues();
-        void merge_cmds();
-        void flush_buffers();
-        void render_canvas(Canvas& canvas, const Vec4f& area);
-        void render_aux_geom(AuxDrawManager& aux_draw_manager);
-
-        [[nodiscard]] CameraList&                  get_cameras() { return m_cameras; }
-        [[nodiscard]] MeshBatchCollector&          get_batch_collector() { return m_batch_collector; }
-        [[nodiscard]] MeshBatchCompiler&           get_batch_compiler() { return m_batch_compiler; }
-        [[nodiscard]] MeshRenderCmdMerger&         get_cmd_merger() { return m_cmd_merger; }
-        [[nodiscard]] RenderCmdAllocator&          get_cmd_allocator() { return m_cmd_allocator; }
-        [[nodiscard]] array_view<RenderView>       get_views() { return array_view<RenderView>(m_views.data(), m_cameras.get_size()); }
-        [[nodiscard]] const RenderSettings&        get_settings() const { return m_settings; }
-        [[nodiscard]] float                        get_time() const { return m_time; }
-        [[nodiscard]] float                        get_delta_time() const { return m_delta_time; }
-        [[nodiscard]] const Ref<GfxUniformBuffer>& get_frame_data() const { return m_frame_data; }
-        [[nodiscard]] const Ref<GfxVertBuffer>&    get_fullscreen_tria() const { return m_fullscreen_tria.get_buffer(); };
-
     private:
-        std::array<RenderView, RenderLimits::MAX_VIEWS> m_views;
-        std::vector<RenderQueue*>                       m_queues;
-
-        MeshBatchCollector  m_batch_collector;
-        MeshBatchCompiler   m_batch_compiler;
-        MeshRenderCmdMerger m_cmd_merger;
-        RenderCmdAllocator  m_cmd_allocator;
-
-        GpuVertBuffer<GfxVF_Pos2Uv2> m_fullscreen_tria;
-        Ref<GfxUniformBuffer>        m_frame_data;
-
-        RenderScene* m_scene        = nullptr;
-        TaskManager* m_task_manager = nullptr;
-        CameraList   m_cameras;
-
-        RenderSettings m_settings;
-
-        float m_time       = 0.0f;
-        float m_delta_time = 0.0f;
-        int   m_batch_size = 4;
     };
 
 }// namespace wmoge

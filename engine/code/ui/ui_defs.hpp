@@ -34,6 +34,13 @@
 
 namespace wmoge {
 
+    /** @brief Type of ui binding update */
+    enum class UiBindingType {
+        ToTarget,
+        ToTargetOnce,
+        ToSource,
+    };
+
     /** @brief Cursor shown over ui element */
     enum class UiCursorType {
         Arrow = 0,

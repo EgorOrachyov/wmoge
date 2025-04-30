@@ -74,7 +74,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(MeshChunk) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(aabb, {});
         WG_RTTI_FIELD(attribs, {});
@@ -104,7 +103,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(MeshDesc) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(chunks, {});
         WG_RTTI_FIELD(array_meshes, {});
         WG_RTTI_FIELD(vertex_buffers, {});
@@ -170,7 +168,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(Mesh) {
-        WG_RTTI_META_DATA(RttiUiHint(""));
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;

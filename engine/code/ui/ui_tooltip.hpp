@@ -44,8 +44,8 @@ namespace wmoge {
 
         UiToolTip() : UiElement(UiElementType::ToolTip) {}
 
-        std::string       text;
-        Ref<UiSubElement> content;
+        std::string    text;
+        Ref<UiElement> content;
     };
 
     WG_RTTI_CLASS_BEGIN(UiToolTip) {

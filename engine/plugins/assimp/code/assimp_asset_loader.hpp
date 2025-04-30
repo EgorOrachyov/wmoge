@@ -55,7 +55,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(AssimpMeshAssetLoader) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;

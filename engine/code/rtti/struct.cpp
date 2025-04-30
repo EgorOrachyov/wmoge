@@ -105,6 +105,21 @@ namespace wmoge {
         return WG_OK;
     }
 
+    Status RttiStruct::clone(void* dst, const void* src) const {
+        assert(dst);
+        assert(src);
+        std::uint8_t*       self  = reinterpret_cast<std::uint8_t*>(dst);
+        const std::uint8_t* other = reinterpret_cast<const std::uint8_t*>(src);
+        for (const RttiField& field : get_fields()) {
+            if (field.get_meta_data().is_no_copy()) {
+                continue;
+            }
+            std::size_t offset = field.get_byte_offset();
+            WG_CHECKED(field.get_type()->clone(self + offset, other + offset));
+        }
+        return WG_OK;
+    }
+
     Status RttiStruct::read_from_tree(void* dst, IoTree& tree, IoContext& context) const {
         WG_PROFILE_CPU_RTTI("RttiStruct::read_from_tree");
         assert(dst);

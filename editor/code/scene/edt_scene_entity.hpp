@@ -25,50 +25,8 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PFX_FEATURE_HPP
-#define WMOGE_PFX_FEATURE_HPP
-
-#include "core/ref.hpp"
-#include "core/string_id.hpp"
-#include "io/tree.hpp"
-#include "pfx/pfx_storage.hpp"
-#include "rtti/traits.hpp"
+#pragma once
 
 namespace wmoge {
 
-    /**
-     * @class PfxFeature
-     * @brief Pfx reusable feature which controls single aspect of particles
-     *
-     * Feature is a setting which can be added to particle component. Single
-     * feature controls single aspect of the particle components, such as
-     * particles movement, rotation, color, rendering, collision, life time, etc.
-     *
-     * Features have unique type and unique settings. Each feature process its
-     * own portion of the data.
-     *
-     * Combine different features with different settings to get new particles effects.
-     */
-    class PfxFeature : public RttiObject {
-    public:
-        WG_RTTI_CLASS(PfxFeature, RttiObject);
-
-        virtual Ref<PfxFeature> create() const { return {}; };
-        virtual Strid           get_feature_name() const { return Strid(); };
-        virtual Strid           get_feature_family() const { return Strid(); };
-
-        virtual void on_added(PfxAttributes& attributes) {}
-        virtual void on_spawn(class PfxComponentRuntime& runtime, const struct PfxSpawnParams& params) {}
-        virtual void on_update(class PfxComponentRuntime& runtime, float dt) {}
-        virtual void on_provided_render(class PfxComponentRuntime& runtime, std::unique_ptr<class PfxRenderer>& renderer) {}
-        virtual void on_prepare_render(class PfxComponentRuntime& runtime) {}
-    };
-
-    WG_RTTI_CLASS_BEGIN(PfxFeature) {
-        WG_RTTI_FACTORY();
-    }
-    WG_RTTI_END;
-
-}// namespace wmoge
-
-#endif//WMOGE_PFX_FEATURE_HPP
+}

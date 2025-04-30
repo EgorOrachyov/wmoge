@@ -62,13 +62,12 @@ namespace wmoge {
             return StatusCode::InvalidState;
         }
 
-        RttiClass* rtti = type_storage->find_class(context.asset_meta.rtti);
-        if (!rtti) {
+        if (!context.asset_meta.rtti) {
             WG_LOG_ERROR("no rtti type for " << asset_id);
             return StatusCode::InvalidData;
         }
 
-        asset = rtti->instantiate().cast<Asset>();
+        asset = context.asset_meta.rtti->instantiate().cast<Asset>();
         if (!asset) {
             WG_LOG_ERROR("failed to instantiate asset " << asset_id);
             return StatusCode::FailedInstantiate;

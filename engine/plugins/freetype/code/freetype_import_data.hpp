@@ -47,7 +47,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(FreetypeImportData) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(height, {RttiOptional});
         WG_RTTI_FIELD(glyphs_in_row, {RttiOptional});

@@ -109,11 +109,14 @@ namespace wmoge {
         [[nodiscard]] RttiStruct*                          get_parent() const { return m_parent; }
 
         Status copy(void* dst, const void* src) const override;
+        Status clone(void* dst, const void* src) const override;
         Status read_from_tree(void* dst, IoTree& tree, IoContext& context) const override;
         Status write_to_tree(const void* src, IoTree& tree, IoContext& context) const override;
         Status read_from_stream(void* dst, IoStream& stream, IoContext& context) const override;
         Status write_to_stream(const void* src, IoStream& stream, IoContext& context) const override;
         Status to_string(const void* src, std::stringstream& s) const override;
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Struct; }
 
     protected:
         flat_set<Strid>               m_inherits;

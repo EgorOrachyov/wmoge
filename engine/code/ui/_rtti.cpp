@@ -28,7 +28,6 @@
 #include "_rtti.hpp"
 
 #include "ui/ui_bars.hpp"
-#include "ui/ui_bindable.hpp"
 #include "ui/ui_containers.hpp"
 #include "ui/ui_content.hpp"
 #include "ui/ui_controls.hpp"
@@ -49,7 +48,6 @@ namespace wmoge {
         rtti_type<UiStyleDesc>();
         rtti_type<UiStyle>();
         rtti_type<UiElement>();
-        rtti_type<UiSubElement>();
         rtti_type<UiWindow>();
         rtti_type<UiMainWindow>();
         rtti_type<UiDockWindow>();
@@ -89,7 +87,6 @@ namespace wmoge {
         rtti_type<UiComboBox>();
         rtti_type<UiListBox>();
         rtti_type<UiMarkup>();
-        rtti_type<UiBindable>();
     }
 
 }// namespace wmoge

@@ -63,41 +63,6 @@ namespace wmoge {
         static Status     archive_write_object(IoContext& context, IoStream& stream, const Ref<RttiObject>& object);
     };
 
-    template<typename T, typename std::enable_if<std::is_convertible_v<T*, RttiObject*>>::type>
-    Status copy_objects(const std::vector<Ref<T>>& objects, std::vector<Ref<T>>& copied) {
-        static_assert(std::is_base_of_v<RttiObject, T>, "T must be sub-class of object");
-
-        copied.reserve(objects.size());
-
-        for (auto& object : objects) {
-            Ref<RttiObject> copy;
-
-            if (!object->clone(copy)) {
-                WG_LOG_ERROR("failed to clone object " << object->class_name());
-                return StatusCode::Error;
-            }
-
-            auto as_t = copy.cast<T>();
-            assert(as_t);
-
-            copied.push_back(as_t);
-        }
-
-        return WG_OK;
-    }
-
-    template<typename T, typename std::enable_if<std::is_convertible_v<T*, RttiObject*>>::type>
-    std::vector<Ref<T>> copy_objects(const std::vector<Ref<T>>& objects) {
-        std::vector<Ref<T>> result;
-
-        if (!copy_objects(objects, result)) {
-            WG_LOG_ERROR("failed to copy objects vector type: " << T::get_class_name_static() << " count: " << objects.size());
-            return {};
-        }
-
-        return std::move(result);
-    }
-
     template<typename T>
     Status tree_read(IoContext& context, IoTree& tree, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
         Ref<RttiObject> object;

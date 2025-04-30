@@ -34,13 +34,13 @@ namespace wmoge {
 
     /**
      * @class UiSeparator
-     * @brief
+     * @brief Ui separator line element to visually divide space
      */
-    class UiSeparator : public UiSubElement {
+    class UiSeparator : public UiElement {
     public:
-        WG_RTTI_CLASS(UiSeparator, UiSubElement);
+        WG_RTTI_CLASS(UiSeparator, UiElement);
 
-        UiSeparator() : UiSubElement(UiElementType::Separator) {}
+        UiSeparator() : UiElement(UiElementType::Separator) {}
     };
 
     WG_RTTI_CLASS_BEGIN(UiSeparator) {
@@ -50,13 +50,13 @@ namespace wmoge {
 
     /**
      * @class UiSeparatorText
-     * @brief
+     * @brief Ui separator text with line element
      */
-    class UiSeparatorText : public UiSubElement {
+    class UiSeparatorText : public UiElement {
     public:
-        WG_RTTI_CLASS(UiSeparatorText, UiSubElement);
+        WG_RTTI_CLASS(UiSeparatorText, UiElement);
 
-        UiSeparatorText() : UiSubElement(UiElementType::SeparatorText) {}
+        UiSeparatorText() : UiElement(UiElementType::SeparatorText) {}
 
         std::string label;
     };
@@ -69,13 +69,13 @@ namespace wmoge {
 
     /**
      * @class UiText
-     * @brief
+     * @brief Ui text element
      */
-    class UiText : public UiSubElement {
+    class UiText : public UiElement {
     public:
-        WG_RTTI_CLASS(UiText, UiSubElement);
+        WG_RTTI_CLASS(UiText, UiElement);
 
-        UiText() : UiSubElement(UiElementType::Text) {}
+        UiText() : UiElement(UiElementType::Text) {}
 
         std::string text;
     };
@@ -88,13 +88,13 @@ namespace wmoge {
 
     /**
      * @class UiTextWrapped
-     * @brief
+     * @brief Ui wrapped multi-line text element
      */
-    class UiTextWrapped : public UiSubElement {
+    class UiTextWrapped : public UiElement {
     public:
-        WG_RTTI_CLASS(UiTextWrapped, UiSubElement);
+        WG_RTTI_CLASS(UiTextWrapped, UiElement);
 
-        UiTextWrapped() : UiSubElement(UiElementType::TextWrapped) {}
+        UiTextWrapped() : UiElement(UiElementType::TextWrapped) {}
 
         std::string text;
     };
@@ -107,13 +107,13 @@ namespace wmoge {
 
     /**
      * @class UiTextLink
-     * @brief
+     * @brief Ui text link with optional url to goto
      */
-    class UiTextLink : public UiSubElement {
+    class UiTextLink : public UiElement {
     public:
-        WG_RTTI_CLASS(UiTextLink, UiSubElement);
+        WG_RTTI_CLASS(UiTextLink, UiElement);
 
-        UiTextLink() : UiSubElement(UiElementType::TextLink) {}
+        UiTextLink() : UiElement(UiElementType::TextLink) {}
 
         using OnClick = std::function<void()>;
 
@@ -132,13 +132,13 @@ namespace wmoge {
 
     /**
      * @class UiProgressBar
-     * @brief
+     * @brief Ui progress bar element
      */
-    class UiProgressBar : public UiSubElement {
+    class UiProgressBar : public UiElement {
     public:
-        WG_RTTI_CLASS(UiProgressBar, UiSubElement);
+        WG_RTTI_CLASS(UiProgressBar, UiElement);
 
-        UiProgressBar() : UiSubElement(UiElementType::ProgressBar) {}
+        UiProgressBar() : UiElement(UiElementType::ProgressBar) {}
 
         std::string          label;
         std::optional<float> progress;

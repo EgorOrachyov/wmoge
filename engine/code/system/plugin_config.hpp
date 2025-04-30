@@ -63,7 +63,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(PluginConfig) {
-        WG_RTTI_META_DATA({});
         WG_RTTI_FIELD(id, {});
         WG_RTTI_FIELD(uuid, {RttiOptional});
         WG_RTTI_FIELD(version, {RttiOptional});

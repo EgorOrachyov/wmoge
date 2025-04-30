@@ -40,7 +40,7 @@ namespace wmoge {
 
         void             process_tree(UiElement* element);
         void             process(UiElement* element);
-        void             process(std::vector<Ref<UiSubElement>>& elements);
+        void             process(std::vector<Ref<UiElement>>& elements);
         void             draw_icon(const Icon& icon, const Vec2f& icon_size);
         void             add_action_event(std::function<void()>& event);
         void             add_action(std::function<void()> action);

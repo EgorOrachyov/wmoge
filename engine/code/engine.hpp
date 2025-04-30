@@ -192,6 +192,7 @@
 #include "rtti/struct.hpp"
 #include "rtti/traits.hpp"
 #include "rtti/type.hpp"
+#include "rtti/type_ref.hpp"
 #include "rtti/type_storage.hpp"
 
 #include "render/aux_draw_manager.hpp"
@@ -226,7 +227,6 @@
 #include "system/plugin_manager.hpp"
 
 #include "ui/ui_bars.hpp"
-#include "ui/ui_bindable.hpp"
 #include "ui/ui_binder.hpp"
 #include "ui/ui_containers.hpp"
 #include "ui/ui_content.hpp"
@@ -236,6 +236,7 @@
 #include "ui/ui_inputs.hpp"
 #include "ui/ui_manager.hpp"
 #include "ui/ui_markup.hpp"
+#include "ui/ui_query.hpp"
 #include "ui/ui_style.hpp"
 #include "ui/ui_tooltip.hpp"
 #include "ui/ui_views.hpp"

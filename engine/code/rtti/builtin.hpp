@@ -40,10 +40,12 @@ namespace wmoge {
     */
     class RttiTypeVec : public RttiType {
     public:
-        RttiTypeVec(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Vec) {}
+        RttiTypeVec(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
         [[nodiscard]] int             get_dimension() const { return m_dimension; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Vec; }
 
     protected:
         RttiType* m_value_type = nullptr;
@@ -56,10 +58,12 @@ namespace wmoge {
     */
     class RttiTypeMask : public RttiType {
     public:
-        RttiTypeMask(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Mask) {}
+        RttiTypeMask(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
         [[nodiscard]] int             get_dimension() const { return m_dimension; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Mask; }
 
     protected:
         RttiType* m_value_type = nullptr;
@@ -72,9 +76,11 @@ namespace wmoge {
     */
     class RttiTypeBitset : public RttiType {
     public:
-        RttiTypeBitset(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Bitset) {}
+        RttiTypeBitset(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
         [[nodiscard]] int get_dimension() const { return m_dimension; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Bitset; }
 
     protected:
         int m_dimension = 0;
@@ -86,9 +92,11 @@ namespace wmoge {
     */
     class RttiTypeRef : public RttiType {
     public:
-        RttiTypeRef(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Ref) {}
+        RttiTypeRef(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Ref; }
 
     protected:
         RttiType* m_value_type = nullptr;
@@ -100,9 +108,13 @@ namespace wmoge {
     */
     class RttiTypeOptional : public RttiType {
     public:
-        RttiTypeOptional(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Optional) {}
+        RttiTypeOptional(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
+
+        virtual Status set_value(void* dst, const void* src) const { return StatusCode::NotImplemented; }
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Optional; }
 
     protected:
         RttiType* m_value_type = nullptr;
@@ -114,11 +126,13 @@ namespace wmoge {
     */
     class RttiTypeVector : public RttiType {
     public:
-        RttiTypeVector(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Vector) {}
+        RttiTypeVector(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
         virtual Status push_back(void* src, void* value) const { return StatusCode::NotImplemented; }
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Vector; }
 
     protected:
         RttiType* m_value_type = nullptr;
@@ -130,9 +144,11 @@ namespace wmoge {
     */
     class RttiTypeSet : public RttiType {
     public:
-        RttiTypeSet(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Set) {}
+        RttiTypeSet(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Set; }
 
     protected:
         RttiType* m_value_type = nullptr;
@@ -144,10 +160,12 @@ namespace wmoge {
     */
     class RttiTypeMap : public RttiType {
     public:
-        RttiTypeMap(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Map) {}
+        RttiTypeMap(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
         [[nodiscard]] const RttiType* get_key_type() const { return m_key_type; }
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Map; }
 
     protected:
         RttiType* m_key_type   = nullptr;
@@ -160,10 +178,12 @@ namespace wmoge {
     */
     class RttiTypePair : public RttiType {
     public:
-        RttiTypePair(Strid name, std::size_t byte_size) : RttiType(name, byte_size, RttiArchetype::Pair) {}
+        RttiTypePair(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
         [[nodiscard]] const RttiType* get_key_type() const { return m_key_type; }
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Pair; }
 
     protected:
         RttiType* m_key_type   = nullptr;

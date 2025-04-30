@@ -453,7 +453,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(PipelineState) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(prim_type, {RttiOptional});
         WG_RTTI_FIELD(rs, {RttiOptional});
         WG_RTTI_FIELD(ds, {RttiOptional});
@@ -618,7 +617,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderPermutation) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(options, {});
         WG_RTTI_FIELD(vert_attribs, {});
         WG_RTTI_FIELD(technique_idx, {});

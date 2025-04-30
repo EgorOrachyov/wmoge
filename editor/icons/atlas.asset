@@ -2,7 +2,7 @@
 version: 1
 uuid: 0
 loader: IconAtlasAssetLoader
-rtti: Icon
+rtti: IconAtlas
 deps: [ ]
 import_data:
   rtti: IconAtlasImportData

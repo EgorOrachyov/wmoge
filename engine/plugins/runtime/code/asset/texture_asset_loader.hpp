@@ -51,7 +51,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(Texture2dAssetLoader) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
@@ -72,7 +71,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(TextureCubeAssetLoader) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;

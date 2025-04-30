@@ -388,10 +388,14 @@ namespace wmoge {
             ImGui::PopID();
         }
 
+        for (const UiBindingUpdater& updater : element->bindings_updater) {
+            updater();
+        }
+
         pop_sub_style();
     }
 
-    void ImguiProcessor::process(std::vector<Ref<UiSubElement>>& elements) {
+    void ImguiProcessor::process(std::vector<Ref<UiElement>>& elements) {
         for (const auto& child : elements) {
             process(child.get());
         }

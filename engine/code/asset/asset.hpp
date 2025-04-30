@@ -104,7 +104,7 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(Asset) {
-        WG_RTTI_META_DATA(RttiUiHint("Base class for any engine asset"));
+        WG_RTTI_META_DATA({RttiUiHint("Base class for any engine asset")});
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(m_id, {RttiNoSaveLoad});
         WG_RTTI_FIELD(m_uuid, {RttiNoSaveLoad});

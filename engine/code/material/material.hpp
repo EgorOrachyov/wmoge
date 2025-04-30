@@ -44,7 +44,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(Material) {
-        WG_RTTI_META_DATA(RttiUiHint(""));
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;

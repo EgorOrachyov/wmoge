@@ -34,13 +34,13 @@ namespace wmoge {
 
     /**
      * @class UiMenuItem
-     * @brief
+     * @brief Ui menu item which can be placed inside a menu
      */
-    class UiMenuItem : public UiSubElement {
+    class UiMenuItem : public UiElement {
     public:
-        WG_RTTI_CLASS(UiMenuItem, UiSubElement);
+        WG_RTTI_CLASS(UiMenuItem, UiElement);
 
-        UiMenuItem() : UiSubElement(UiElementType::MenuItem) {}
+        UiMenuItem() : UiElement(UiElementType::MenuItem) {}
 
         using OnClick = std::function<void()>;
 
@@ -66,13 +66,13 @@ namespace wmoge {
 
     /**
      * @class UiSelectable
-     * @brief
+     * @brief Ui selectable element for selection in menus and lists
      */
-    class UiSelectable : public UiSubElement {
+    class UiSelectable : public UiElement {
     public:
-        WG_RTTI_CLASS(UiSelectable, UiSubElement);
+        WG_RTTI_CLASS(UiSelectable, UiElement);
 
-        UiSelectable() : UiSubElement(UiElementType::Selectable) {}
+        UiSelectable() : UiElement(UiElementType::Selectable) {}
 
         using OnClick = std::function<void()>;
 
@@ -97,13 +97,13 @@ namespace wmoge {
 
     /**
      * @class UiButton
-     * @brief
+     * @brief Ui button element which can be clicked
      */
-    class UiButton : public UiSubElement {
+    class UiButton : public UiElement {
     public:
-        WG_RTTI_CLASS(UiButton, UiSubElement);
+        WG_RTTI_CLASS(UiButton, UiElement);
 
-        UiButton() : UiSubElement(UiElementType::Button) {}
+        UiButton() : UiElement(UiElementType::Button) {}
 
         using OnClick = std::function<void()>;
 
@@ -124,13 +124,13 @@ namespace wmoge {
 
     /**
      * @class UiCheckBoxButton
-     * @brief 
+     * @brief Ui check box button which can be checked or unchecked
      */
-    class UiCheckBoxButton : public UiSubElement {
+    class UiCheckBoxButton : public UiElement {
     public:
-        WG_RTTI_CLASS(UiCheckBoxButton, UiSubElement);
+        WG_RTTI_CLASS(UiCheckBoxButton, UiElement);
 
-        UiCheckBoxButton() : UiSubElement(UiElementType::CheckBoxButton) {}
+        UiCheckBoxButton() : UiElement(UiElementType::CheckBoxButton) {}
 
         using OnClick = std::function<void()>;
 
@@ -149,13 +149,13 @@ namespace wmoge {
 
     /**
      * @class UiRadioButton
-     * @brief
+     * @brief Ui radio button
      */
-    class UiRadioButton : public UiSubElement {
+    class UiRadioButton : public UiElement {
     public:
-        WG_RTTI_CLASS(UiRadioButton, UiSubElement);
+        WG_RTTI_CLASS(UiRadioButton, UiElement);
 
-        UiRadioButton() : UiSubElement(UiElementType::RadioButton) {}
+        UiRadioButton() : UiElement(UiElementType::RadioButton) {}
 
         using OnClick = std::function<void()>;
 
@@ -174,13 +174,13 @@ namespace wmoge {
 
     /**
      * @class UiComboBox
-     * @brief
+     * @brief Ui combo box with items which can be dropped down
      */
-    class UiComboBox : public UiSubElement {
+    class UiComboBox : public UiElement {
     public:
-        WG_RTTI_CLASS(UiComboBox, UiSubElement);
+        WG_RTTI_CLASS(UiComboBox, UiElement);
 
-        UiComboBox() : UiSubElement(UiElementType::ComboBox) {}
+        UiComboBox() : UiElement(UiElementType::ComboBox) {}
 
         using OnClick = std::function<void()>;
 
@@ -203,13 +203,13 @@ namespace wmoge {
 
     /**
      * @class UiListBox
-     * @brief
+     * @brief Ui list box with items shown in a multi-line box
      */
-    class UiListBox : public UiSubElement {
+    class UiListBox : public UiElement {
     public:
-        WG_RTTI_CLASS(UiListBox, UiSubElement);
+        WG_RTTI_CLASS(UiListBox, UiElement);
 
-        UiListBox() : UiSubElement(UiElementType::ListBox) {}
+        UiListBox() : UiElement(UiElementType::ListBox) {}
 
         using OnClick = std::function<void()>;
 

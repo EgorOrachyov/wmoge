@@ -25,38 +25,20 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "core/array_view.hpp"
-#include "core/string_utils.hpp"
-#include "rtti/type_storage.hpp"
-#include "ui/ui_bindable.hpp"
-#include "ui/ui_element.hpp"
+#pragma once
 
-#include <tinyxml2.hpp>
+#include "core/ref.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class UiMarkupParser
-     * @brief Parses xml markup document into a ui markup desc object
-     */
-    class UiMarkupParser {
+    class EdtSceneChunk : public RefCnt {
     public:
+    private:
+    };
+
+    class EdtScene : public RefCnt {
     public:
-        UiMarkupParser(Strid name, UiMarkupDecs& desc, array_view<const std::uint8_t> xml_buffer, RttiTypeStorage* type_storage);
-
-        [[nodiscard]] Status parse();
-
     private:
-        [[nodiscard]] Status parse_element(tinyxml2::XMLElement* xml_node, UiMarkupElement& out);
-        [[nodiscard]] Status parse_slot(tinyxml2::XMLElement* xml_slot, const std::string& slot_name, UiMarkupSlot& out, RttiClass* cls);
-        [[nodiscard]] Status parse_attribute(const tinyxml2::XMLAttribute* xml_attribute, UiMarkupAttribute& out, RttiClass* cls);
-
-    private:
-        Strid                          m_name;
-        UiMarkupDecs&                  m_desc;
-        tinyxml2::XMLDocument          m_document;
-        array_view<const std::uint8_t> m_xml_buffer;
-        RttiTypeStorage*               m_type_storage;
     };
 
 }// namespace wmoge

@@ -35,7 +35,7 @@ namespace wmoge {
 
     /**
      * @class UiWindow
-     * @brief
+     * @brief Ui base class for a window element
      */
     class UiWindow : public UiElement {
     public:
@@ -43,13 +43,12 @@ namespace wmoge {
 
         using UiElement::UiElement;
 
-        std::string       title;
-        Ref<UiMenuBar>    menu_bar;
-        Ref<UiToolBar>    tool_bar;
-        Ref<UiStatusBar>  status_bar;
-        Ref<UiSubElement> content;
-        UiWindowFlags     flags;
-        bool              is_open{true};
+        std::string      title;
+        Ref<UiMenuBar>   menu_bar;
+        Ref<UiToolBar>   tool_bar;
+        Ref<UiStatusBar> status_bar;
+        UiWindowFlags    flags;
+        bool             is_open{true};
     };
 
     WG_RTTI_CLASS_BEGIN(UiWindow) {
@@ -57,7 +56,6 @@ namespace wmoge {
         WG_RTTI_FIELD(menu_bar, {});
         WG_RTTI_FIELD(tool_bar, {});
         WG_RTTI_FIELD(status_bar, {});
-        WG_RTTI_FIELD(content, {});
         WG_RTTI_FIELD(flags, {});
         WG_RTTI_FIELD(is_open, {});
     }
@@ -65,7 +63,7 @@ namespace wmoge {
 
     /**
      * @class UiMainWindow
-     * @brief
+     * @brief Ui main window which rendered inside main app os window
      */
     class UiMainWindow : public UiWindow {
     public:
@@ -81,7 +79,7 @@ namespace wmoge {
 
     /**
      * @class UiDockWindow
-     * @brief
+     * @brief Ui dockable window which may be draw separatly or in docked state
      */
     class UiDockWindow : public UiWindow {
     public:
@@ -97,24 +95,20 @@ namespace wmoge {
 
     /**
      * @class UiDockSpace
-     * @brief
+     * @brief Ui element which allows to organize and dock inside other windows
      */
-    class UiDockSpace : public UiSubElement {
+    class UiDockSpace : public UiElement {
     public:
-        WG_RTTI_CLASS(UiDockSpace, UiSubElement);
+        WG_RTTI_CLASS(UiDockSpace, UiElement);
 
-        UiDockSpace() : UiSubElement(UiElementType::DockSpace) {}
+        UiDockSpace() : UiElement(UiElementType::DockSpace) {}
 
-        using Slot = Ref<UiDockWindow>;
-
-        std::string       name;
-        std::vector<Slot> children;
+        std::string name;
     };
 
     WG_RTTI_CLASS_BEGIN(UiDockSpace) {
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(name, {});
-        WG_RTTI_FIELD(children, {});
     }
     WG_RTTI_END;
 

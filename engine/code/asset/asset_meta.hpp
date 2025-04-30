@@ -35,6 +35,7 @@
 #include "core/string_id.hpp"
 #include "core/uuid.hpp"
 #include "rtti/traits.hpp"
+#include "rtti/type_ref.hpp"
 
 #include <cinttypes>
 #include <optional>
@@ -64,7 +65,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(AssetDataMeta) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(uuid, {RttiOptional});
         WG_RTTI_FIELD(hash, {RttiOptional});
         WG_RTTI_FIELD(size, {RttiOptional});
@@ -82,7 +82,7 @@ namespace wmoge {
 
         UUID                 uuid;
         int                  version = 0;
-        Strid                rtti;
+        RttiRefClass         rtti;
         Strid                loader;
         Strid                importer;
         std::vector<Strid>   deps;
@@ -92,7 +92,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(AssetMeta) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(uuid, {RttiOptional});
         WG_RTTI_FIELD(version, {RttiOptional});
         WG_RTTI_FIELD(rtti, {});

@@ -27,11 +27,10 @@
 
 #include "ui_markup_asset_loader.hpp"
 
-#include "asset/ui_markup_xml_parser.hpp"
 #include "core/ioc_container.hpp"
 #include "profiler/profiler_cpu.hpp"
 #include "rtti/type_storage.hpp"
-#include "ui/ui_bindable.hpp"
+#include "ui/ui_markup_xml_parser.hpp"
 
 #include <cassert>
 

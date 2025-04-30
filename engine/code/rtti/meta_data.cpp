@@ -29,30 +29,31 @@
 
 namespace wmoge {
 
-    RttiMetaData::RttiMetaData(const std::initializer_list<const RttiMetaProperty>& properties_list) {
-        for (const auto& property : properties_list) {
-            m_properties[property.attribute] = property.value;
-            m_attributes.set(property.attribute);
+    RttiMetaData::RttiMetaData(const std::initializer_list<Ref<RttiAttribute>>& attributes) {
+        m_attributes.reserve(attributes.size());
+        for (const auto& attribute : attributes) {
+            m_attributes.push_back(attribute);
+            m_flags.set(attribute->get_type());
         }
     }
 
     bool RttiMetaData::is_no_save_load() const {
-        return m_attributes.get(RttiMetaAttribute::NoSaveLoad);
+        return m_flags.get(RttiAttributeType::NoSaveLoad);
     }
     bool RttiMetaData::is_no_copy() const {
-        return m_attributes.get(RttiMetaAttribute::NoCopy);
+        return m_flags.get(RttiAttributeType::NoCopy);
     }
     bool RttiMetaData::is_no_script_exprot() const {
-        return m_attributes.get(RttiMetaAttribute::NoScriptExport);
+        return m_flags.get(RttiAttributeType::NoScriptExport);
     }
     bool RttiMetaData::is_optional() const {
-        return m_attributes.get(RttiMetaAttribute::Optional);
+        return m_flags.get(RttiAttributeType::Optional);
     }
     bool RttiMetaData::is_inline() const {
-        return m_attributes.get(RttiMetaAttribute::Inline);
+        return m_flags.get(RttiAttributeType::Inline);
     }
-    bool RttiMetaData::has_attribute(RttiMetaAttribute attribute) {
-        return m_attributes.get(attribute);
+    bool RttiMetaData::has_attribute_of_type(RttiAttributeType type) {
+        return m_flags.get(type);
     }
 
 }// namespace wmoge

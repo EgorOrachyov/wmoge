@@ -49,7 +49,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(IconImportData) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(image, {});
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(uv_pos, {RttiOptional});
@@ -74,7 +73,6 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(IconAtlasImportData) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(icons, {RttiOptional});
         WG_RTTI_FIELD(compression, {RttiOptional});

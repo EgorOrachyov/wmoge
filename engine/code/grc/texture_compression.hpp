@@ -156,7 +156,6 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(TexCompressionParams) {
-        WG_RTTI_META_DATA();
         WG_RTTI_FIELD(format, {RttiOptional});
         WG_RTTI_FIELD(use_channel_weighting, {RttiOptional});
         WG_RTTI_FIELD(weight_red, {RttiOptional});

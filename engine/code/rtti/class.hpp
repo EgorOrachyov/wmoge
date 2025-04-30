@@ -104,6 +104,8 @@ namespace wmoge {
         [[nodiscard]] const std::vector<RttiSignal>&            get_signals() const { return m_signals; }
         [[nodiscard]] RttiClass*                                get_parent_class() const { return m_parent_class; }
 
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Class; }
+
     private:
         std::function<class RttiObject*()> m_factory;
         flat_map<Strid, int>               m_methods_map;
@@ -111,48 +113,6 @@ namespace wmoge {
         flat_map<Strid, int>               m_signals_map;
         std::vector<RttiSignal>            m_signals;
         RttiClass*                         m_parent_class = nullptr;
-    };
-
-    template<typename BaseType>
-    class RttiSubclass {
-    public:
-        RttiSubclass()                        = default;
-        RttiSubclass(const RttiSubclass&)     = default;
-        RttiSubclass(RttiSubclass&&) noexcept = default;
-
-        RttiSubclass(RttiClass* rtti) {
-            if (rtti) {
-                assert(rtti->is_subtype_of(BaseType::get_class_static()));
-                m_rtti = rtti;
-            }
-        }
-
-        template<typename OtherType>
-        operator RttiSubclass<OtherType>() const {
-            static_assert(std::is_base_of_v<OtherType, BaseType>);
-            return RttiSubclass<OtherType>(m_rtti);
-        }
-
-        template<typename OtherType>
-        bool is_subtype_of() {
-            return m_rtti && m_rtti->is_subtype_of(OtherType::get_class_static());
-        }
-
-        template<typename OtherType>
-        RttiSubclass<OtherType> cast() const {
-            return is_subtype_of<OtherType>() ? RttiSubclass<OtherType>(m_rtti) : RttiSubclass<OtherType>();
-        }
-
-        RttiClass& operator*() const { return *m_rtti; }
-        RttiClass* operator->() const { return m_rtti; }
-
-        operator bool() const { return m_rtti; }
-
-        [[nodiscard]] bool is_empty() const { return !m_rtti; }
-        [[nodiscard]] bool is_not_empty() const { return m_rtti; }
-
-    private:
-        RttiClass* m_rtti = nullptr;
     };
 
 }// namespace wmoge

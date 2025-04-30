@@ -31,6 +31,7 @@
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "rtti/traits.hpp"
+#include "rtti/type_ref.hpp"
 #include "ui/ui_defs.hpp"
 
 #include <functional>
@@ -39,6 +40,28 @@
 #include <vector>
 
 namespace wmoge {
+
+    /**
+     * @class UiBinding
+     * @brief Stores info on how to bind data source property to ui element property
+     */
+    struct UiBinding {
+        WG_RTTI_STRUCT(UiBinding);
+
+        Strid         property;
+        Strid         data_path;
+        UiBindingType type = UiBindingType::ToTarget;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(UiBinding) {
+        WG_RTTI_FIELD(property, {});
+        WG_RTTI_FIELD(data_path, {});
+        WG_RTTI_FIELD(type, {});
+    }
+    WG_RTTI_END;
+
+    /** @brief An instance of binding with bound data source */
+    using UiBindingUpdater = std::function<void()>;
 
     /**
      * @class UiElement
@@ -51,34 +74,28 @@ namespace wmoge {
         UiElement(UiElementType type) : type(type) {}
         UiElement() = default;
 
-        Strid                       tag;
-        Strid                       sub_style;
-        std::optional<UiCursorType> cursor;
-        Ref<RefCnt>                 user_data;
-        UiElementType               type = UiElementType::Unknown;
+        Strid                         tag;
+        Strid                         sub_style;
+        std::optional<UiCursorType>   cursor;
+        Ref<RefCnt>                   user_data;
+        RttiRefClass                  data_source_type;
+        Ref<RttiObject>               data_source;
+        std::vector<Ref<UiElement>>   children;
+        std::vector<UiBinding>        bindings;
+        std::vector<UiBindingUpdater> bindings_updater;
+        UiElementType                 type = UiElementType::Unknown;
     };
 
     WG_RTTI_CLASS_BEGIN(UiElement) {
         WG_RTTI_FIELD(tag, {});
-        WG_RTTI_FIELD(cursor, {});
         WG_RTTI_FIELD(sub_style, {});
+        WG_RTTI_FIELD(cursor, {});
+        WG_RTTI_FIELD(data_source_type, {});
+        WG_RTTI_FIELD(data_source, {RttiNoSaveLoad});
+        WG_RTTI_FIELD(children, {});
+        WG_RTTI_FIELD(bindings, {});
         WG_RTTI_FIELD(type, {});
     }
-    WG_RTTI_END;
-
-    /**
-     * @class UiSubElement
-     * @brief Base class for all ui sub-elements which could be nested
-     */
-    class UiSubElement : public UiElement {
-    public:
-        WG_RTTI_CLASS(UiSubElement, UiElement);
-
-        UiSubElement(UiElementType type) : UiElement(type) {}
-        UiSubElement() = default;
-    };
-
-    WG_RTTI_CLASS_BEGIN(UiSubElement) {}
     WG_RTTI_END;
 
 }// namespace wmoge

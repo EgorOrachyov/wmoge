@@ -32,56 +32,20 @@
 #include "core/flat_map.hpp"
 #include "core/var.hpp"
 #include "ui/ui_defs.hpp"
+#include "ui/ui_element.hpp"
 
 namespace wmoge {
 
-    /** @brief */
-    struct UiMarkupSlot {
-        WG_RTTI_STRUCT(UiMarkupSlot);
-
-        const RttiField* field         = nullptr;
-        int              child_element = -1;
-    };
-
-    WG_RTTI_STRUCT_BEGIN(UiMarkupSlot) {}
-    WG_RTTI_END;
-
-    /** @brief */
-    struct UiMarkupAttribute {
-        WG_RTTI_STRUCT(UiMarkupAttribute);
-
-        const RttiField*  field       = nullptr;
-        const RttiMethod* bind_method = nullptr;
-        Var               value;
-    };
-
-    WG_RTTI_STRUCT_BEGIN(UiMarkupAttribute) {}
-    WG_RTTI_END;
-
-    /** @brief */
-    struct UiMarkupElement {
-        WG_RTTI_STRUCT(UiMarkupElement);
-
-        RttiClass*       cls = nullptr;
-        std::vector<int> slots;
-        std::vector<int> attributes;
-    };
-
-    WG_RTTI_STRUCT_BEGIN(UiMarkupElement) {}
-    WG_RTTI_END;
-
-    /** @brief */
+    /** @brief Ui layout desc, which describes template ui eleement */
     struct UiMarkupDecs {
         WG_RTTI_STRUCT(UiMarkupDecs);
 
-        RttiClass*                     bindable     = nullptr;
-        int                            root_element = -1;
-        std::vector<UiMarkupSlot>      slots;
-        std::vector<UiMarkupElement>   elements;
-        std::vector<UiMarkupAttribute> attributes;
+        Ref<UiElement> root;
     };
 
-    WG_RTTI_STRUCT_BEGIN(UiMarkupDecs) {}
+    WG_RTTI_STRUCT_BEGIN(UiMarkupDecs) {
+        WG_RTTI_FIELD(root, {});
+    }
     WG_RTTI_END;
 
     /**
@@ -92,7 +56,8 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(UiMarkup, Asset);
 
-        void set_desc(UiMarkupDecs desc) { m_desc = std::move(desc); }
+        void           set_desc(UiMarkupDecs desc) { m_desc = std::move(desc); }
+        Ref<UiElement> make_elements() const { return m_desc.root->duplicate().cast<UiElement>(); }
 
         [[nodiscard]] const UiMarkupDecs& get_desc() const { return m_desc; }
 
