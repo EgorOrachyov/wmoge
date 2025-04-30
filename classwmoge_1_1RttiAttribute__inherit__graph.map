@@ -1,0 +1,6 @@
+<map id="wmoge::RttiAttribute" name="wmoge::RttiAttribute">
+<area shape="rect" id="node1" title="Base class for any rtti attribute." alt="" coords="117,80,255,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiAttributeBaseStringT.html" title="Rtti attribute template wrapper." alt="" coords="5,155,175,196"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RttiAttributeBaseT.html" title="Rtti attribute template wrapper." alt="" coords="199,155,368,196"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="131,5,241,32"/>
+</map>

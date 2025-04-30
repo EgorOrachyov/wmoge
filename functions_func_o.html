@@ -67,9 +67,6 @@ $(function() {
 <li>on_added()
 : <a class="el" href="classwmoge_1_1PfxFeature.html#abf3186f23e99752e842ab0e33bbc9056">wmoge::PfxFeature</a>
 </li>
-<li>on_bind()
-: <a class="el" href="classwmoge_1_1UiBindable.html#a1db0073315743d7de65894f68cd20e26">wmoge::UiBindable</a>
-</li>
 <li>on_debug_draw()
 : <a class="el" href="classwmoge_1_1GamePlugin.html#a00b7de54b9c3e21a15a94b70fed8d898">wmoge::GamePlugin</a>
 </li>
@@ -170,7 +167,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1AssetId.html#a5200fc62e66de16dde9da29285a662fe">wmoge::AssetId</a>
 , <a class="el" href="structwmoge_1_1CullingItem.html#af990f5885eca3b1d10a4bff4eed542dc">wmoge::CullingItem</a>
 , <a class="el" href="classwmoge_1_1Ref.html#a9efb20fbdc75784e04fd76e98fcdd47d">wmoge::Ref&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1RttiSubclass.html#a9f39ea2d4d80c1ec0ac2783a78b0a04f">wmoge::RttiSubclass&lt; BaseType &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiRef.html#a3a04abd428a9175e231b7daa2369913b">wmoge::RttiRef&lt; T &gt;</a>
 , <a class="el" href="structwmoge_1_1SimpleId.html#a8d1e0376de6798cf208659ef269ad5d7">wmoge::SimpleId&lt; ValueType &gt;</a>
 , <a class="el" href="classwmoge_1_1Status.html#a2a6e0c389d94421b42e7d7a99a6b4944">wmoge::Status</a>
 , <a class="el" href="classwmoge_1_1UUID.html#aa34d042ee4c732c59cdcfe3dbaaedb4f">wmoge::UUID</a>
@@ -196,8 +193,8 @@ $(function() {
 <li>operator Ref&lt; G &gt;()
 : <a class="el" href="classwmoge_1_1Ref.html#a0f007516e64f42b6cf4f77e98c2f6637">wmoge::Ref&lt; T &gt;</a>
 </li>
-<li>operator RttiSubclass&lt; OtherType &gt;()
-: <a class="el" href="classwmoge_1_1RttiSubclass.html#a84554ce3b2ad19f3833d2572c84c3869">wmoge::RttiSubclass&lt; BaseType &gt;</a>
+<li>operator RttiSubclass&lt; G &gt;()
+: <a class="el" href="classwmoge_1_1RttiSubclass.html#a52eb87f6bbb8ea978c367a8345d83d99">wmoge::RttiSubclass&lt; T &gt;</a>
 </li>
 <li>operator std::size_t()
 : <a class="el" href="structwmoge_1_1SimpleId.html#a7fe5ca57a51d5cacfb8baee4b916d086">wmoge::SimpleId&lt; ValueType &gt;</a>
@@ -231,6 +228,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1Range_1_1Iterator.html#aeee09689d368c6d4022a1368f585192b">wmoge::Range::Iterator</a>
 , <a class="el" href="classwmoge_1_1Ref.html#aebe6633e0e0b6bf0e4739cc33ce2fc9a">wmoge::Ref&lt; T &gt;</a>
 , <a class="el" href="structwmoge_1_1RenderCmdKey.html#af2dd0bbdbaceb5305097085545474f63">wmoge::RenderCmdKey</a>
+, <a class="el" href="classwmoge_1_1RttiRef.html#a053e499b052d2e677589302c90d0a3f3">wmoge::RttiRef&lt; T &gt;</a>
 , <a class="el" href="structwmoge_1_1Sha256.html#a1d014dd737e8c0379f4d4399e0942b75">wmoge::Sha256</a>
 , <a class="el" href="classwmoge_1_1Status.html#adb0eae9bb306a5c47c2eedc16babddb2">wmoge::Status</a>
 , <a class="el" href="classwmoge_1_1Strid.html#ac5927b57fb3fe48ab59fee1bad50d0b6">wmoge::Strid</a>
@@ -282,7 +280,6 @@ $(function() {
 , <a class="el" href="classwmoge_1_1pool__vector_1_1Iterator.html#a1c392b75498d6cf4465190ff86985db4">wmoge::pool_vector&lt; T, NodeCapacity &gt;::Iterator&lt; IterType &gt;</a>
 , <a class="el" href="classwmoge_1_1Range_1_1Iterator.html#a1b7d5cd700546d6d6527d8dd33abb46c">wmoge::Range::Iterator</a>
 , <a class="el" href="classwmoge_1_1Ref.html#a03d4f94383af5b9076de1c5b23f0e262">wmoge::Ref&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1RttiSubclass.html#a7fd4a520ad7deb0ebe422f0c3a745d68">wmoge::RttiSubclass&lt; BaseType &gt;</a>
 , <a class="el" href="classwmoge_1_1TMatMxN.html#a39036ee04c1a5894fbdbb41c70b06ae8">wmoge::TMatMxN&lt; T, M, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TQuat.html#abb21e08a1b8961b11ee70e41aec8f6ac">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a92706d316e5ef0221eac3b33f7e429ae">wmoge::TVecN&lt; T, N &gt;</a>
@@ -316,7 +313,7 @@ $(function() {
 </li>
 <li>operator-&gt;()
 : <a class="el" href="classwmoge_1_1Ref.html#acb375cdb51727b5795624bae4445156d">wmoge::Ref&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1RttiSubclass.html#ac73483a92782590143d1bcc3f436d51c">wmoge::RttiSubclass&lt; BaseType &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiRef.html#ae793b630a296222901d9edcc08a85f65">wmoge::RttiRef&lt; T &gt;</a>
 </li>
 <li>operator/()
 : <a class="el" href="classwmoge_1_1TMatMxN.html#a54696ff924d4981df49df8ddfec768eb">wmoge::TMatMxN&lt; T, M, N &gt;</a>
@@ -345,7 +342,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1TMatMxN.html#a5a219631d3af9809f8642824fdf7774c">wmoge::TMatMxN&lt; T, M, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TQuat.html#a0d6da9c39be477bc57a1f1656ceeb9a9">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#af7b1c22bd13913d27805e575604c8717">wmoge::TVecN&lt; T, N &gt;</a>
-, <a class="el" href="classwmoge_1_1TypedArray.html#a5513b90997003e2a6c98074f7bd6ea69">wmoge::TypedArray&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1TypedArray.html#a18d2cdf597d8133901cb1f67840c5fd5">wmoge::TypedArray&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#a30a089ccba91cf95dee3a4d66fc78c77">wmoge::TypedMap&lt; K, V, H &gt;</a>
 , <a class="el" href="classwmoge_1_1Var.html#af9d444c7c97df04bbf0095de35bea3b6">wmoge::Var</a>
 , <a class="el" href="classwmoge_1_1WeakRef.html#ac53a45605f062c0442c7225073150f49">wmoge::WeakRef&lt; T &gt;</a>
@@ -372,6 +369,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1pool__vector_1_1Iterator.html#a606f59c908734dd7d4b5405818d8b825">wmoge::pool_vector&lt; T, NodeCapacity &gt;::Iterator&lt; IterType &gt;</a>
 , <a class="el" href="classwmoge_1_1Ref.html#afc06cde6e16a585abd4f9a387f173190">wmoge::Ref&lt; T &gt;</a>
 , <a class="el" href="structwmoge_1_1RenderCmdKey.html#afb480414e689811ccc296c20b454d56b">wmoge::RenderCmdKey</a>
+, <a class="el" href="classwmoge_1_1RttiRef.html#a45841c9f26b895b646f1cbc76fbe53d3">wmoge::RttiRef&lt; T &gt;</a>
 , <a class="el" href="structwmoge_1_1Sha256.html#abaf9810935472c730a38639860941142">wmoge::Sha256</a>
 , <a class="el" href="structwmoge_1_1ShaderPermutation.html#aa80bfaeeabc1f4782374f333523e77ff">wmoge::ShaderPermutation</a>
 , <a class="el" href="classwmoge_1_1Status.html#abf4c8ea4d556994f152c2bab69b2cba4">wmoge::Status</a>

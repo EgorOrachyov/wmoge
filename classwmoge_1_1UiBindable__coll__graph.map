@@ -1,5 +1,0 @@
-<map id="wmoge::UiBindable" name="wmoge::UiBindable">
-<area shape="rect" id="node1" title="Base class for programming code behind ui declared in markup files." alt="" coords="5,155,139,181"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="8,80,136,107"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="17,5,127,32"/>
-</map>

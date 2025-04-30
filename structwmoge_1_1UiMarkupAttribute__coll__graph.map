@@ -1,9 +1,0 @@
-<map id="wmoge::UiMarkupAttribute" name="wmoge::UiMarkupAttribute">
-<area shape="rect" id="node1" title=" " alt="" coords="135,260,310,287"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RttiMethod.html" title="Represents a class method." alt="" coords="5,171,139,197"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RttiMember.html" title="Base class for any composable type (struct or class)" alt="" coords="78,95,215,121"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1RttiField.html" title="Field info of a struct or a class." alt="" coords="163,171,282,197"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="25,5,122,32"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RttiMetaData.html" title="Meta data associated with a type or its internal member." alt="" coords="147,5,293,32"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1Var.html" title="Universal resalable variant value with support for common engine types and containers." alt="" coords="307,171,397,197"/>
-</map>

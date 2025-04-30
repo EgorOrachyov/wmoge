@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/plugins/runtime/code/asset/ui_markup_xml_parser.hpp Source File</title>
+<title>wmoge: engine/code/ui/ui_markup_xml_parser.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_e5be4b929337efe72e331ca2f509e439.html">plugins</a></li><li class="navelem"><a class="el" href="dir_f7298a988880bcaa5866f75b5ff51e5d.html">runtime</a></li><li class="navelem"><a class="el" href="dir_8de96ed744df58315f5760d9f0b42c38.html">code</a></li><li class="navelem"><a class="el" href="dir_bec0ad84bf7cc73a76d699d59098ee67.html">asset</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_0c10233b2546128f7e3a26815fccf431.html">code</a></li><li class="navelem"><a class="el" href="dir_23d0ccb082359818b3f7216ff7fa8f9c.html">ui</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -99,8 +99,8 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="array__view_8hpp.html">core/array_view.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__utils_8hpp.html">core/string_utils.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="type__storage_8hpp.html">rtti/type_storage.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ui__bindable_8hpp.html">ui/ui_bindable.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ui__element_8hpp.html">ui/ui_element.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ui__element_8hpp.html">ui/ui_element.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ui__markup_8hpp.html">ui/ui_markup.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;tinyxml2.hpp&gt;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
@@ -114,9 +114,9 @@ $(function() {
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1UiMarkupParser.html#a92ed0053c2765e14bcccb623ba7ca893">parse</a>();</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1Status.html">Status</a> parse_element(tinyxml2::XMLElement* xml_node, <a class="code" href="structwmoge_1_1UiMarkupElement.html">UiMarkupElement</a>&amp; out);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1Status.html">Status</a> parse_slot(tinyxml2::XMLElement* xml_slot, <span class="keyword">const</span> std::string&amp; slot_name, <a class="code" href="structwmoge_1_1UiMarkupSlot.html">UiMarkupSlot</a>&amp; out, <a class="code" href="classwmoge_1_1RttiClass.html">RttiClass</a>* cls);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1Status.html">Status</a> parse_attribute(<span class="keyword">const</span> tinyxml2::XMLAttribute* xml_attribute, <a class="code" href="structwmoge_1_1UiMarkupAttribute.html">UiMarkupAttribute</a>&amp; out, <a class="code" href="classwmoge_1_1RttiClass.html">RttiClass</a>* cls);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1Status.html">Status</a> parse_element(tinyxml2::XMLElement* xml_node, <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;UiElement&gt;</a>&amp; out);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1Status.html">Status</a> parse_binding(<span class="keyword">const</span> tinyxml2::XMLElement* xml_binding, <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;UiElement&gt;</a>&amp; out);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1Status.html">Status</a> parse_attribute(<span class="keyword">const</span> tinyxml2::XMLAttribute* xml_attribute, <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;UiElement&gt;</a>&amp; out, <a class="code" href="classwmoge_1_1RttiClass.html">RttiClass</a>* cls);</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="classwmoge_1_1Strid.html">Strid</a>                          m_name;</div>
@@ -128,23 +128,21 @@ $(function() {
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aarray__view_8hpp_html"><div class="ttname"><a href="array__view_8hpp.html">array_view.hpp</a></div></div>
+<div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
 <div class="ttc" id="aclasswmoge_1_1RttiClass_html"><div class="ttname"><a href="classwmoge_1_1RttiClass.html">wmoge::RttiClass</a></div><div class="ttdoc">Class refletion info for all types inherited from engine Object type.</div><div class="ttdef"><b>Definition:</b> class.hpp:84</div></div>
 <div class="ttc" id="aclasswmoge_1_1RttiTypeStorage_html"><div class="ttname"><a href="classwmoge_1_1RttiTypeStorage.html">wmoge::RttiTypeStorage</a></div><div class="ttdoc">Engine global storage for rtti registered types.</div><div class="ttdef"><b>Definition:</b> type_storage.hpp:49</div></div>
-<div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:78</div></div>
+<div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:79</div></div>
 <div class="ttc" id="aclasswmoge_1_1Strid_html"><div class="ttname"><a href="classwmoge_1_1Strid.html">wmoge::Strid</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:49</div></div>
 <div class="ttc" id="aclasswmoge_1_1UiMarkupParser_html"><div class="ttname"><a href="classwmoge_1_1UiMarkupParser.html">wmoge::UiMarkupParser</a></div><div class="ttdoc">Parses xml markup document into a ui markup desc object.</div><div class="ttdef"><b>Definition:</b> ui_markup_xml_parser.hpp:42</div></div>
-<div class="ttc" id="aclasswmoge_1_1UiMarkupParser_html_a92ed0053c2765e14bcccb623ba7ca893"><div class="ttname"><a href="classwmoge_1_1UiMarkupParser.html#a92ed0053c2765e14bcccb623ba7ca893">wmoge::UiMarkupParser::parse</a></div><div class="ttdeci">Status parse()</div><div class="ttdef"><b>Definition:</b> ui_markup_xml_parser.cpp:36</div></div>
-<div class="ttc" id="aclasswmoge_1_1UiMarkupParser_html_ac7dfff239b9e4c7b486a32d2daf69470"><div class="ttname"><a href="classwmoge_1_1UiMarkupParser.html#ac7dfff239b9e4c7b486a32d2daf69470">wmoge::UiMarkupParser::UiMarkupParser</a></div><div class="ttdeci">UiMarkupParser(Strid name, UiMarkupDecs &amp;desc, array_view&lt; const std::uint8_t &gt; xml_buffer, RttiTypeStorage *type_storage)</div><div class="ttdef"><b>Definition:</b> ui_markup_xml_parser.cpp:32</div></div>
+<div class="ttc" id="aclasswmoge_1_1UiMarkupParser_html_a92ed0053c2765e14bcccb623ba7ca893"><div class="ttname"><a href="classwmoge_1_1UiMarkupParser.html#a92ed0053c2765e14bcccb623ba7ca893">wmoge::UiMarkupParser::parse</a></div><div class="ttdeci">Status parse()</div><div class="ttdef"><b>Definition:</b> ui_markup_xml_parser.cpp:66</div></div>
+<div class="ttc" id="aclasswmoge_1_1UiMarkupParser_html_ac7dfff239b9e4c7b486a32d2daf69470"><div class="ttname"><a href="classwmoge_1_1UiMarkupParser.html#ac7dfff239b9e4c7b486a32d2daf69470">wmoge::UiMarkupParser::UiMarkupParser</a></div><div class="ttdeci">UiMarkupParser(Strid name, UiMarkupDecs &amp;desc, array_view&lt; const std::uint8_t &gt; xml_buffer, RttiTypeStorage *type_storage)</div><div class="ttdef"><b>Definition:</b> ui_markup_xml_parser.cpp:62</div></div>
 <div class="ttc" id="aclasswmoge_1_1array__view_html"><div class="ttname"><a href="classwmoge_1_1array__view.html">wmoge::array_view&lt; const std::uint8_t &gt;</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
 <div class="ttc" id="astring__utils_8hpp_html"><div class="ttname"><a href="string__utils_8hpp.html">string_utils.hpp</a></div></div>
-<div class="ttc" id="astructwmoge_1_1UiMarkupAttribute_html"><div class="ttname"><a href="structwmoge_1_1UiMarkupAttribute.html">wmoge::UiMarkupAttribute</a></div><div class="ttdef"><b>Definition:</b> ui_markup.hpp:50</div></div>
-<div class="ttc" id="astructwmoge_1_1UiMarkupDecs_html"><div class="ttname"><a href="structwmoge_1_1UiMarkupDecs.html">wmoge::UiMarkupDecs</a></div><div class="ttdef"><b>Definition:</b> ui_markup.hpp:74</div></div>
-<div class="ttc" id="astructwmoge_1_1UiMarkupElement_html"><div class="ttname"><a href="structwmoge_1_1UiMarkupElement.html">wmoge::UiMarkupElement</a></div><div class="ttdef"><b>Definition:</b> ui_markup.hpp:62</div></div>
-<div class="ttc" id="astructwmoge_1_1UiMarkupSlot_html"><div class="ttname"><a href="structwmoge_1_1UiMarkupSlot.html">wmoge::UiMarkupSlot</a></div><div class="ttdef"><b>Definition:</b> ui_markup.hpp:39</div></div>
+<div class="ttc" id="astructwmoge_1_1UiMarkupDecs_html"><div class="ttname"><a href="structwmoge_1_1UiMarkupDecs.html">wmoge::UiMarkupDecs</a></div><div class="ttdoc">Ui layout desc, which describes template ui eleement.</div><div class="ttdef"><b>Definition:</b> ui_markup.hpp:40</div></div>
 <div class="ttc" id="atype__storage_8hpp_html"><div class="ttname"><a href="type__storage_8hpp.html">type_storage.hpp</a></div></div>
-<div class="ttc" id="aui__bindable_8hpp_html"><div class="ttname"><a href="ui__bindable_8hpp.html">ui_bindable.hpp</a></div></div>
 <div class="ttc" id="aui__element_8hpp_html"><div class="ttname"><a href="ui__element_8hpp.html">ui_element.hpp</a></div></div>
+<div class="ttc" id="aui__markup_8hpp_html"><div class="ttname"><a href="ui__markup_8hpp.html">ui_markup.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

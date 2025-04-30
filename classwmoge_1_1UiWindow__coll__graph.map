@@ -1,13 +1,14 @@
 <map id="wmoge::UiWindow" name="wmoge::UiWindow">
-<area shape="rect" id="node1" title=" " alt="" coords="745,209,875,236"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="463,56,593,83"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="176,5,304,32"/>
+<area shape="rect" id="node1" title="Ui base class for a window element." alt="" coords="825,240,955,267"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="543,116,673,143"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="194,5,322,32"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="191,56,289,83"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="165,107,315,149"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="453,107,603,149"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="453,173,603,214"/>
-<area shape="rect" id="node9" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="424,239,632,265"/>
-<area shape="rect" id="node10" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="453,290,603,331"/>
-<area shape="rect" id="node11" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="453,355,603,397"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RttiRef.html" title=" " alt="" coords="165,56,351,83"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="209,111,307,137"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="183,162,333,203"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="183,227,333,269"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="533,167,683,209"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="533,233,683,274"/>
+<area shape="rect" id="node11" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="504,299,712,325"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="533,350,683,391"/>
 </map>

@@ -1,7 +1,6 @@
 <map id="wmoge::UiDragFloat" name="wmoge::UiDragFloat">
-<area shape="rect" id="node1" title=" " alt="" coords="13,304,151,331"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="5,229,159,256"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="17,155,147,181"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="18,80,146,107"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="27,5,137,32"/>
+<area shape="rect" id="node1" title="Ui float field with drag option." alt="" coords="5,229,144,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="9,155,140,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="11,80,139,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="19,5,130,32"/>
 </map>

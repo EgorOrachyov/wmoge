@@ -73,23 +73,23 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Builds markup and bindable instance into a ui element.  
+<p>Binds ui elements tree to a data source using binding info and rtti.  
  <a href="classwmoge_1_1UiBinder.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ui__binder_8hpp_source.html">ui_binder.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa5819b4cc5aea9ed6d512a183e417946"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiBinder.html#aa5819b4cc5aea9ed6d512a183e417946">UiBinder</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiElement.html">UiElement</a> &gt; &amp;element, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiMarkup.html">UiMarkup</a> &gt; &amp;markup, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiBindable.html">UiBindable</a> &gt; &amp;bindalbe)</td></tr>
-<tr class="separator:aa5819b4cc5aea9ed6d512a183e417946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27336918e5876be63fb4f092d99aa175"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiBinder.html#a27336918e5876be63fb4f092d99aa175">UiBinder</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiElement.html">UiElement</a> &gt; &amp;element, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1RttiObject.html">RttiObject</a> &gt; &amp;data_source)</td></tr>
+<tr class="separator:a27336918e5876be63fb4f092d99aa175"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a503fc98304380909655daa3fca7041d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UiBinder.html#a503fc98304380909655daa3fca7041d7">bind</a> ()</td></tr>
 <tr class="separator:a503fc98304380909655daa3fca7041d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Builds markup and bindable instance into a ui element. </p>
+<div class="textblock"><p>Binds ui elements tree to a data source using binding info and rtti. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa5819b4cc5aea9ed6d512a183e417946"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5819b4cc5aea9ed6d512a183e417946">&#9670;&nbsp;</a></span>UiBinder()</h2>
+<a id="a27336918e5876be63fb4f092d99aa175"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27336918e5876be63fb4f092d99aa175">&#9670;&nbsp;</a></span>UiBinder()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -97,20 +97,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">wmoge::UiBinder::UiBinder </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiElement.html">UiElement</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiElement.html">UiElement</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>element</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiMarkup.html">UiMarkup</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>markup</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1UiBindable.html">UiBindable</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>bindalbe</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1RttiObject.html">RttiObject</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data_source</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

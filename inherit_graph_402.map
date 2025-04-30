@@ -1,3 +1,271 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,1272,116,1299"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="196,59,347,101"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1AsyncStateBase.html" title="Base class for any object which want to listen to async result." alt="" coords="188,125,355,152"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1AudioBus.html" title="An abstract sound bus used to control and modify played audio." alt="" coords="208,208,335,235"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1AudioPlayback.html" title="An instance of audio stream for playing sound." alt="" coords="193,321,349,348"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1ConfigFile.html" title="Ini&#45;file based simple config file." alt="" coords="208,497,335,524"/>
+<area shape="rect" id="node13" href="$classwmoge_1_1Data.html" title="Safe, automatic and reference&#45;counted raw binary data buffer." alt="" coords="223,548,320,575"/>
+<area shape="rect" id="node14" href="$classwmoge_1_1EdtScene.html" title=" " alt="" coords="208,599,335,625"/>
+<area shape="rect" id="node15" href="$classwmoge_1_1EdtSceneChunk.html" title=" " alt="" coords="190,649,353,676"/>
+<area shape="rect" id="node16" href="$classwmoge_1_1EntityFeatureTrait.html" title="Entity trait responsible for handling partical features on the entity." alt="" coords="185,700,357,727"/>
+<area shape="rect" id="node18" href="$classwmoge_1_1File.html" title="Interface for platform or virtual file type." alt="" coords="226,751,317,777"/>
+<area shape="rect" id="node22" href="$classwmoge_1_1GfxAsyncPsoRequestCompute.html" title="Request for async pso compilation." alt="" coords="173,802,370,843"/>
+<area shape="rect" id="node23" href="$classwmoge_1_1GfxAsyncPsoRequestGraphics.html" title="Request for async pso compilation." alt="" coords="173,867,370,909"/>
+<area shape="rect" id="node24" href="$classwmoge_1_1GfxAsyncShaderRequest.html" title="Request for async shaders creation." alt="" coords="164,933,379,960"/>
+<area shape="rect" id="node25" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="199,984,344,1011"/>
+<area shape="rect" id="node81" href="$classwmoge_1_1InputDevice.html" title=" " alt="" coords="202,1247,341,1273"/>
+<area shape="rect" id="node88" href="$classwmoge_1_1IoStream.html" title="Serialization and de&#45;serialization stream." alt="" coords="210,1297,333,1324"/>
+<area shape="rect" id="node90" href="$classwmoge_1_1MountVolume.html" title="An interface which allows to mount into system virtual file volumes." alt="" coords="196,1348,347,1375"/>
+<area shape="rect" id="node92" href="$classwmoge_1_1PfxComponent.html" title="Single component of a pfx effect with particles." alt="" coords="194,1399,349,1425"/>
+<area shape="rect" id="node93" href="$classwmoge_1_1PfxEmitter.html" title="Runtime representation of a spawned active pfx effect." alt="" coords="206,1449,337,1476"/>
+<area shape="rect" id="node94" href="$classwmoge_1_1RdgResource.html" title="Rdg resource base class." alt="" coords="197,1573,345,1600"/>
+<area shape="rect" id="node107" href="$classwmoge_1_1RttiAttribute.html" title="Base class for any rtti attribute." alt="" coords="202,1729,341,1756"/>
+<area shape="rect" id="node110" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="207,2855,335,2881"/>
+<area shape="rect" id="node217" href="$classwmoge_1_1RttiType.html" title="Base class for any rtti system type for a reflection." alt="" coords="212,5283,331,5309"/>
+<area shape="rect" id="node261" href="$classwmoge_1_1Scene.html" title="Scene objects container representing running game state." alt="" coords="218,5333,325,5360"/>
+<area shape="rect" id="node262" href="$classwmoge_1_1ShaderCompilerRequest.html" title="Request to compile a shader program." alt="" coords="166,5384,377,5411"/>
+<area shape="rect" id="node263" href="$classwmoge_1_1ShaderParamBlock.html" title="Holds params set which can be bound to a shader for drawing." alt="" coords="180,5435,363,5461"/>
+<area shape="rect" id="node264" href="$classwmoge_1_1VKWindow.html" title="Wrapper for a vulkan surface and platform window presentation." alt="" coords="204,5485,339,5512"/>
+<area shape="rect" id="node265" href="$classwmoge_1_1View.html" title="View control how to present rendered content to the screen." alt="" coords="222,5536,321,5563"/>
+<area shape="rect" id="node266" href="$classwmoge_1_1WeakRefAccess.html" title="Manages access to a shared object to access in a weak pointer." alt="" coords="188,5587,355,5613"/>
+<area shape="rect" id="node267" href="$classwmoge_1_1Window.html" title="Interface for OS&#45;specific window for displaying graphics." alt="" coords="213,5721,329,5748"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1AsyncState.html" title=" " alt="" coords="453,43,599,85"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1AsyncState.html" title="An async operation shared data state." alt="" coords="443,109,609,136"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1TaskRuntime.html" title="State of scheduled running task." alt="" coords="709,56,855,83"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1TaskRuntimeParallelFor.html" title="State of scheduled running parallel&#45;for task." alt="" coords="677,5,887,32"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1ALAudioBus.html" title="OpenAL implementation for audio bus." alt="" coords="455,160,597,187"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1ALAudioPlayback.html" title="OpenAL audio playback inmpleemntation." alt="" coords="439,211,613,237"/>
+<area shape="rect" id="node17" href="$classwmoge_1_1EntitySimpleFeatureTrait.html" title=" " alt="" coords="433,261,619,317"/>
+<area shape="rect" id="node19" href="$classwmoge_1_1FileMemReader.html" title="File interface implementation for reading from memory buffer." alt="" coords="445,341,607,368"/>
+<area shape="rect" id="node20" href="$classwmoge_1_1FileMemWriter.html" title="File interface implementation for writing into dynamic memory buffer." alt="" coords="449,392,603,419"/>
+<area shape="rect" id="node21" href="$classwmoge_1_1FilePhysical.html" title="Wrapper for a fstream for physical file reading/writing." alt="" coords="456,443,596,469"/>
+<area shape="rect" id="node26" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="464,493,588,520"/>
+<area shape="rect" id="node39" href="$classwmoge_1_1GfxCmdList.html" title="List to record gfx commands for execution on device." alt="" coords="457,544,595,571"/>
+<area shape="rect" id="node42" href="$classwmoge_1_1GfxDescSet.html" title="Represent set of resources optimized for binding to a pipeline." alt="" coords="456,595,596,621"/>
+<area shape="rect" id="node45" href="$classwmoge_1_1GfxDescSetLayout.html" title="Layout of a single resources set for pipeline creation." alt="" coords="437,645,615,672"/>
+<area shape="rect" id="node48" href="$classwmoge_1_1GfxFrameBuffer.html" title="Gfx frame buffer object with complete set of targets." alt="" coords="445,696,607,723"/>
+<area shape="rect" id="node51" href="$classwmoge_1_1GfxPso.html" title="Base class for compiled pipeline state object." alt="" coords="469,747,583,773"/>
+<area shape="rect" id="node58" href="$classwmoge_1_1GfxPsoLayout.html" title="Layout of pipeline for resources binding." alt="" coords="450,797,602,824"/>
+<area shape="rect" id="node61" href="$classwmoge_1_1GfxQueryPool.html" title="Gfx query pool." alt="" coords="451,848,601,875"/>
+<area shape="rect" id="node64" href="$classwmoge_1_1GfxRenderPass.html" title=" " alt="" coords="445,899,607,925"/>
+<area shape="rect" id="node67" href="$classwmoge_1_1GfxSampler.html" title="Gfx sampler for sampling textures in shaders." alt="" coords="457,949,595,976"/>
+<area shape="rect" id="node70" href="$classwmoge_1_1GfxShader.html" title="Compiled single gpu program module." alt="" coords="461,1000,591,1027"/>
+<area shape="rect" id="node73" href="$classwmoge_1_1GfxShaderProgram.html" title="Compiled and linked full shader program with all stages." alt="" coords="436,1051,616,1077"/>
+<area shape="rect" id="node76" href="$classwmoge_1_1GfxTexture.html" title="Gfx device texture resource." alt="" coords="459,1104,593,1131"/>
+<area shape="rect" id="node79" href="$classwmoge_1_1GfxVertFormat.html" title="Class describing the format of the input to the vertex shader." alt="" coords="449,1160,603,1187"/>
+<area shape="rect" id="node27" href="$classwmoge_1_1GfxIndexBuffer.html" title="Gfx index buffer." alt="" coords="705,193,859,220"/>
+<area shape="rect" id="node30" href="$classwmoge_1_1GfxStorageBuffer.html" title="Gfx storage buffer." alt="" coords="697,249,867,276"/>
+<area shape="rect" id="node33" href="$classwmoge_1_1GfxUniformBuffer.html" title="Gfx uniform buffer." alt="" coords="697,300,867,327"/>
+<area shape="rect" id="node36" href="$classwmoge_1_1GfxVertBuffer.html" title="Gfx vertex buffer." alt="" coords="708,131,856,157"/>
+<area shape="rect" id="node28" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="973,125,1124,166"/>
+<area shape="rect" id="node29" href="$classwmoge_1_1VKIndexBuffer.html" title="Gfx vulkan index buffer implementation." alt="" coords="1215,172,1369,199"/>
+<area shape="rect" id="node31" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="973,242,1124,283"/>
+<area shape="rect" id="node32" href="$classwmoge_1_1VKStorageBuffer.html" title="Gfx vulkan storage buffer implementation." alt="" coords="1209,236,1375,263"/>
+<area shape="rect" id="node34" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="973,307,1124,349"/>
+<area shape="rect" id="node35" href="$classwmoge_1_1VKUniformBuffer.html" title="Gfx vulkan uniform buffer implementation." alt="" coords="1208,301,1376,328"/>
+<area shape="rect" id="node37" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="973,59,1124,101"/>
+<area shape="rect" id="node38" href="$classwmoge_1_1VKVertBuffer.html" title="Gfx vulkan vertex buffer implementation." alt="" coords="1219,85,1365,112"/>
+<area shape="rect" id="node40" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,351,857,393"/>
+<area shape="rect" id="node41" href="$classwmoge_1_1VKCmdList.html" title="Vulkan command list object implementation." alt="" coords="980,373,1117,400"/>
+<area shape="rect" id="node43" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,417,857,458"/>
+<area shape="rect" id="node44" href="$classwmoge_1_1VKDescSet.html" title="Vulkan descriptor set implementation." alt="" coords="979,424,1118,451"/>
+<area shape="rect" id="node46" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,482,857,523"/>
+<area shape="rect" id="node47" href="$classwmoge_1_1VKDescSetLayout.html" title="Vulkan descriptor set layout implementation." alt="" coords="960,489,1137,516"/>
+<area shape="rect" id="node49" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,547,857,589"/>
+<area shape="rect" id="node50" href="$classwmoge_1_1VKFrameBuffer.html" title="Vulkan frame buffer object implementation." alt="" coords="969,548,1128,575"/>
+<area shape="rect" id="node52" href="$classwmoge_1_1GfxPsoCompute.html" title="Represents created and compiled compute pipeline state object." alt="" coords="699,664,865,691"/>
+<area shape="rect" id="node55" href="$classwmoge_1_1GfxPsoGraphics.html" title="Represents created and compiled graphics pipeline state object." alt="" coords="699,613,865,640"/>
+<area shape="rect" id="node53" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="973,665,1124,706"/>
+<area shape="rect" id="node54" href="$classwmoge_1_1VKPsoCompute.html" title="Vulkan compute pipeline implementation." alt="" coords="1211,672,1373,699"/>
+<area shape="rect" id="node56" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="973,599,1124,641"/>
+<area shape="rect" id="node57" href="$classwmoge_1_1VKPsoGraphics.html" title="Vulkan graphics pipeline implementation." alt="" coords="1211,607,1373,633"/>
+<area shape="rect" id="node59" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,715,857,757"/>
+<area shape="rect" id="node60" href="$classwmoge_1_1VKPsoLayout.html" title="Vulkan pipeline layout implementation." alt="" coords="973,731,1124,757"/>
+<area shape="rect" id="node62" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,781,857,822"/>
+<area shape="rect" id="node63" href="$classwmoge_1_1VKQueryPool.html" title="Vulkan implementation for query pool." alt="" coords="975,788,1123,815"/>
+<area shape="rect" id="node65" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,846,857,887"/>
+<area shape="rect" id="node66" href="$classwmoge_1_1VKRenderPass.html" title="Vulkan single render pass implementation required for PSO and drawing." alt="" coords="969,853,1128,880"/>
+<area shape="rect" id="node68" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,911,857,953"/>
+<area shape="rect" id="node69" href="$classwmoge_1_1VKSampler.html" title="Vulkan sampler implementation." alt="" coords="981,919,1117,945"/>
+<area shape="rect" id="node71" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,977,857,1018"/>
+<area shape="rect" id="node72" href="$classwmoge_1_1VKShader.html" title="Vulkan implementation of gfx shader." alt="" coords="984,984,1113,1011"/>
+<area shape="rect" id="node74" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,1042,857,1083"/>
+<area shape="rect" id="node75" href="$classwmoge_1_1VKShaderProgram.html" title="Vulkan implementation of gfx shader program." alt="" coords="959,1049,1138,1076"/>
+<area shape="rect" id="node77" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="707,1107,857,1149"/>
+<area shape="rect" id="node78" href="$classwmoge_1_1VKTexture.html" title="Vulkan gfx texture implementation for resources and render targets." alt="" coords="983,1115,1114,1141"/>
+<area shape="rect" id="node80" href="$classwmoge_1_1VKVertFormat.html" title="Vulkan vertex format description." alt="" coords="705,1173,859,1200"/>
+<area shape="rect" id="node82" href="$classwmoge_1_1Joystick.html" title=" " alt="" coords="467,1221,585,1248"/>
+<area shape="rect" id="node84" href="$classwmoge_1_1Keyboard.html" title=" " alt="" coords="464,1272,588,1299"/>
+<area shape="rect" id="node86" href="$classwmoge_1_1Mouse.html" title=" " alt="" coords="471,1323,581,1349"/>
+<area shape="rect" id="node83" href="$classwmoge_1_1GlfwJoystick.html" title=" " alt="" coords="709,1224,855,1251"/>
+<area shape="rect" id="node85" href="$classwmoge_1_1GlfwKeyboard.html" title=" " alt="" coords="707,1275,857,1301"/>
+<area shape="rect" id="node87" href="$classwmoge_1_1GlfwMouse.html" title=" " alt="" coords="714,1325,850,1352"/>
+<area shape="rect" id="node89" href="$classwmoge_1_1IoStreamFile.html" title="An stream to read/write data to a file with compression." alt="" coords="454,1373,598,1400"/>
+<area shape="rect" id="node91" href="$classwmoge_1_1MountVolumePhysical.html" title="Wrapper for a physical folder location." alt="" coords="427,1424,625,1451"/>
+<area shape="rect" id="node95" href="$classwmoge_1_1RdgBuffer.html" title="Rdg buffer resource." alt="" coords="463,1477,589,1504"/>
+<area shape="rect" id="node100" href="$classwmoge_1_1RdgParamBlock.html" title="Rdg param block resource." alt="" coords="444,1620,608,1647"/>
+<area shape="rect" id="node106" href="$classwmoge_1_1RdgTexture.html" title="Rdg texture resource." alt="" coords="458,1671,594,1697"/>
+<area shape="rect" id="node96" href="$classwmoge_1_1RdgIndexBuffer.html" title="Rdg index buffer resource." alt="" coords="703,1376,861,1403"/>
+<area shape="rect" id="node97" href="$classwmoge_1_1RdgStorageBuffer.html" title="Rdg storage buffer resource." alt="" coords="696,1427,868,1453"/>
+<area shape="rect" id="node98" href="$classwmoge_1_1RdgUniformBuffer.html" title="Rdg uniform buffer resource." alt="" coords="695,1477,869,1504"/>
+<area shape="rect" id="node99" href="$classwmoge_1_1RdgVertBuffer.html" title="Rdg vertex buffer resource." alt="" coords="707,1528,857,1555"/>
+<area shape="rect" id="node101" href="$classwmoge_1_1ShaderAuxDraw_1_1ParamBlockDefault.html" title=" " alt="" coords="701,1710,863,1751"/>
+<area shape="rect" id="node102" href="$classwmoge_1_1ShaderBlit_1_1ParamBlockDefault.html" title=" " alt="" coords="714,1775,850,1817"/>
+<area shape="rect" id="node103" href="$classwmoge_1_1ShaderCanvas_1_1ParamBlockDefault.html" title=" " alt="" coords="705,1841,859,1882"/>
+<area shape="rect" id="node104" href="$classwmoge_1_1ShaderCanvas_1_1ParamBlockImagesBatch.html" title=" " alt="" coords="694,1579,870,1621"/>
+<area shape="rect" id="node105" href="$classwmoge_1_1ShaderFill_1_1ParamBlockDefault.html" title=" " alt="" coords="715,1645,849,1686"/>
+<area shape="rect" id="node108" href="$classwmoge_1_1RttiAttributeBaseStringT.html" title="Rtti attribute template wrapper." alt="" coords="441,1722,611,1763"/>
+<area shape="rect" id="node109" href="$classwmoge_1_1RttiAttributeBaseT.html" title="Rtti attribute template wrapper." alt="" coords="441,1787,611,1829"/>
+<area shape="rect" id="node111" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="451,4235,601,4277"/>
+<area shape="rect" id="node131" href="$classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="442,4821,610,4848"/>
+<area shape="rect" id="node140" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="454,2273,598,2300"/>
+<area shape="rect" id="node162" href="$classwmoge_1_1ConsoleObject.html" title="Base class for any console object." alt="" coords="449,2688,603,2715"/>
+<area shape="rect" id="node166" href="$classwmoge_1_1EntityFeature.html" title="Describes single aspect/feature of a particular ecs entity." alt="" coords="453,2753,599,2780"/>
+<area shape="rect" id="node168" href="$classwmoge_1_1EntityFeatureVector.html" title="Optimized storage for features of a group of entities." alt="" coords="434,2804,618,2831"/>
+<area shape="rect" id="node170" href="$classwmoge_1_1PfxFeature.html" title="Pfx reusable feature which controls single aspect of particles." alt="" coords="459,2855,593,2881"/>
+<area shape="rect" id="node171" href="$classwmoge_1_1ShaderCompiler.html" title="Interface to a shader compiler." alt="" coords="445,2905,607,2932"/>
+<area shape="rect" id="node176" href="$structwmoge_1_1ShaderType.html" title="Recursive complex type for declaring of anything in a shader what has a type." alt="" coords="457,2956,595,2983"/>
+<area shape="rect" id="node178" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="461,3783,591,3809"/>
+<area shape="rect" id="node112" href="$classwmoge_1_1Asset.html" title="Base class for any engine asset." alt="" coords="730,4669,834,4696"/>
+<area shape="rect" id="node113" href="$classwmoge_1_1AudioStream.html" title="Base class for audio files which can be loaded and played." alt="" coords="976,4872,1121,4899"/>
+<area shape="rect" id="node115" href="$classwmoge_1_1Font.html" title="Font asset for rendering texts from true type fonts." alt="" coords="1001,4923,1097,4949"/>
+<area shape="rect" id="node116" href="$classwmoge_1_1IconAtlas.html" title="Atlas storing collection of icons packed inside atlas pages." alt="" coords="986,4973,1111,5000"/>
+<area shape="rect" id="node117" href="$classwmoge_1_1Image.html" title="Hardware&#45;independent image representation." alt="" coords="995,4264,1102,4291"/>
+<area shape="rect" id="node118" href="$classwmoge_1_1Material.html" title=" " alt="" coords="991,4315,1107,4341"/>
+<area shape="rect" id="node119" href="$classwmoge_1_1Mesh.html" title="Vertex and index data structured as chunks which can be rendered." alt="" coords="997,4365,1100,4392"/>
+<area shape="rect" id="node120" href="$classwmoge_1_1MeshArray.html" title="Editable indexed mesh data which can be converted to a render mesh." alt="" coords="983,4416,1115,4443"/>
+<area shape="rect" id="node121" href="$classwmoge_1_1Model.html" title="Asset which stores a complete textured mesh model with level of details and other settings." alt="" coords="996,4467,1101,4493"/>
+<area shape="rect" id="node122" href="$classwmoge_1_1PfxEffect.html" title="Complete pfx effect which can be instantiated for emitting." alt="" coords="987,4517,1110,4544"/>
+<area shape="rect" id="node123" href="$classwmoge_1_1SceneDataAsset.html" title="Represents scene data as asset which can be saved and loaded from disc." alt="" coords="965,4568,1133,4595"/>
+<area shape="rect" id="node124" href="$classwmoge_1_1ScenePrefab.html" title="A prefab asset which can be instantiated into a set of entities." alt="" coords="976,4619,1121,4645"/>
+<area shape="rect" id="node125" href="$classwmoge_1_1Shader.html" title="An interface to the shader class." alt="" coords="993,4669,1104,4696"/>
+<area shape="rect" id="node126" href="$classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture asset which can be used for rendering." alt="" coords="992,4720,1105,4747"/>
+<area shape="rect" id="node129" href="$classwmoge_1_1UiMarkup.html" title="Ui layout and structure which can be loaded from disc and instantiated." alt="" coords="985,4771,1112,4797"/>
+<area shape="rect" id="node130" href="$classwmoge_1_1UiStyle.html" title="Storage for parameters for ui elements display." alt="" coords="993,4821,1105,4848"/>
+<area shape="rect" id="node114" href="$classwmoge_1_1AudioStreamWav.html" title="Simple audio asset loaded from .wav file format." alt="" coords="1207,4872,1377,4899"/>
+<area shape="rect" id="node127" href="$classwmoge_1_1Texture2d.html" title="2d gpu texture asset" alt="" coords="1229,4745,1355,4772"/>
+<area shape="rect" id="node128" href="$classwmoge_1_1TextureCube.html" title="Cube&#45;map gpu texture asset." alt="" coords="1221,4695,1363,4721"/>
+<area shape="rect" id="node132" href="$classwmoge_1_1AssimpMeshImportData.html" title="Options to import mesh asset from external asset format." alt="" coords="677,4872,887,4899"/>
+<area shape="rect" id="node133" href="$classwmoge_1_1FreetypeImportData.html" title="Data to import freetype font." alt="" coords="690,4923,874,4949"/>
+<area shape="rect" id="node134" href="$classwmoge_1_1IconAtlasImportData.html" title="Options to import an icons atlas from external sources, such as png, jpeg, bmp, etc." alt="" coords="687,4973,877,5000"/>
+<area shape="rect" id="node135" href="$classwmoge_1_1ImageImportData.html" title="Options to import an image from an external format, such as png, jpeg, bmp, etc." alt="" coords="697,4720,867,4747"/>
+<area shape="rect" id="node136" href="$classwmoge_1_1TextureImportData.html" title="Base class for import data to import textures for GPU rendering." alt="" coords="693,4771,871,4797"/>
+<area shape="rect" id="node139" href="$classwmoge_1_1WavImportData.html" title="Options to import an audio file from .wav files format." alt="" coords="702,4821,862,4848"/>
+<area shape="rect" id="node137" href="$classwmoge_1_1Texture2dImportData.html" title="Options to import 2d&#45;texture from a source file." alt="" coords="953,5075,1144,5101"/>
+<area shape="rect" id="node138" href="$classwmoge_1_1TextureCubeImportData.html" title="Options to import a cube&#45;map texture from source files." alt="" coords="945,5024,1152,5051"/>
+<area shape="rect" id="node141" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="693,2481,871,2522"/>
+<area shape="rect" id="node143" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="693,2546,871,2587"/>
+<area shape="rect" id="node145" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="693,1906,871,1947"/>
+<area shape="rect" id="node147" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="693,1971,871,2013"/>
+<area shape="rect" id="node149" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="693,2037,871,2078"/>
+<area shape="rect" id="node151" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="693,2102,871,2143"/>
+<area shape="rect" id="node153" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="693,2167,871,2209"/>
+<area shape="rect" id="node155" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="693,2233,871,2274"/>
+<area shape="rect" id="node157" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="693,2298,871,2339"/>
+<area shape="rect" id="node159" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="693,2363,871,2405"/>
+<area shape="rect" id="node161" href="$classwmoge_1_1AssetLoaderTyped.html" title="Adapter to implement asset loaders of a particular asset type." alt="" coords="677,2429,887,2456"/>
+<area shape="rect" id="node142" href="$classwmoge_1_1IconAtlasAssetLoader.html" title="Loader for ui icons atlas." alt="" coords="949,2488,1148,2515"/>
+<area shape="rect" id="node144" href="$classwmoge_1_1WavAssetLoader.html" title="Loader for wav audio sources using audio file library." alt="" coords="963,2553,1134,2580"/>
+<area shape="rect" id="node146" href="$classwmoge_1_1ShaderAssetLoader.html" title="Loader for shader files from a specific shader syntax files." alt="" coords="956,1913,1141,1940"/>
+<area shape="rect" id="node148" href="$classwmoge_1_1TextureCubeAssetLoader.html" title="Loader for cube&#45;map textures through stb image library." alt="" coords="940,1979,1157,2005"/>
+<area shape="rect" id="node150" href="$classwmoge_1_1ImageAssetLoader.html" title="Loader for images through stb image library." alt="" coords="959,2044,1139,2071"/>
+<area shape="rect" id="node152" href="$classwmoge_1_1DefaultAssetLoader.html" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="956,2109,1141,2136"/>
+<area shape="rect" id="node154" href="$classwmoge_1_1UiMarkupAssetLoader.html" title=" " alt="" coords="949,2175,1149,2201"/>
+<area shape="rect" id="node156" href="$classwmoge_1_1FreetypeAssetLoader.html" title="Loader for ttf fonts through freetype2 library." alt="" coords="951,2240,1146,2267"/>
+<area shape="rect" id="node158" href="$classwmoge_1_1AssimpMeshAssetLoader.html" title="Loader for a mesh data based on assimp library." alt="" coords="939,2305,1159,2332"/>
+<area shape="rect" id="node160" href="$classwmoge_1_1Texture2dAssetLoader.html" title="Loader for 2d textures through stb image library." alt="" coords="948,2371,1149,2397"/>
+<area shape="rect" id="node163" href="$classwmoge_1_1ConsoleCmd.html" title="Console command which can be executed from console." alt="" coords="710,2713,854,2740"/>
+<area shape="rect" id="node164" href="$classwmoge_1_1ConsoleTrigger.html" title="Console trigger which can be triggered for one frame." alt="" coords="703,2612,861,2639"/>
+<area shape="rect" id="node165" href="$classwmoge_1_1ConsoleVar.html" title="Console var which can hold some value." alt="" coords="713,2663,851,2689"/>
+<area shape="rect" id="node167" href="$classwmoge_1_1EntitySimpleFeature.html" title=" " alt="" coords="674,2764,890,2791"/>
+<area shape="rect" id="node169" href="$classwmoge_1_1EntitySimpleFeatureVector.html" title=" " alt="" coords="689,2815,875,2857"/>
+<area shape="rect" id="node172" href="$classwmoge_1_1GlslShaderCompilerAdapter.html" title="Interface implementation for ShaderCompiler." alt="" coords="689,2881,875,2922"/>
+<area shape="rect" id="node173" href="$classwmoge_1_1GlslShaderCompilerVulkanLinux.html" title="Adapter for glsl compiler for GfxShaderPlatform::VulkanLinux." alt="" coords="956,2881,1141,2922"/>
+<area shape="rect" id="node174" href="$classwmoge_1_1GlslShaderCompilerVulkanMacOS.html" title="Adapter for glsl compiler for GfxShaderPlatform::VulkanMacOS." alt="" coords="956,2946,1141,2987"/>
+<area shape="rect" id="node175" href="$classwmoge_1_1GlslShaderCompilerVulkanWindows.html" title="Adapter for glsl compiler for GfxShaderPlatform::VulkanWindows." alt="" coords="956,2815,1141,2857"/>
+<area shape="rect" id="node177" href="$classwmoge_1_1ShaderTypeStruct.html" title="Recursive complex shader struct type." alt="" coords="695,2947,869,2973"/>
+<area shape="rect" id="node179" href="$classwmoge_1_1UiButton.html" title="Ui button element which can be clicked." alt="" coords="721,3352,843,3379"/>
+<area shape="rect" id="node180" href="$classwmoge_1_1UiCheckBoxButton.html" title="Ui check box button which can be checked or unchecked." alt="" coords="692,3403,872,3429"/>
+<area shape="rect" id="node181" href="$classwmoge_1_1UiComboBox.html" title="Ui combo box with items which can be dropped down." alt="" coords="709,3453,855,3480"/>
+<area shape="rect" id="node182" href="$classwmoge_1_1UiCompletionPopup.html" title="Ui completion popup for text input." alt="" coords="689,3504,875,3531"/>
+<area shape="rect" id="node183" href="$classwmoge_1_1UiContextMenu.html" title="Ui context menu which can be shown on an element." alt="" coords="703,3555,861,3581"/>
+<area shape="rect" id="node184" href="$classwmoge_1_1UiDockSpace.html" title="Ui element which allows to organize and dock inside other windows." alt="" coords="707,3605,857,3632"/>
+<area shape="rect" id="node185" href="$classwmoge_1_1UiDragFloat.html" title="Ui float field with drag option." alt="" coords="713,3656,851,3683"/>
+<area shape="rect" id="node186" href="$classwmoge_1_1UiDragInt.html" title="Ui int field with drag option." alt="" coords="719,3707,845,3733"/>
+<area shape="rect" id="node187" href="$classwmoge_1_1UiInputFloat.html" title="Ui float input field with step editing." alt="" coords="711,3757,853,3784"/>
+<area shape="rect" id="node188" href="$classwmoge_1_1UiInputInt.html" title="Ui int input field with step editing." alt="" coords="719,3808,845,3835"/>
+<area shape="rect" id="node189" href="$classwmoge_1_1UiInputText.html" title="Ui text input field." alt="" coords="713,3859,851,3885"/>
+<area shape="rect" id="node190" href="$classwmoge_1_1UiInputTextExt.html" title="Ui extended text input field with rich callbacks and completion." alt="" coords="705,3909,859,3936"/>
+<area shape="rect" id="node191" href="$classwmoge_1_1UiListBox.html" title="Ui list box with items shown in a multi&#45;line box." alt="" coords="719,3960,845,3987"/>
+<area shape="rect" id="node192" href="$classwmoge_1_1UiMenu.html" title="Ui menu which can store menu items." alt="" coords="725,4011,839,4037"/>
+<area shape="rect" id="node193" href="$classwmoge_1_1UiMenuBar.html" title="Ui window top menu bar." alt="" coords="715,4061,849,4088"/>
+<area shape="rect" id="node194" href="$classwmoge_1_1UiMenuItem.html" title="Ui menu item which can be placed inside a menu." alt="" coords="711,4112,853,4139"/>
+<area shape="rect" id="node195" href="$classwmoge_1_1UiModal.html" title="Ui modal window block other input and grabbing focus." alt="" coords="723,4163,841,4189"/>
+<area shape="rect" id="node196" href="$classwmoge_1_1UiPanel.html" title="Ui base class for a panel with children elements." alt="" coords="724,4213,840,4240"/>
+<area shape="rect" id="node200" href="$classwmoge_1_1UiPopup.html" title="Ui basic popup window which can be shown anywhere." alt="" coords="722,4264,842,4291"/>
+<area shape="rect" id="node201" href="$classwmoge_1_1UiProgressBar.html" title="Ui progress bar element." alt="" coords="705,4315,859,4341"/>
+<area shape="rect" id="node202" href="$classwmoge_1_1UiRadioButton.html" title="Ui radio button." alt="" coords="705,4365,859,4392"/>
+<area shape="rect" id="node203" href="$classwmoge_1_1UiSelectable.html" title="Ui selectable element for selection in menus and lists." alt="" coords="710,4416,854,4443"/>
+<area shape="rect" id="node204" href="$classwmoge_1_1UiSeparator.html" title="Ui separator line element to visually divide space." alt="" coords="713,4467,851,4493"/>
+<area shape="rect" id="node205" href="$classwmoge_1_1UiSeparatorText.html" title="Ui separator text with line element." alt="" coords="700,4517,864,4544"/>
+<area shape="rect" id="node206" href="$classwmoge_1_1UiSliderFloat.html" title="Ui float slider with bar for selection." alt="" coords="709,4568,855,4595"/>
+<area shape="rect" id="node207" href="$classwmoge_1_1UiSliderInt.html" title="Ui int slider with bar for selection." alt="" coords="717,4619,847,4645"/>
+<area shape="rect" id="node208" href="$classwmoge_1_1UiStatusBar.html" title="Ui status bar for window (mostly shown bottom)" alt="" coords="711,2997,853,3024"/>
+<area shape="rect" id="node209" href="$classwmoge_1_1UiText.html" title="Ui text element." alt="" coords="728,3048,836,3075"/>
+<area shape="rect" id="node210" href="$classwmoge_1_1UiTextLink.html" title="Ui text link with optional url to goto." alt="" coords="715,3099,849,3125"/>
+<area shape="rect" id="node211" href="$classwmoge_1_1UiTextWrapped.html" title="Ui wrapped multi&#45;line text element." alt="" coords="703,3149,861,3176"/>
+<area shape="rect" id="node212" href="$classwmoge_1_1UiToolBar.html" title="Ui tool bar for window (mostly shown on top)" alt="" coords="718,3200,846,3227"/>
+<area shape="rect" id="node213" href="$classwmoge_1_1UiToolTip.html" title="Tooltip object which can be shown on ui element for help information." alt="" coords="719,3251,845,3277"/>
+<area shape="rect" id="node214" href="$classwmoge_1_1UiWindow.html" title="Ui base class for a window element." alt="" coords="717,3301,847,3328"/>
+<area shape="rect" id="node197" href="$classwmoge_1_1UiCollapsingPanel.html" title="Ui pannel which can be collapsed." alt="" coords="961,4163,1137,4189"/>
+<area shape="rect" id="node198" href="$classwmoge_1_1UiScrollPanel.html" title="Ui panel which can be srollled." alt="" coords="974,4213,1123,4240"/>
+<area shape="rect" id="node199" href="$classwmoge_1_1UiStackPanel.html" title="Ui panel to show elements in vertical or horizontal stack." alt="" coords="973,4112,1124,4139"/>
+<area shape="rect" id="node215" href="$classwmoge_1_1UiDockWindow.html" title="Ui dockable window which may be draw separatly or in docked state." alt="" coords="969,3276,1128,3303"/>
+<area shape="rect" id="node216" href="$classwmoge_1_1UiMainWindow.html" title="Ui main window which rendered inside main app os window." alt="" coords="970,3327,1127,3353"/>
+<area shape="rect" id="node218" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="451,5769,601,5810"/>
+<area shape="rect" id="node220" href="$classwmoge_1_1RttiEnum.html" title="Enum type reflection info." alt="" coords="465,5068,587,5095"/>
+<area shape="rect" id="node223" href="$classwmoge_1_1RttiStruct.html" title="Runtime struct info as a collecion of fields without logic." alt="" coords="463,5156,589,5183"/>
+<area shape="rect" id="node227" href="$classwmoge_1_1RttiTypeBitset.html" title="Base rtti to inspect bit set." alt="" coords="450,5221,602,5248"/>
+<area shape="rect" id="node230" href="$classwmoge_1_1RttiTypeFunction.html" title="Base rtti to inspect function like types." alt="" coords="442,5312,610,5339"/>
+<area shape="rect" id="node237" href="$classwmoge_1_1RttiTypeMap.html" title="Base rtti to inspect map containers." alt="" coords="455,5363,597,5389"/>
+<area shape="rect" id="node240" href="$classwmoge_1_1RttiTypeMask.html" title="Base rtti to inspect bit mask." alt="" coords="451,5413,601,5440"/>
+<area shape="rect" id="node243" href="$classwmoge_1_1RttiTypeOptional.html" title="Base rtti to inspect optional value." alt="" coords="443,5464,609,5491"/>
+<area shape="rect" id="node246" href="$classwmoge_1_1RttiTypePair.html" title="Base rtti to inspect pair containers." alt="" coords="455,5515,597,5541"/>
+<area shape="rect" id="node249" href="$classwmoge_1_1RttiTypeRef.html" title="Base rtti to inspect ref counted value." alt="" coords="457,5565,595,5592"/>
+<area shape="rect" id="node252" href="$classwmoge_1_1RttiTypeSet.html" title="Base rtti to inspect set containers." alt="" coords="457,5616,595,5643"/>
+<area shape="rect" id="node255" href="$classwmoge_1_1RttiTypeVec.html" title="Base rtti to inspect Vec values." alt="" coords="455,5667,597,5693"/>
+<area shape="rect" id="node258" href="$classwmoge_1_1RttiTypeVector.html" title="Base rtti to inspect vector containers." alt="" coords="448,5717,604,5744"/>
+<area shape="rect" id="node219" href="$classwmoge_1_1RttiTypeFundamentalT.html" title=" " alt="" coords="685,6043,879,6085"/>
+<area shape="rect" id="node221" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="707,5025,857,5066"/>
+<area shape="rect" id="node222" href="$classwmoge_1_1RttiTypeEnumT.html" title=" " alt="" coords="954,5125,1143,5152"/>
+<area shape="rect" id="node224" href="$classwmoge_1_1RttiClass.html" title="Class refletion info for all types inherited from engine Object type." alt="" coords="721,5156,843,5183"/>
+<area shape="rect" id="node226" href="$classwmoge_1_1RttiStructT.html" title=" " alt="" coords="715,5090,849,5131"/>
+<area shape="rect" id="node225" href="$classwmoge_1_1RttiClassT.html" title=" " alt="" coords="979,5177,1118,5218"/>
+<area shape="rect" id="node228" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="697,5207,867,5249"/>
+<area shape="rect" id="node229" href="$classwmoge_1_1RttiTypeBitsetT.html" title=" " alt="" coords="969,5242,1129,5283"/>
+<area shape="rect" id="node231" href="$structwmoge_1_1RttiTypeFunctionBaseT.html" title=" " alt="" coords="683,5338,881,5379"/>
+<area shape="rect" id="node233" href="$structwmoge_1_1RttiTypeFunctionBaseT.html" title=" " alt="" coords="683,5403,881,5445"/>
+<area shape="rect" id="node235" href="$classwmoge_1_1RttiFunctionSignal.html" title="Function callable with signal interface." alt="" coords="694,5469,870,5496"/>
+<area shape="rect" id="node236" href="$structwmoge_1_1RttiTypeFunctionBaseT.html" title=" " alt="" coords="683,5273,881,5314"/>
+<area shape="rect" id="node232" href="$classwmoge_1_1RttiTypeFunctionLambaT.html" title=" " alt="" coords="945,5334,1153,5375"/>
+<area shape="rect" id="node234" href="$classwmoge_1_1RttiTypeClassMethodT.html" title=" " alt="" coords="951,5399,1146,5455"/>
+<area shape="rect" id="node238" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="695,5521,869,5562"/>
+<area shape="rect" id="node239" href="$classwmoge_1_1RttiTypeBaseMapT.html" title=" " alt="" coords="958,5521,1139,5562"/>
+<area shape="rect" id="node241" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="691,5586,873,5627"/>
+<area shape="rect" id="node242" href="$classwmoge_1_1RttiTypeMaskT.html" title=" " alt="" coords="969,5586,1128,5627"/>
+<area shape="rect" id="node244" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="673,5651,891,5693"/>
+<area shape="rect" id="node245" href="$classwmoge_1_1RttiTypeOptionalT.html" title=" " alt="" coords="947,5659,1151,5685"/>
+<area shape="rect" id="node247" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="696,5717,868,5758"/>
+<area shape="rect" id="node248" href="$classwmoge_1_1RttiTypePairT.html" title=" " alt="" coords="969,5717,1129,5758"/>
+<area shape="rect" id="node250" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="695,5782,869,5823"/>
+<area shape="rect" id="node251" href="$classwmoge_1_1RttiTypeRefT.html" title=" " alt="" coords="975,5782,1122,5823"/>
+<area shape="rect" id="node253" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="697,5847,867,5889"/>
+<area shape="rect" id="node254" href="$classwmoge_1_1RttiTypeBaseSetT.html" title=" " alt="" coords="961,5847,1137,5889"/>
+<area shape="rect" id="node256" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="696,5913,868,5954"/>
+<area shape="rect" id="node257" href="$classwmoge_1_1RttiTypeVecT.html" title=" " alt="" coords="974,5913,1123,5954"/>
+<area shape="rect" id="node259" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="696,5978,868,6019"/>
+<area shape="rect" id="node260" href="$classwmoge_1_1RttiTypeBaseVectorT.html" title=" " alt="" coords="955,5978,1142,6019"/>
+<area shape="rect" id="node268" href="$classwmoge_1_1GlfwWindow.html" title="Glfw&#45;based implementation of OS&#45;window object." alt="" coords="455,5835,597,5861"/>
+<area shape="rect" id="node269" href="$classwmoge_1_1VKBuffer.html" title="Base class for vulkan buffers." alt="" coords="987,191,1110,217"/>
 </map>

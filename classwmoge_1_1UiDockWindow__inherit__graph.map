@@ -1,6 +1,6 @@
 <map id="wmoge::UiDockWindow" name="wmoge::UiDockWindow">
-<area shape="rect" id="node1" title=" " alt="" coords="5,304,164,331"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UiWindow.html" title=" " alt="" coords="20,229,149,256"/>
+<area shape="rect" id="node1" title="Ui dockable window which may be draw separatly or in docked state." alt="" coords="5,304,164,331"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiWindow.html" title="Ui base class for a window element." alt="" coords="20,229,149,256"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="19,155,150,181"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="21,80,149,107"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="29,5,140,32"/>

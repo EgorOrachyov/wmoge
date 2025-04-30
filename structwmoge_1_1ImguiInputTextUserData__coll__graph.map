@@ -1,12 +1,13 @@
 <map id="wmoge::ImguiInputTextUserData" name="wmoge::ImguiInputTextUserData">
-<area shape="rect" id="node1" title=" " alt="" coords="85,469,296,496"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ImguiProcessor.html" title=" " alt="" coords="65,380,226,407"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UiInputTextExt.html" title=" " alt="" coords="251,380,405,407"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="130,283,283,310"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="141,200,272,227"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="5,89,133,115"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="14,5,125,32"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="158,89,255,115"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="280,81,429,123"/>
-<area shape="rect" id="node10" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="308,276,457,317"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1081,132,1292,159"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ImguiProcessor.html" title=" " alt="" coords="811,107,972,133"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UiInputTextExt.html" title="Ui extended text input field with rich callbacks and completion." alt="" coords="814,157,969,184"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="513,116,644,143"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="194,5,322,32"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1RttiRef.html" title=" " alt="" coords="165,56,351,83"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="209,111,307,137"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="183,162,333,203"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="183,227,333,269"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="504,167,653,209"/>
 </map>

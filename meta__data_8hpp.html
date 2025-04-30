@@ -69,69 +69,75 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">meta_data.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="flat__map_8hpp_source.html">core/flat_map.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="array__view_8hpp_source.html">core/array_view.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="flat__map_8hpp_source.html">core/flat_map.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mask_8hpp_source.html">core/mask.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ref_8hpp_source.html">core/ref.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="string__id_8hpp_source.html">core/string_id.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="string__utils_8hpp_source.html">core/string_utils.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="var_8hpp_source.html">core/var.hpp</a>&quot;</code><br />
 <code>#include &lt;initializer_list&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for meta_data.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="meta__data_8hpp__incl.png" border="0" usemap="#aengine_2code_2rtti_2meta__data_8hpp" alt=""/></div>
 <map name="aengine_2code_2rtti_2meta__data_8hpp" id="aengine_2code_2rtti_2meta__data_8hpp">
-<area shape="rect" title=" " alt="" coords="488,5,632,47"/>
-<area shape="rect" href="flat__map_8hpp.html" title=" " alt="" coords="1361,169,1485,196"/>
-<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="648,319,755,345"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="1369,468,1493,495"/>
-<area shape="rect" title=" " alt="" coords="547,393,643,420"/>
-<area shape="rect" href="string__utils_8hpp.html" title=" " alt="" coords="437,95,576,121"/>
-<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="2319,95,2412,121"/>
-<area shape="rect" href="stream_8hpp.html" title=" " alt="" coords="1134,244,1234,271"/>
-<area shape="rect" title=" " alt="" coords="1662,468,1773,495"/>
-<area shape="rect" href="tree_8hpp.html" title=" " alt="" coords="1831,244,1913,271"/>
-<area shape="rect" title=" " alt="" coords="2243,319,2352,345"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1006,319,1098,345"/>
-<area shape="rect" title=" " alt="" coords="2360,393,2419,420"/>
-<area shape="rect" title=" " alt="" coords="761,393,815,420"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="3016,319,3107,345"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="1174,319,1285,345"/>
-<area shape="rect" href="context_8hpp.html" title=" " alt="" coords="1681,319,1783,345"/>
-<area shape="rect" title=" " alt="" coords="779,319,829,345"/>
-<area shape="rect" title=" " alt="" coords="397,319,472,345"/>
-<area shape="rect" title=" " alt="" coords="1589,319,1656,345"/>
-<area shape="rect" title=" " alt="" coords="1461,319,1565,345"/>
-<area shape="rect" title=" " alt="" coords="922,543,987,569"/>
-<area shape="rect" title=" " alt="" coords="992,393,1059,420"/>
-<area shape="rect" title=" " alt="" coords="2494,393,2562,420"/>
-<area shape="rect" title=" " alt="" coords="1083,393,1141,420"/>
-<area shape="rect" title=" " alt="" coords="667,393,736,420"/>
-<area shape="rect" title=" " alt="" coords="826,543,881,569"/>
-<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="1267,393,1359,420"/>
-<area shape="rect" title=" " alt="" coords="1517,468,1637,495"/>
-<area shape="rect" title=" " alt="" coords="2397,543,2475,569"/>
-<area shape="rect" title=" " alt="" coords="1740,543,1809,569"/>
-<area shape="rect" title=" " alt="" coords="3128,543,3211,569"/>
-<area shape="rect" title=" " alt="" coords="2995,393,3056,420"/>
-<area shape="rect" title=" " alt="" coords="2501,468,2566,495"/>
-<area shape="rect" title=" " alt="" coords="2817,393,2869,420"/>
-<area shape="rect" href="any__storage_8hpp.html" title=" " alt="" coords="1937,393,2082,420"/>
-<area shape="rect" title=" " alt="" coords="1797,468,1840,495"/>
-<area shape="rect" title=" " alt="" coords="1865,468,1941,495"/>
-<area shape="rect" title=" " alt="" coords="1965,468,2032,495"/>
-<area shape="rect" title=" " alt="" coords="2011,319,2066,345"/>
-<area shape="rect" href="sha256_8hpp.html" title=" " alt="" coords="715,169,832,196"/>
-<area shape="rect" href="typed__array_8hpp.html" title=" " alt="" coords="2403,169,2544,196"/>
-<area shape="rect" href="typed__map_8hpp.html" title=" " alt="" coords="2619,169,2757,196"/>
-<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="2832,244,2971,271"/>
-<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="2227,169,2327,196"/>
-<area shape="rect" title=" " alt="" coords="2157,169,2203,196"/>
-<area shape="rect" title=" " alt="" coords="2883,319,2941,345"/>
+<area shape="rect" title=" " alt="" coords="1109,5,1253,47"/>
+<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="499,319,637,345"/>
+<area shape="rect" title=" " alt="" coords="2395,393,2453,420"/>
+<area shape="rect" href="flat__map_8hpp.html" title=" " alt="" coords="1574,169,1698,196"/>
+<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="987,319,1093,345"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="1201,468,1325,495"/>
+<area shape="rect" title=" " alt="" coords="397,393,493,420"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="3127,319,3217,345"/>
+<area shape="rect" href="string__utils_8hpp.html" title=" " alt="" coords="909,95,1048,121"/>
+<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="2013,95,2107,121"/>
+<area shape="rect" title=" " alt="" coords="569,393,658,420"/>
+<area shape="rect" title=" " alt="" coords="2765,468,2830,495"/>
+<area shape="rect" title=" " alt="" coords="1006,543,1071,569"/>
+<area shape="rect" href="stream_8hpp.html" title=" " alt="" coords="1346,244,1446,271"/>
+<area shape="rect" title=" " alt="" coords="2302,468,2413,495"/>
+<area shape="rect" href="tree_8hpp.html" title=" " alt="" coords="2019,244,2101,271"/>
+<area shape="rect" title=" " alt="" coords="2071,319,2180,345"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1219,319,1311,345"/>
+<area shape="rect" title=" " alt="" coords="921,393,975,420"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="1335,319,1446,345"/>
+<area shape="rect" href="context_8hpp.html" title=" " alt="" coords="1943,319,2046,345"/>
+<area shape="rect" title=" " alt="" coords="912,319,963,345"/>
+<area shape="rect" title=" " alt="" coords="763,319,837,345"/>
+<area shape="rect" title=" " alt="" coords="1724,319,1791,345"/>
+<area shape="rect" title=" " alt="" coords="1815,319,1919,345"/>
+<area shape="rect" title=" " alt="" coords="1101,393,1168,420"/>
+<area shape="rect" title=" " alt="" coords="734,393,802,420"/>
+<area shape="rect" title=" " alt="" coords="1193,393,1250,420"/>
+<area shape="rect" title=" " alt="" coords="827,393,896,420"/>
+<area shape="rect" title=" " alt="" coords="834,543,889,569"/>
+<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="1326,393,1418,420"/>
+<area shape="rect" title=" " alt="" coords="1349,468,1469,495"/>
+<area shape="rect" title=" " alt="" coords="3211,543,3290,569"/>
+<area shape="rect" title=" " alt="" coords="1375,543,1444,569"/>
+<area shape="rect" title=" " alt="" coords="1996,543,2079,569"/>
+<area shape="rect" title=" " alt="" coords="3089,393,3151,420"/>
+<area shape="rect" title=" " alt="" coords="2911,393,2963,420"/>
+<area shape="rect" href="any__storage_8hpp.html" title=" " alt="" coords="2529,393,2674,420"/>
+<area shape="rect" title=" " alt="" coords="2455,468,2497,495"/>
+<area shape="rect" title=" " alt="" coords="2522,468,2598,495"/>
+<area shape="rect" title=" " alt="" coords="2623,468,2689,495"/>
+<area shape="rect" title=" " alt="" coords="2407,319,2462,345"/>
+<area shape="rect" href="sha256_8hpp.html" title=" " alt="" coords="920,169,1037,196"/>
+<area shape="rect" href="typed__array_8hpp.html" title=" " alt="" coords="2524,169,2665,196"/>
+<area shape="rect" href="typed__map_8hpp.html" title=" " alt="" coords="2744,169,2883,196"/>
+<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="2863,244,3001,271"/>
+<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="1446,169,1546,196"/>
+<area shape="rect" title=" " alt="" coords="2453,169,2499,196"/>
+<area shape="rect" title=" " alt="" coords="2943,319,3001,345"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -139,56 +145,56 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="meta__data_8hpp__dep__incl.png" border="0" usemap="#aengine_2code_2rtti_2meta__data_8hppdep" alt=""/></div>
 <map name="aengine_2code_2rtti_2meta__data_8hppdep" id="aengine_2code_2rtti_2meta__data_8hppdep">
-<area shape="rect" title=" " alt="" coords="1057,5,1201,47"/>
-<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="1478,877,1637,903"/>
-<area shape="rect" href="class_8hpp.html" title=" " alt="" coords="1044,259,1215,285"/>
-<area shape="rect" href="rtti_2enum_8hpp.html" title=" " alt="" coords="681,184,852,211"/>
-<area shape="rect" href="function_8hpp.html" title=" " alt="" coords="906,184,1091,211"/>
-<area shape="rect" href="meta__data_8cpp.html" title=" " alt="" coords="1167,95,1311,136"/>
-<area shape="rect" href="struct_8hpp.html" title=" " alt="" coords="2707,184,2879,211"/>
-<area shape="rect" href="type_8hpp.html" title=" " alt="" coords="1493,102,1656,129"/>
-<area shape="rect" href="class_8cpp.html" title=" " alt="" coords="195,430,365,457"/>
-<area shape="rect" href="object_8hpp.html" title=" " alt="" coords="445,341,619,367"/>
-<area shape="rect" href="traits_8hpp.html" title=" " alt="" coords="1553,430,1721,457"/>
-<area shape="rect" href="type__storage_8hpp.html" title=" " alt="" coords="3068,333,3207,375"/>
-<area shape="rect" href="object_8cpp.html" title=" " alt="" coords="2298,430,2473,457"/>
-<area shape="rect" href="ui__bindable_8hpp.html" title=" " alt="" coords="679,609,878,635"/>
-<area shape="rect" href="asset_8hpp.html" title=" " alt="" coords="2387,519,2575,546"/>
-<area shape="rect" href="asset__loader_8hpp.html" title=" " alt="" coords="2870,691,3034,732"/>
-<area shape="rect" href="asset__manager_8hpp.html" title=" " alt="" coords="3022,780,3186,821"/>
-<area shape="rect" href="asset__meta_8hpp.html" title=" " alt="" coords="2874,601,3038,643"/>
-<area shape="rect" href="shader_8hpp.html" title=" " alt="" coords="1751,787,1932,814"/>
-<area shape="rect" href="mesh_8hpp.html" title=" " alt="" coords="2418,698,2606,725"/>
-<area shape="rect" href="mesh__array_8hpp.html" title=" " alt="" coords="2178,601,2342,643"/>
-<area shape="rect" href="scene__data_8hpp.html" title=" " alt="" coords="1439,601,1609,643"/>
-<area shape="rect" href="ui__style_8hpp.html" title=" " alt="" coords="2620,609,2799,635"/>
-<area shape="rect" href="asset__import__data_8hpp.html" title=" " alt="" coords="2702,512,2866,553"/>
-<area shape="rect" href="console__objects_8hpp.html" title=" " alt="" coords="2992,512,3136,553"/>
-<area shape="rect" href="gfx__desc__set_8hpp.html" title=" " alt="" coords="1917,601,2051,643"/>
-<area shape="rect" href="gfx__sampler_8hpp.html" title=" " alt="" coords="2126,512,2261,553"/>
-<area shape="rect" href="shader__reflection_8hpp.html" title=" " alt="" coords="1684,601,1841,643"/>
-<area shape="rect" href="shader__compiler_8hpp.html" title=" " alt="" coords="1633,691,1791,732"/>
-<area shape="rect" href="shader__file_8hpp.html" title=" " alt="" coords="1156,691,1313,732"/>
-<area shape="rect" href="gfx__vert__format_8hpp.html" title=" " alt="" coords="246,691,381,732"/>
-<area shape="rect" href="pso__file_8hpp.html" title=" " alt="" coords="405,691,544,732"/>
-<area shape="rect" href="shader__cache_8cpp.html" title=" " alt="" coords="1160,512,1317,553"/>
-<area shape="rect" href="shader__library_8cpp.html" title=" " alt="" coords="1341,512,1499,553"/>
-<area shape="rect" href="texture__compression_8hpp.html" title=" " alt="" coords="507,780,664,821"/>
-<area shape="rect" href="texture__resize_8hpp.html" title=" " alt="" coords="619,691,776,732"/>
-<area shape="rect" href="pfx__feature_8hpp.html" title=" " alt="" coords="739,780,874,821"/>
-<area shape="rect" href="common_8hpp.html" title=" " alt="" coords="898,780,1030,821"/>
-<area shape="rect" href="code_2rtti_2__rtti_8cpp.html" title=" " alt="" coords="1726,519,1887,546"/>
-<area shape="rect" href="scene__feature_8hpp.html" title=" " alt="" coords="965,512,1136,553"/>
-<area shape="rect" href="plugin__config_8hpp.html" title=" " alt="" coords="1963,512,2101,553"/>
-<area shape="rect" href="ui__element_8hpp.html" title=" " alt="" coords="693,519,891,546"/>
-<area shape="rect" href="asset__library__fs_8cpp.html" title=" " alt="" coords="3035,869,3199,911"/>
-<area shape="rect" href="asset__manager_8cpp.html" title=" " alt="" coords="3278,869,3442,911"/>
-<area shape="rect" href="engine_8cpp.html" title=" " alt="" coords="3495,869,3633,911"/>
-<area shape="rect" href="shader__manager_8cpp.html" title=" " alt="" coords="2840,780,2997,821"/>
-<area shape="rect" href="type__storage_8cpp.html" title=" " alt="" coords="3200,423,3339,464"/>
-<area shape="rect" href="function_8cpp.html" title=" " alt="" coords="735,259,921,285"/>
-<area shape="rect" href="struct_8cpp.html" title=" " alt="" coords="2758,259,2930,285"/>
-<area shape="rect" href="builtin_8hpp.html" title=" " alt="" coords="1612,341,1785,367"/>
+<area shape="rect" title=" " alt="" coords="987,5,1131,47"/>
+<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="1469,877,1627,903"/>
+<area shape="rect" href="class_8hpp.html" title=" " alt="" coords="684,259,855,285"/>
+<area shape="rect" href="rtti_2enum_8hpp.html" title=" " alt="" coords="3295,184,3465,211"/>
+<area shape="rect" href="function_8hpp.html" title=" " alt="" coords="1018,184,1203,211"/>
+<area shape="rect" href="meta__data_8cpp.html" title=" " alt="" coords="1096,95,1240,136"/>
+<area shape="rect" href="struct_8hpp.html" title=" " alt="" coords="770,184,942,211"/>
+<area shape="rect" href="type_8hpp.html" title=" " alt="" coords="2044,102,2207,129"/>
+<area shape="rect" href="class_8cpp.html" title=" " alt="" coords="144,430,315,457"/>
+<area shape="rect" href="object_8hpp.html" title=" " alt="" coords="477,341,651,367"/>
+<area shape="rect" href="traits_8hpp.html" title=" " alt="" coords="1551,430,1719,457"/>
+<area shape="rect" href="ui__query_8hpp.html" title=" " alt="" coords="1457,698,1639,725"/>
+<area shape="rect" href="type__storage_8hpp.html" title=" " alt="" coords="2828,333,2967,375"/>
+<area shape="rect" href="object_8cpp.html" title=" " alt="" coords="477,430,651,457"/>
+<area shape="rect" href="asset_8hpp.html" title=" " alt="" coords="2106,519,2294,546"/>
+<area shape="rect" href="asset__loader_8hpp.html" title=" " alt="" coords="2709,691,2873,732"/>
+<area shape="rect" href="asset__manager_8hpp.html" title=" " alt="" coords="2949,780,3113,821"/>
+<area shape="rect" href="asset__meta_8hpp.html" title=" " alt="" coords="2709,601,2873,643"/>
+<area shape="rect" href="shader_8hpp.html" title=" " alt="" coords="1215,787,1396,814"/>
+<area shape="rect" href="mesh_8hpp.html" title=" " alt="" coords="1766,698,1954,725"/>
+<area shape="rect" href="mesh__array_8hpp.html" title=" " alt="" coords="1546,601,1710,643"/>
+<area shape="rect" href="scene__data_8hpp.html" title=" " alt="" coords="2311,691,2481,732"/>
+<area shape="rect" href="ui__style_8hpp.html" title=" " alt="" coords="2057,609,2236,635"/>
+<area shape="rect" href="asset__import__data_8hpp.html" title=" " alt="" coords="2421,512,2585,553"/>
+<area shape="rect" href="console__objects_8hpp.html" title=" " alt="" coords="2609,512,2753,553"/>
+<area shape="rect" href="gfx__desc__set_8hpp.html" title=" " alt="" coords="1246,691,1381,732"/>
+<area shape="rect" href="gfx__sampler_8hpp.html" title=" " alt="" coords="1343,512,1478,553"/>
+<area shape="rect" href="shader__reflection_8hpp.html" title=" " alt="" coords="828,601,985,643"/>
+<area shape="rect" href="shader__compiler_8hpp.html" title=" " alt="" coords="1013,691,1171,732"/>
+<area shape="rect" href="shader__file_8hpp.html" title=" " alt="" coords="680,691,837,732"/>
+<area shape="rect" href="gfx__vert__format_8hpp.html" title=" " alt="" coords="246,780,381,821"/>
+<area shape="rect" href="pso__file_8hpp.html" title=" " alt="" coords="299,601,437,643"/>
+<area shape="rect" href="shader__cache_8cpp.html" title=" " alt="" coords="929,512,1087,553"/>
+<area shape="rect" href="shader__library_8cpp.html" title=" " alt="" coords="1111,512,1268,553"/>
+<area shape="rect" href="texture__compression_8hpp.html" title=" " alt="" coords="347,691,504,732"/>
+<area shape="rect" href="texture__resize_8hpp.html" title=" " alt="" coords="507,780,664,821"/>
+<area shape="rect" href="pfx__feature_8hpp.html" title=" " alt="" coords="689,780,823,821"/>
+<area shape="rect" href="common_8hpp.html" title=" " alt="" coords="847,780,979,821"/>
+<area shape="rect" href="code_2rtti_2__rtti_8cpp.html" title=" " alt="" coords="1554,519,1715,546"/>
+<area shape="rect" href="type__ref_8hpp.html" title=" " alt="" coords="2828,512,2967,553"/>
+<area shape="rect" href="scene__feature_8hpp.html" title=" " alt="" coords="2412,601,2583,643"/>
+<area shape="rect" href="ui__element_8hpp.html" title=" " alt="" coords="1836,609,2033,635"/>
+<area shape="rect" href="plugin__config_8hpp.html" title=" " alt="" coords="1841,512,1980,553"/>
+<area shape="rect" href="asset__library__fs_8cpp.html" title=" " alt="" coords="2998,869,3162,911"/>
+<area shape="rect" href="asset__manager_8cpp.html" title=" " alt="" coords="3285,869,3449,911"/>
+<area shape="rect" href="shader__manager_8cpp.html" title=" " alt="" coords="2080,780,2237,821"/>
+<area shape="rect" href="type__storage_8cpp.html" title=" " alt="" coords="2929,423,3068,464"/>
+<area shape="rect" href="function_8cpp.html" title=" " alt="" coords="1018,259,1203,285"/>
+<area shape="rect" href="struct_8cpp.html" title=" " alt="" coords="487,259,659,285"/>
+<area shape="rect" href="builtin_8hpp.html" title=" " alt="" coords="2991,341,3164,367"/>
 </map>
 </div>
 </div>
@@ -196,11 +202,17 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiMetaProperty.html">wmoge::RttiMetaProperty</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds meta attribute with value.  <a href="structwmoge_1_1RttiMetaProperty.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiAttribute.html">wmoge::RttiAttribute</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for any rtti attribute.  <a href="classwmoge_1_1RttiAttribute.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiMetaData.html">wmoge::RttiMetaData</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta data associated with a type or its internal member.  <a href="classwmoge_1_1RttiMetaData.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiAttributeBaseT.html">wmoge::RttiAttributeBaseT&lt; type &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rtti attribute template wrapper.  <a href="classwmoge_1_1RttiAttributeBaseT.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiAttributeBaseStringT.html">wmoge::RttiAttributeBaseStringT&lt; type &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rtti attribute template wrapper.  <a href="classwmoge_1_1RttiAttributeBaseStringT.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -210,46 +222,70 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ae437eaa1dfcea091b548b267abcfa3ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#ae437eaa1dfcea091b548b267abcfa3ae">RttiNoSaveLoad</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::NoSaveLoad)</td></tr>
+<tr class="memitem:ae437eaa1dfcea091b548b267abcfa3ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#ae437eaa1dfcea091b548b267abcfa3ae">RttiNoSaveLoad</a>&#160;&#160;&#160;make_ref&lt;RttiAttributeNoSaveLoad&gt;().as&lt;RttiAttribute&gt;()</td></tr>
 <tr class="separator:ae437eaa1dfcea091b548b267abcfa3ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2877836135cc18baebd0f77cf19319ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a2877836135cc18baebd0f77cf19319ca">RttiNoCopy</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::NoCopy)</td></tr>
+<tr class="memitem:a2877836135cc18baebd0f77cf19319ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a2877836135cc18baebd0f77cf19319ca">RttiNoCopy</a>&#160;&#160;&#160;make_ref&lt;RttiAttributeNoCopy&gt;().as&lt;RttiAttribute&gt;()</td></tr>
 <tr class="separator:a2877836135cc18baebd0f77cf19319ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5843edc1d99ff362b4465b709cf40713"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a5843edc1d99ff362b4465b709cf40713">RttiNoScriptExport</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::NoScriptExport)</td></tr>
+<tr class="memitem:a5843edc1d99ff362b4465b709cf40713"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a5843edc1d99ff362b4465b709cf40713">RttiNoScriptExport</a>&#160;&#160;&#160;make_ref&lt;RttiAttributeNoScriptExport&gt;().as&lt;RttiAttribute&gt;()</td></tr>
 <tr class="separator:a5843edc1d99ff362b4465b709cf40713"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f953c3cf36eafa73eb361d954431268"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a4f953c3cf36eafa73eb361d954431268">RttiOptional</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::Optional)</td></tr>
+<tr class="memitem:a4f953c3cf36eafa73eb361d954431268"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a4f953c3cf36eafa73eb361d954431268">RttiOptional</a>&#160;&#160;&#160;make_ref&lt;RttiAttributeOptional&gt;().as&lt;RttiAttribute&gt;()</td></tr>
 <tr class="separator:a4f953c3cf36eafa73eb361d954431268"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dd495d26ebfb9847b56cf7455104b44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a5dd495d26ebfb9847b56cf7455104b44">RttiInline</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::Inline)</td></tr>
+<tr class="memitem:a5dd495d26ebfb9847b56cf7455104b44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a5dd495d26ebfb9847b56cf7455104b44">RttiInline</a>&#160;&#160;&#160;make_ref&lt;RttiAttributeInline&gt;().as&lt;RttiAttribute&gt;()</td></tr>
 <tr class="separator:a5dd495d26ebfb9847b56cf7455104b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a120c21b49c4e6bcd26baf142ac8b9a89"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a120c21b49c4e6bcd26baf142ac8b9a89">RttiUiName</a>(str)&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))</td></tr>
+<tr class="memitem:a120c21b49c4e6bcd26baf142ac8b9a89"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a120c21b49c4e6bcd26baf142ac8b9a89">RttiUiName</a>(str)&#160;&#160;&#160;make_ref&lt;RttiAttributeUiName&gt;(str).as&lt;RttiAttribute&gt;()</td></tr>
 <tr class="separator:a120c21b49c4e6bcd26baf142ac8b9a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3167e1c27d51d33e48dc6d85fbdb4832"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a3167e1c27d51d33e48dc6d85fbdb4832">RttiUiHint</a>(str)&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiName, std::string(str))</td></tr>
+<tr class="memitem:a3167e1c27d51d33e48dc6d85fbdb4832"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a3167e1c27d51d33e48dc6d85fbdb4832">RttiUiHint</a>(str)&#160;&#160;&#160;make_ref&lt;RttiAttributeUiHint&gt;(str).as&lt;RttiAttribute&gt;()</td></tr>
 <tr class="separator:a3167e1c27d51d33e48dc6d85fbdb4832"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e890d27c01ca979f099c8c93afa37b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a0e890d27c01ca979f099c8c93afa37b1">RttiUiCategory</a>(str)&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))</td></tr>
+<tr class="memitem:a0e890d27c01ca979f099c8c93afa37b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a0e890d27c01ca979f099c8c93afa37b1">RttiUiCategory</a>(str)&#160;&#160;&#160;make_ref&lt;RttiAttributeUiCategory&gt;(str).as&lt;RttiAttribute&gt;()</td></tr>
 <tr class="separator:a0e890d27c01ca979f099c8c93afa37b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d2b39f5904275555d6ebe9e14f9f9a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a8d2b39f5904275555d6ebe9e14f9f9a7">RttiUiInline</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiInline)</td></tr>
+<tr class="memitem:a8d2b39f5904275555d6ebe9e14f9f9a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a8d2b39f5904275555d6ebe9e14f9f9a7">RttiUiInline</a>&#160;&#160;&#160;make_ref&lt;RttiAttributeUiInline&gt;().as&lt;RttiAttribute&gt;()</td></tr>
 <tr class="separator:a8d2b39f5904275555d6ebe9e14f9f9a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb6afce0983a555917a89ce051d2b440"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#acb6afce0983a555917a89ce051d2b440">RttiUiHidden</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiHidden)</td></tr>
+<tr class="memitem:acb6afce0983a555917a89ce051d2b440"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#acb6afce0983a555917a89ce051d2b440">RttiUiHidden</a>&#160;&#160;&#160;make_ref&lt;RttiAttributeUiHidden&gt;().as&lt;RttiAttribute&gt;()</td></tr>
 <tr class="separator:acb6afce0983a555917a89ce051d2b440"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ab54a144ac6900e362cce17ae8d578372"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab54a144ac6900e362cce17ae8d578372">wmoge::RttiAttributeNoSaveLoad</a> = RttiAttributeBaseT&lt; RttiAttributeType::NoSaveLoad &gt;</td></tr>
+<tr class="separator:ab54a144ac6900e362cce17ae8d578372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac516f360714ddb5838ecd8110f862925"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ac516f360714ddb5838ecd8110f862925">wmoge::RttiAttributeNoCopy</a> = RttiAttributeBaseT&lt; RttiAttributeType::NoCopy &gt;</td></tr>
+<tr class="separator:ac516f360714ddb5838ecd8110f862925"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa6ce283877a17b0bee7c7cbe33780c6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#afa6ce283877a17b0bee7c7cbe33780c6">wmoge::RttiAttributeNoScriptExport</a> = RttiAttributeBaseT&lt; RttiAttributeType::NoScriptExport &gt;</td></tr>
+<tr class="separator:afa6ce283877a17b0bee7c7cbe33780c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7d0323d4790f7daa52a3779b104be22"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#af7d0323d4790f7daa52a3779b104be22">wmoge::RttiAttributeOptional</a> = RttiAttributeBaseT&lt; RttiAttributeType::Optional &gt;</td></tr>
+<tr class="separator:af7d0323d4790f7daa52a3779b104be22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6396d473f6a392ef2691a0ead3ec9fd3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6396d473f6a392ef2691a0ead3ec9fd3">wmoge::RttiAttributeInline</a> = RttiAttributeBaseT&lt; RttiAttributeType::Inline &gt;</td></tr>
+<tr class="separator:a6396d473f6a392ef2691a0ead3ec9fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7fc16599fd106f258f4e4911096185e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#af7fc16599fd106f258f4e4911096185e">wmoge::RttiAttributeUiName</a> = RttiAttributeBaseStringT&lt; RttiAttributeType::UiName &gt;</td></tr>
+<tr class="separator:af7fc16599fd106f258f4e4911096185e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85b8b3d3ca287a67b0084708bb0ac27a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a85b8b3d3ca287a67b0084708bb0ac27a">wmoge::RttiAttributeUiHint</a> = RttiAttributeBaseStringT&lt; RttiAttributeType::UiHint &gt;</td></tr>
+<tr class="separator:a85b8b3d3ca287a67b0084708bb0ac27a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a75b9716cd1e7818958e23211081f3b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6a75b9716cd1e7818958e23211081f3b">wmoge::RttiAttributeUiCategory</a> = RttiAttributeBaseStringT&lt; RttiAttributeType::UiCategory &gt;</td></tr>
+<tr class="separator:a6a75b9716cd1e7818958e23211081f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a512f646b4f912698b5fade3c6476ee94"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a512f646b4f912698b5fade3c6476ee94">wmoge::RttiAttributeUiInline</a> = RttiAttributeBaseT&lt; RttiAttributeType::UiInline &gt;</td></tr>
+<tr class="separator:a512f646b4f912698b5fade3c6476ee94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d9c541f092507a81e804dca4f83a401"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1d9c541f092507a81e804dca4f83a401">wmoge::RttiAttributeUiHidden</a> = RttiAttributeBaseT&lt; RttiAttributeType::UiHidden &gt;</td></tr>
+<tr class="separator:a1d9c541f092507a81e804dca4f83a401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a5dfd16e53aee8ebcddfe0cbd143ef564"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564">wmoge::RttiMetaAttribute</a> { <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a7f75a688cdb6077f131a2b40a2471496">wmoge::NoSaveLoad</a>
-, <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564af3be6effc508ed0eee52c86d88405d98">wmoge::NoCopy</a>
-, <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564af78c3a0e5ac40f445fc4a52c14d8f3c3">wmoge::NoScriptExport</a>
-, <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564aebb061953c0454b2c8ee7b0ac615ebcd">wmoge::Optional</a>
+<tr class="memitem:a57526e18eb17f85347f296c50bcce5cf"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cf">wmoge::RttiAttributeType</a> { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfa7f75a688cdb6077f131a2b40a2471496">wmoge::NoSaveLoad</a>
+, <a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfaf3be6effc508ed0eee52c86d88405d98">wmoge::NoCopy</a>
+, <a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfaf78c3a0e5ac40f445fc4a52c14d8f3c3">wmoge::NoScriptExport</a>
+, <a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfaebb061953c0454b2c8ee7b0ac615ebcd">wmoge::Optional</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a0125cf5f3ca38b312ca5d3b511c45a13">wmoge::Inline</a>
-, <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a834e4e8a7bddeb8a06c4e55161e232ad">wmoge::UiName</a>
-, <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564ada12a91406db3d639469aa9cceb52c38">wmoge::UiHint</a>
-, <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a0d6ac7b0534cdd34e24224715be50d18">wmoge::UiCategory</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfa0125cf5f3ca38b312ca5d3b511c45a13">wmoge::Inline</a>
+, <a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfa834e4e8a7bddeb8a06c4e55161e232ad">wmoge::UiName</a>
+, <a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfada12a91406db3d639469aa9cceb52c38">wmoge::UiHint</a>
+, <a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfa0d6ac7b0534cdd34e24224715be50d18">wmoge::UiCategory</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a34af7b607e10332e3f8a18a9fe7c028d">wmoge::UiInline</a>
-, <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a8d6b44d86ec761940cb530cad2a96951">wmoge::UiHidden</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfa34af7b607e10332e3f8a18a9fe7c028d">wmoge::UiInline</a>
+, <a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfa8d6b44d86ec761940cb530cad2a96951">wmoge::UiHidden</a>
+, <a class="el" href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cfa90589c47f06eb971d548591f23c285af">wmoge::Custom</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a5dfd16e53aee8ebcddfe0cbd143ef564"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of available meta attributes.  <a href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564">More...</a><br /></td></tr>
-<tr class="separator:a5dfd16e53aee8ebcddfe0cbd143ef564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a57526e18eb17f85347f296c50bcce5cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of built-in meta attributes.  <a href="namespacewmoge.html#a57526e18eb17f85347f296c50bcce5cf">More...</a><br /></td></tr>
+<tr class="separator:a57526e18eb17f85347f296c50bcce5cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a5dd495d26ebfb9847b56cf7455104b44"></a>
@@ -259,7 +295,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RttiInline&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::Inline)</td>
+          <td class="memname">#define RttiInline&#160;&#160;&#160;make_ref&lt;RttiAttributeInline&gt;().as&lt;RttiAttribute&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -273,7 +309,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RttiNoCopy&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::NoCopy)</td>
+          <td class="memname">#define RttiNoCopy&#160;&#160;&#160;make_ref&lt;RttiAttributeNoCopy&gt;().as&lt;RttiAttribute&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -287,7 +323,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RttiNoSaveLoad&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::NoSaveLoad)</td>
+          <td class="memname">#define RttiNoSaveLoad&#160;&#160;&#160;make_ref&lt;RttiAttributeNoSaveLoad&gt;().as&lt;RttiAttribute&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -301,7 +337,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RttiNoScriptExport&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::NoScriptExport)</td>
+          <td class="memname">#define RttiNoScriptExport&#160;&#160;&#160;make_ref&lt;RttiAttributeNoScriptExport&gt;().as&lt;RttiAttribute&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -315,7 +351,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RttiOptional&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::Optional)</td>
+          <td class="memname">#define RttiOptional&#160;&#160;&#160;make_ref&lt;RttiAttributeOptional&gt;().as&lt;RttiAttribute&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -333,7 +369,7 @@ Enumerations</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">str</td><td>)</td>
-          <td>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))</td>
+          <td>&#160;&#160;&#160;make_ref&lt;RttiAttributeUiCategory&gt;(str).as&lt;RttiAttribute&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -347,7 +383,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RttiUiHidden&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiHidden)</td>
+          <td class="memname">#define RttiUiHidden&#160;&#160;&#160;make_ref&lt;RttiAttributeUiHidden&gt;().as&lt;RttiAttribute&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -365,7 +401,7 @@ Enumerations</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">str</td><td>)</td>
-          <td>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiName, std::string(str))</td>
+          <td>&#160;&#160;&#160;make_ref&lt;RttiAttributeUiHint&gt;(str).as&lt;RttiAttribute&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -379,7 +415,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define RttiUiInline&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiInline)</td>
+          <td class="memname">#define RttiUiInline&#160;&#160;&#160;make_ref&lt;RttiAttributeUiInline&gt;().as&lt;RttiAttribute&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -397,7 +433,7 @@ Enumerations</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">str</td><td>)</td>
-          <td>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))</td>
+          <td>&#160;&#160;&#160;make_ref&lt;RttiAttributeUiName&gt;(str).as&lt;RttiAttribute&gt;()</td>
         </tr>
       </table>
 </div><div class="memdoc">

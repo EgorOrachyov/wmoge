@@ -1,5 +1,5 @@
 <map id="wmoge::UiCompletionPopup" name="wmoge::UiCompletionPopup">
-<area shape="rect" id="node1" title=" " alt="" coords="5,229,191,256"/>
+<area shape="rect" id="node1" title="Ui completion popup for text input." alt="" coords="5,229,191,256"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="33,155,163,181"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="34,80,162,107"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="43,5,153,32"/>

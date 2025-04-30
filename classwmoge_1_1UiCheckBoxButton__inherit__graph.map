@@ -1,7 +1,6 @@
 <map id="wmoge::UiCheckBoxButton" name="wmoge::UiCheckBoxButton">
-<area shape="rect" id="node1" title=" " alt="" coords="5,304,185,331"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="19,229,172,256"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="30,155,161,181"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="31,80,159,107"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="40,5,151,32"/>
+<area shape="rect" id="node1" title="Ui check box button which can be checked or unchecked." alt="" coords="5,229,185,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="30,155,161,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="31,80,159,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="40,5,151,32"/>
 </map>

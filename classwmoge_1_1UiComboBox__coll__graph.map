@@ -1,9 +1,10 @@
 <map id="wmoge::UiComboBox" name="wmoge::UiComboBox">
-<area shape="rect" id="node1" title=" " alt="" coords="133,352,280,379"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1UiSubElement.html" title="Base class for all ui sub&#45;elements which could be nested." alt="" coords="130,276,283,303"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="141,200,272,227"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="5,89,133,115"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="14,5,125,32"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="158,89,255,115"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="280,81,429,123"/>
+<area shape="rect" id="node1" title="Ui combo box with items which can be dropped down." alt="" coords="684,116,831,143"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="504,116,635,143"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="194,5,322,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RttiRef.html" title=" " alt="" coords="165,56,351,83"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="209,111,307,137"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="183,162,333,203"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="183,227,333,269"/>
 </map>
