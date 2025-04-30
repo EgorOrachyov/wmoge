@@ -155,6 +155,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9acd1fbc1a0c4e298ec37a8a04fc626d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a02f77f5f2a76fee0d9260523def85d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiType.html#a8a02f77f5f2a76fee0d9260523def85d">copy</a> (void *dst, const void *src) const</td></tr>
 <tr class="separator:a8a02f77f5f2a76fee0d9260523def85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4471171b016c76ccbcccbf3cdd1b9b0d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiType.html#a4471171b016c76ccbcccbf3cdd1b9b0d">clone</a> (void *dst, const void *src) const</td></tr>
+<tr class="separator:a4471171b016c76ccbcccbf3cdd1b9b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0243756e06d5676376ea9fcd1c2337b4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiType.html#a0243756e06d5676376ea9fcd1c2337b4">destruct</a> (void *dst) const</td></tr>
 <tr class="separator:a0243756e06d5676376ea9fcd1c2337b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad68f7c04172a01487e2ece8de3852670"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiType.html#ad68f7c04172a01487e2ece8de3852670">read_from_tree</a> (void *dst, <a class="el" href="classwmoge_1_1IoTree.html">IoTree</a> &amp;tree, <a class="el" href="classwmoge_1_1IoContext.html">IoContext</a> &amp;context) const</td></tr>
@@ -307,6 +309,44 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4471171b016c76ccbcccbf3cdd1b9b0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4471171b016c76ccbcccbf3cdd1b9b0d">&#9670;&nbsp;</a></span>clone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::RttiType::clone </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="structwmoge_1_1RttiTypeFunctionBaseT.html#aba98a25ef87a6af25d1eaf76e7f175dd">wmoge::RttiTypeFunctionBaseT&lt; FuncT, TRet, TArgs &gt;</a>, <a class="el" href="structwmoge_1_1RttiTypeFunctionBaseT.html#aba98a25ef87a6af25d1eaf76e7f175dd">wmoge::RttiTypeFunctionBaseT&lt; FuncT, TRet, TArgs... &gt;</a>, <a class="el" href="structwmoge_1_1RttiTypeFunctionBaseT.html#aba98a25ef87a6af25d1eaf76e7f175dd">wmoge::RttiTypeFunctionBaseT&lt; void *, TRet, TArgs... &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeOptionalT.html#a250b43814a8d7f71f8c71417300f0c06">wmoge::RttiTypeOptionalT&lt; T &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeRefT.html#a0e14dca1bb1cd7870a7e3065c9e3851c">wmoge::RttiTypeRefT&lt; HolderT, PtrT &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeBaseSetT.html#ae6769c3c22460f1ca23e649689a42b36">wmoge::RttiTypeBaseSetT&lt; SetT, KeyT &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeBaseMapT.html#af0af7c589cce3fea930d6e00878d2f84">wmoge::RttiTypeBaseMapT&lt; MapT, KeyT, ValueT &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#a9565d53f153b9983a7a9076a5079f7bd">wmoge::RttiTypeBaseVectorT&lt; VecT, ElemT &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypePairT.html#acb1566b52b9a4d8da6450a3603ae4f57">wmoge::RttiTypePairT&lt; PairT, KeyT, ValueT &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; SetT, RttiTypeSet &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; MapT, RttiTypeMap &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; std::optional&lt; T &gt;, RttiTypeOptional &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; BitsetT, RttiTypeBitset &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; MaskT, RttiTypeMask &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; VecT, RttiTypeVec &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; PairT, RttiTypePair &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; HolderT, RttiTypeRef &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; VecT, RttiTypeVector &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; T, RttiType &gt;</a>, <a class="el" href="classwmoge_1_1RttiTypeT.html#a5c6ac96ab266d9073e3a4d7290683d57">wmoge::RttiTypeT&lt; T, RttiEnum &gt;</a>, and <a class="el" href="classwmoge_1_1RttiStruct.html#af566dd3120c3cf0860a68394207241ff">wmoge::RttiStruct</a>.</p>
 
 </div>
 </div>

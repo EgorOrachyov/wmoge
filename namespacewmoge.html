@@ -4451,12 +4451,6 @@ Functions</h2></td></tr>
 <tr class="separator:ab89e62e9dc9cb3ff48bf4c5b53b46e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8401424a26ab1dedfdb86fc5bf85ef8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae8401424a26ab1dedfdb86fc5bf85ef8">rtti_rtti</a> ()</td></tr>
 <tr class="separator:ae8401424a26ab1dedfdb86fc5bf85ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d29c438f93b62586e1316ce5e87a346"><td class="memTemplParams" colspan="2">template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T *, RttiObject * &gt;&gt;::type &gt; </td></tr>
-<tr class="memitem:a2d29c438f93b62586e1316ce5e87a346"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2d29c438f93b62586e1316ce5e87a346">copy_objects</a> (const std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; T &gt;&gt; &amp;objects, std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; T &gt;&gt; &amp;copied)</td></tr>
-<tr class="separator:a2d29c438f93b62586e1316ce5e87a346"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad338f8f14c8fad076725e4fa76d0bdc5"><td class="memTemplParams" colspan="2">template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T *, RttiObject * &gt;&gt;::type &gt; </td></tr>
-<tr class="memitem:ad338f8f14c8fad076725e4fa76d0bdc5"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; T &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad338f8f14c8fad076725e4fa76d0bdc5">copy_objects</a> (const std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; T &gt;&gt; &amp;objects)</td></tr>
-<tr class="separator:ad338f8f14c8fad076725e4fa76d0bdc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3335425840a89d72d6fa92cb500f40b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa3335425840a89d72d6fa92cb500f40b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa3335425840a89d72d6fa92cb500f40b">tree_read</a> (<a class="el" href="classwmoge_1_1IoContext.html">IoContext</a> &amp;context, <a class="el" href="classwmoge_1_1IoTree.html">IoTree</a> &amp;tree, <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; T &gt; &amp;<a class="el" href="namespacewmoge.html#a795c63560ca433d2e3c5f80f34d764c8">ref</a>, typename std::enable_if_t&lt; std::is_convertible_v&lt; T *, <a class="el" href="classwmoge_1_1RttiObject.html">RttiObject</a> * &gt;&gt; *=0)</td></tr>
 <tr class="separator:aa3335425840a89d72d6fa92cb500f40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -10614,56 +10608,6 @@ template&lt;class T , class  = typename std::enable_if&lt;std::is_enum&lt;T&gt;:
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad338f8f14c8fad076725e4fa76d0bdc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad338f8f14c8fad076725e4fa76d0bdc5">&#9670;&nbsp;</a></span>copy_objects() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T *, RttiObject * &gt;&gt;::type &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;T&gt; &gt; wmoge::copy_objects </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; T &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>objects</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2d29c438f93b62586e1316ce5e87a346"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d29c438f93b62586e1316ce5e87a346">&#9670;&nbsp;</a></span>copy_objects() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T *, RttiObject * &gt;&gt;::type &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::copy_objects </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; T &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>objects</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; T &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>copied</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
 </div><div class="memdoc">
 
 </div>
