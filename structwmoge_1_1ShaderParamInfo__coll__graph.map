@@ -1,8 +1,5 @@
 <map id="wmoge::ShaderParamInfo" name="wmoge::ShaderParamInfo">
-<area shape="rect" id="node1" title="Info about an param which can be set from shader or material." alt="" coords="299,153,469,179"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,71,155,112"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Var.html" title="Universal resalable variant value with support for common engine types and containers." alt="" coords="35,150,125,177"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="31,201,129,227"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,252,155,293"/>
+<area shape="rect" id="node1" title="Info about an param which can be set from shader or material." alt="" coords="5,184,176,211"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ShaderTypeIdx.html" title="Aux struct to save/load type ref and identify type at runtime." alt="" coords="106,95,262,121"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="18,5,115,32"/>
 </map>

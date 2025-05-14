@@ -1,0 +1,6 @@
+<map id="wmoge::Texture2dLoader" name="wmoge::Texture2dLoader">
+<area shape="rect" id="node1" title="Asset loader for runtime texture2d objects for gpu rendering." alt="" coords="5,229,172,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading asset in a specific runtime format." alt="" coords="17,155,161,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="25,80,153,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="33,5,144,32"/>
+</map>

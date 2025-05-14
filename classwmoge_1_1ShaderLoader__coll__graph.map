@@ -1,0 +1,6 @@
+<map id="wmoge::ShaderLoader" name="wmoge::ShaderLoader">
+<area shape="rect" id="node1" title="Loader for shaders in engine format for gpu rendering." alt="" coords="5,229,156,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading asset in a specific runtime format." alt="" coords="9,155,153,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="17,80,145,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
+</map>

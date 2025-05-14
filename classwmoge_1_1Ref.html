@@ -78,16 +78,6 @@ $(function() {
  <a href="classwmoge_1_1Ref.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ref_8hpp_source.html">ref.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for wmoge::Ref&lt; T &gt;:</div>
-<div class="dyncontent">
-<div class="center"><img src="classwmoge_1_1Ref__inherit__graph.png" border="0" usemap="#awmoge_1_1Ref_3_01T_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="awmoge_1_1Ref_3_01T_01_4_inherit__map" id="awmoge_1_1Ref_3_01T_01_4_inherit__map">
-<area shape="rect" title="Smart shared reference&#45;counted pointer to T class." alt="" coords="129,5,249,32"/>
-<area shape="rect" href="classwmoge_1_1AssetRef.html" title=" " alt="" coords="5,80,183,121"/>
-<area shape="rect" href="classwmoge_1_1AssetRef.html" title="Aux box to store asset ref and serialize/deserialize it automatically to and from files." alt="" coords="207,87,362,114"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -129,6 +119,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9f1e7c22f916529ae1c788cc7c65dd8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae34c7d53648fba176b85950970a78e48"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Ref.html#ae34c7d53648fba176b85950970a78e48">get</a> () const</td></tr>
 <tr class="separator:ae34c7d53648fba176b85950970a78e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c3d6855dfbe204acf3cec661ee69a94"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Ref.html#a2c3d6855dfbe204acf3cec661ee69a94">get_checked</a> () const</td></tr>
+<tr class="separator:a2c3d6855dfbe204acf3cec661ee69a94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb1a35e1435d8413a39c6651441286f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Ref.html#adb1a35e1435d8413a39c6651441286f3">operator T*</a> () const</td></tr>
 <tr class="separator:adb1a35e1435d8413a39c6651441286f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f007516e64f42b6cf4f77e98c2f6637"><td class="memTemplParams" colspan="2">template&lt;typename G , typename std::enable_if_t&lt; std::is_convertible_v&lt; T *, G * &gt;&gt;  = true&gt; </td></tr>
@@ -450,6 +442,33 @@ template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">T* <a class="el" href="classwmoge_1_1Ref.html">wmoge::Ref</a>&lt; T &gt;::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2c3d6855dfbe204acf3cec661ee69a94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c3d6855dfbe204acf3cec661ee69a94">&#9670;&nbsp;</a></span>get_checked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T* <a class="el" href="classwmoge_1_1Ref.html">wmoge::Ref</a>&lt; T &gt;::get_checked </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

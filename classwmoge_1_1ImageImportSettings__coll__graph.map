@@ -1,0 +1,6 @@
+<map id="wmoge::ImageImportSettings" name="wmoge::ImageImportSettings">
+<area shape="rect" id="node1" title="Settings to import an image." alt="" coords="5,229,196,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetImportSettings.html" title="Asset import settings base class for specific importes custom settings classes." alt="" coords="6,155,195,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="37,80,165,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="45,5,156,32"/>
+</map>

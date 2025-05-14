@@ -77,6 +77,8 @@ $(function() {
 </li>
 <li>has()
 : <a class="el" href="classwmoge_1_1AnyStorage.html#ac83d5b70c7d8ba7c45891d18c270f40b">wmoge::AnyStorage</a>
+, <a class="el" href="classwmoge_1_1AssetArtifactCache.html#a147a577715eabfe3519f83d849bd7da9">wmoge::AssetArtifactCache</a>
+, <a class="el" href="classwmoge_1_1AssetCache.html#a09efac997430bf5e7a249c2376ea4435">wmoge::AssetCache</a>
 , <a class="el" href="classwmoge_1_1IoContext.html#a0ac308f9b6bbfcc2a605e13a20ba19b5">wmoge::IoContext</a>
 , <a class="el" href="classwmoge_1_1RttiTypeStorage.html#abd9dc4e901277ce99b952c3a7438a650">wmoge::RttiTypeStorage</a>
 </li>
@@ -86,9 +88,14 @@ $(function() {
 <li>has_alc_error()
 : <a class="el" href="classwmoge_1_1ALDebug.html#aef8edf584a2b89cc5c39b261078e7fb9">wmoge::ALDebug</a>
 </li>
+<li>has_artifact()
+: <a class="el" href="classwmoge_1_1AssetLibrary.html#a2d98cb8bd9ccc2e6a3459ee7bc6609f7">wmoge::AssetLibrary</a>
+, <a class="el" href="classwmoge_1_1AssetLibraryAssetDb.html#af5b084c1364ec1987b77682c4f831014">wmoge::AssetLibraryAssetDb</a>
+</li>
 <li>has_asset()
-: <a class="el" href="classwmoge_1_1AssetLibrary.html#ad00a15ff7c54c16ee1f9250953f17373">wmoge::AssetLibrary</a>
-, <a class="el" href="classwmoge_1_1AssetLibraryFileSystem.html#a3d58bce4895099fba243de682d48cc36">wmoge::AssetLibraryFileSystem</a>
+: <a class="el" href="classwmoge_1_1AssetDb.html#abd10390151764a6bae8a0df04997bb58">wmoge::AssetDb</a>
+, <a class="el" href="classwmoge_1_1AssetLibrary.html#a065ce6add1900ba674c964bbf61f75bf">wmoge::AssetLibrary</a>
+, <a class="el" href="classwmoge_1_1AssetLibraryAssetDb.html#a3552b59f994f5ffb7013c1937814c4a5">wmoge::AssetLibraryAssetDb</a>
 </li>
 <li>has_attribute_of_type()
 : <a class="el" href="classwmoge_1_1RttiMetaData.html#a36abdd537249949393d80a7cc6e2db41">wmoge::RttiMetaData</a>
@@ -153,9 +160,6 @@ $(function() {
 <li>has_signal()
 : <a class="el" href="classwmoge_1_1RttiClass.html#ae858005f94b84aae74d06820b9794c4d">wmoge::RttiClass</a>
 </li>
-<li>has_soruce_files()
-: <a class="el" href="classwmoge_1_1AssetImportData.html#abbddd69e527bf26de001ee1ef3012929">wmoge::AssetImportData</a>
-</li>
 <li>has_space()
 : <a class="el" href="classwmoge_1_1Shader.html#a3b95546482daead17afd405362a80139">wmoge::Shader</a>
 </li>
@@ -166,10 +170,12 @@ $(function() {
 : <a class="el" href="classwmoge_1_1ViewManager.html#a4e537a9ccc8fd64d4bb5909d9980d58c">wmoge::ViewManager</a>
 </li>
 <li>hash
-: <a class="el" href="structwmoge_1_1AssetDataMeta.html#a2638cf9b86e0d4a6142e9e8fba5566b4">wmoge::AssetDataMeta</a>
+: <a class="el" href="structwmoge_1_1AssetArtifact.html#aeee42011853a3b1b95d9e8600d6b8ca6">wmoge::AssetArtifact</a>
 , <a class="el" href="classwmoge_1_1AssetId.html#a348e8ba1394d2b7e2c5b32c5527d9ba8">wmoge::AssetId</a>
+, <a class="el" href="structwmoge_1_1AssetSource.html#adf7eeabe1dcb83d0624f1ee65b2ddb60">wmoge::AssetSource</a>
 , <a class="el" href="classwmoge_1_1Crc32Builder.html#aa45255c288b21445289a3ef2c90d09e3">wmoge::Crc32Builder</a>
 , <a class="el" href="classwmoge_1_1Crc32Util.html#a7f243f94a427432c8d484be93986de21">wmoge::Crc32Util</a>
+, <a class="el" href="structwmoge_1_1FileAssetArtifactMetaInfo.html#a3dc572db85e584339a72f55fc25d67e5">wmoge::FileAssetArtifactMetaInfo</a>
 , <a class="el" href="structwmoge_1_1GfxDescBindPoint.html#a815a697466f813fda8ee3c9c569341cf">wmoge::GfxDescBindPoint</a>
 , <a class="el" href="structwmoge_1_1GfxDescBinging.html#a382f88242d0ee2b8585e2565202f75f4">wmoge::GfxDescBinging</a>
 , <a class="el" href="structwmoge_1_1GfxFrameBufferDesc.html#aacc14094f0ff8d0be0444e94ce7d0506">wmoge::GfxFrameBufferDesc</a>
@@ -180,7 +186,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1GfxVertElements.html#a43f9fe219835875ab879edbbc270855e">wmoge::GfxVertElements</a>
 , <a class="el" href="structwmoge_1_1MeshBucketKey.html#a4381e7c851bc7d7a084c7280b24fde3d">wmoge::MeshBucketKey</a>
 , <a class="el" href="structwmoge_1_1Sha256.html#a62098c27971f3d1b21e1ee3fdf48b00b">wmoge::Sha256</a>
-, <a class="el" href="classwmoge_1_1Sha256Builder.html#a951b145bd857f467b626e1b41100f9ce">wmoge::Sha256Builder</a>
+, <a class="el" href="classwmoge_1_1Sha256Builder.html#a914fffdc678790ef2c1b2ee74218e795">wmoge::Sha256Builder</a>
 , <a class="el" href="structwmoge_1_1ShaderPermutation.html#af3ff7fdeae5271bfb080c299b126c0a6">wmoge::ShaderPermutation</a>
 , <a class="el" href="classwmoge_1_1Strid.html#a965c54524f55add40e775200bf37c7c8">wmoge::Strid</a>
 , <a class="el" href="classwmoge_1_1TQuat.html#a3d59c1de8d3ca4da91007524426f2494">wmoge::TQuat&lt; T &gt;</a>
@@ -199,12 +205,12 @@ $(function() {
 , <a class="el" href="structwmoge_1_1AuxDrawCylinder.html#a8e7c347059b8fe3e0638f7f0d5c3585f">wmoge::AuxDrawCylinder</a>
 , <a class="el" href="structwmoge_1_1EngineConfig_1_1Window.html#a8f58dff4f2c715d073829d739bf24564">wmoge::EngineConfig::Window</a>
 , <a class="el" href="structwmoge_1_1FontDesc.html#a29c4de68cb769f0852ae8f66ea38df19">wmoge::FontDesc</a>
-, <a class="el" href="classwmoge_1_1FreetypeImportData.html#a95d27a8be3a8860e99eb6643e7cf9b57">wmoge::FreetypeImportData</a>
+, <a class="el" href="classwmoge_1_1FontImportSettings.html#a31ec0fdea637750b4341789c997159fb">wmoge::FontImportSettings</a>
 , <a class="el" href="structwmoge_1_1GfxImageData.html#aeb166d565d611783fdb5943619aeab29">wmoge::GfxImageData</a>
 , <a class="el" href="classwmoge_1_1GfxTexture.html#a9ada5dfb2c2172d386d9a0af4f466f94">wmoge::GfxTexture</a>
 , <a class="el" href="structwmoge_1_1GfxTextureDesc.html#a37ea22ee9d776dfb3c14ba2b221705ce">wmoge::GfxTextureDesc</a>
 , <a class="el" href="classwmoge_1_1GlfwWindow.html#ab194488aeebd8f16461ed93384094717">wmoge::GlfwWindow</a>
-, <a class="el" href="structwmoge_1_1TextureDesc.html#aaf70f23f8c7f1caf0b1058dcddbf7bdc">wmoge::TextureDesc</a>
+, <a class="el" href="structwmoge_1_1TextureParams.html#a9170e01ad96fa44651315816b2831f75">wmoge::TextureParams</a>
 , <a class="el" href="classwmoge_1_1VKWindow.html#a7b3a7b6b7c23637ab5b63436904d1265">wmoge::VKWindow</a>
 , <a class="el" href="classwmoge_1_1Window.html#aa7cd9f7033282bac21c787084a7474e6">wmoge::Window</a>
 , <a class="el" href="structwmoge_1_1WindowInfo.html#a14398e3ba68fffdeff3f12e3bf24b71e">wmoge::WindowInfo</a>

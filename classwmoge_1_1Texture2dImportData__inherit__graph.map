@@ -1,7 +1,0 @@
-<map id="wmoge::Texture2dImportData" name="wmoge::Texture2dImportData">
-<area shape="rect" id="node1" title="Options to import 2d&#45;texture from a source file." alt="" coords="5,304,196,331"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1TextureImportData.html" title="Base class for import data to import textures for GPU rendering." alt="" coords="12,229,189,256"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="17,155,185,181"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="37,80,165,107"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="45,5,156,32"/>
-</map>

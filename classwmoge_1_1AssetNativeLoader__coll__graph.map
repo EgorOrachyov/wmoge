@@ -1,0 +1,6 @@
+<map id="wmoge::AssetNativeLoader" name="wmoge::AssetNativeLoader">
+<area shape="rect" id="node1" title="Loads assets in native runtime format to the engine." alt="" coords="5,229,188,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading asset in a specific runtime format." alt="" coords="25,155,169,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="33,80,161,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="41,5,152,32"/>
+</map>

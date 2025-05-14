@@ -1,0 +1,6 @@
+<map id="wmoge::AssimpProcessorMesh" name="wmoge::AssimpProcessorMesh">
+<area shape="rect" id="node1" title=" " alt="" coords="229,95,435,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssimpProcessorBase.html" title="Assimp base processor for file importing." alt="" coords="5,5,208,32"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="233,5,431,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1MeshBuilder.html" title="Utility class to build a mesh from arrays." alt="" coords="455,5,598,32"/>
+</map>

@@ -1,12 +1,10 @@
 <map id="engine/code/ui/ui_markup.hpp" name="engine/code/ui/ui_markup.hpp">
 <area shape="rect" id="node1" title=" " alt="" coords="242,5,437,32"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,199,164,225"/>
-<area shape="rect" id="node3" href="$code_2ui_2__rtti_8cpp.html" title=" " alt="" coords="65,95,221,121"/>
-<area shape="rect" id="node4" href="$ui__binder_8hpp.html" title=" " alt="" coords="246,95,433,121"/>
-<area shape="rect" id="node6" href="$ui__markup__xml__parser_8hpp.html" title=" " alt="" coords="457,87,627,129"/>
-<area shape="rect" id="node9" href="$ui__markup__asset__loader_8hpp.html" title=" " alt="" coords="651,80,806,136"/>
-<area shape="rect" id="node5" href="$ui__binder_8cpp.html" title=" " alt="" coords="246,199,433,225"/>
-<area shape="rect" id="node7" href="$ui__markup__xml__parser_8cpp.html" title=" " alt="" coords="457,191,627,233"/>
-<area shape="rect" id="node8" href="$ui__markup__asset__loader_8cpp.html" title=" " alt="" coords="651,184,806,240"/>
-<area shape="rect" id="node10" href="$plugins_2runtime_2code_2__rtti_8cpp.html" title=" " alt="" coords="830,191,982,233"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,177,164,203"/>
+<area shape="rect" id="node3" href="$code_2ui_2__rtti_8cpp.html" title=" " alt="" coords="65,87,221,114"/>
+<area shape="rect" id="node4" href="$ui__binder_8hpp.html" title=" " alt="" coords="246,87,433,114"/>
+<area shape="rect" id="node6" href="$ui__markup__xml__parser_8hpp.html" title=" " alt="" coords="457,80,627,121"/>
+<area shape="rect" id="node8" href="$ui__markup__importer_8cpp.html" title=" " alt="" coords="631,169,827,211"/>
+<area shape="rect" id="node5" href="$ui__binder_8cpp.html" title=" " alt="" coords="225,177,411,203"/>
+<area shape="rect" id="node7" href="$ui__markup__xml__parser_8cpp.html" title=" " alt="" coords="435,169,606,211"/>
 </map>

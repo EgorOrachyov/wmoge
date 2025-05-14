@@ -1,0 +1,6 @@
+<map id="wmoge::AssetArtifact" name="wmoge::AssetArtifact">
+<area shape="rect" id="node1" title="Asset artifact derived through import process." alt="" coords="151,95,298,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiRef.html" title=" " alt="" coords="132,5,317,32"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1Sha256.html" title="SHA 256 bit hash." alt="" coords="342,5,457,32"/>
+</map>

@@ -79,14 +79,11 @@ $(function() {
 <li>m_args
 : <a class="el" href="classwmoge_1_1RttiTypeFunction.html#ad4282ae546a4f0f1c98e4bd689d9301e">wmoge::RttiTypeFunction</a>
 </li>
-<li>m_array_slices
-: <a class="el" href="classwmoge_1_1Texture.html#a7df09e64e3dd2a1bfd26035d1eaf2364">wmoge::Texture</a>
-</li>
 <li>m_assets
 : <a class="el" href="classwmoge_1_1GraphicsPipeline.html#a1c1b7131b0eae8823de198e64bc52b79">wmoge::GraphicsPipeline</a>
 </li>
 <li>m_attribs
-: <a class="el" href="classwmoge_1_1AssimpMeshImporter.html#a6743bb3b66ed751cc276cb6f13ee4def">wmoge::AssimpMeshImporter</a>
+: <a class="el" href="classwmoge_1_1AssimpProcessorMesh.html#a23301cb0b435699fe80d6f3c6773d083">wmoge::AssimpProcessorMesh</a>
 </li>
 <li>m_axes
 : <a class="el" href="classwmoge_1_1Joystick.html#afd621c5121fd19fead6314be5f1bdd8a">wmoge::Joystick</a>
@@ -98,7 +95,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKBuffer.html#ae76e9e8e74e1e789e0cc42f9fd060ce7">wmoge::VKBuffer</a>
 </li>
 <li>m_builder
-: <a class="el" href="classwmoge_1_1AssimpMeshImporter.html#ac95e2b54ab1f1c039a281cecc92f31da">wmoge::AssimpMeshImporter</a>
+: <a class="el" href="classwmoge_1_1AssimpProcessorMesh.html#adb9b38b176754676f8e5490c3941466a">wmoge::AssimpProcessorMesh</a>
 </li>
 <li>m_bus_name
 : <a class="el" href="classwmoge_1_1AudioPlayback.html#a3d05210f89aa4b6862e293baf31e4a3b">wmoge::AudioPlayback</a>
@@ -135,11 +132,11 @@ $(function() {
 <li>m_children
 : <a class="el" href="classwmoge_1_1AsyncState.html#a5c38205e87affde7679911ddfd2b53f2">wmoge::AsyncState&lt; T &gt;</a>
 </li>
-<li>m_compressed
-: <a class="el" href="classwmoge_1_1Texture.html#ade9ead5e39115fb0432ba6d9b6f69906">wmoge::Texture</a>
-</li>
 <li>m_compression
-: <a class="el" href="classwmoge_1_1Texture.html#ac7e7a21904ef6a6dd896ab35d0739292">wmoge::Texture</a>
+: <a class="el" href="classwmoge_1_1TextureDescBuilder.html#accde835e8f4210eff0ec13a9c0bf7cbe">wmoge::TextureDescBuilder</a>
+</li>
+<li>m_compression_stats
+: <a class="el" href="classwmoge_1_1TextureDescBuilder.html#af57222d4eb46a77a88dc2b35e47342af">wmoge::TextureDescBuilder</a>
 </li>
 <li>m_config
 : <a class="el" href="classwmoge_1_1Application.html#a700669c8f6925a6ddc926bf42cf5b01a">wmoge::Application</a>
@@ -153,9 +150,6 @@ $(function() {
 <li>m_delta
 : <a class="el" href="classwmoge_1_1Mouse.html#ae0f84176b839fbc5c442a8ab9f749429">wmoge::Mouse</a>
 </li>
-<li>m_depth
-: <a class="el" href="classwmoge_1_1Texture.html#a272859df7f798272a4da3423c9f0a4d4">wmoge::Texture</a>
-</li>
 <li>m_desc
 : <a class="el" href="classwmoge_1_1GfxDescSetLayout.html#a5f868944fb7049c99c2ab5e9ceb8b014">wmoge::GfxDescSetLayout</a>
 , <a class="el" href="classwmoge_1_1GfxQueryPool.html#a6870a5a010c258d1a044b58fba81ebc9">wmoge::GfxQueryPool</a>
@@ -163,6 +157,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1GfxShaderProgram.html#acafd0a297bfb31a53426b45513b7f80d">wmoge::GfxShaderProgram</a>
 , <a class="el" href="classwmoge_1_1GfxTexture.html#a53b0afe531ecf349fc8e92730db3a5c1">wmoge::GfxTexture</a>
 , <a class="el" href="classwmoge_1_1RdgBuffer.html#a2cc022f1a564bb953e9c7fc75a013a77">wmoge::RdgBuffer</a>
+, <a class="el" href="classwmoge_1_1Texture.html#a83bf37a6ec537a76033f83f1f8e9cb86">wmoge::Texture</a>
 </li>
 <li>m_device_name
 : <a class="el" href="classwmoge_1_1AudioEngine.html#a6d82194c17f9c9a07906c4368e8ca9d0">wmoge::AudioEngine</a>
@@ -194,6 +189,9 @@ $(function() {
 <li>m_engine_name
 : <a class="el" href="classwmoge_1_1AudioEngine.html#ab6c46273a0b086d5d3d3c801c8e026f4">wmoge::AudioEngine</a>
 </li>
+<li>m_extension
+: <a class="el" href="classwmoge_1_1RttiStruct.html#a7fc9e1d6ebcaf89a758bbd0ef0e6c2c9">wmoge::RttiStruct</a>
+</li>
 <li>m_fields
 : <a class="el" href="classwmoge_1_1RttiStruct.html#ac362540788002466564347e661f01c96">wmoge::RttiStruct</a>
 </li>
@@ -203,16 +201,13 @@ $(function() {
 <li>m_flags
 : <a class="el" href="classwmoge_1_1IoTree.html#aaf27d89cec7215c61583445220e53e1d">wmoge::IoTree</a>
 , <a class="el" href="classwmoge_1_1RdgResource.html#a28f8e5b285113b9e52418d5b4dd33957">wmoge::RdgResource</a>
-, <a class="el" href="classwmoge_1_1Texture.html#ab97eeae13a3b14d52305d8c8ff37a4bb">wmoge::Texture</a>
+, <a class="el" href="classwmoge_1_1TextureDescBuilder.html#ac45f0575c1f895f3c52118b08e3aad17">wmoge::TextureDescBuilder</a>
 </li>
 <li>m_float
 : <a class="el" href="classwmoge_1_1Var.html#af8337b9f3a5f31a2ab6486abe34442e8">wmoge::Var</a>
 </li>
 <li>m_format
-: <a class="el" href="classwmoge_1_1Texture.html#ac3856047acaa404d362303dd8e16e781">wmoge::Texture</a>
-</li>
-<li>m_format_source
-: <a class="el" href="classwmoge_1_1Texture.html#a7cd6b6c35649fc34921e27975fe22225">wmoge::Texture</a>
+: <a class="el" href="classwmoge_1_1TextureDescBuilder.html#af80b1f7836f436f0b97f4c0979e986a4">wmoge::TextureDescBuilder</a>
 </li>
 <li>m_game_config
 : <a class="el" href="classwmoge_1_1GameApplication.html#a0c9b3b6de930bb68a36cdb7dd2089466">wmoge::GameApplication</a>
@@ -232,18 +227,12 @@ $(function() {
 <li>m_guid
 : <a class="el" href="classwmoge_1_1Joystick.html#a01cf9996219c67f6874b5b87af030e98">wmoge::Joystick</a>
 </li>
-<li>m_height
-: <a class="el" href="classwmoge_1_1Texture.html#a50b6cb822ea94036b2d5c5f8880132e7">wmoge::Texture</a>
-</li>
 <li>m_help
 : <a class="el" href="classwmoge_1_1ConsoleObject.html#adc928b08754b1f7924d1b0b8ae58bd3a">wmoge::ConsoleObject</a>
 </li>
 <li>m_id
 : <a class="el" href="classwmoge_1_1Joystick.html#a595588931624e8d9e7322a12592f5c8c">wmoge::Joystick</a>
 , <a class="el" href="classwmoge_1_1RdgResource.html#a4e69b7e027b300d1a922b249641c080b">wmoge::RdgResource</a>
-</li>
-<li>m_images
-: <a class="el" href="classwmoge_1_1Texture.html#ac1926606a5875478ebd64a19c766aca8">wmoge::Texture</a>
 </li>
 <li>m_inherits
 : <a class="el" href="classwmoge_1_1RttiStruct.html#ae2a1ef4086beaf4e3747a5757502ce41">wmoge::RttiStruct</a>
@@ -270,14 +259,14 @@ $(function() {
 <li>m_length
 : <a class="el" href="classwmoge_1_1AudioStream.html#a1451a577c099edfffd680f67b59ff9ca">wmoge::AudioStream</a>
 </li>
+<li>m_log
+: <a class="el" href="classwmoge_1_1TextureDescBuilder.html#a476a15e49938bb4008b98f4b0bf391be">wmoge::TextureDescBuilder</a>
+</li>
 <li>m_mame
 : <a class="el" href="classwmoge_1_1InputDevice.html#a9ed5e4074629af51d09d97f50e83e72e">wmoge::InputDevice</a>
 </li>
 <li>m_mem
 : <a class="el" href="classwmoge_1_1Var.html#ae9ee3107d9d68f92b6ac2e8ab24f46fb">wmoge::Var</a>
-</li>
-<li>m_mem_usage
-: <a class="el" href="classwmoge_1_1Texture.html#af145c157fce7530913b15596423f4267">wmoge::Texture</a>
 </li>
 <li>m_members
 : <a class="el" href="classwmoge_1_1RttiStruct.html#a4333fbfade7c3d0dc53501dc5874863f">wmoge::RttiStruct</a>
@@ -286,8 +275,8 @@ $(function() {
 : <a class="el" href="classwmoge_1_1RttiMember.html#a32054ebabe8620013610af348601bc51">wmoge::RttiMember</a>
 , <a class="el" href="classwmoge_1_1RttiType.html#a03159a7e28a1b13140b8ca85d94a26ff">wmoge::RttiType</a>
 </li>
-<li>m_mips
-: <a class="el" href="classwmoge_1_1Texture.html#a3c78fd3cd7be72cded7a1ee4ce1047a3">wmoge::Texture</a>
+<li>m_mipmaps
+: <a class="el" href="classwmoge_1_1TextureDescBuilder.html#a844a7c4c17a011301c94685903be1dc1">wmoge::TextureDescBuilder</a>
 </li>
 <li>m_mutex
 : <a class="el" href="classwmoge_1_1AsyncState.html#a0fefe5adcb1253e38085d77330a85ee9">wmoge::AsyncState&lt; T &gt;</a>
@@ -303,6 +292,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1RttiMember.html#a760a4944e260a86c840a094016791d7e">wmoge::RttiMember</a>
 , <a class="el" href="classwmoge_1_1RttiType.html#a17435473760997ee4c5594205af48521">wmoge::RttiType</a>
 , <a class="el" href="classwmoge_1_1RttiTypeFunction.html#a91a7ce1d5b6c62e6e631f4c7a0f118e3">wmoge::RttiTypeFunction</a>
+, <a class="el" href="classwmoge_1_1TextureDescBuilder.html#abaeeb3380e59a53e713ab7868324bbe6">wmoge::TextureDescBuilder</a>
 </li>
 <li>m_num_channels
 : <a class="el" href="classwmoge_1_1AudioStream.html#af56711019108ad5c1f7df987c51a5107">wmoge::AudioStream</a>
@@ -336,6 +326,9 @@ $(function() {
 <li>m_reflection
 : <a class="el" href="classwmoge_1_1Shader.html#a43c32a329d62958332249f82213c4119">wmoge::Shader</a>
 </li>
+<li>m_resize
+: <a class="el" href="classwmoge_1_1TextureDescBuilder.html#ac0652a532c6b9c3c3727f1b6be7ab472">wmoge::TextureDescBuilder</a>
+</li>
 <li>m_resources
 : <a class="el" href="classwmoge_1_1GfxDescSet.html#a22493ddc4b06444a5c55245e4a550391">wmoge::GfxDescSet</a>
 </li>
@@ -347,6 +340,7 @@ $(function() {
 </li>
 <li>m_sampler
 : <a class="el" href="classwmoge_1_1Texture.html#a502049c25165a10057888c556da0b526">wmoge::Texture</a>
+, <a class="el" href="classwmoge_1_1TextureDescBuilder.html#a646a546cd519be4d5a7e1711fdbfebbc">wmoge::TextureDescBuilder</a>
 </li>
 <li>m_samples_rate
 : <a class="el" href="classwmoge_1_1AudioStream.html#a58994a45718a49a2d2bfc0950ce093e8">wmoge::AudioStream</a>
@@ -370,11 +364,14 @@ $(function() {
 : <a class="el" href="classwmoge_1_1GfxBuffer.html#a5be8778ce82695607eef57a786632433">wmoge::GfxBuffer</a>
 , <a class="el" href="classwmoge_1_1VKBuffer.html#a39f11aa30ee6639a6fb14efb5f7a1946">wmoge::VKBuffer</a>
 </li>
+<li>m_source_image
+: <a class="el" href="classwmoge_1_1TextureDescBuilder.html#a5e0a0a359e4f6449e50f569ac01f0345">wmoge::TextureDescBuilder</a>
+</li>
+<li>m_source_images
+: <a class="el" href="classwmoge_1_1TextureDescBuilder.html#a1f3493fa8a9176069a226a38eea71c68">wmoge::TextureDescBuilder</a>
+</li>
 <li>m_space_idx
 : <a class="el" href="classwmoge_1_1RdgParamBlock.html#a2d3db32e6d79983a4144923fba7f0b4f">wmoge::RdgParamBlock</a>
-</li>
-<li>m_srgb
-: <a class="el" href="classwmoge_1_1Texture.html#a3807218be1f738eb7e27239103f1ea1c">wmoge::Texture</a>
 </li>
 <li>m_stack_size
 : <a class="el" href="classwmoge_1_1RttiTypeFunction.html#a69d8f9f4925925d098aa273824faf00b">wmoge::RttiTypeFunction</a>
@@ -403,10 +400,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1RttiTypeEnumT.html#aabdd85b6aaf1005c06859757bb2575aa">wmoge::RttiTypeEnumT&lt; T &gt;</a>
 </li>
 <li>m_swizz
-: <a class="el" href="classwmoge_1_1Texture.html#a39dc6bd78bde46fecb9302d0b3f330e4">wmoge::Texture</a>
-</li>
-<li>m_tex_type
-: <a class="el" href="classwmoge_1_1Texture.html#a799201e47aaa25843a49d6679e6c0207">wmoge::Texture</a>
+: <a class="el" href="classwmoge_1_1TextureDescBuilder.html#a5eaf14c52bec473f4fa1593c3187ddbc">wmoge::TextureDescBuilder</a>
 </li>
 <li>m_texture
 : <a class="el" href="classwmoge_1_1Texture.html#a361e6d4481455541b708eeba5e5701a1">wmoge::Texture</a>
@@ -417,14 +411,12 @@ $(function() {
 <li>m_usage
 : <a class="el" href="classwmoge_1_1GfxBuffer.html#a91ba2197ccb9d150a2761605d058a077">wmoge::GfxBuffer</a>
 </li>
-<li>m_usages
-: <a class="el" href="classwmoge_1_1Texture.html#ad50ed29614408fa025fe87dff657b53b">wmoge::Texture</a>
-</li>
 <li>m_value
 : <a class="el" href="classwmoge_1_1ConsoleVar.html#ab62952b474fbaf77c0af2a229fac6c6b">wmoge::ConsoleVar</a>
 </li>
 <li>m_value_type
-: <a class="el" href="classwmoge_1_1RttiTypeMap.html#a977c80c5bba46b3901e35d597436a90f">wmoge::RttiTypeMap</a>
+: <a class="el" href="classwmoge_1_1RttiTypeAssetRef.html#aef8f1f48233fedebb15e14c1689db8f8">wmoge::RttiTypeAssetRef</a>
+, <a class="el" href="classwmoge_1_1RttiTypeMap.html#a977c80c5bba46b3901e35d597436a90f">wmoge::RttiTypeMap</a>
 , <a class="el" href="classwmoge_1_1RttiTypeMask.html#ae15145782d62600493f5e6074f5b0645">wmoge::RttiTypeMask</a>
 , <a class="el" href="classwmoge_1_1RttiTypeOptional.html#a8f9132908d98094520be143cd2033572">wmoge::RttiTypeOptional</a>
 , <a class="el" href="classwmoge_1_1RttiTypePair.html#a8e24cdb140589547a9ae4a532ff654ab">wmoge::RttiTypePair</a>
@@ -440,11 +432,11 @@ $(function() {
 <li>m_views
 : <a class="el" href="classwmoge_1_1GraphicsPipeline.html#a4f7f61d31ac47f2dd49cc6067ee01db2">wmoge::GraphicsPipeline</a>
 </li>
-<li>m_width
-: <a class="el" href="classwmoge_1_1Texture.html#ad3db0b7870faa77da6ccb64368527c0c">wmoge::Texture</a>
-</li>
 <li>mag_flt
 : <a class="el" href="structwmoge_1_1GfxSamplerDesc.html#a19b774c19b8987c32253cfcb5316b03c">wmoge::GfxSamplerDesc</a>
+</li>
+<li>main
+: <a class="el" href="structwmoge_1_1AssetImportResult.html#a464cfa0fcc96438b11d1b6d0b49f03ba">wmoge::AssetImportResult</a>
 </li>
 <li>major_version
 : <a class="el" href="structwmoge_1_1AudioDriverCaps.html#ae319369bd019bb35cd3f640e35dbf314">wmoge::AudioDriverCaps</a>
@@ -622,7 +614,8 @@ $(function() {
 , <a class="el" href="structwmoge_1_1GpuPolicyHostVert.html#af0f2efa6d32743e76f6c269d334f91ee">wmoge::GpuPolicyHostVert&lt; T &gt;</a>
 </li>
 <li>mem_usage
-: <a class="el" href="structwmoge_1_1TextureDesc.html#a9f26c434558e4b9b3ac63d88acbcccae">wmoge::TextureDesc</a>
+: <a class="el" href="structwmoge_1_1MeshDesc.html#a3cd2c0c723f65dedc6f1b42202b63aef">wmoge::MeshDesc</a>
+, <a class="el" href="structwmoge_1_1TextureParams.html#a43553d1f50ce6dd472097ddc5b8799e0">wmoge::TextureParams</a>
 </li>
 <li>menu_bar
 : <a class="el" href="classwmoge_1_1UiWindow.html#a6316ada59ff0b592346555c3a909c501">wmoge::UiWindow</a>
@@ -644,7 +637,8 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ModelDesc.html#a9806bc6a9a7cc33688d586497eeaeec3">wmoge::ModelDesc</a>
 </li>
 <li>message
-: <a class="el" href="structwmoge_1_1LogEntry.html#a267bdae4e20f17b7f4e3a91ebd7e9f33">wmoge::LogEntry</a>
+: <a class="el" href="structwmoge_1_1AssetImportError.html#a7e612e1778e6b08568eeb17226d5d414">wmoge::AssetImportError</a>
+, <a class="el" href="structwmoge_1_1LogEntry.html#a267bdae4e20f17b7f4e3a91ebd7e9f33">wmoge::LogEntry</a>
 </li>
 <li>min_dist_2
 : <a class="el" href="structwmoge_1_1CullingItemData.html#ad3dcba0b636c875052f627f25e2dda79">wmoge::CullingItemData</a>
@@ -673,10 +667,10 @@ $(function() {
 , <a class="el" href="structwmoge_1_1RdgPassDepthTarget.html#a15f389298186a7ad38d816901b0eeea8">wmoge::RdgPassDepthTarget</a>
 </li>
 <li>mipmaps
-: <a class="el" href="classwmoge_1_1TextureImportData.html#a5cadc1a78c9a3c766e3b30fcd592028e">wmoge::TextureImportData</a>
+: <a class="el" href="classwmoge_1_1TextureImportSettings.html#abbacc724354c7137d7e741b49fbb68fe">wmoge::TextureImportSettings</a>
 </li>
 <li>mips
-: <a class="el" href="structwmoge_1_1TextureDesc.html#a99e58171a7f78befe6f051ae8ca36d95">wmoge::TextureDesc</a>
+: <a class="el" href="structwmoge_1_1TextureParams.html#ae481eb4785ece06ca01345e714c0e371">wmoge::TextureParams</a>
 </li>
 <li>mips_count
 : <a class="el" href="structwmoge_1_1GfxTextureDesc.html#a8f39e0d499e623cc277d7299f6aca0d5">wmoge::GfxTextureDesc</a>

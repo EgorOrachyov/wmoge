@@ -1,6 +1,5 @@
 <map id="wmoge::GmDebugMesh" name="wmoge::GmDebugMesh">
-<area shape="rect" id="node1" title=" " alt="" coords="67,200,227,227"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="5,103,164,130"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1AssetRef.html" title=" " alt="" coords="188,96,365,137"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="202,5,351,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="101,109,261,136"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="5,13,164,39"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1AssetRef.html" title=" " alt="" coords="188,5,365,47"/>
 </map>

@@ -1,0 +1,8 @@
+<map id="wmoge::TextureImportSettings" name="wmoge::TextureImportSettings">
+<area shape="rect" id="node1" title="Base class for texture import settings." alt="" coords="226,247,425,273"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetImportSettings.html" title="Asset import settings base class for specific importes custom settings classes." alt="" coords="5,157,195,184"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="36,81,164,108"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="45,5,155,32"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1TexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="219,157,431,184"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1TexResizeParams.html" title="Params to resize source texture image content (on import)" alt="" coords="455,157,630,184"/>
+</map>

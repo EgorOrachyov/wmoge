@@ -121,11 +121,12 @@ $(function() {
 , <a class="el" href="classwmoge_1_1WeakRefCnt.html#a47673348b66e93afb2a66e3f8886b001">wmoge::WeakRefCnt&lt; DeclClass, BaseRefCntClass &gt;</a>
 </li>
 <li>read()
-: <a class="el" href="classwmoge_1_1AssimpImporter.html#a03dda7dea487ea1cfef74e8d63cab51b">wmoge::AssimpImporter</a>
+: <a class="el" href="classwmoge_1_1AssetArtifactCache.html#a3c9c258272ed42b3a946b698deabe750">wmoge::AssetArtifactCache</a>
+, <a class="el" href="classwmoge_1_1AssimpProcessorBase.html#a5fce13b7722861d029bb32f8eb67628c">wmoge::AssimpProcessorBase</a>
 </li>
-<li>read_data()
-: <a class="el" href="classwmoge_1_1AssetLibrary.html#a0c28964c125c12c5cf983a1ea5f6b1d2">wmoge::AssetLibrary</a>
-, <a class="el" href="classwmoge_1_1AssetLibraryFileSystem.html#aeaa4e173d224cb9f7bfd8ac187c8a288">wmoge::AssetLibraryFileSystem</a>
+<li>read_artifact()
+: <a class="el" href="classwmoge_1_1AssetLibrary.html#a282ff90de73565e51e431be0b2b857c7">wmoge::AssetLibrary</a>
+, <a class="el" href="classwmoge_1_1AssetLibraryAssetDb.html#a986a6937e43525ccc78fc7adf5f7616e">wmoge::AssetLibraryAssetDb</a>
 </li>
 <li>read_file()
 : <a class="el" href="classwmoge_1_1FileSystem.html#acd57efc0486bee2b2397441d4e3bcefb">wmoge::FileSystem</a>
@@ -148,6 +149,9 @@ $(function() {
 </li>
 <li>rearch_entity()
 : <a class="el" href="classwmoge_1_1EcsWorld.html#ad7057b0861a3fd84c8148f6837fc6bd1">wmoge::EcsWorld</a>
+</li>
+<li>reconcile_db()
+: <a class="el" href="classwmoge_1_1AssetDb.html#a2382de248aec1b2399df3cef88ed96c4">wmoge::AssetDb</a>
 </li>
 <li>Ref()
 : <a class="el" href="classwmoge_1_1Ref.html#a7c22d65c4b990d9866567750b8408002">wmoge::Ref&lt; T &gt;</a>
@@ -173,6 +177,12 @@ $(function() {
 </li>
 <li>register_component()
 : <a class="el" href="classwmoge_1_1EcsRegistry.html#a9d1119670c1dc6e13e8ee4dfd8d92716">wmoge::EcsRegistry</a>
+</li>
+<li>reimport()
+: <a class="el" href="classwmoge_1_1AssetManager.html#a7e1729c9d124c4363c78d7a2a99ddadf">wmoge::AssetManager</a>
+</li>
+<li>reimport_asset()
+: <a class="el" href="classwmoge_1_1AssetDb.html#ae835508cd9ff10e090d4908a8ecd483e">wmoge::AssetDb</a>
 </li>
 <li>release()
 : <a class="el" href="classwmoge_1_1RdgParamBlock.html#a94194db5556e4a26516a7cdc395b3873">wmoge::RdgParamBlock</a>
@@ -206,10 +216,24 @@ $(function() {
 : <a class="el" href="classwmoge_1_1RdgPool.html#a4cf727aa8d79f38bf8fa4b2c0f3f93f7">wmoge::RdgPool</a>
 </li>
 <li>remove()
-: <a class="el" href="classwmoge_1_1Log.html#a199a8f5cf24ac0364357e31d07ece764">wmoge::Log</a>
+: <a class="el" href="classwmoge_1_1AssetArtifactCache.html#ad8226ffde572fd69a5d492fbbd737666">wmoge::AssetArtifactCache</a>
+, <a class="el" href="classwmoge_1_1AssetCache.html#aa3d3c0c38ff4f18d46639a1e9e974a96">wmoge::AssetCache</a>
+, <a class="el" href="classwmoge_1_1AssetResolver.html#a96f7489c50bf714c3b08cd3b6b516148">wmoge::AssetResolver</a>
+, <a class="el" href="classwmoge_1_1Log.html#a199a8f5cf24ac0364357e31d07ece764">wmoge::Log</a>
+</li>
+<li>remove_asset()
+: <a class="el" href="classwmoge_1_1AssetDb.html#a611b9a1a00057fbed1bdaf7dc31ce0be">wmoge::AssetDb</a>
 </li>
 <li>remove_emitter()
 : <a class="el" href="classwmoge_1_1PfxScene.html#a45cff6a17b0517cb377f3d3919d6530a">wmoge::PfxScene</a>
+</li>
+<li>remove_file()
+: <a class="el" href="classwmoge_1_1FileSystem.html#acd07369e80f54f7bc45ed5f2e69aa688">wmoge::FileSystem</a>
+, <a class="el" href="classwmoge_1_1MountVolume.html#ab1b5f10e798fb7102d6d9eeff5fd5f4a">wmoge::MountVolume</a>
+, <a class="el" href="classwmoge_1_1MountVolumePhysical.html#a5ece28de28d2f957b65dc9361351dd0c">wmoge::MountVolumePhysical</a>
+</li>
+<li>remove_if_expired()
+: <a class="el" href="classwmoge_1_1AssetCache.html#af2234929f2cde0bd19ab5d927738741e">wmoge::AssetCache</a>
 </li>
 <li>remove_mesh()
 : <a class="el" href="classwmoge_1_1MeshManager.html#a7d18033e601db0fe4a9bfed5edf6ea2a">wmoge::MeshManager</a>
@@ -278,14 +302,19 @@ $(function() {
 , <a class="el" href="classwmoge_1_1TypedArray.html#a2bd028c426eb8526629109b9f4e62df5">wmoge::TypedArray&lt; T &gt;</a>
 </li>
 <li>resolve()
-: <a class="el" href="classwmoge_1_1IocContainer.html#aa6de7e550a17f2546afb88f71aee8ce6">wmoge::IocContainer</a>
+: <a class="el" href="classwmoge_1_1AssetResolver.html#a0a57a2ce1c311541092be569b28f0791">wmoge::AssetResolver</a>
+, <a class="el" href="classwmoge_1_1IocContainer.html#aa6de7e550a17f2546afb88f71aee8ce6">wmoge::IocContainer</a>
 , <a class="el" href="classwmoge_1_1ProfilerGpu.html#a3cfa747c99e8841a1ed87b0a6be30b50">wmoge::ProfilerGpu</a>
 </li>
 <li>resolve_asset()
-: <a class="el" href="classwmoge_1_1AssetManager.html#a8820fddc5f8870b33f7f7014fc3bbe02">wmoge::AssetManager</a>
+: <a class="el" href="classwmoge_1_1AssetLibrary.html#a400335e8a2d2fea3e78ae721c4121a59">wmoge::AssetLibrary</a>
+, <a class="el" href="classwmoge_1_1AssetLibraryAssetDb.html#a163d5d8dd873eacb48aa27a2675d249b">wmoge::AssetLibraryAssetDb</a>
 </li>
-<li>resolve_asset_meta()
-: <a class="el" href="classwmoge_1_1AssetManager.html#aec4dd847b3f94ac66d0c190770817d41">wmoge::AssetManager</a>
+<li>resolve_asset_parent()
+: <a class="el" href="classwmoge_1_1AssetDb.html#aa3b886f4364c0a2605cfbe4c6262f344">wmoge::AssetDb</a>
+</li>
+<li>resolve_path()
+: <a class="el" href="classwmoge_1_1AssetImportContext.html#a0613566eebc1becdc15d2bd855afa36c">wmoge::AssetImportContext</a>
 </li>
 <li>resolve_physical()
 : <a class="el" href="classwmoge_1_1FileSystem.html#a4b0d4615d91849605cabfb761976402a">wmoge::FileSystem</a>
@@ -400,10 +429,13 @@ $(function() {
 : <a class="el" href="classwmoge_1_1RttiStructT.html#a725ffa5e5a5cec11f2ea9d981bef2a83">wmoge::RttiStructT&lt; StructT &gt;</a>
 </li>
 <li>RttiSubclass()
-: <a class="el" href="classwmoge_1_1RttiSubclass.html#a1b7a4253b2d89f9d2a34e7a8b64f7f7f">wmoge::RttiSubclass&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1RttiSubclass.html#a17431c41ec4d8f1d1f67c53ffec4d649">wmoge::RttiSubclass&lt; T &gt;</a>
 </li>
 <li>RttiType()
 : <a class="el" href="classwmoge_1_1RttiType.html#ab310a3dfa474dd891f6ed67e297d99ff">wmoge::RttiType</a>
+</li>
+<li>RttiTypeAssetRef()
+: <a class="el" href="classwmoge_1_1RttiTypeAssetRef.html#a1d04a82883457c2b8c5098feba458224">wmoge::RttiTypeAssetRef</a>
 </li>
 <li>RttiTypeBaseMapT()
 : <a class="el" href="classwmoge_1_1RttiTypeBaseMapT.html#a0bf785e3ca284ce3fa7e96463b90b700">wmoge::RttiTypeBaseMapT&lt; MapT, KeyT, ValueT &gt;</a>
@@ -463,7 +495,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1RttiTypeRef.html#a639013595ed37d7ae5d09b8a4f5597d9">wmoge::RttiTypeRef</a>
 </li>
 <li>RttiTypeRefT()
-: <a class="el" href="classwmoge_1_1RttiTypeRefT.html#a4e698aba98c36ed16b47710903813720">wmoge::RttiTypeRefT&lt; HolderT, PtrT &gt;</a>
+: <a class="el" href="classwmoge_1_1RttiTypeRefT.html#ab17cc02a2b5172334bad37f1936755c6">wmoge::RttiTypeRefT&lt; HolderT, PtrT, BaseRefType &gt;</a>
 </li>
 <li>RttiTypeSet()
 : <a class="el" href="classwmoge_1_1RttiTypeSet.html#a98ad1f84f7eabca6bdec8fbcdfa0b2b6">wmoge::RttiTypeSet</a>

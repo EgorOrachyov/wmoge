@@ -111,8 +111,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9565d53f153b9983a7a9076a5079f7bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ff92576739979300d06b9d9902d19c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#a8ff92576739979300d06b9d9902d19c9">to_string</a> (const void *src, std::stringstream &amp;s) const override</td></tr>
 <tr class="separator:a8ff92576739979300d06b9d9902d19c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7fd633c9ee71404f68bb70eafcc7c6b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#ad7fd633c9ee71404f68bb70eafcc7c6b">push_back</a> (void *src, void *value) const</td></tr>
-<tr class="separator:ad7fd633c9ee71404f68bb70eafcc7c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4894d64c22046d4a5b668684b604226d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#a4894d64c22046d4a5b668684b604226d">push_back</a> (void *src, void *value) const override</td></tr>
+<tr class="separator:a4894d64c22046d4a5b668684b604226d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ed20747b038846041360ba37cfb332a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#a0ed20747b038846041360ba37cfb332a">iterate</a> (void *src, const std::function&lt; <a class="el" href="classwmoge_1_1Status.html">Status</a>(const void *)&gt; &amp;func) const override</td></tr>
+<tr class="separator:a0ed20747b038846041360ba37cfb332a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1RttiTypeT"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1RttiTypeT')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1RttiTypeT.html">wmoge::RttiTypeT&lt; VecT, RttiTypeVector &gt;</a></td></tr>
 <tr class="memitem:a195a7df9f3ebb6c29a32177a4b932bec inherit pub_methods_classwmoge_1_1RttiTypeT"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiTypeT.html#a195a7df9f3ebb6c29a32177a4b932bec">RttiTypeT</a> (<a class="el" href="classwmoge_1_1Strid.html">Strid</a> name)</td></tr>
 <tr class="separator:a195a7df9f3ebb6c29a32177a4b932bec inherit pub_methods_classwmoge_1_1RttiTypeT"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -291,8 +293,48 @@ template&lt;typename VecT , typename ElemT &gt; </div>
 
 </div>
 </div>
-<a id="ad7fd633c9ee71404f68bb70eafcc7c6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7fd633c9ee71404f68bb70eafcc7c6b">&#9670;&nbsp;</a></span>push_back()</h2>
+<a id="a0ed20747b038846041360ba37cfb332a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ed20747b038846041360ba37cfb332a">&#9670;&nbsp;</a></span>iterate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename VecT , typename ElemT &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> <a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html">wmoge::RttiTypeBaseVectorT</a>&lt; VecT, ElemT &gt;::iterate </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::function&lt; <a class="el" href="classwmoge_1_1Status.html">Status</a>(const void *)&gt; &amp;&#160;</td>
+          <td class="paramname"><em>func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classwmoge_1_1RttiTypeVector.html#ab2d3de6bf6895b70f1e7538050bb14f7">wmoge::RttiTypeVector</a>.</p>
+
+</div>
+</div>
+<a id="a4894d64c22046d4a5b668684b604226d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4894d64c22046d4a5b668684b604226d">&#9670;&nbsp;</a></span>push_back()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,7 +364,7 @@ template&lt;typename VecT , typename ElemT &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

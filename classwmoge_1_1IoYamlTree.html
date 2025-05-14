@@ -108,6 +108,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a920a3ffeb5df3f89ecbe9460f9532063"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a139336804c41664957c50d9e1f09b151"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoYamlTree.html#a139336804c41664957c50d9e1f09b151">save_tree</a> (std::string &amp;data)</td></tr>
 <tr class="separator:a139336804c41664957c50d9e1f09b151"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a084ca5b089f12691b5fc1c2f0b5179bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoYamlTree.html#a084ca5b089f12691b5fc1c2f0b5179bd">save_tree</a> (class <a class="el" href="classwmoge_1_1FileSystem.html">FileSystem</a> *fs, const std::string &amp;path)</td></tr>
+<tr class="separator:a084ca5b089f12691b5fc1c2f0b5179bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a041f0bdee2af9d288407c5d5e524342e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoYamlTree.html#a041f0bdee2af9d288407c5d5e524342e">save_tree_json</a> (std::string &amp;data)</td></tr>
 <tr class="separator:a041f0bdee2af9d288407c5d5e524342e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd57f109c89d66fb9c80c2582f70b0c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoYamlTree.html#acd57f109c89d66fb9c80c2582f70b0c0">parse_data</a> (const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; const std::uint8_t &gt; &amp;data)</td></tr>
@@ -166,6 +168,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa43e0fc1981635be536fb9003473ff51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23f7f65dd72a7354202040aa5fe774cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoYamlTree.html#a23f7f65dd72a7354202040aa5fe774cc">node_read_value</a> (std::size_t &amp;value) override</td></tr>
 <tr class="separator:a23f7f65dd72a7354202040aa5fe774cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47042c99379220056f293d53d18977be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoYamlTree.html#a47042c99379220056f293d53d18977be">node_as_leaf</a> () override</td></tr>
+<tr class="separator:a47042c99379220056f293d53d18977be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeaea675ef8cdc9b4db1f70e088843d52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoYamlTree.html#aeaea675ef8cdc9b4db1f70e088843d52">node_as_map</a> () override</td></tr>
 <tr class="separator:aeaea675ef8cdc9b4db1f70e088843d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab90f930045d29eea6eb65830a7660855"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoYamlTree.html#ab90f930045d29eea6eb65830a7660855">node_as_list</a> (std::size_t length) override</td></tr>
@@ -289,6 +293,33 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implements <a class="el" href="classwmoge_1_1IoTree.html#a68223bc7ac5f807f2ba310f6a983f872">wmoge::IoTree</a>.</p>
+
+</div>
+</div>
+<a id="a47042c99379220056f293d53d18977be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47042c99379220056f293d53d18977be">&#9670;&nbsp;</a></span>node_as_leaf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::IoYamlTree::node_as_leaf </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classwmoge_1_1IoTree.html#a0ddcef7836d4c3c6f57edb2527dce848">wmoge::IoTree</a>.</p>
 
 </div>
 </div>
@@ -1087,8 +1118,36 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a084ca5b089f12691b5fc1c2f0b5179bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a084ca5b089f12691b5fc1c2f0b5179bd">&#9670;&nbsp;</a></span>save_tree() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::IoYamlTree::save_tree </td>
+          <td>(</td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1FileSystem.html">FileSystem</a> *&#160;</td>
+          <td class="paramname"><em>fs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a139336804c41664957c50d9e1f09b151"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a139336804c41664957c50d9e1f09b151">&#9670;&nbsp;</a></span>save_tree()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a139336804c41664957c50d9e1f09b151">&#9670;&nbsp;</a></span>save_tree() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

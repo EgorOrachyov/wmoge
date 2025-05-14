@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1CmdLineHookList.html" title="Storage for cmd line hooks." alt="" coords="5,5,180,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1AssimpProcessorBase.html" title="Assimp base processor for file importing." alt="" coords="5,5,208,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssimpProcessorMesh.html" title=" " alt="" coords="256,5,461,32"/>
 </map>

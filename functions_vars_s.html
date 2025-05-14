@@ -66,7 +66,8 @@ $(function() {
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>sampler
 : <a class="el" href="structwmoge_1_1GfxDescBindValue.html#a0f3365ab9da84834e6d461257c4693e1">wmoge::GfxDescBindValue</a>
-, <a class="el" href="structwmoge_1_1TextureDesc.html#a5f8f7595409e173229890e37d3e76c5f">wmoge::TextureDesc</a>
+, <a class="el" href="structwmoge_1_1ShaderFileParam.html#af0451831f051152f473444e8d8f1fb0c">wmoge::ShaderFileParam</a>
+, <a class="el" href="structwmoge_1_1TextureDesc.html#a7d6cbb53a4dce58952933d7baa372237">wmoge::TextureDesc</a>
 </li>
 <li>SAMPLER2D
 : <a class="el" href="structwmoge_1_1ShaderTypes.html#a1119d7d19cbe81cfe589e136629c717a">wmoge::ShaderTypes</a>
@@ -78,7 +79,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ShaderTypes.html#a4618957d9dd71cb6e85c7678680eb170">wmoge::ShaderTypes</a>
 </li>
 <li>sampling
-: <a class="el" href="classwmoge_1_1TextureImportData.html#acd36c953c5821233fe0c11811bb652a4">wmoge::TextureImportData</a>
+: <a class="el" href="classwmoge_1_1TextureImportSettings.html#adabfa8feabca41dc1368ae3d99943cc7">wmoge::TextureImportSettings</a>
 </li>
 <li>scalar
 : <a class="el" href="classwmoge_1_1TQuat.html#a39e294f2d2e4cef6d67f25773e63180f">wmoge::TQuat&lt; T &gt;</a>
@@ -127,6 +128,9 @@ $(function() {
 <li>set
 : <a class="el" href="structwmoge_1_1GfxLocation.html#a5849f754776145ea8c8d0a67d5002abd">wmoge::GfxLocation</a>
 </li>
+<li>settings
+: <a class="el" href="structwmoge_1_1AssetImportPreset.html#afd129be6ecd89481cd6034c0930d74cf">wmoge::AssetImportPreset</a>
+</li>
 <li>setup
 : <a class="el" href="classwmoge_1_1EngineSignals.html#ab3777736eb9abbf2b16bd082081c4773">wmoge::EngineSignals</a>
 </li>
@@ -169,10 +173,11 @@ $(function() {
 , <a class="el" href="structwmoge_1_1EngineApplicationConfig.html#a2e038aa4474e3c7e4d4c5c5c49d06509">wmoge::EngineApplicationConfig</a>
 </li>
 <li>size
-: <a class="el" href="structwmoge_1_1AssetDataMeta.html#a34e1ab517f3aa176795f112d43a5d89d">wmoge::AssetDataMeta</a>
+: <a class="el" href="structwmoge_1_1AssetArtifact.html#ae67e3923f2aaff4f54377ecc51549f1c">wmoge::AssetArtifact</a>
 , <a class="el" href="structwmoge_1_1AuxDrawBox.html#a49a3ab0ec8d2b8be9f96509bcf44d580">wmoge::AuxDrawBox</a>
 , <a class="el" href="structwmoge_1_1AuxDrawText.html#a6ae4736788db27632b73dc2874a10885">wmoge::AuxDrawText</a>
 , <a class="el" href="structwmoge_1_1EcsComponentInfo.html#a662a31c58f224e98e815086ee515e2f5">wmoge::EcsComponentInfo</a>
+, <a class="el" href="structwmoge_1_1FileAssetArtifactMetaInfo.html#aa51cb3f8811a63c5fb953cbb4776f774">wmoge::FileAssetArtifactMetaInfo</a>
 , <a class="el" href="structwmoge_1_1FontGlyph.html#ab1e92edfe398a88e9bf3ee4720f22ce4">wmoge::FontGlyph</a>
 , <a class="el" href="structwmoge_1_1GfxBufferDesc.html#a6b79772dc0836f30cc15885c1f977363">wmoge::GfxBufferDesc</a>
 , <a class="el" href="structwmoge_1_1GfxQueryPoolDesc.html#a40c89af0247e7ea29552fb7c05f1b8e0">wmoge::GfxQueryPoolDesc</a>
@@ -183,9 +188,6 @@ $(function() {
 , <a class="el" href="classwmoge_1_1PfxRange.html#ae458928859579f4a11ba4dddc1665831">wmoge::PfxRange</a>
 , <a class="el" href="structwmoge_1_1PfxSpawnParams.html#a259ca84c15d5edc8acfff506cc6282b5">wmoge::PfxSpawnParams</a>
 , <a class="el" href="structwmoge_1_1ShaderBufferInfo.html#afd8eb48b1b49cc3e75d96aa0c443d3c4">wmoge::ShaderBufferInfo</a>
-</li>
-<li>size_compressed
-: <a class="el" href="structwmoge_1_1AssetDataMeta.html#ac33f8af53e76a624b589da3bbd6db2cf">wmoge::AssetDataMeta</a>
 </li>
 <li>size_half
 : <a class="el" href="classwmoge_1_1TAabb.html#ab63b96cf493479d336cba1c9fe82f9d5">wmoge::TAabb&lt; T &gt;</a>
@@ -203,10 +205,7 @@ $(function() {
 , <a class="el" href="structwmoge_1_1GmDebugPrimitiveComponent.html#a0b246d66d03ac6251ca3e3552b9fea35">wmoge::GmDebugPrimitiveComponent</a>
 </li>
 <li>sort_by_ptype
-: <a class="el" href="structwmoge_1_1AssimpProcess.html#ae43102bf178395d7e1d27d6d37d98ead">wmoge::AssimpProcess</a>
-</li>
-<li>source_files
-: <a class="el" href="classwmoge_1_1AssetImportData.html#ac0112a7e64f50dd962a4e2c1e299d3d9">wmoge::AssetImportData</a>
+: <a class="el" href="structwmoge_1_1MeshImportProcess.html#aedbf91107ca6a65180d0d2420fe529ec">wmoge::MeshImportProcess</a>
 </li>
 <li>source_hash
 : <a class="el" href="structwmoge_1_1FileShaderModule.html#ae0aac375ca29f1774c4ccb3e7339798c">wmoge::FileShaderModule</a>
@@ -225,7 +224,9 @@ $(function() {
 : <a class="el" href="structwmoge_1_1IocEntry.html#ad21ec2542aec7f571c3f18f41697745d">wmoge::IocEntry</a>
 </li>
 <li>sources
-: <a class="el" href="structwmoge_1_1ShaderFile.html#a084246203e999381cd0bfdba851c0132">wmoge::ShaderFile</a>
+: <a class="el" href="structwmoge_1_1AssetData.html#a391ee1c3376d34096bf21e8042c4d0a1">wmoge::AssetData</a>
+, <a class="el" href="structwmoge_1_1AssetImportResult.html#aac9d54bad9894be0575f601d5c180d52">wmoge::AssetImportResult</a>
+, <a class="el" href="structwmoge_1_1ShaderFile.html#a084246203e999381cd0bfdba851c0132">wmoge::ShaderFile</a>
 , <a class="el" href="structwmoge_1_1ShaderReflection.html#acb6af31cca5ee8b6dde43205eda8478c">wmoge::ShaderReflection</a>
 </li>
 <li>space
@@ -234,6 +235,9 @@ $(function() {
 </li>
 <li>space_idx
 : <a class="el" href="structwmoge_1_1ShaderParamBlockDesc.html#ae516c567f27b75ca3353b91e89904c8b">wmoge::ShaderParamBlockDesc</a>
+</li>
+<li>SpaceBuilder
+: <a class="el" href="classwmoge_1_1ShaderBuilder.html#a1c65a85a87836988486e092f3f4b4cec">wmoge::ShaderBuilder</a>
 </li>
 <li>spaces
 : <a class="el" href="structwmoge_1_1ShaderReflection.html#a9fa043dd46c4d1955c524ee9b0825197">wmoge::ShaderReflection</a>
@@ -255,9 +259,8 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Math.html#ab7ac364dda02261ccdfb6d74117f0fa4">wmoge::Math</a>
 </li>
 <li>srgb
-: <a class="el" href="classwmoge_1_1IconAtlasImportData.html#a910eb3b7ae4eaa9d18fe6645d2029592">wmoge::IconAtlasImportData</a>
-, <a class="el" href="structwmoge_1_1TextureDesc.html#ae87adecfc5ed3326a4efdc62205b8ca6">wmoge::TextureDesc</a>
-, <a class="el" href="classwmoge_1_1TextureImportData.html#ac071a0b7e3712c70e6f29fc0f20f5479">wmoge::TextureImportData</a>
+: <a class="el" href="classwmoge_1_1TextureImportSettings.html#a075ff744157a3312720714f211b6c38d">wmoge::TextureImportSettings</a>
+, <a class="el" href="structwmoge_1_1TextureParams.html#a3464c380642a5373b26d30a17cbda341">wmoge::TextureParams</a>
 </li>
 <li>ssao
 : <a class="el" href="structwmoge_1_1GraphicsPipelineAssets.html#a209159c96420fc0f02869d9eb2b93ef8">wmoge::GraphicsPipelineAssets</a>
@@ -361,6 +364,9 @@ $(function() {
 <li>strip_debug_info
 : <a class="el" href="structwmoge_1_1ShaderCompilerOptions.html#a74fd1d34794b427e2b8427be77a16a1f">wmoge::ShaderCompilerOptions</a>
 </li>
+<li>StructBuilder
+: <a class="el" href="classwmoge_1_1ShaderBuilder.html#a45be07edca24b43994fa16cbd99a47b9">wmoge::ShaderBuilder</a>
+</li>
 <li>style_name
 : <a class="el" href="structwmoge_1_1FontDesc.html#a39ea38e2bccd69921b4eeb80f848325a">wmoge::FontDesc</a>
 </li>
@@ -381,8 +387,8 @@ $(function() {
 </li>
 <li>swizz
 : <a class="el" href="structwmoge_1_1GfxTextureDesc.html#a4db9d3971947d0f8beb9194a92846559">wmoge::GfxTextureDesc</a>
-, <a class="el" href="structwmoge_1_1TextureDesc.html#acaf787f775bd8ec971a52dfe4ef50803">wmoge::TextureDesc</a>
-, <a class="el" href="classwmoge_1_1TextureImportData.html#aa7d16a3c24da3cabe7cae6f412af8ff0">wmoge::TextureImportData</a>
+, <a class="el" href="classwmoge_1_1TextureImportSettings.html#ad1b0c0704d3c78b233b73ea73b7e7472">wmoge::TextureImportSettings</a>
+, <a class="el" href="structwmoge_1_1TextureParams.html#a2ed500e4c5b3cd97c61bf40447240891">wmoge::TextureParams</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -1,8 +1,6 @@
 <map id="wmoge::ShaderBinding" name="wmoge::ShaderBinding">
-<area shape="rect" id="node1" title="An interface exposed bindable param." alt="" coords="361,137,516,163"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="37,5,186,47"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="37,71,186,112"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="5,137,217,163"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="63,187,160,214"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="37,239,186,280"/>
+<area shape="rect" id="node1" title="An interface exposed bindable param." alt="" coords="94,184,249,211"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ShaderTypeIdx.html" title="Aux struct to save/load type ref and identify type at runtime." alt="" coords="93,95,249,121"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,5,103,32"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="273,95,485,121"/>
 </map>

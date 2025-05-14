@@ -92,7 +92,7 @@ $(function() {
 </li>
 <li>parse()
 : <a class="el" href="classwmoge_1_1CmdLineOptions.html#a7fdc08c3c65df98007635760697218e3">wmoge::CmdLineOptions</a>
-, <a class="el" href="classwmoge_1_1Enum.html#a28cbc51b08ec2b02f7452b6a11fe13bc">wmoge::Enum</a>
+, <a class="el" href="classwmoge_1_1Enum.html#afd9c19743ef51e8ba7662824eca1c487">wmoge::Enum</a>
 , <a class="el" href="classwmoge_1_1IniFile.html#aad600369913eb4a4cc4fcef00bca5cca">wmoge::IniFile</a>
 , <a class="el" href="classwmoge_1_1UiMarkupParser.html#a92ed0053c2765e14bcccb623ba7ca893">wmoge::UiMarkupParser</a>
 , <a class="el" href="structwmoge_1_1UiMarkupValueParser.html#aa33fb796e4f0e9b9e7701a4f3085ef4b">wmoge::UiMarkupValueParser&lt; T &gt;</a>
@@ -103,6 +103,12 @@ $(function() {
 <li>parse_file()
 : <a class="el" href="classwmoge_1_1GlslIncludeProcessor.html#ae51f063a604540971be0a5db24ec07d0">wmoge::GlslIncludeProcessor</a>
 , <a class="el" href="classwmoge_1_1IoYamlTree.html#a97e77bfe4237e2e5e97894e594a3ea87">wmoge::IoYamlTree</a>
+</li>
+<li>parse_from_stream()
+: <a class="el" href="classwmoge_1_1AssetRefParser.html#ae49933add9220a161c66efb1bdd2630a">wmoge::AssetRefParser</a>
+</li>
+<li>parse_from_tree()
+: <a class="el" href="classwmoge_1_1AssetRefParser.html#a25fbab907bcdbcbd18e95b8b3ea60580">wmoge::AssetRefParser</a>
 </li>
 <li>PassBuilder()
 : <a class="el" href="classwmoge_1_1ShaderBuilder_1_1PassBuilder.html#ac8721ed248140a27543ed75698c41905">wmoge::ShaderBuilder::PassBuilder</a>
@@ -202,7 +208,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1WindowManager.html#a059590ac3f37b5494d3d3d01963db815">wmoge::WindowManager</a>
 </li>
 <li>pool_vector()
-: <a class="el" href="classwmoge_1_1pool__vector.html#a3c0bbafd1cbc928174520b3f5d5de9ca">wmoge::pool_vector&lt; T, NodeCapacity &gt;</a>
+: <a class="el" href="classwmoge_1_1pool__vector.html#aa00abde2e97a81831d4ad8be9eccb9b5">wmoge::pool_vector&lt; T, NodeCapacity &gt;</a>
 </li>
 <li>pop_clip_rect()
 : <a class="el" href="classwmoge_1_1Canvas.html#a3c2ff0e8f302106d2b5f9af90f8ce51d">wmoge::Canvas</a>
@@ -248,7 +254,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1MeshRenderCmdMerger.html#a0de010254ae16aee2bee7ccf52263eb7">wmoge::MeshRenderCmdMerger</a>
 </li>
 <li>process()
-: <a class="el" href="classwmoge_1_1AssimpImporter.html#a1aedc906289edf7ac9fe918526c513a6">wmoge::AssimpImporter</a>
+: <a class="el" href="classwmoge_1_1AssimpProcessorBase.html#af4f6d03fb257ccb1816154b6ec9b5b84">wmoge::AssimpProcessorBase</a>
 , <a class="el" href="classwmoge_1_1CmdLineHookList.html#a80131a520c48271443a6ceca9a25239a">wmoge::CmdLineHookList</a>
 , <a class="el" href="classwmoge_1_1ImguiProcessor.html#ab3b9c54966c10c86292eeba7a1c72b48">wmoge::ImguiProcessor</a>
 </li>
@@ -259,11 +265,11 @@ $(function() {
 : <a class="el" href="classwmoge_1_1ImguiManager.html#aabc9d35e2e246a3960c758cd30fdfa6c">wmoge::ImguiManager</a>
 </li>
 <li>process_mesh()
-: <a class="el" href="classwmoge_1_1AssimpImporter.html#a56413e75f08a86b5f30c29c3cd014c23">wmoge::AssimpImporter</a>
-, <a class="el" href="classwmoge_1_1AssimpMeshImporter.html#ae85f940260fcfc69b6413684b7b3ead3">wmoge::AssimpMeshImporter</a>
+: <a class="el" href="classwmoge_1_1AssimpProcessorBase.html#ad93a66088688b46f6a281dc27fcef963">wmoge::AssimpProcessorBase</a>
+, <a class="el" href="classwmoge_1_1AssimpProcessorMesh.html#a95e2bca08bcbbcd6d809942f593bd39b">wmoge::AssimpProcessorMesh</a>
 </li>
 <li>process_node()
-: <a class="el" href="classwmoge_1_1AssimpImporter.html#adaff865ba41d26308bd84ed94a435788">wmoge::AssimpImporter</a>
+: <a class="el" href="classwmoge_1_1AssimpProcessorBase.html#a93399a068d7e0104e56c6c6649907a40">wmoge::AssimpProcessorBase</a>
 </li>
 <li>process_tree()
 : <a class="el" href="classwmoge_1_1ImguiProcessor.html#a8815229996907c65f5a0c115437a650f">wmoge::ImguiProcessor</a>
@@ -317,7 +323,7 @@ $(function() {
 <li>push_back()
 : <a class="el" href="classwmoge_1_1GpuBuffer.html#acbaf09569de1461d06ef7618e8bf540d">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
 , <a class="el" href="classwmoge_1_1pool__vector.html#abe258d837b5a1234d31fbef86aa448f4">wmoge::pool_vector&lt; T, NodeCapacity &gt;</a>
-, <a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#ad7fd633c9ee71404f68bb70eafcc7c6b">wmoge::RttiTypeBaseVectorT&lt; VecT, ElemT &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#a4894d64c22046d4a5b668684b604226d">wmoge::RttiTypeBaseVectorT&lt; VecT, ElemT &gt;</a>
 , <a class="el" href="classwmoge_1_1RttiTypeVector.html#aaef3ba164668c6d2ba25224952c93a2c">wmoge::RttiTypeVector</a>
 </li>
 <li>push_clip_rect()

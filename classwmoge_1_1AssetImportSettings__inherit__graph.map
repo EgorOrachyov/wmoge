@@ -1,0 +1,11 @@
+<map id="wmoge::AssetImportSettings" name="wmoge::AssetImportSettings">
+<area shape="rect" id="node1" title="Asset import settings base class for specific importes custom settings classes." alt="" coords="340,81,529,108"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1FontImportSettings.html" title="Settings to import a font." alt="" coords="586,5,767,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1ImageImportSettings.html" title="Settings to import an image." alt="" coords="581,56,772,83"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1MeshImportSettings.html" title="Settings to import a mesh." alt="" coords="583,107,770,133"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1TextureImportSettings.html" title="Base class for texture import settings." alt="" coords="577,157,776,184"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,81,292,108"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,81,116,108"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Texture2dImportSettings.html" title="2d texture import settings" alt="" coords="824,128,1036,155"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1TextureCubeImportSettings.html" title="Cube texture import settings." alt="" coords="840,179,1020,221"/>
+</map>

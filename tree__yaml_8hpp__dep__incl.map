@@ -1,7 +1,9 @@
 <map id="engine/code/io/tree_yaml.hpp" name="engine/code/io/tree_yaml.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="281,5,413,47"/>
-<area shape="rect" id="node2" href="$asset__library__fs_8cpp.html" title=" " alt="" coords="5,102,169,143"/>
-<area shape="rect" id="node3" href="$tree__yaml_8cpp.html" title=" " alt="" coords="193,102,325,143"/>
-<area shape="rect" id="node4" href="$default__asset__loader_8cpp.html" title=" " alt="" coords="349,95,521,151"/>
-<area shape="rect" id="node5" href="$shader__asset__loader_8cpp.html" title=" " alt="" coords="545,95,717,151"/>
+<area shape="rect" id="node1" title=" " alt="" coords="479,5,611,47"/>
+<area shape="rect" id="node2" href="$asset__artifact__cache_8cpp.html" title=" " alt="" coords="5,102,169,143"/>
+<area shape="rect" id="node3" href="$asset__db_8cpp.html" title=" " alt="" coords="193,102,357,143"/>
+<area shape="rect" id="node4" href="$tree__yaml_8cpp.html" title=" " alt="" coords="381,102,513,143"/>
+<area shape="rect" id="node5" href="$asset__native__importer_8cpp.html" title=" " alt="" coords="538,102,749,143"/>
+<area shape="rect" id="node6" href="$shader__importer_8cpp.html" title=" " alt="" coords="773,102,948,143"/>
+<area shape="rect" id="node7" href="$stbimage__texture__importer_8cpp.html" title=" " alt="" coords="973,95,1135,151"/>
 </map>

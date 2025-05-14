@@ -1,0 +1,13 @@
+<map id="wmoge::AssetImporter" name="wmoge::AssetImporter">
+<area shape="rect" id="node1" title="An interface for a class which imports asset(s) to engine from external formats." alt="" coords="340,183,492,209"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1AssetNativeImporter.html" title="Importer for assets in engine native format." alt="" coords="549,5,740,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1AssimpMeshImporter.html" title="Importer for meshes from external formats to the engine using assimp library." alt="" coords="547,56,742,83"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1FreetypeFontImporter.html" title="Importer for .ttf bitmap fonts using FreeType library." alt="" coords="547,107,742,133"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1ShaderImporter.html" title="Importer for engine shaders for rendering." alt="" coords="565,157,724,184"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1StbimageImageImporter.html" title="Importer texture2d assets using stb image library." alt="" coords="540,208,749,235"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1StbimageTexture2dImporter.html" title="Importer texture2d assets using stb image library." alt="" coords="553,259,736,301"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1StbimageTextureCubeImporter.html" title="Importer textureCube assets using stb image library." alt="" coords="545,325,744,366"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1UiMarkupImporter.html" title="Importer for ui elements tree from xml markup file." alt="" coords="557,391,732,417"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,183,292,209"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,183,116,209"/>
+</map>

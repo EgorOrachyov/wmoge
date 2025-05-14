@@ -1,0 +1,6 @@
+<map id="wmoge::StbimageTexture2dImporter" name="wmoge::StbimageTexture2dImporter">
+<area shape="rect" id="node1" title="Importer texture2d assets using stb image library." alt="" coords="5,229,188,271"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetImporter.html" title="An interface for a class which imports asset(s) to engine from external formats." alt="" coords="21,155,173,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="33,80,161,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="41,5,152,32"/>
+</map>

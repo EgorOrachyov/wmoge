@@ -1,0 +1,6 @@
+<map id="wmoge::TextureParams" name="wmoge::TextureParams">
+<area shape="rect" id="node1" title="Texture asset base params for construction." alt="" coords="343,71,501,98"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="15,5,207,47"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="15,71,207,98"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1TexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="5,122,217,149"/>
+</map>

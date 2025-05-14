@@ -1,0 +1,8 @@
+<map id="wmoge::TextureDescBuilder" name="wmoge::TextureDescBuilder">
+<area shape="rect" id="node1" title="Utility class to build texture desc from external image data." alt="" coords="397,123,580,149"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1TexCompressionStats.html" title="Stats returned after compression." alt="" coords="12,5,211,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="37,57,186,98"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="15,123,207,149"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1TexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="5,173,217,200"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1TexResizeParams.html" title="Params to resize source texture image content (on import)" alt="" coords="24,224,199,251"/>
+</map>

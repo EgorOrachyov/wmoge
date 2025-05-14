@@ -1,0 +1,7 @@
+<map id="wmoge::TextureCubeImportSettings" name="wmoge::TextureCubeImportSettings">
+<area shape="rect" id="node1" title="Cube texture import settings." alt="" coords="15,304,195,345"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TextureImportSettings.html" title="Base class for texture import settings." alt="" coords="5,229,204,256"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1AssetImportSettings.html" title="Asset import settings base class for specific importes custom settings classes." alt="" coords="10,155,199,181"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="41,80,169,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="49,5,160,32"/>
+</map>

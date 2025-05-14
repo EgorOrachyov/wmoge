@@ -1,0 +1,5 @@
+<map id="wmoge::AssetSource" name="wmoge::AssetSource">
+<area shape="rect" id="node1" title="Asset source file info stored for re&#45;import on changes." alt="" coords="62,95,207,121"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1Sha256.html" title="SHA 256 bit hash." alt="" coords="5,5,120,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1DateTime.html" title="Represents a date and time value." alt="" coords="145,5,271,32"/>
+</map>

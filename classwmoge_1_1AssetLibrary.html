@@ -69,7 +69,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classwmoge_1_1AssetLibrary-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">wmoge::AssetLibrary Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">wmoge::AssetLibrary Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -82,8 +82,18 @@ Inheritance diagram for wmoge::AssetLibrary:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1AssetLibrary__inherit__graph.png" border="0" usemap="#awmoge_1_1AssetLibrary_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1AssetLibrary_inherit__map" id="awmoge_1_1AssetLibrary_inherit__map">
-<area shape="rect" title="Interface for a library of assets meta information." alt="" coords="38,5,181,32"/>
-<area shape="rect" href="classwmoge_1_1AssetLibraryFileSystem.html" title="Assets pak based on the filesystem asset directory access." alt="" coords="5,80,213,107"/>
+<area shape="rect" title="Interface for a library of assets meta information." alt="" coords="31,80,173,107"/>
+<area shape="rect" href="classwmoge_1_1AssetLibraryAssetDb.html" title="Asset library to load assets from asset db and artifact cache in dev builds." alt="" coords="5,155,199,181"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="47,5,157,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for wmoge::AssetLibrary:</div>
+<div class="dyncontent">
+<div class="center"><img src="classwmoge_1_1AssetLibrary__coll__graph.png" border="0" usemap="#awmoge_1_1AssetLibrary_coll__map" alt="Collaboration graph"/></div>
+<map name="awmoge_1_1AssetLibrary_coll__map" id="awmoge_1_1AssetLibrary_coll__map">
+<area shape="rect" title="Interface for a library of assets meta information." alt="" coords="5,80,148,107"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="21,5,132,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -91,16 +101,35 @@ Inheritance diagram for wmoge::AssetLibrary:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a579daa07d753f4932cb38024ca239b25"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#a579daa07d753f4932cb38024ca239b25">~AssetLibrary</a> ()=default</td></tr>
 <tr class="separator:a579daa07d753f4932cb38024ca239b25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb1ae0b7bedcf547e6d5d07633ae79dc"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#acb1ae0b7bedcf547e6d5d07633ae79dc">get_name</a> () const =0</td></tr>
-<tr class="separator:acb1ae0b7bedcf547e6d5d07633ae79dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad00a15ff7c54c16ee1f9250953f17373"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#ad00a15ff7c54c16ee1f9250953f17373">has_asset</a> (const <a class="el" href="classwmoge_1_1AssetId.html">AssetId</a> &amp;name)=0</td></tr>
-<tr class="separator:ad00a15ff7c54c16ee1f9250953f17373"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ad7d52b2f6717e5e7fefd2131136be8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#a6ad7d52b2f6717e5e7fefd2131136be8">find_asset_meta</a> (const <a class="el" href="classwmoge_1_1AssetId.html">AssetId</a> &amp;name, <a class="el" href="structwmoge_1_1AssetMeta.html">AssetMeta</a> &amp;meta)=0</td></tr>
-<tr class="separator:a6ad7d52b2f6717e5e7fefd2131136be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95361f61b56f00225febdd705789c083"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#a95361f61b56f00225febdd705789c083">find_asset_data_meta</a> (const std::string &amp;name, <a class="el" href="structwmoge_1_1AssetDataMeta.html">AssetDataMeta</a> &amp;meta)=0</td></tr>
-<tr class="separator:a95361f61b56f00225febdd705789c083"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c28964c125c12c5cf983a1ea5f6b1d2"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#a0c28964c125c12c5cf983a1ea5f6b1d2">read_data</a> (const std::string &amp;name, <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; std::uint8_t &gt; data)=0</td></tr>
-<tr class="separator:a0c28964c125c12c5cf983a1ea5f6b1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a400335e8a2d2fea3e78ae721c4121a59"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#a400335e8a2d2fea3e78ae721c4121a59">resolve_asset</a> (const std::string &amp;asset_name, <a class="el" href="classwmoge_1_1UUID.html">UUID</a> &amp;asset_id)</td></tr>
+<tr class="separator:a400335e8a2d2fea3e78ae721c4121a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac29e5dbdab20c45350fb9f0fc8020e21"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#ac29e5dbdab20c45350fb9f0fc8020e21">get_asset_info</a> (<a class="el" href="classwmoge_1_1UUID.html">UUID</a> asset_id, <a class="el" href="structwmoge_1_1AssetLibraryRecord.html">AssetLibraryRecord</a> &amp;asset_info)</td></tr>
+<tr class="separator:ac29e5dbdab20c45350fb9f0fc8020e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f1e125da33df014115c383498dda8f6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#a9f1e125da33df014115c383498dda8f6">get_artifact_info</a> (<a class="el" href="classwmoge_1_1UUID.html">UUID</a> artifact_id, <a class="el" href="structwmoge_1_1AssetArtifact.html">AssetArtifact</a> &amp;artifact_info)</td></tr>
+<tr class="separator:a9f1e125da33df014115c383498dda8f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a065ce6add1900ba674c964bbf61f75bf"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#a065ce6add1900ba674c964bbf61f75bf">has_asset</a> (<a class="el" href="classwmoge_1_1UUID.html">UUID</a> asset_id) const</td></tr>
+<tr class="separator:a065ce6add1900ba674c964bbf61f75bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d98cb8bd9ccc2e6a3459ee7bc6609f7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#a2d98cb8bd9ccc2e6a3459ee7bc6609f7">has_artifact</a> (<a class="el" href="classwmoge_1_1UUID.html">UUID</a> artifact_id) const</td></tr>
+<tr class="separator:a2d98cb8bd9ccc2e6a3459ee7bc6609f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a282ff90de73565e51e431be0b2b857c7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetLibrary.html#a282ff90de73565e51e431be0b2b857c7">read_artifact</a> (<a class="el" href="classwmoge_1_1UUID.html">UUID</a> artifact_id, <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; std::uint8_t &gt; buffer, <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1RttiObject.html">RttiObject</a> &gt; artifact)</td></tr>
+<tr class="separator:a282ff90de73565e51e431be0b2b857c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classwmoge_1_1RefCnt"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1RefCnt')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1RefCnt.html">wmoge::RefCnt</a></td></tr>
+<tr class="memitem:a096d17e21797e393638670e4f082c6a9 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#a096d17e21797e393638670e4f082c6a9">~RefCnt</a> ()</td></tr>
+<tr class="separator:a096d17e21797e393638670e4f082c6a9 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ce80fe96ff694a060f318521d1d529a inherit pub_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#a8ce80fe96ff694a060f318521d1d529a">ref</a> ()</td></tr>
+<tr class="separator:a8ce80fe96ff694a060f318521d1d529a inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cba5a36fdcba326be2592de7cffb146 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#a8cba5a36fdcba326be2592de7cffb146">unref</a> ()</td></tr>
+<tr class="separator:a8cba5a36fdcba326be2592de7cffb146 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb7916425067c1d775930cf5e3f98ed7 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#afb7916425067c1d775930cf5e3f98ed7">refs_count</a> ()</td></tr>
+<tr class="separator:afb7916425067c1d775930cf5e3f98ed7 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classwmoge_1_1RefCnt"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classwmoge_1_1RefCnt')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classwmoge_1_1RefCnt.html">wmoge::RefCnt</a></td></tr>
+<tr class="memitem:aae1bbca622a836c5b3eafb5ccb9fea58 inherit pro_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#aae1bbca622a836c5b3eafb5ccb9fea58">destroy</a> ()</td></tr>
+<tr class="separator:aae1bbca622a836c5b3eafb5ccb9fea58 inherit pro_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1acc2af3749653bfcc0d5e18374fbcef inherit pro_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#a1acc2af3749653bfcc0d5e18374fbcef">reach_zero</a> ()</td></tr>
+<tr class="separator:a1acc2af3749653bfcc0d5e18374fbcef inherit pro_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for a library of assets meta information. </p>
@@ -131,8 +160,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a95361f61b56f00225febdd705789c083"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95361f61b56f00225febdd705789c083">&#9670;&nbsp;</a></span>find_asset_data_meta()</h2>
+<a id="a9f1e125da33df014115c383498dda8f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f1e125da33df014115c383498dda8f6">&#9670;&nbsp;</a></span>get_artifact_info()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,16 +170,16 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssetLibrary::find_asset_data_meta </td>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssetLibrary::get_artifact_info </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1UUID.html">UUID</a>&#160;</td>
+          <td class="paramname"><em>artifact_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structwmoge_1_1AssetDataMeta.html">AssetDataMeta</a> &amp;&#160;</td>
-          <td class="paramname"><em>meta</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1AssetArtifact.html">AssetArtifact</a> &amp;&#160;</td>
+          <td class="paramname"><em>artifact_info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -160,17 +189,17 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1AssetLibraryFileSystem.html#a2d8b758606ce8a33f52eff8663de6bab">wmoge::AssetLibraryFileSystem</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1AssetLibraryAssetDb.html#ad3009ec202d76bf3c86e02d9e6574529">wmoge::AssetLibraryAssetDb</a>.</p>
 
 </div>
 </div>
-<a id="a6ad7d52b2f6717e5e7fefd2131136be8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ad7d52b2f6717e5e7fefd2131136be8">&#9670;&nbsp;</a></span>find_asset_meta()</h2>
+<a id="ac29e5dbdab20c45350fb9f0fc8020e21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac29e5dbdab20c45350fb9f0fc8020e21">&#9670;&nbsp;</a></span>get_asset_info()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,16 +208,16 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssetLibrary::find_asset_meta </td>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssetLibrary::get_asset_info </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1AssetId.html">AssetId</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1UUID.html">UUID</a>&#160;</td>
+          <td class="paramname"><em>asset_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structwmoge_1_1AssetMeta.html">AssetMeta</a> &amp;&#160;</td>
-          <td class="paramname"><em>meta</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1AssetLibraryRecord.html">AssetLibraryRecord</a> &amp;&#160;</td>
+          <td class="paramname"><em>asset_info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -198,17 +227,17 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1AssetLibraryFileSystem.html#ab384730394c872a3c6480d9a10f1638d">wmoge::AssetLibraryFileSystem</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1AssetLibraryAssetDb.html#a0eb1fea3ab970f18bc21ca4b3d461996">wmoge::AssetLibraryAssetDb</a>.</p>
 
 </div>
 </div>
-<a id="acb1ae0b7bedcf547e6d5d07633ae79dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb1ae0b7bedcf547e6d5d07633ae79dc">&#9670;&nbsp;</a></span>get_name()</h2>
+<a id="a2d98cb8bd9ccc2e6a3459ee7bc6609f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d98cb8bd9ccc2e6a3459ee7bc6609f7">&#9670;&nbsp;</a></span>has_artifact()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,25 +246,26 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::string wmoge::AssetLibrary::get_name </td>
+          <td class="memname">virtual bool wmoge::AssetLibrary::has_artifact </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1UUID.html">UUID</a>&#160;</td>
+          <td class="paramname"><em>artifact_id</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1AssetLibraryFileSystem.html#a4b04ec6b5cfbca0365f88e74681ee364">wmoge::AssetLibraryFileSystem</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1AssetLibraryAssetDb.html#af5b084c1364ec1987b77682c4f831014">wmoge::AssetLibraryAssetDb</a>.</p>
 
 </div>
 </div>
-<a id="ad00a15ff7c54c16ee1f9250953f17373"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad00a15ff7c54c16ee1f9250953f17373">&#9670;&nbsp;</a></span>has_asset()</h2>
+<a id="a065ce6add1900ba674c964bbf61f75bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a065ce6add1900ba674c964bbf61f75bf">&#9670;&nbsp;</a></span>has_asset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,24 +276,24 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual bool wmoge::AssetLibrary::has_asset </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1AssetId.html">AssetId</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1UUID.html">UUID</a>&#160;</td>
+          <td class="paramname"><em>asset_id</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1AssetLibraryFileSystem.html#a3d58bce4895099fba243de682d48cc36">wmoge::AssetLibraryFileSystem</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1AssetLibraryAssetDb.html#a3552b59f994f5ffb7013c1937814c4a5">wmoge::AssetLibraryAssetDb</a>.</p>
 
 </div>
 </div>
-<a id="a0c28964c125c12c5cf983a1ea5f6b1d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c28964c125c12c5cf983a1ea5f6b1d2">&#9670;&nbsp;</a></span>read_data()</h2>
+<a id="a282ff90de73565e51e431be0b2b857c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a282ff90de73565e51e431be0b2b857c7">&#9670;&nbsp;</a></span>read_artifact()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,16 +302,22 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1Async.html">Async</a> wmoge::AssetLibrary::read_data </td>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Async.html">Async</a> wmoge::AssetLibrary::read_artifact </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1UUID.html">UUID</a>&#160;</td>
+          <td class="paramname"><em>artifact_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; std::uint8_t &gt;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1RttiObject.html">RttiObject</a> &gt;&#160;</td>
+          <td class="paramname"><em>artifact</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -291,12 +327,50 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1AssetLibraryFileSystem.html#aeaa4e173d224cb9f7bfd8ac187c8a288">wmoge::AssetLibraryFileSystem</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1AssetLibraryAssetDb.html#a986a6937e43525ccc78fc7adf5f7616e">wmoge::AssetLibraryAssetDb</a>.</p>
+
+</div>
+</div>
+<a id="a400335e8a2d2fea3e78ae721c4121a59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400335e8a2d2fea3e78ae721c4121a59">&#9670;&nbsp;</a></span>resolve_asset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssetLibrary::resolve_asset </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>asset_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1UUID.html">UUID</a> &amp;&#160;</td>
+          <td class="paramname"><em>asset_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1AssetLibraryAssetDb.html#a163d5d8dd873eacb48aa27a2675d249b">wmoge::AssetLibraryAssetDb</a>.</p>
 
 </div>
 </div>

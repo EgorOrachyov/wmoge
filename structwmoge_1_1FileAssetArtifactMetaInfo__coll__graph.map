@@ -1,0 +1,5 @@
+<map id="wmoge::FileAssetArtifactMetaInfo" name="wmoge::FileAssetArtifactMetaInfo">
+<area shape="rect" id="node1" title="Meta data stored along with artifact." alt="" coords="101,95,268,136"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RttiRef.html" title=" " alt="" coords="5,5,191,32"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1Sha256.html" title="SHA 256 bit hash." alt="" coords="215,5,330,32"/>
+</map>

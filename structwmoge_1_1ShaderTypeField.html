@@ -83,10 +83,9 @@ Collaboration diagram for wmoge::ShaderTypeField:</div>
 <div class="dyncontent">
 <div class="center"><img src="structwmoge_1_1ShaderTypeField__coll__graph.png" border="0" usemap="#awmoge_1_1ShaderTypeField_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1ShaderTypeField_coll__map" id="awmoge_1_1ShaderTypeField_coll__map">
-<area shape="rect" title="Recursive complex shader struct filed." alt="" coords="141,109,307,136"/>
-<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
-<area shape="rect" href="classwmoge_1_1Var.html" title="Universal resalable variant value with support for common engine types and containers." alt="" coords="179,13,269,39"/>
-<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="294,13,391,39"/>
+<area shape="rect" title="Recursive complex shader struct filed." alt="" coords="5,184,172,211"/>
+<area shape="rect" href="structwmoge_1_1ShaderTypeIdx.html" title="Aux struct to save/load type ref and identify type at runtime." alt="" coords="104,95,260,121"/>
+<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="16,5,113,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -99,16 +98,16 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ae964f6b34ad2622c4985bb081109fe4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTypeField.html#ae964f6b34ad2622c4985bb081109fe4d">name</a></td></tr>
 <tr class="separator:ae964f6b34ad2622c4985bb081109fe4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a757e8302378407bfe5db25ae6cbefd2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="structwmoge_1_1ShaderType.html">ShaderType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTypeField.html#a757e8302378407bfe5db25ae6cbefd2b">type</a></td></tr>
-<tr class="separator:a757e8302378407bfe5db25ae6cbefd2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24228aff37ae6af9d30f90b25afdd7bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1ShaderTypeIdx.html">ShaderTypeIdx</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTypeField.html#a24228aff37ae6af9d30f90b25afdd7bf">type</a></td></tr>
+<tr class="separator:a24228aff37ae6af9d30f90b25afdd7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fc63932e006ac8e7fbc9b7f1c43cd15"><td class="memItemLeft" align="right" valign="top">std::int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTypeField.html#a2fc63932e006ac8e7fbc9b7f1c43cd15">offset</a> = -1</td></tr>
 <tr class="separator:a2fc63932e006ac8e7fbc9b7f1c43cd15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac538767f2a6fcb68c62f351d9bcde8a0"><td class="memItemLeft" align="right" valign="top">std::int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTypeField.html#ac538767f2a6fcb68c62f351d9bcde8a0">elem_count</a> = 0</td></tr>
 <tr class="separator:ac538767f2a6fcb68c62f351d9bcde8a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae68158ca96ffb283037812fb572ac1f5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTypeField.html#ae68158ca96ffb283037812fb572ac1f5">default_value</a></td></tr>
+<tr class="separator:ae68158ca96ffb283037812fb572ac1f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a897688b08b24f654786511825c1db871"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTypeField.html#a897688b08b24f654786511825c1db871">is_array</a> = false</td></tr>
 <tr class="separator:a897688b08b24f654786511825c1db871"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a057e595129e7a913e10f52061c45dc99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Var.html">Var</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTypeField.html#a057e595129e7a913e10f52061c45dc99">default_value</a></td></tr>
-<tr class="separator:a057e595129e7a913e10f52061c45dc99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Recursive complex shader struct filed. </p>
@@ -132,14 +131,14 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a057e595129e7a913e10f52061c45dc99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a057e595129e7a913e10f52061c45dc99">&#9670;&nbsp;</a></span>default_value</h2>
+<a id="ae68158ca96ffb283037812fb572ac1f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae68158ca96ffb283037812fb572ac1f5">&#9670;&nbsp;</a></span>default_value</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Var.html">Var</a> wmoge::ShaderTypeField::default_value</td>
+          <td class="memname">std::string wmoge::ShaderTypeField::default_value</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -202,14 +201,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a757e8302378407bfe5db25ae6cbefd2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a757e8302378407bfe5db25ae6cbefd2b">&#9670;&nbsp;</a></span>type</h2>
+<a id="a24228aff37ae6af9d30f90b25afdd7bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24228aff37ae6af9d30f90b25afdd7bf">&#9670;&nbsp;</a></span>type</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="structwmoge_1_1ShaderType.html">ShaderType</a>&gt; wmoge::ShaderTypeField::type</td>
+          <td class="memname"><a class="el" href="structwmoge_1_1ShaderTypeIdx.html">ShaderTypeIdx</a> wmoge::ShaderTypeField::type</td>
         </tr>
       </table>
 </div><div class="memdoc">

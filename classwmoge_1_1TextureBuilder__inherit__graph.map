@@ -1,0 +1,4 @@
+<map id="wmoge::TextureBuilder" name="wmoge::TextureBuilder">
+<area shape="rect" id="node1" title="Utility class to build textures from external image data." alt="" coords="20,80,173,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TextureDescBuilder.html" title="Utility class to build texture desc from external image data." alt="" coords="5,5,188,32"/>
+</map>

@@ -1,7 +1,0 @@
-<map id="wmoge::WavAssetLoader" name="wmoge::WavAssetLoader">
-<area shape="rect" id="node1" title="Loader for wav audio sources using audio file library." alt="" coords="9,319,180,345"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="5,229,184,271"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="23,155,167,181"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="31,80,159,107"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="39,5,150,32"/>
-</map>

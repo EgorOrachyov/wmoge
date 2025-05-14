@@ -1,7 +1,0 @@
-<map id="wmoge::IconAtlasImportData" name="wmoge::IconAtlasImportData">
-<area shape="rect" id="node1" title="Options to import an icons atlas from external sources, such as png, jpeg, bmp, etc." alt="" coords="101,247,291,273"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="5,157,173,184"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="25,81,153,108"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="34,5,145,32"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1TexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="198,157,410,184"/>
-</map>

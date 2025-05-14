@@ -1,7 +1,0 @@
-<map id="wmoge::IconAtlasAssetLoader" name="wmoge::IconAtlasAssetLoader">
-<area shape="rect" id="node1" title="Loader for ui icons atlas." alt="" coords="5,319,204,345"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="15,229,194,271"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="33,155,177,181"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="41,80,169,107"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="49,5,160,32"/>
-</map>

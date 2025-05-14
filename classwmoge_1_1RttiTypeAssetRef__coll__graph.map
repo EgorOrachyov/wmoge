@@ -1,0 +1,7 @@
+<map id="wmoge::RttiTypeAssetRef" name="wmoge::RttiTypeAssetRef">
+<area shape="rect" id="node1" title="Base rtti to inspect asset ref counted value." alt="" coords="103,184,275,211"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RttiType.html" title="Base class for any rtti system type for a reflection." alt="" coords="129,95,248,121"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RttiMetaData.html" title="Meta data associated with a type or its internal member." alt="" coords="262,5,409,32"/>
+</map>

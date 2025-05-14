@@ -116,13 +116,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:add080d0d065a11ac54eefa428f12567e"><td class="memTemplParams" colspan="2">template&lt;typename G , typename std::enable_if_t&lt; std::is_convertible_v&lt; T *, G * &gt;&gt;  = true&gt; </td></tr>
 <tr class="memitem:add080d0d065a11ac54eefa428f12567e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WeakRef.html#add080d0d065a11ac54eefa428f12567e">operator WeakRef&lt; G &gt;</a> () const</td></tr>
 <tr class="separator:add080d0d065a11ac54eefa428f12567e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b06c28cd88e316008ea1f548fd380b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WeakRef.html#a3b06c28cd88e316008ea1f548fd380b7">reset</a> (T *object=nullptr)</td></tr>
+<tr class="separator:a3b06c28cd88e316008ea1f548fd380b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f2a15b7101c2d0c5d6631fa9e9238fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WeakRef.html#a3f2a15b7101c2d0c5d6631fa9e9238fb">is_expired</a> () const</td></tr>
+<tr class="separator:a3f2a15b7101c2d0c5d6631fa9e9238fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a350bc8fe914b5e56127acf58815339f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WeakRef.html#a350bc8fe914b5e56127acf58815339f5">acquire</a> () const</td></tr>
 <tr class="separator:a350bc8fe914b5e56127acf58815339f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24e1ac9409c705cad71494c77864c8fe"><td class="memTemplParams" colspan="2">template&lt;typename G &gt; </td></tr>
 <tr class="memitem:a24e1ac9409c705cad71494c77864c8fe"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; G &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WeakRef.html#a24e1ac9409c705cad71494c77864c8fe">acquire_cast</a> () const</td></tr>
 <tr class="separator:a24e1ac9409c705cad71494c77864c8fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b06c28cd88e316008ea1f548fd380b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WeakRef.html#a3b06c28cd88e316008ea1f548fd380b7">reset</a> (T *object=nullptr)</td></tr>
-<tr class="separator:a3b06c28cd88e316008ea1f548fd380b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae372be17b25b9b2034a7a90b9a84228e"><td class="memTemplParams" colspan="2">template&lt;class G , typename std::enable_if_t&lt; std::is_convertible_v&lt; T *, G * &gt;&gt;  = true&gt; </td></tr>
 <tr class="memitem:ae372be17b25b9b2034a7a90b9a84228e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1WeakRef.html">WeakRef</a>&lt; G &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WeakRef.html#ae372be17b25b9b2034a7a90b9a84228e">as</a> () const</td></tr>
 <tr class="separator:ae372be17b25b9b2034a7a90b9a84228e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -489,6 +491,33 @@ template&lt;class G , typename std::enable_if_t&lt; std::is_convertible_v&lt; T 
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classwmoge_1_1WeakRef.html">WeakRef</a>&lt;G&gt; <a class="el" href="classwmoge_1_1WeakRef.html">wmoge::WeakRef</a>&lt; T &gt;::as </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3f2a15b7101c2d0c5d6631fa9e9238fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f2a15b7101c2d0c5d6631fa9e9238fb">&#9670;&nbsp;</a></span>is_expired()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classwmoge_1_1WeakRef.html">wmoge::WeakRef</a>&lt; T &gt;::is_expired </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

@@ -1,0 +1,6 @@
+<map id="wmoge::AssetImportAssetInfo" name="wmoge::AssetImportAssetInfo">
+<area shape="rect" id="node1" title="Asset info created by importer." alt="" coords="165,109,362,136"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="5,5,188,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="212,5,315,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RttiRef.html" title=" " alt="" coords="339,5,524,32"/>
+</map>

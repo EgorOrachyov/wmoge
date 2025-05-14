@@ -1,7 +1,9 @@
 <map id="engine/code/io/stream_file.hpp" name="engine/code/io/stream_file.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="283,5,433,47"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,102,164,129"/>
-<area shape="rect" id="node3" href="$shader__cache_8cpp.html" title=" " alt="" coords="189,95,346,136"/>
-<area shape="rect" id="node4" href="$shader__library_8cpp.html" title=" " alt="" coords="370,95,527,136"/>
-<area shape="rect" id="node5" href="$stream__file_8cpp.html" title=" " alt="" coords="552,95,703,136"/>
+<area shape="rect" id="node1" title=" " alt="" coords="476,5,627,47"/>
+<area shape="rect" id="node2" href="$asset__artifact__cache_8cpp.html" title=" " alt="" coords="5,95,169,136"/>
+<area shape="rect" id="node3" href="$asset__db_8cpp.html" title=" " alt="" coords="193,95,357,136"/>
+<area shape="rect" id="node4" href="$engine_8hpp.html" title=" " alt="" coords="381,102,540,129"/>
+<area shape="rect" id="node5" href="$shader__cache_8cpp.html" title=" " alt="" coords="565,95,722,136"/>
+<area shape="rect" id="node6" href="$shader__library_8cpp.html" title=" " alt="" coords="746,95,903,136"/>
+<area shape="rect" id="node7" href="$stream__file_8cpp.html" title=" " alt="" coords="928,95,1079,136"/>
 </map>

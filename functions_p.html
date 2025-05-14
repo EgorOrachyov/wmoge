@@ -114,6 +114,7 @@ $(function() {
 <li>params()
 : <a class="el" href="classwmoge_1_1RdgPass.html#acd4cf2a0faf9c8af08aa6219daef3688">wmoge::RdgPass</a>
 , <a class="el" href="structwmoge_1_1ShaderFileParamBlock.html#aa74d3dc0d95f33016de7e33736f1021f">wmoge::ShaderFileParamBlock</a>
+, <a class="el" href="structwmoge_1_1TextureDesc.html#a49dcb2ce2281fd33a52031c958838615">wmoge::TextureDesc</a>
 , <a class="el" href="structwmoge_1_1UiSubStyle.html#aa6cdbdd0e4e640177dea715e4ff699ce">wmoge::UiSubStyle</a>
 </li>
 <li>params_id
@@ -123,14 +124,15 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ShaderReflection.html#ae7fd11a67441d10f7a31792379f1235f">wmoge::ShaderReflection</a>
 </li>
 <li>parent
-: <a class="el" href="structwmoge_1_1GmTransform.html#a7b36f614fced0e78005f7bb12df19101">wmoge::GmTransform</a>
+: <a class="el" href="structwmoge_1_1AssetData.html#ad5e9f6dcee3cc5a06d330e982ebb1aa5">wmoge::AssetData</a>
+, <a class="el" href="structwmoge_1_1GmTransform.html#a7b36f614fced0e78005f7bb12df19101">wmoge::GmTransform</a>
 </li>
 <li>ParentT
 : <a class="el" href="classwmoge_1_1RttiTypeClassMethodT.html#a4f8006388dad30f0ac6558bcbdf9cc45">wmoge::RttiTypeClassMethodT&lt; ClassT, SignatureT, TRet, TArgs &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeFunctionBaseT.html#a94e74a80408cb5ebf0421670cb64ba87">wmoge::RttiTypeFunctionBaseT&lt; FuncT, TRet, TArgs &gt;</a>
 , <a class="el" href="classwmoge_1_1RttiTypeFunctionLambaT.html#a6392fa185a9c26e76d2229010ff88300">wmoge::RttiTypeFunctionLambaT&lt; FuncT, TRet, TArgs &gt;</a>
 , <a class="el" href="classwmoge_1_1RttiTypeOptionalT.html#a0c86479af5379a48e0ea4cea5b4fcf88">wmoge::RttiTypeOptionalT&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1RttiTypeRefT.html#ab09607b6c9918bdede6f1b4a6e165008">wmoge::RttiTypeRefT&lt; HolderT, PtrT &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiTypeRefT.html#abd14435b208c3ce50406990a6aad1bda">wmoge::RttiTypeRefT&lt; HolderT, PtrT, BaseRefType &gt;</a>
 </li>
 <li>parse()
 : <a class="el" href="classwmoge_1_1CmdLineOptions.html#a7fdc08c3c65df98007635760697218e3">wmoge::CmdLineOptions</a>
@@ -145,6 +147,12 @@ $(function() {
 <li>parse_file()
 : <a class="el" href="classwmoge_1_1GlslIncludeProcessor.html#ae51f063a604540971be0a5db24ec07d0">wmoge::GlslIncludeProcessor</a>
 , <a class="el" href="classwmoge_1_1IoYamlTree.html#a97e77bfe4237e2e5e97894e594a3ea87">wmoge::IoYamlTree</a>
+</li>
+<li>parse_from_stream()
+: <a class="el" href="classwmoge_1_1AssetRefParser.html#ae49933add9220a161c66efb1bdd2630a">wmoge::AssetRefParser</a>
+</li>
+<li>parse_from_tree()
+: <a class="el" href="classwmoge_1_1AssetRefParser.html#a25fbab907bcdbcbd18e95b8b3ea60580">wmoge::AssetRefParser</a>
 </li>
 <li>pass
 : <a class="el" href="structwmoge_1_1FilePsoStateGraphics.html#a89d46797bd957ca5c5260925b64ebf7e">wmoge::FilePsoStateGraphics</a>
@@ -168,7 +176,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1MeshPass.html#acaa9282c6c6c8fec2b7884218c4229de">wmoge::MeshPass</a>
 </li>
 <li>PassBuilder
-: <a class="el" href="classwmoge_1_1ShaderBuilder.html#a92c74c813ebc50a5f1098a40aff93786">wmoge::ShaderBuilder</a>
+: <a class="el" href="classwmoge_1_1ShaderBuilder.html#a02a737c0fd9a267d4c5c28021cbb547d">wmoge::ShaderBuilder</a>
 , <a class="el" href="classwmoge_1_1ShaderBuilder_1_1PassBuilder.html#ac8721ed248140a27543ed75698c41905">wmoge::ShaderBuilder::PassBuilder</a>
 , <a class="el" href="classwmoge_1_1ShaderBuilder_1_1TechniqueBuilder.html#a92c74c813ebc50a5f1098a40aff93786">wmoge::ShaderBuilder::TechniqueBuilder</a>
 </li>
@@ -180,7 +188,10 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#a4dc4f3f1d30c5651cf242e9e9b1ddd52">wmoge::ShaderTechniqueInfo</a>
 </li>
 <li>path
-: <a class="el" href="structwmoge_1_1DllLibrary.html#a3afa1e6a8327c31867ee75908589ce39">wmoge::DllLibrary</a>
+: <a class="el" href="structwmoge_1_1AssetData.html#a7e380596160ab282ed63cea4e2240ed3">wmoge::AssetData</a>
+, <a class="el" href="structwmoge_1_1AssetImportAssetInfo.html#ac73e03f585ac6115a5e9798ace00d053">wmoge::AssetImportAssetInfo</a>
+, <a class="el" href="structwmoge_1_1AssetSource.html#af63b351a4141858ab0039b352212f6e0">wmoge::AssetSource</a>
+, <a class="el" href="structwmoge_1_1DllLibrary.html#a3afa1e6a8327c31867ee75908589ce39">wmoge::DllLibrary</a>
 , <a class="el" href="structwmoge_1_1FileSystemEvent.html#a76c482df650b0c625b57fe49b2f4da22">wmoge::FileSystemEvent</a>
 </li>
 <li>path_arc_to()
@@ -338,7 +349,7 @@ $(function() {
 , <a class="el" href="structwmoge_1_1RasterState.html#a549cb772f270dcf5ab5afe7e2a36616e">wmoge::RasterState</a>
 </li>
 <li>pool_vector()
-: <a class="el" href="classwmoge_1_1pool__vector.html#a6991989f9651e24ee166feed027b7811">wmoge::pool_vector&lt; T, NodeCapacity &gt;</a>
+: <a class="el" href="classwmoge_1_1pool__vector.html#a3c0bbafd1cbc928174520b3f5d5de9ca">wmoge::pool_vector&lt; T, NodeCapacity &gt;</a>
 </li>
 <li>pop_clip_rect()
 : <a class="el" href="classwmoge_1_1Canvas.html#a3c2ff0e8f302106d2b5f9af90f8ce51d">wmoge::Canvas</a>
@@ -398,7 +409,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1EngineSignals.html#ab5a2fec0b13416012c96556621f066a0">wmoge::EngineSignals</a>
 </li>
 <li>pow()
-: <a class="el" href="classwmoge_1_1Math.html#a23d0bc25ea0cabd5b0edd0960236a680">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#afe1fa5bf73e13395b684ca38fd4457b2">wmoge::Math</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a753a46e838684a274aaf79d9bd244bf7">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>pre_update
@@ -449,10 +460,10 @@ $(function() {
 : <a class="el" href="classwmoge_1_1MeshRenderCmdMerger.html#a0de010254ae16aee2bee7ccf52263eb7">wmoge::MeshRenderCmdMerger</a>
 </li>
 <li>process()
-: <a class="el" href="classwmoge_1_1AssimpImporter.html#a1aedc906289edf7ac9fe918526c513a6">wmoge::AssimpImporter</a>
-, <a class="el" href="classwmoge_1_1AssimpMeshImportData.html#aedcf4b190231965a68dc7a5728544742">wmoge::AssimpMeshImportData</a>
+: <a class="el" href="classwmoge_1_1AssimpProcessorBase.html#af4f6d03fb257ccb1816154b6ec9b5b84">wmoge::AssimpProcessorBase</a>
 , <a class="el" href="classwmoge_1_1CmdLineHookList.html#a80131a520c48271443a6ceca9a25239a">wmoge::CmdLineHookList</a>
 , <a class="el" href="classwmoge_1_1ImguiProcessor.html#ab3b9c54966c10c86292eeba7a1c72b48">wmoge::ImguiProcessor</a>
+, <a class="el" href="classwmoge_1_1MeshImportSettings.html#a650ebdd80a0fd65310725e873573d003">wmoge::MeshImportSettings</a>
 </li>
 <li>process_dock_windows()
 : <a class="el" href="classwmoge_1_1ImguiManager.html#a57a66ea046e7fb9143d46dcc4b1ccf80">wmoge::ImguiManager</a>
@@ -461,11 +472,11 @@ $(function() {
 : <a class="el" href="classwmoge_1_1ImguiManager.html#aabc9d35e2e246a3960c758cd30fdfa6c">wmoge::ImguiManager</a>
 </li>
 <li>process_mesh()
-: <a class="el" href="classwmoge_1_1AssimpImporter.html#a56413e75f08a86b5f30c29c3cd014c23">wmoge::AssimpImporter</a>
-, <a class="el" href="classwmoge_1_1AssimpMeshImporter.html#ae85f940260fcfc69b6413684b7b3ead3">wmoge::AssimpMeshImporter</a>
+: <a class="el" href="classwmoge_1_1AssimpProcessorBase.html#ad93a66088688b46f6a281dc27fcef963">wmoge::AssimpProcessorBase</a>
+, <a class="el" href="classwmoge_1_1AssimpProcessorMesh.html#a95e2bca08bcbbcd6d809942f593bd39b">wmoge::AssimpProcessorMesh</a>
 </li>
 <li>process_node()
-: <a class="el" href="classwmoge_1_1AssimpImporter.html#adaff865ba41d26308bd84ed94a435788">wmoge::AssimpImporter</a>
+: <a class="el" href="classwmoge_1_1AssimpProcessorBase.html#a93399a068d7e0104e56c6c6649907a40">wmoge::AssimpProcessorBase</a>
 </li>
 <li>process_tree()
 : <a class="el" href="classwmoge_1_1ImguiProcessor.html#a8815229996907c65f5a0c115437a650f">wmoge::ImguiProcessor</a>
@@ -587,7 +598,7 @@ $(function() {
 <li>push_back()
 : <a class="el" href="classwmoge_1_1GpuBuffer.html#acbaf09569de1461d06ef7618e8bf540d">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
 , <a class="el" href="classwmoge_1_1pool__vector.html#abe258d837b5a1234d31fbef86aa448f4">wmoge::pool_vector&lt; T, NodeCapacity &gt;</a>
-, <a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#ad7fd633c9ee71404f68bb70eafcc7c6b">wmoge::RttiTypeBaseVectorT&lt; VecT, ElemT &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#a4894d64c22046d4a5b668684b604226d">wmoge::RttiTypeBaseVectorT&lt; VecT, ElemT &gt;</a>
 , <a class="el" href="classwmoge_1_1RttiTypeVector.html#aaef3ba164668c6d2ba25224952c93a2c">wmoge::RttiTypeVector</a>
 </li>
 <li>push_clip_rect()

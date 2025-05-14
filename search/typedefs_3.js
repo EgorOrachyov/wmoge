@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['ecsqueuryfunction_9847',['EcsQueuryFunction',['../namespacewmoge.html#abb17f7bb423f17bea436d3415ca018a1',1,'wmoge']]],
-  ['entry_5ftype_9848',['entry_type',['../classwmoge_1_1TypedMap.html#aaa7c670eba0c3287814a806fb51005c8',1,'wmoge::TypedMap']]]
+  ['depsresolver_10100',['DepsResolver',['../classwmoge_1_1AssetImportManager.html#a990841660350fc669a0facc897a6aedd',1,'wmoge::AssetImportManager::DepsResolver()'],['../classwmoge_1_1AssetLoadManager.html#acd65b4185c8fb4bc9f65a44e58664040',1,'wmoge::AssetLoadManager::DepsResolver()']]]
 ];

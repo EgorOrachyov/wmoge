@@ -1,5 +1,4 @@
 <map id="wmoge::ShaderConstant" name="wmoge::ShaderConstant">
-<area shape="rect" id="node1" title="Declared pass constants inlined as defines into source code." alt="" coords="28,95,191,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Var.html" title="Universal resalable variant value with support for common engine types and containers." alt="" coords="5,5,96,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="121,5,218,32"/>
+<area shape="rect" id="node1" title="Declared pass constants inlined as defines into source code." alt="" coords="5,95,168,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="38,5,135,32"/>
 </map>
