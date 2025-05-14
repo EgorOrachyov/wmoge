@@ -1,9 +1,14 @@
-# Wmoge asset meta file
-version: 1
-uuid: 0
-loader: ShaderAssetLoader
-rtti: Shader
-deps: [ ]
-import_data:
-  rtti: AssetImportData
-  source_files: [{file: "engine/shaders/fill.shader"}]
+uuid: 2545272171602926369
+flags:
+  - Resolvable
+cls: Shader
+importer: ShaderImporter
+import_env:
+  file_to_id:
+    - key: engine/shaders/fill.shader
+      value: 2545272171602926369
+  deps: []
+  errors: []
+import_settings:
+  rtti: AssetImportSettings
+  user_data: ''

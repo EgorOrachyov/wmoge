@@ -82,7 +82,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status MountVolumePhysical::get_file_timespamp(const std::string& path, DateTime& timespamp) {
+    Status MountVolumePhysical::get_file_timestamp(const std::string& path, DateTime& timespamp) {
         if (!check_prefix(path)) {
             return StatusCode::FailedOpenFile;
         }
@@ -95,9 +95,11 @@ namespace wmoge {
         using DateTimeClock = DateTime::Clock;
         using FileClock     = std::filesystem::file_time_type::clock;
 
-        auto last_write_time = std::filesystem::last_write_time(remapped);
-        auto time_point      = std::chrono::time_point_cast<DateTimeClock::duration>(last_write_time - FileClock::now() + DateTimeClock::now());
-        timespamp            = DateTime(time_point);
+        auto last_write_time   = std::filesystem::last_write_time(remapped);
+        auto fs_clock_duration = last_write_time.time_since_epoch();
+        auto dt_clock_duration = std::chrono::duration_cast<DateTimeClock::duration>(fs_clock_duration);
+
+        timespamp = DateTime(DateTime::TimePoint(dt_clock_duration));
         return WG_OK;
     }
 
@@ -135,6 +137,47 @@ namespace wmoge {
 
         if (!fstream.is_open()) {
             return StatusCode::FailedOpenFile;
+        }
+
+        return WG_OK;
+    }
+
+    Status MountVolumePhysical::remove_file(const std::string& path) {
+        if (!check_prefix(path)) {
+            return StatusCode::FailedFindFile;
+        }
+
+        const std::filesystem::path remapped = remap_path(path);
+        if (!std::filesystem::exists(remapped)) {
+            return WG_OK;
+        }
+        if (!std::filesystem::remove(path)) {
+            return StatusCode::FailedRemoveFile;
+        }
+
+        return WG_OK;
+    }
+
+    Status MountVolumePhysical::list_directory(const std::string& path, std::vector<FileEntry>& entries) {
+        if (!check_prefix(path)) {
+            return StatusCode::FailedFindFile;
+        }
+
+        const std::filesystem::path remapped = remap_path(path);
+        if (!std::filesystem::exists(remapped)) {
+            return WG_OK;
+        }
+
+        for (const auto& iter : std::filesystem::directory_iterator(remapped)) {
+            FileEntry& entry = entries.emplace_back();
+            entry.name       = iter.path().filename().string();
+
+            if (iter.is_regular_file()) {
+                entry.type = FileEntryType::File;
+            }
+            if (iter.is_directory()) {
+                entry.type = FileEntryType::Directory;
+            }
         }
 
         return WG_OK;

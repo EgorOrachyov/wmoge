@@ -35,45 +35,27 @@
 
 namespace wmoge {
 
-    ShaderBuilder::StructBuilder::StructBuilder(ShaderBuilder& owner, Ref<ShaderTypeStruct> struct_type)
+    ShaderBuilder::StructBuilder::StructBuilder(ShaderBuilder& owner, Ref<ShaderType> struct_type)
         : m_owner(owner), m_struct_type(struct_type) {
     }
 
-    ShaderBuilder::StructBuilder& ShaderBuilder::StructBuilder::add_field(Strid name, Strid struct_type) {
+    ShaderBuilder::StructBuilder& ShaderBuilder::StructBuilder::add_field(Strid name, Strid type, std::string value) {
         ShaderTypeField& field = m_struct_type->fields.emplace_back();
         field.name             = name;
-        field.type             = m_owner.m_reflection.declarations[struct_type];
-        field.offset           = field.type->byte_size;
-        return *this;
-    }
-
-    ShaderBuilder::StructBuilder& ShaderBuilder::StructBuilder::add_field(Strid name, Ref<ShaderType> type, Var value) {
-        ShaderTypeField& field = m_struct_type->fields.emplace_back();
-        field.name             = name;
-        field.type             = type;
+        field.type             = m_owner.get_type_idx(type);
         field.default_value    = value;
-        field.offset           = field.type->byte_size;
+        field.offset           = m_owner.get_type(field.type)->byte_size;
         return *this;
     }
 
-    ShaderBuilder::StructBuilder& ShaderBuilder::StructBuilder::add_field_array(Strid name, Strid struct_type, int n_elements) {
+    ShaderBuilder::StructBuilder& ShaderBuilder::StructBuilder::add_field_array(Strid name, Strid type, int n_elements, std::string value) {
         ShaderTypeField& field = m_struct_type->fields.emplace_back();
         field.name             = name;
-        field.type             = m_owner.m_reflection.declarations[struct_type];
-        field.is_array         = true;
-        field.elem_count       = n_elements;
-        field.offset           = n_elements * field.type->byte_size;
-        return *this;
-    }
-
-    ShaderBuilder::StructBuilder& ShaderBuilder::StructBuilder::add_field_array(Strid name, Ref<ShaderType> type, int n_elements, Var value) {
-        ShaderTypeField& field = m_struct_type->fields.emplace_back();
-        field.name             = name;
-        field.type             = type;
+        field.type             = m_owner.get_type_idx(type);
         field.default_value    = value;
         field.is_array         = true;
         field.elem_count       = n_elements;
-        field.offset           = n_elements * field.type->byte_size;
+        field.offset           = n_elements * m_owner.get_type(field.type)->byte_size;
         return *this;
     }
 
@@ -89,7 +71,7 @@ namespace wmoge {
         ShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name           = name;
         binding.binding        = ShaderBindingType::InlineUniformBuffer;
-        binding.type           = m_owner.m_reflection.declarations[type_struct];
+        binding.type           = m_owner.get_type_idx(type_struct);
         binding.qualifiers     = {ShaderQualifier::Std140};
         return *this;
     }
@@ -98,36 +80,36 @@ namespace wmoge {
         ShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name           = name;
         binding.binding        = ShaderBindingType::UniformBuffer;
-        binding.type           = m_owner.m_reflection.declarations[type_struct];
+        binding.type           = m_owner.get_type_idx(type_struct);
         binding.qualifiers     = {ShaderQualifier::Std140};
         return *this;
     }
 
-    ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_texture_2d(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler) {
+    ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_texture_2d(Strid name, DefaultTexture texture, DefaultSampler sampler) {
         ShaderBinding& binding  = m_space.bindings.emplace_back();
         binding.name            = name;
         binding.binding         = ShaderBindingType::Sampler2d;
-        binding.type            = ShaderTypes::SAMPLER2D;
+        binding.type            = m_owner.get_or_add_type_idx(ShaderTypes::SAMPLER2D);
         binding.default_tex     = texture;
         binding.default_sampler = sampler;
         return *this;
     }
 
-    ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_texture_2d_array(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler) {
+    ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_texture_2d_array(Strid name, DefaultTexture texture, DefaultSampler sampler) {
         ShaderBinding& binding  = m_space.bindings.emplace_back();
         binding.name            = name;
         binding.binding         = ShaderBindingType::Sampler2dArray;
-        binding.type            = ShaderTypes::SAMPLER2D_ARRAY;
+        binding.type            = m_owner.get_or_add_type_idx(ShaderTypes::SAMPLER2D_ARRAY);
         binding.default_tex     = texture;
         binding.default_sampler = sampler;
         return *this;
     }
 
-    ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_texture_cube(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler) {
+    ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_texture_cube(Strid name, DefaultTexture texture, DefaultSampler sampler) {
         ShaderBinding& binding  = m_space.bindings.emplace_back();
         binding.name            = name;
         binding.binding         = ShaderBindingType::SamplerCube;
-        binding.type            = ShaderTypes::SAMPLER_CUBE;
+        binding.type            = m_owner.get_or_add_type_idx(ShaderTypes::SAMPLER_CUBE);
         binding.default_tex     = texture;
         binding.default_sampler = sampler;
         return *this;
@@ -137,7 +119,7 @@ namespace wmoge {
         ShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name           = name;
         binding.binding        = ShaderBindingType::StorageBuffer;
-        binding.type           = m_owner.m_reflection.declarations[type_struct];
+        binding.type           = m_owner.get_type_idx(type_struct);
         binding.qualifiers     = {ShaderQualifier::Std430};
         return *this;
     }
@@ -146,6 +128,7 @@ namespace wmoge {
         ShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name           = name;
         binding.binding        = ShaderBindingType::StorageImage2d;
+        binding.type           = m_owner.get_or_add_type_idx(ShaderTypes::IMAGE2D);
         binding.qualifiers     = qualifiers;
         return *this;
     }
@@ -185,7 +168,7 @@ namespace wmoge {
         return *this;
     }
 
-    ShaderBuilder::PassBuilder& ShaderBuilder::PassBuilder::add_tag(Strid name, Var value) {
+    ShaderBuilder::PassBuilder& ShaderBuilder::PassBuilder::add_tag(Strid name, std::string value) {
         m_pass.tags[name] = std::move(value);
         return *this;
     }
@@ -198,7 +181,7 @@ namespace wmoge {
         : m_owner(owner), m_technique(technique) {
     }
 
-    ShaderBuilder::TechniqueBuilder& ShaderBuilder::TechniqueBuilder::add_tag(Strid name, Var value) {
+    ShaderBuilder::TechniqueBuilder& ShaderBuilder::TechniqueBuilder::add_tag(Strid name, std::string value) {
         m_technique.tags[name] = std::move(value);
         return *this;
     }
@@ -245,34 +228,26 @@ namespace wmoge {
         return *this;
     }
 
-    ShaderBuilder& ShaderBuilder::add_constant(Strid name, Var value) {
+    ShaderBuilder& ShaderBuilder::add_constant(Strid name, std::string value) {
         ShaderConstant& constant = m_reflection.constants.emplace_back();
         constant.name            = name;
-        constant.str             = value.to_string();
         constant.value           = std::move(value);
         return *this;
     }
 
-    ShaderBuilder& ShaderBuilder::add_struct(const Ref<ShaderTypeStruct>& struct_type) {
-        assert(struct_type);
-        assert(struct_type->type == ShaderBaseType::Struct);
-        m_reflection.declarations[struct_type->name] = struct_type;
-
-        for (const auto& field : struct_type->fields) {
-            if (field.type->type == ShaderBaseType::Struct) {
-                add_struct(field.type.cast<ShaderTypeStruct>());
-            }
-        }
-
+    ShaderBuilder& ShaderBuilder::add_type(const Ref<ShaderType>& type) {
+        assert(type);
+        add_type_idx(type, true);
         return *this;
     }
 
     ShaderBuilder::StructBuilder ShaderBuilder::add_struct(Strid name, int byte_size) {
-        Ref<ShaderTypeStruct> struct_type = make_ref<ShaderTypeStruct>();
-        struct_type->name                 = name;
-        struct_type->type                 = ShaderBaseType::Struct;
-        struct_type->byte_size            = byte_size;
-        m_reflection.declarations[name]   = struct_type;
+        Ref<ShaderType> struct_type     = make_ref<ShaderType>();
+        struct_type->name               = name;
+        struct_type->type               = ShaderBaseType::Struct;
+        struct_type->byte_size          = byte_size;
+        m_reflection.declarations[name] = struct_type;
+        add_type_idx(struct_type, false);
         return StructBuilder(*this, struct_type);
     }
 
@@ -332,7 +307,7 @@ namespace wmoge {
 
                         std::int16_t offset = 0;
 
-                        auto s = binding.type.cast<ShaderTypeStruct>();
+                        const Ref<ShaderType>& s = get_type(binding.type);
                         for (const auto& field : s->fields) {
                             if (field.is_array && field.elem_count == 0) {
                                 WG_LOG_ERROR("no size array not allowed in "
@@ -342,23 +317,20 @@ namespace wmoge {
                             }
 
                             const std::string param_name_base = field.name.str();
-                            const Var&        default_var     = field.default_value;
 
-                            ShaderParamInfo& field_param  = m_reflection.params_info.emplace_back();
-                            field_param.name              = SID(param_name_base);
-                            field_param.type              = field.type;
-                            field_param.space             = space_idx;
-                            field_param.binding           = binding_idx;
-                            field_param.buffer            = buffer_idx;
-                            field_param.offset            = offset;
-                            field_param.elem_count        = field.is_array ? field.elem_count : 1;
-                            field_param.default_var       = default_var;
-                            field_param.default_value_str = default_var.to_string();
-                            field_param.binding_type      = binding.binding;
-                            field_param.byte_size         = field_param.elem_count * field_param.type->byte_size;
+                            ShaderParamInfo& field_param = m_reflection.params_info.emplace_back();
+                            field_param.name             = SID(param_name_base);
+                            field_param.type             = field.type;
+                            field_param.space            = space_idx;
+                            field_param.binding          = binding_idx;
+                            field_param.buffer           = buffer_idx;
+                            field_param.offset           = offset;
+                            field_param.elem_count       = field.is_array ? field.elem_count : 1;
+                            field_param.default_value    = field.default_value;
+                            field_param.binding_type     = binding.binding;
+                            field_param.byte_size        = field_param.elem_count * get_type(field_param.type)->byte_size;
 
                             if (field.is_array) {
-                                Array        default_vars    = default_var;
                                 std::int16_t elemenet_offset = offset;
 
                                 for (int i = 0; i < field.elem_count; i++) {
@@ -369,20 +341,19 @@ namespace wmoge {
                                         param_name += "[" + StringUtils::from_int(i) + "]";
                                     }
 
-                                    ShaderParamInfo& param  = m_reflection.params_info.emplace_back();
-                                    param.name              = SID(param_name);
-                                    param.type              = field.type;
-                                    param.space             = space_idx;
-                                    param.binding           = binding_idx;
-                                    param.buffer            = buffer_idx;
-                                    param.offset            = elemenet_offset;
-                                    param.elem_idx          = std::int16_t(i);
-                                    param.default_var       = i < default_vars.size() ? default_vars[i] : default_var;
-                                    param.default_value_str = param.default_var.to_string();
-                                    param.binding_type      = binding.binding;
-                                    param.byte_size         = param.elem_count * param.type->byte_size;
+                                    ShaderParamInfo& param = m_reflection.params_info.emplace_back();
+                                    param.name             = SID(param_name);
+                                    param.type             = field.type;
+                                    param.space            = space_idx;
+                                    param.binding          = binding_idx;
+                                    param.buffer           = buffer_idx;
+                                    param.offset           = elemenet_offset;
+                                    param.elem_idx         = std::int16_t(i);
+                                    param.default_value    = std::string();
+                                    param.binding_type     = binding.binding;
+                                    param.byte_size        = param.elem_count * get_type(param.type)->byte_size;
 
-                                    elemenet_offset += field.type->byte_size;
+                                    elemenet_offset += get_type(field.type)->byte_size;
                                 }
                             }
 
@@ -396,10 +367,10 @@ namespace wmoge {
                             return StatusCode::Error;
                         }
 
-                        if (offset != binding.type->byte_size) {
+                        if (offset != get_type(binding.type)->byte_size) {
                             WG_LOG_ERROR("error in params layout "
                                          << " layout size=" << offset
-                                         << " actual size=" << binding.type->byte_size
+                                         << " actual size=" << get_type(binding.type)->byte_size
                                          << " in " << m_reflection.shader_name);
                             return StatusCode::Error;
                         }
@@ -412,15 +383,14 @@ namespace wmoge {
                     case ShaderBindingType::Sampler2d:
                     case ShaderBindingType::Sampler2dArray:
                     case ShaderBindingType::SamplerCube: {
-                        ShaderParamInfo& param  = m_reflection.params_info.emplace_back();
-                        param.name              = binding.name;
-                        param.type              = binding.type;
-                        param.space             = space_idx;
-                        param.binding           = binding_idx;
-                        param.default_tex       = binding.default_tex;
-                        param.default_sampler   = binding.default_sampler;
-                        param.default_value_str = binding.default_tex ? binding.default_tex->name().str() : "Nil";
-                        param.binding_type      = binding.binding;
+                        ShaderParamInfo& param = m_reflection.params_info.emplace_back();
+                        param.name             = binding.name;
+                        param.type             = binding.type;
+                        param.space            = space_idx;
+                        param.binding          = binding_idx;
+                        param.default_tex      = binding.default_tex;
+                        param.default_sampler  = binding.default_sampler;
+                        param.binding_type     = binding.binding;
                         break;
                     }
 
@@ -460,46 +430,54 @@ namespace wmoge {
             std::memset(defaults_ptr, 0, buffer.size);
 
             const ShaderBinding&   binding     = m_reflection.spaces[buffer.space].bindings[buffer.binding];
-            const Ref<ShaderType>& buffer_type = binding.type;
+            const Ref<ShaderType>& buffer_type = get_type(binding.type);
 
             assert(buffer_type->type == ShaderBaseType::Struct);
-
-            for (const ShaderParamInfo& param : m_reflection.params_info) {
-                if (param.binding != buffer.binding) {
-                    continue;
-                }
-                if (param.elem_count > 1) {
-                    continue;
-                }
-                if (param.default_var.type() == VarType::Nil) {
-                    continue;
-                }
-
-                const Var&         var        = param.default_var;
-                const auto&        param_type = param.type;
-                const std::int16_t param_size = param.byte_size;
-                std::uint8_t*      param_ptr  = defaults_ptr + param.offset;
-
-                if (param_type == ShaderTypes::BOOL) {
-                    const int v = var;
-                    std::memcpy(param_ptr, &v, sizeof(v));
-                } else if (param_type == ShaderTypes::INT) {
-                    const int v = var;
-                    std::memcpy(param_ptr, &v, sizeof(v));
-                } else if (param_type == ShaderTypes::FLOAT) {
-                    const float v = var;
-                    std::memcpy(param_ptr, &v, sizeof(v));
-                } else {
-                    WG_LOG_WARNING("unsuported defaults type " << param_type->name);
-                }
-            }
         }
+
+        for (const auto& entry : m_name_idx_map) {
+            m_reflection.type_idxs.push_back(ShaderTypeIdx{entry.first, entry.second});
+        }
+
+        m_reflection.type_map = m_types_list;
 
         return WG_OK;
     }
 
     ShaderReflection& ShaderBuilder::get_reflection() {
         return m_reflection;
+    }
+
+    void ShaderBuilder::add_type_idx(const Ref<ShaderType>& type, bool allow_duplicates) {
+        auto query = m_name_idx_map.find(type->name);
+        if (query != m_name_idx_map.end()) {
+            assert(allow_duplicates);
+            return;
+        }
+        m_name_idx_map[type->name] = m_next_type_idx++;
+        m_types_list.push_back(type);
+    }
+
+    ShaderTypeIdx ShaderBuilder::get_or_add_type_idx(const Ref<ShaderType>& type) {
+        auto query = m_name_idx_map.find(type->name);
+        if (query != m_name_idx_map.end()) {
+            return ShaderTypeIdx{type->name, query->second};
+        }
+        ShaderTypeIdx idx{type->name, m_next_type_idx++};
+        m_name_idx_map[type->name] = idx.idx;
+        m_types_list.push_back(type);
+        return idx;
+    }
+
+    ShaderTypeIdx ShaderBuilder::get_type_idx(Strid type) {
+        auto query = m_name_idx_map.find(type);
+        assert(query != m_name_idx_map.end());
+        return ShaderTypeIdx{type, query->second};
+    }
+
+    const Ref<ShaderType>& ShaderBuilder::get_type(const ShaderTypeIdx& idx) {
+        assert(idx.idx >= 0);
+        return m_types_list[idx.idx];
     }
 
 }// namespace wmoge

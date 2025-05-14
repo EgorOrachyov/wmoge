@@ -34,6 +34,10 @@
 
 namespace wmoge {
 
+    /**
+     * @class ImguiProcessor
+     * @brief Imgui processor to update ui elements and render them using imgui primitives
+     */
     class ImguiProcessor {
     public:
         ImguiProcessor(class ImguiManager* manager);

@@ -28,6 +28,7 @@
 #include "image.hpp"
 
 #include "core/ioc_container.hpp"
+#include "grc/image_import_settings.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler_cpu.hpp"
 
@@ -96,7 +97,7 @@ namespace wmoge {
         WG_PROFILE_CPU_ASSET("Image::resize");
 
         if (!new_width || !new_height) {
-            WG_LOG_ERROR("cannot resize image " << get_name() << " to " << new_width << "x" << new_height);
+            WG_LOG_ERROR("cannot resize image to " << new_width << "x" << new_height);
             return StatusCode::InvalidData;
         }
 
@@ -107,7 +108,7 @@ namespace wmoge {
                                      reinterpret_cast<unsigned char*>(new_pixel_data->buffer()), new_width, new_height, new_width * m_pixel_size, m_channels);
 
         if (!ok) {
-            WG_LOG_ERROR("failed to resize image " << get_name() << " to " << new_width << "x" << new_height);
+            WG_LOG_ERROR("failed to resize image to " << new_width << "x" << new_height);
             return StatusCode::Error;
         }
 
@@ -147,6 +148,24 @@ namespace wmoge {
             mip -= 1;
         }
         return Size2i(width, height);
+    }
+
+    Status Image::generate_mips(const std::vector<Ref<Image>>& images, std::vector<Ref<Image>>& mips) {
+        for (auto& image : images) {
+            std::vector<Ref<Image>> face_mips;
+            WG_CHECKED(image->generate_mip_chain(face_mips));
+
+            for (auto& mip : face_mips) {
+                mips.push_back(mip);
+            }
+        }
+
+        return WG_OK;
+    }
+
+    void rtti_grc_image() {
+        rtti_type<Image>();
+        rtti_type<ImageImportSettings>();
     }
 
 }// namespace wmoge

@@ -40,19 +40,19 @@ namespace wmoge {
     AsyncResult<IoAsyncFileSystem::BufferView> IoAsyncFileSystem::read_file(const std::string& filepath, BufferView buffer_view) {
         AsyncOp<BufferView> async_result = make_async_op<BufferView>();
 
-        Task task(SID(filepath), [=](TaskContext&) -> int {
+        Task task(SID(filepath), [=](TaskContext&) -> Status {
             FileOpenModeFlags mode = {FileOpenMode::In, FileOpenMode::Binary};
             Ref<File>         file;
             if (!m_file_system->open_file(filepath, file, mode)) {
                 WG_LOG_ERROR("failed open file " << filepath);
-                return 1;
+                return StatusCode::FailedOpenFile;
             }
             WG_PROFILE_CPU_SCOPE_WITH_DESC(io, "IoAsyncFileSystem::read_file", filepath);
             if (!file->nread(buffer_view.data(), buffer_view.size())) {
                 WG_LOG_ERROR("failed read file " << filepath);
-                return 1;
+                return StatusCode::FailedRead;
             }
-            return 0;
+            return WG_OK;
         });
 
         task.schedule(&m_task_manager).add_on_completion([=](AsyncStatus status, std::optional<int>&) {

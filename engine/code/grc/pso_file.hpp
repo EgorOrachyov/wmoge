@@ -191,4 +191,6 @@ namespace wmoge {
     }
     WG_RTTI_END;
 
+    void rtti_grc_pso();
+
 }// namespace wmoge

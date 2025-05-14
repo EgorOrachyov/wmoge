@@ -92,11 +92,8 @@ namespace wmoge {
 
     template<typename T>
     Status tree_write(IoContext& context, IoTree& tree, const RttiRef<T>& ref) {
-        assert(ref);
-        if (!ref) {
-            return StatusCode::NoType;
-        }
-        WG_TREE_WRITE(context, tree, ref->get_name());
+        Strid id = ref ? ref->get_name() : Strid();
+        WG_TREE_WRITE(context, tree, id);
         return WG_OK;
     }
 
@@ -120,11 +117,8 @@ namespace wmoge {
 
     template<typename T>
     Status stream_write(IoContext& context, IoStream& stream, const RttiRef<T>& ref) {
-        assert(ref);
-        if (!ref) {
-            return StatusCode::NoAsset;
-        }
-        WG_ARCHIVE_WRITE(context, stream, ref->get_name());
+        Strid id = ref ? ref->get_name() : Strid();
+        WG_ARCHIVE_WRITE(context, stream, id);
         return WG_OK;
     }
 

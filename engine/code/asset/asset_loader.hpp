@@ -28,65 +28,24 @@
 #pragma once
 
 #include "asset/asset.hpp"
-#include "asset/asset_library.hpp"
-#include "asset/asset_meta.hpp"
-#include "core/array_view.hpp"
-#include "core/flat_map.hpp"
-#include "core/ioc_container.hpp"
-#include "io/context.hpp"
+#include "asset/asset_load_context.hpp"
+#include "core/uuid.hpp"
 #include "rtti/traits.hpp"
 
 namespace wmoge {
 
     /**
-     * @class AssetLoadRequest
-     * @brief Request files to load for an asset load
-     */
-    struct AssetLoadRequest {
-        flat_map<Strid, std::string> data_files;
-
-        void  add_data_file(const Strid& name);
-        void  add_data_file(const Strid& name, const std::string& path);
-        Strid get_data_file(Strid tag) const;
-    };
-
-    /**
-     * @class AssetLoadResult
-     * @brief Loaded files requested by an asset loader 
-     */
-    struct AssetLoadResult {
-        flat_map<Strid, array_view<const std::uint8_t>> data_files;
-
-        void                           add_data_file(Strid tag, array_view<const std::uint8_t> data);
-        array_view<const std::uint8_t> get_data_file(Strid tag) const;
-    };
-
-    /**
-     * @class AssetLoadContext
-     * @brief Context passed to the loader
-     */
-    struct AssetLoadContext {
-        IocContainer* ioc;
-        IoContext     io_context;
-        AssetMeta     asset_meta;
-    };
-
-    /**
      * @class AssetLoader
-     * @brief Class responsible for loading or asset(s) in a specific format
+     * @brief Class responsible for loading asset in a specific runtime format
      */
     class AssetLoader : public RttiObject {
     public:
         WG_RTTI_CLASS(AssetLoader, RttiObject);
 
-        virtual Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) { return StatusCode::NotImplemented; };
-        virtual Status load(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Asset>& asset) { return StatusCode::NotImplemented; }
-        virtual Status unload(Asset* asset) { return StatusCode::Ok; }
+        virtual Status load(AssetLoadContext& context, const UUID& asset_id, Ref<Asset>& asset) { return StatusCode::NotImplemented; }
     };
 
-    WG_RTTI_CLASS_BEGIN(AssetLoader) {
-        WG_RTTI_META_DATA({RttiUiHint("Interface for an asset loader to implement custom loading")});
-    }
+    WG_RTTI_CLASS_BEGIN(AssetLoader) {}
     WG_RTTI_END;
 
 }// namespace wmoge

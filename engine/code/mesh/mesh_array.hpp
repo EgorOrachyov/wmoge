@@ -123,6 +123,7 @@ namespace wmoge {
         std::vector<Vec4f>    bone_weights;
         std::vector<Vec4f>    col0, col1, col2, col3;
         std::vector<Vec2f>    uv0, uv1, uv2, uv3;
+        std::string           name;
         Aabbf                 aabb;
         GfxVertAttribs        attribs;
     };
@@ -144,6 +145,7 @@ namespace wmoge {
         WG_RTTI_FIELD(uv1, {});
         WG_RTTI_FIELD(uv2, {});
         WG_RTTI_FIELD(uv3, {});
+        WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(aabb, {});
         WG_RTTI_FIELD(attribs, {});
     }
@@ -160,6 +162,7 @@ namespace wmoge {
         MeshArray()           = default;
         ~MeshArray() override = default;
 
+        void set_name(std::string name) { m_data.name = std::move(name); }
         void set_attribs(GfxVertAttribs attribs) { m_data.attribs = attribs; }
         void set_aabb(const Aabbf& aabb) { m_data.aabb = aabb; }
         void set_data(MeshArrayData&& data) { m_data = std::move(data); }

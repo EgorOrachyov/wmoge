@@ -474,7 +474,7 @@ namespace wmoge {
         }
         for (const auto& slot : style_desc.colors) {
             auto          query = palette.colors.find(slot.value);
-            const Color4f value = query != palette.colors.end() ? query->second : Color4f();
+            const Color4f value = query != palette.colors.end() ? query->second : Color::RED4f;
             push_color(slot.type, value);
         }
     }

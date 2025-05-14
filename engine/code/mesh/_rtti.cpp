@@ -29,12 +29,17 @@
 
 #include "mesh/mesh.hpp"
 #include "mesh/mesh_array.hpp"
+#include "mesh/mesh_import_settings.hpp"
+#include "mesh/mesh_loader.hpp"
 
 namespace wmoge {
 
     void rtti_mesh() {
         rtti_type<MeshArray>();
         rtti_type<Mesh>();
+        rtti_type<MeshLoader>();
+        rtti_type<MeshImportProcess>();
+        rtti_type<MeshImportSettings>();
     }
 
 }// namespace wmoge

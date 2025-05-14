@@ -45,11 +45,11 @@ namespace wmoge {
         AudioFile<float> file;
 
         if (!file.loadFromMemory(data)) {
-            WG_LOG_ERROR("failed to load from memory wav file " << get_name());
+            // WG_LOG_ERROR("failed to load from memory wav file " << get_name());
             return StatusCode::Error;
         }
         if (file.getNumChannels() <= 0) {
-            WG_LOG_ERROR("no channels in loaded wav file " << get_name());
+            // WG_LOG_ERROR("no channels in loaded wav file " << get_name());
             return StatusCode::InvalidData;
         }
 

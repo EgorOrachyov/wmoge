@@ -28,18 +28,32 @@
 #include "_rtti.hpp"
 
 #include "asset/asset.hpp"
-#include "asset/asset_import_data.hpp"
+#include "asset/asset_artifact.hpp"
+#include "asset/asset_data.hpp"
+#include "asset/asset_import_env.hpp"
+#include "asset/asset_import_settings.hpp"
+#include "asset/asset_importer.hpp"
 #include "asset/asset_loader.hpp"
-#include "asset/asset_meta.hpp"
+#include "asset/asset_manifest.hpp"
+#include "asset/asset_meta_data.hpp"
+#include "asset/asset_native_loader.hpp"
 
 namespace wmoge {
 
     void rtti_asset() {
-        rtti_type<AssetImportData>();
-        rtti_type<AssetMeta>();
-        rtti_type<AssetDataMeta>();
-        rtti_type<AssetLoader>();
         rtti_type<Asset>();
+        rtti_type<AssetArtifact>();
+        rtti_type<AssetSource>();
+        rtti_type<AssetData>();
+        rtti_type<AssetManifest>();
+        rtti_type<AssetMetaData>();
+        rtti_type<AssetImporter>();
+        rtti_type<AssetImportError>();
+        rtti_type<AssetImportEnv>();
+        rtti_type<AssetImportSettings>();
+        rtti_type<AssetImportPreset>();
+        rtti_type<AssetLoader>();
+        rtti_type<AssetNativeLoader>();
     }
 
 }// namespace wmoge

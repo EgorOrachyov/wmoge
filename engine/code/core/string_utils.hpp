@@ -89,6 +89,9 @@ namespace wmoge {
         /** @return True if given string starts with prefix */
         static bool is_starts_with(const std::string& str, const std::string& prefix);
 
+        /** @return True if given string ends with suffix */
+        static bool is_ends_with(const std::string& str, const std::string& suffix);
+
         /** @return Finds and replaces first matched substring in a source string */
         static std::string find_replace_first(const std::string& source, const std::string& substring, const std::string& replacement);
     };

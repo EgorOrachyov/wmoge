@@ -50,9 +50,11 @@ namespace wmoge {
         FailedLoadSymbol, // Failed to open dynamic symbol
         FailedOpenFile,   // Failed to open file or stream for read/write operations
         FailedFindFile,   // Failed to find file or stream
+        FailedRemoveFile, // Failed to remove file
         FailedParse,      // Failed to parse structured file
         FailedRead,       // Failed to perform reading of some data
         FailedWrite,      // Failed to write some data
+        FailedRemove,     // Failed to remove some data
         FailedEncode,     // Failed to encode binary data
         FailedDecode,     // Failed to decode binary data
         FailedResize,     // Data resize error
@@ -68,6 +70,7 @@ namespace wmoge {
         NoType,           // No registered type
         NoValue,          // No value to return
         NoAsset,          // No such asset in engine files
+        NoArtifact,       // No such asset artifact in engine files
         ExitCode0,        // App should exit, code 0 - everything is Ok, normal close
         ExitCode1         // App should exit, code 1 - Error occured, normal close
     };

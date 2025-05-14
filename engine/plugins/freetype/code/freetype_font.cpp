@@ -27,25 +27,17 @@
 
 #include "freetype_font.hpp"
 
-#include "core/ioc_container.hpp"
-#include "gfx/gfx_driver.hpp"
 #include "grc/image.hpp"
 #include "grc/texture.hpp"
-#include "platform/file_system.hpp"
+#include "grc/texture_builder.hpp"
 #include "profiler/profiler_cpu.hpp"
 
 #include <freetype/freetype.h>
 
 namespace wmoge {
 
-    FreetypeFont::FreetypeFont(IocContainer* ioc) {
-        m_gfx_driver      = ioc->resolve_value<GfxDriver>();
-        m_file_system     = ioc->resolve_value<FileSystem>();
-        m_texture_manager = ioc->resolve_value<TextureManager>();
-    }
-
-    Status FreetypeFont::load(const Ref<Font>& font, array_view<const std::uint8_t> ttf_data, int height, int glyphs_in_row) {
-        WG_PROFILE_CPU_ASSET("FreetypeFont::load");
+    Status FreetypeFontLoader::load(const std::string& path, FontDesc& font_desc, TextureDesc& bitmap_desc, array_view<const std::uint8_t> ttf_data, int height, int glyphs_in_row) {
+        WG_PROFILE_CPU_ASSET("FreetypeFontLoader::load");
 
         static const int GLYPHS_SIZE_SHIFT    = 6;
         static const int GLYPHS_BITMAP_OFFSET = 2;
@@ -58,12 +50,11 @@ namespace wmoge {
 
         FT_Face ft_face;
         if (FT_New_Memory_Face(ft_library, ttf_data.data(), static_cast<FT_Long>(ttf_data.size()), 0, &ft_face)) {
-            WG_LOG_ERROR("failed to parse font data for " << font->get_name());
+            WG_LOG_ERROR("failed to parse font data for " << path);
             FT_Done_FreeType(ft_library);
             return StatusCode::FailedParse;
         }
 
-        FontDesc font_desc;
         font_desc.family_name = ft_face->family_name;
         font_desc.style_name  = ft_face->style_name;
 
@@ -112,7 +103,6 @@ namespace wmoge {
         int bitmap_size   = bitmap_width * bitmap_height;
 
         Ref<Image> bitmap = make_ref<Image>();
-        bitmap->set_id(SID(font->get_name().str() + "_bitmap"));
         bitmap->create(bitmap_width, bitmap_height, 1, 1);
         auto* dst_ptr     = bitmap->get_pixel_data()->buffer();
         auto* src_ptr     = glyphs_rendered.data();
@@ -148,17 +138,14 @@ namespace wmoge {
         font_desc.height        = height;
         font_desc.max_width     = max_width;
         font_desc.max_height    = max_height;
-
-        GfxSamplerDesc sampler_desc;
-        sampler_desc.brd_clr        = GfxSampBrdClr::Black;
-        sampler_desc.mag_flt        = GfxSampFlt::Linear;
-        sampler_desc.min_flt        = GfxSampFlt::LinearMipmapLinear;
-        sampler_desc.max_anisotropy = m_gfx_driver->device_caps().max_anisotropy;
-        sampler_desc.u              = GfxSampAddress::ClampToBorder;
-        sampler_desc.v              = GfxSampAddress::ClampToBorder;
+        font_desc.file_content  = make_ref<Data>(ttf_data.begin(), ttf_data.size());
 
         TexCompressionParams compression_params{};
         compression_params.format = TexCompressionFormat::BC4;
+
+        TexResizeParams resize_params{};
+        resize_params.minify      = false;
+        resize_params.auto_adjust = true;
 
         TextureFlags flags;
         flags.set(TextureFlag::Pooled);
@@ -166,45 +153,21 @@ namespace wmoge {
         flags.set(TextureFlag::Font);
         flags.set(TextureFlag::Compressed);
 
-        TextureDesc desc;
-        desc.tex_type      = GfxTex::Tex2d;
-        desc.flags         = flags;
-        desc.width         = bitmap_width;
-        desc.height        = bitmap_height;
-        desc.mips          = Image::max_mips_count(bitmap_width, bitmap_height, 1);
-        desc.format_source = GfxFormat::R8;
-        desc.swizz         = GfxTexSwizz::RRRRtoRGBA;
-        desc.sampler       = m_gfx_driver->make_sampler(sampler_desc, SID(sampler_desc.to_string()));
+        TextureDescBuilder tex_builder(path);
+        tex_builder.set_image(bitmap, GfxFormat::R8)
+                .set_flags(flags)
+                .set_mipmaps(true)
+                .set_compression(compression_params)
+                .set_sampler(DefaultSampler::Linear)
+                .set_swizz(GfxTexSwizz::RRRRtoRGBA)
+                .set_resize(resize_params);
 
-        if (!m_texture_manager->generate_mips({bitmap}, desc.images)) {
-            WG_LOG_ERROR("failed to gen font mips " << font->get_name());
+        if (!tex_builder.build_desc_2d(bitmap_desc)) {
+            WG_LOG_ERROR("failed to build header for " << path);
             return StatusCode::Error;
         }
 
-        TexCompressionStats stats;
-
-        if (!m_texture_manager->generate_compressed_data(desc.images, GfxFormat::R8, compression_params, desc.compressed, desc.format, stats)) {
-            WG_LOG_ERROR("failed to compress font texture " << font->get_name());
-            return StatusCode::Error;
-        }
-
-#ifdef WG_DEBUG
-        WG_LOG_INFO("compressed bitmap"
-                    << " name=" << font->get_name()
-                    << " dim=" << Vec2i(bitmap_width, bitmap_height)
-                    << " fmt=" << magic_enum::enum_name(desc.format)
-                    << " from=" << StringUtils::from_mem_size(stats.source_size)
-                    << " to=" << StringUtils::from_mem_size(stats.result_size)
-                    << " ratio=" << stats.ratio << "%");
-#endif
-
-        font_desc.texture = m_texture_manager->create_texture_2d(desc);
-        font_desc.texture->set_id(SID(font->get_name().str() + "_bitmap"));
-        m_texture_manager->queue_texture_upload(font_desc.texture.get());
-
-        font_desc.file_content = make_ref<Data>(ttf_data.begin(), ttf_data.size());
-
-        return font->init(font_desc);
+        return WG_OK;
     }
 
 }// namespace wmoge

@@ -28,11 +28,15 @@
 #include "random.hpp"
 
 #include <ctime>
+#include <thread>
 
 namespace wmoge {
 
     static std::default_random_engine& get_rnd_engine() {
-        thread_local std::default_random_engine engine(static_cast<unsigned int>(std::time(nullptr)));
+        thread_local std::default_random_engine engine(
+                static_cast<unsigned int>(std::time(nullptr)) +
+                static_cast<unsigned int>(std::hash<std::thread::id>{}(std::this_thread::get_id())));
+
         return engine;
     }
 

@@ -1,3 +1,4 @@
+rtti: UiStyle
 m_desc:
   alpha: 1
   disabled_alpha: 0.6
@@ -225,27 +226,27 @@ m_desc:
       value: color_17
   fonts:
     - tag: regular
-      file: "editor/fonts/roboto_regular.ttf"
+      file: { path: "editor/fonts/roboto_regular.ttf" }
     - tag: light
-      file: "editor/fonts/roboto_light.ttf"
+      file: { path: "editor/fonts/roboto_light.ttf" }
     - tag: medium
-      file: "editor/fonts/roboto_medium.ttf"
+      file: { path: "editor/fonts/roboto_medium.ttf" }
     - tag: black
-      file: "editor/fonts/roboto_black.ttf"
+      file: { path: "editor/fonts/roboto_black.ttf" }
     - tag: bold
-      file: "editor/fonts/roboto_bold.ttf"
+      file: { path: "editor/fonts/roboto_bold.ttf" }
     - tag: bold_small
-      file: "editor/fonts/roboto_bold_small.ttf"
+      file: { path: "editor/fonts/roboto_bold_small.ttf" }
     - tag: italic
-      file: "editor/fonts/roboto_italic.ttf"
+      file: { path: "editor/fonts/roboto_italic.ttf" }
     - tag: light_italic
-      file: "editor/fonts/roboto_light_italic.ttf"
+      file: { path: "editor/fonts/roboto_light_italic.ttf" }
     - tag: medium_italic
-      file: "editor/fonts/roboto_medium_italic.ttf"
+      file: { path: "editor/fonts/roboto_medium_italic.ttf" }
     - tag: black_italic
-      file: "editor/fonts/roboto_black_italic.ttf"
+      file: { path: "editor/fonts/roboto_black_italic.ttf" }
     - tag: bold_italic
-      file: "editor/fonts/roboto_bold_italic.ttf"
+      file: { path: "editor/fonts/roboto_bold_italic.ttf" }
   sub_styles:
     - key: panel
       value:

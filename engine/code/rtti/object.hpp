@@ -41,26 +41,29 @@ namespace wmoge {
     public:
         ~RttiObject() override = default;
 
-        virtual std::string     to_string() const;
-        virtual Status          clone(Ref<RttiObject>& object) const;
-        virtual Status          read_from_tree(IoContext& context, IoTree& tree);
-        virtual Status          write_to_tree(IoContext& context, IoTree& tree) const;
-        virtual Status          read_from_stream(IoContext& context, IoStream& stream);
-        virtual Status          write_to_stream(IoContext& context, IoStream& stream) const;
-        virtual Ref<RttiObject> duplicate() const;
-        virtual Strid           get_class_name() const;
-        virtual Strid           get_parent_class_name() const;
-        virtual RttiClass*      get_class() const;
-        virtual RttiClass*      get_parent_class() const;
+        virtual std::string        to_string() const;
+        virtual Status             clone(Ref<RttiObject>& object) const;
+        virtual Status             read_from_tree(IoContext& context, IoTree& tree);
+        virtual Status             write_to_tree(IoContext& context, IoTree& tree) const;
+        virtual Status             read_from_stream(IoContext& context, IoStream& stream);
+        virtual Status             write_to_stream(IoContext& context, IoStream& stream) const;
+        virtual Ref<RttiObject>    duplicate() const;
+        virtual Strid              get_class_name() const;
+        virtual Strid              get_parent_class_name() const;
+        virtual RttiClass*         get_class() const;
+        virtual RttiClass*         get_parent_class() const;
+        virtual const std::string& get_extension() const;
 
-        static Strid      get_class_name_static();
-        static Strid      get_parent_class_name_static();
-        static RttiClass* get_class_static();
-        static RttiClass* get_parent_class_static();
-        static Status     tree_read_object(IoContext& context, IoTree& tree, Ref<RttiObject>& object);
-        static Status     tree_write_object(IoContext& context, IoTree& tree, const Ref<RttiObject>& object);
-        static Status     archive_read_object(IoContext& context, IoStream& stream, Ref<RttiObject>& object);
-        static Status     archive_write_object(IoContext& context, IoStream& stream, const Ref<RttiObject>& object);
+        static Strid              get_class_name_static();
+        static Strid              get_parent_class_name_static();
+        static RttiClass*         get_class_static();
+        static RttiClass*         get_parent_class_static();
+        static const std::string& get_extension_static();
+
+        static Status tree_read_object(IoContext& context, IoTree& tree, Ref<RttiObject>& object);
+        static Status tree_write_object(IoContext& context, IoTree& tree, const Ref<RttiObject>& object);
+        static Status archive_read_object(IoContext& context, IoStream& stream, Ref<RttiObject>& object);
+        static Status archive_write_object(IoContext& context, IoStream& stream, const Ref<RttiObject>& object);
     };
 
     template<typename T>

@@ -42,7 +42,7 @@ namespace wmoge {
     class UiMarkupParser {
     public:
     public:
-        UiMarkupParser(Strid name, UiMarkupDecs& desc, array_view<const std::uint8_t> xml_buffer, RttiTypeStorage* type_storage);
+        UiMarkupParser(std::string name, UiMarkupDecs& desc, array_view<const std::uint8_t> xml_buffer, RttiTypeStorage* type_storage);
 
         [[nodiscard]] Status parse();
 
@@ -52,7 +52,7 @@ namespace wmoge {
         [[nodiscard]] Status parse_attribute(const tinyxml2::XMLAttribute* xml_attribute, Ref<UiElement>& out, RttiClass* cls);
 
     private:
-        Strid                          m_name;
+        std::string                    m_name;
         UiMarkupDecs&                  m_desc;
         tinyxml2::XMLDocument          m_document;
         array_view<const std::uint8_t> m_xml_buffer;

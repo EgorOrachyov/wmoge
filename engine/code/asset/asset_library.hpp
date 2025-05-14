@@ -28,33 +28,44 @@
 #pragma once
 
 #include "asset/asset.hpp"
-#include "asset/asset_meta.hpp"
+#include "asset/asset_artifact.hpp"
+#include "core/array_view.hpp"
 #include "core/async.hpp"
-#include "core/data.hpp"
+#include "core/ref.hpp"
 #include "core/status.hpp"
-#include "core/string_id.hpp"
-#include "io/tree.hpp"
+#include "core/uuid.hpp"
+#include "rtti/type_ref.hpp"
 
-#include <filesystem>
-#include <optional>
 #include <string>
 #include <vector>
 
 namespace wmoge {
 
     /**
+     * @class AssetLibraryRecord
+     * @brief Information about an asset stored in library 
+     */
+    struct AssetLibraryRecord {
+        RttiRefClass      cls;
+        RttiRefClass      loader;
+        std::vector<UUID> deps;
+        std::vector<UUID> artifacts;
+    };
+
+    /**
      * @class AssetLibrary
      * @brief Interface for a library of assets meta information
      */
-    class AssetLibrary {
+    class AssetLibrary : public RefCnt {
     public:
         virtual ~AssetLibrary() = default;
 
-        virtual std::string get_name() const                                                   = 0;
-        virtual bool        has_asset(const AssetId& name)                                     = 0;
-        virtual Status      find_asset_meta(const AssetId& name, AssetMeta& meta)              = 0;
-        virtual Status      find_asset_data_meta(const std::string& name, AssetDataMeta& meta) = 0;
-        virtual Async       read_data(const std::string& name, array_view<std::uint8_t> data)  = 0;
+        virtual Status resolve_asset(const std::string& asset_name, UUID& asset_id) { return StatusCode::NotImplemented; }
+        virtual Status get_asset_info(UUID asset_id, AssetLibraryRecord& asset_info) { return StatusCode::NotImplemented; }
+        virtual Status get_artifact_info(UUID artifact_id, AssetArtifact& artifact_info) { return StatusCode::NotImplemented; }
+        virtual bool   has_asset(UUID asset_id) const { return false; }
+        virtual bool   has_artifact(UUID artifact_id) const { return false; }
+        virtual Async  read_artifact(UUID artifact_id, array_view<std::uint8_t> buffer, Ref<RttiObject> artifact) { return Async(); }
     };
 
 }// namespace wmoge

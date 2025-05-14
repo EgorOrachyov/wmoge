@@ -44,19 +44,22 @@ namespace wmoge {
         class PassBuilder;
         class TechniqueBuilder;
 
+        friend StructBuilder;
+        friend SpaceBuilder;
+        friend PassBuilder;
+        friend TechniqueBuilder;
+
         class StructBuilder {
         public:
-            StructBuilder(ShaderBuilder& owner, Ref<ShaderTypeStruct> struct_type);
+            StructBuilder(ShaderBuilder& owner, Ref<ShaderType> struct_type);
 
-            StructBuilder& add_field(Strid name, Strid struct_type);
-            StructBuilder& add_field(Strid name, Ref<ShaderType> type, Var value = Var());
-            StructBuilder& add_field_array(Strid name, Strid struct_type, int n_elements = 0);
-            StructBuilder& add_field_array(Strid name, Ref<ShaderType> type, int n_elements = 0, Var value = Var());
+            StructBuilder& add_field(Strid name, Strid type, std::string value = std::string());
+            StructBuilder& add_field_array(Strid name, Strid type, int n_elements = 0, std::string value = std::string());
             ShaderBuilder& end_struct();
 
         private:
-            ShaderBuilder&        m_owner;
-            Ref<ShaderTypeStruct> m_struct_type;
+            ShaderBuilder&  m_owner;
+            Ref<ShaderType> m_struct_type;
 
             friend class ShaderBuilder;
         };
@@ -67,9 +70,9 @@ namespace wmoge {
 
             SpaceBuilder&  add_inline_uniform_buffer(Strid name, Strid type_struct);
             SpaceBuilder&  add_uniform_buffer(Strid name, Strid type_struct);
-            SpaceBuilder&  add_texture_2d(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler);
-            SpaceBuilder&  add_texture_2d_array(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler);
-            SpaceBuilder&  add_texture_cube(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler);
+            SpaceBuilder&  add_texture_2d(Strid name, DefaultTexture texture, DefaultSampler sampler);
+            SpaceBuilder&  add_texture_2d_array(Strid name, DefaultTexture texture, DefaultSampler sampler);
+            SpaceBuilder&  add_texture_cube(Strid name, DefaultTexture texture, DefaultSampler sampler);
             SpaceBuilder&  add_storage_buffer(Strid name, Strid type_struct);
             SpaceBuilder&  add_storage_image_2d(Strid name, ShaderQualifiers qualifiers);
             ShaderBuilder& end_space();
@@ -88,7 +91,7 @@ namespace wmoge {
             PassBuilder&      add_option(Strid name, const buffered_vector<Strid>& variants);
             PassBuilder&      add_ui_info(const std::string& name, const std::string& hint);
             PassBuilder&      add_state(const PipelineState& state);
-            PassBuilder&      add_tag(Strid name, Var value);
+            PassBuilder&      add_tag(Strid name, std::string value);
             TechniqueBuilder& end_pass();
 
         private:
@@ -105,7 +108,7 @@ namespace wmoge {
         public:
             TechniqueBuilder(ShaderBuilder& owner, ShaderTechniqueInfo& technique);
 
-            TechniqueBuilder& add_tag(Strid name, Var value);
+            TechniqueBuilder& add_tag(Strid name, std::string value);
             TechniqueBuilder& add_ui_info(const std::string& name, const std::string& hint);
             PassBuilder       add_pass(Strid name);
             ShaderBuilder&    end_technique();
@@ -123,8 +126,8 @@ namespace wmoge {
         ShaderBuilder&   set_domain(ShaderDomain domain);
         ShaderBuilder&   add_ui_info(const std::string& name, const std::string& hint);
         ShaderBuilder&   add_source(Strid file, GfxShaderModule module, GfxShaderLang lang);
-        ShaderBuilder&   add_constant(Strid name, Var value);
-        ShaderBuilder&   add_struct(const Ref<ShaderTypeStruct>& struct_type);
+        ShaderBuilder&   add_constant(Strid name, std::string value);
+        ShaderBuilder&   add_type(const Ref<ShaderType>& type);
         StructBuilder    add_struct(Strid name, int byte_size);
         SpaceBuilder     add_space(Strid name, ShaderSpaceType type);
         TechniqueBuilder add_technique(Strid name);
@@ -133,8 +136,17 @@ namespace wmoge {
         ShaderReflection& get_reflection();
 
     private:
-        ShaderReflection m_reflection;
-        std::int16_t     m_next_technique_idx = 0;
+        void                                 add_type_idx(const Ref<ShaderType>& type, bool allow_duplicates = false);
+        [[nodiscard]] ShaderTypeIdx          get_or_add_type_idx(const Ref<ShaderType>& type);
+        [[nodiscard]] ShaderTypeIdx          get_type_idx(Strid type);
+        [[nodiscard]] const Ref<ShaderType>& get_type(const ShaderTypeIdx& idx);
+
+    private:
+        ShaderReflection              m_reflection;
+        std::int16_t                  m_next_technique_idx = 0;
+        std::int16_t                  m_next_type_idx      = 0;
+        flat_map<Strid, std::int16_t> m_name_idx_map;
+        std::vector<Ref<ShaderType>>  m_types_list;
 
         friend class StructBuilder;
         friend class SpaceBuilder;

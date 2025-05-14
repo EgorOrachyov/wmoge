@@ -147,6 +147,10 @@ namespace wmoge {
         return *this;
     }
 
+    Sha256Builder& Sha256Builder::hash(array_view<const std::uint8_t> buffer) {
+        return hash(buffer.data(), buffer.size());
+    }
+
     Sha256 Sha256Builder::get() {
         const std::array<std::uint8_t, 32> d = digest();
         static_assert(sizeof(Sha256) == sizeof(std::array<std::uint8_t, 32>), "Hash size must match");

@@ -52,8 +52,10 @@ namespace wmoge {
         WeakRefAccess() = default;
         WeakRefAccess(class RefCnt* object) : m_object(object) {}
 
+        bool                             is_expired();
         bool                             try_release_object();
         std::optional<Ref<class RefCnt>> try_acquire_object();
+        class RefCnt*                    get_object_raw();
 
     private:
         mutable SpinMutex     m_mutex;
@@ -169,6 +171,14 @@ namespace wmoge {
             return WeakRef<G>(*this);
         }
 
+        void reset(T* object = nullptr) {
+            m_ptr = std::move(weak_ref_access(object));
+        }
+
+        bool is_expired() const {
+            return !m_ptr || m_ptr->is_expired();
+        }
+
         Ref<T> acquire() const {
             if (!m_ptr) {
                 return Ref<T>();
@@ -184,10 +194,6 @@ namespace wmoge {
         Ref<G> acquire_cast() const {
             Ref<T> ref = std::move(acquire());
             return std::move(ref.template cast<G>());
-        }
-
-        void reset(T* object = nullptr) {
-            m_ptr = std::move(weak_ref_access(object));
         }
 
         template<class G, typename std::enable_if_t<std::is_convertible_v<T*, G*>> = true>

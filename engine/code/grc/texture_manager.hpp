@@ -39,25 +39,6 @@
 
 namespace wmoge {
 
-    /** @brief Built-in default textures */
-    enum class DefaultTexture {
-        White = 0,
-        Black,
-        Red,
-        Green,
-        Blue,
-        Gray,
-        Total
-    };
-
-    /** @brief Built-in default samplers */
-    enum class DefaultSampler {
-        Default = 0,
-        Linear,
-        Nearest,
-        Total
-    };
-
     /**
      * @class TextureManager
      * @brief Manager for memory, gfx and streaming of texture assets
@@ -66,10 +47,11 @@ namespace wmoge {
     public:
         TextureManager(class IocContainer* ioc);
 
-        Ref<Texture2d>   create_texture_2d(TextureDesc& desc);
+        Ref<Texture2d>   create_texture_2d(TextureDesc desc);
         Ref<Texture2d>   create_texture_2d(TextureFlags flags, GfxFormat format, int width, int height, int mips, GfxTexSwizz swizz = GfxTexSwizz::None);
-        Ref<TextureCube> create_texture_cube(TextureDesc& desc);
+        Ref<TextureCube> create_texture_cube(TextureDesc desc);
         void             add_texture(const Ref<Texture>& texture);
+        void             add_texture_and_init(const Ref<Texture>& texture);
         void             remove_texture(Texture* texture);
         void             queue_texture_upload(Texture* texture);
         bool             has_texture(Texture* texture) const;

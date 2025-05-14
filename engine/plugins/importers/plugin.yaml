@@ -1,0 +1,12 @@
+id: ImportersPlugin
+uuid: 0
+version: 1
+version_name: "1.0.0"
+name: "Importes Plguin"
+created_by: "Egor Orachev"
+category: ""
+brief: "Standard engine plugin which brings imports support for common built-in asset types"
+description: ""
+depends: []
+excludes: []
+search_tags: []

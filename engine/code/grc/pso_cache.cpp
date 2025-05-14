@@ -221,7 +221,7 @@ namespace wmoge {
 
         Async result = m_gfx_driver->make_psos_graphics(request);
 
-        Task task(SID("pso_store_cache"), [r = request, this](TaskContext&) {
+        Task task(SID("pso_store_cache"), [r = request, this](TaskContext&) -> Status {
             std::unique_lock lock(m_mutex_pso);
 
             for (std::size_t i = 0; i < r->states.size(); i++) {
@@ -236,7 +236,7 @@ namespace wmoge {
                 cached_state.compilation_op.reset();
             }
 
-            return 0;
+            return WG_OK;
         });
 
         return task.schedule(m_task_manager, depends_on).as_async();
@@ -273,7 +273,7 @@ namespace wmoge {
 
         Async result = m_gfx_driver->make_psos_compute(request);
 
-        Task task(SID("pso_store_cache"), [r = request, this](TaskContext&) {
+        Task task(SID("pso_store_cache"), [r = request, this](TaskContext&) -> Status {
             std::unique_lock lock(m_mutex_pso);
 
             for (std::size_t i = 0; i < r->states.size(); i++) {
@@ -284,7 +284,7 @@ namespace wmoge {
                 cached_state.status         = r->pso[i] ? PsoStatus::Compiled : PsoStatus::Failed;
             }
 
-            return 0;
+            return WG_OK;
         });
 
         return task.schedule(m_task_manager, depends_on).as_async();

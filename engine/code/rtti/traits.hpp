@@ -151,6 +151,11 @@ namespace wmoge {
             s << "}";
             return WG_OK;
         }
+        Status visit(void* src, const std::function<Status(const void*, const void*)>& func) const override {
+            PairT& self = *((PairT*) src);
+            WG_CHECKED(func(&(self.first), &(self.second)));
+            return WG_OK;
+        }
     };
 
     template<typename T>
@@ -255,10 +260,17 @@ namespace wmoge {
             s << "]";
             return WG_OK;
         }
-        Status push_back(void* src, void* value) const {
+        Status push_back(void* src, void* value) const override {
             VecT&        vec  = *((VecT*) src);
             const ElemT& elem = *((const ElemT*) value);
             vec.push_back(elem);
+            return WG_OK;
+        }
+        Status iterate(void* src, const std::function<Status(const void*)>& func) const override {
+            VecT& vec = *((VecT*) src);
+            for (auto& elem : vec) {
+                WG_CHECKED(func(&elem));
+            }
             return WG_OK;
         }
     };
@@ -297,6 +309,13 @@ namespace wmoge {
             s << "}";
             return WG_OK;
         }
+        Status iterate(void* src, const std::function<Status(const void*, const void*)>& func) const override {
+            MapT& map = *((MapT*) src);
+            for (auto& elem : map) {
+                WG_CHECKED(func(&(elem.first), &(elem.second)));
+            }
+            return WG_OK;
+        }
     };
 
     template<typename SetT, typename KeyT>
@@ -328,18 +347,25 @@ namespace wmoge {
             s << "}";
             return WG_OK;
         }
+        Status iterate(void* src, const std::function<Status(const void*)>& func) const override {
+            SetT& set = *((SetT*) src);
+            for (auto& elem : set) {
+                WG_CHECKED(func(&elem));
+            }
+            return WG_OK;
+        }
     };
 
-    template<typename HolderT, typename PtrT>
-    class RttiTypeRefT : public RttiTypeT<HolderT, RttiTypeRef> {
+    template<typename HolderT, typename PtrT, typename BaseRefType>
+    class RttiTypeRefT : public RttiTypeT<HolderT, BaseRefType> {
     public:
         static_assert(std::is_base_of_v<RttiObject, PtrT>, "Must be an rtti object base type");
 
-        using ParentT = RttiTypeT<HolderT, RttiTypeRef>;
+        using ParentT = RttiTypeT<HolderT, BaseRefType>;
         using RefT    = Ref<PtrT>;
 
         RttiTypeRefT(Strid name) : ParentT(name) {
-            RttiTypeRef::m_value_type = rtti_type<PtrT>();
+            BaseRefType::m_value_type = rtti_type<PtrT>();
         }
         ~RttiTypeRefT() override = default;
         Status clone(void* dst, const void* src) const override {
@@ -360,7 +386,7 @@ namespace wmoge {
         Status to_string(const void* src, std::stringstream& s) const override {
             const RefT& self = *((const RefT*) src);
             if (self) {
-                return RttiTypeRef::m_value_type->to_string(self.get(), s);
+                return BaseRefType::m_value_type->to_string(self.get(), s);
             } else {
                 s << "nil";
             }
@@ -378,12 +404,6 @@ namespace wmoge {
             RttiTypeOptional::m_value_type = rtti_type<T>();
         }
         ~RttiTypeOptionalT() override = default;
-        Status set_value(void* dst, const void* src) const override {
-            OptionalT& self = *((OptionalT*) src);
-            const T&   val  = *((const T*) src);
-            self            = val;
-            return WG_OK;
-        }
         Status clone(void* dst, const void* src) const override {
             const OptionalT& source = *((const OptionalT*) src);
             OptionalT&       target = *((OptionalT*) dst);
@@ -400,6 +420,19 @@ namespace wmoge {
                 return RttiTypeOptional::m_value_type->to_string(&self.value(), s);
             } else {
                 s << "nil";
+            }
+            return WG_OK;
+        }
+        Status set_value(void* dst, const void* src) const override {
+            OptionalT& self = *((OptionalT*) src);
+            const T&   val  = *((const T*) src);
+            self            = val;
+            return WG_OK;
+        }
+        Status visit(void* src, const std::function<Status(const void*)>& func) const override {
+            OptionalT& self = *((OptionalT*) src);
+            if (self) {
+                WG_CHECKED(func(&(self.value())));
             }
             return WG_OK;
         }
@@ -640,7 +673,7 @@ namespace wmoge {
             return SID(std::string("ref<") + rtti_type<T>()->get_str() + ">");
         }
         static Ref<RttiType> make() {
-            return make_ref<RttiTypeRefT<Ref<T>, T>>(name());
+            return make_ref<RttiTypeRefT<Ref<T>, T, RttiTypeRef>>(name());
         }
     };
 
@@ -986,6 +1019,9 @@ public:                                                                         
         static rtti_type* g_class = RttiTypeStorage::instance()->rtti_type_getter(get_parent_class_name_static()); \
         return g_class;                                                                                            \
     }                                                                                                              \
+    static const std::string& get_extension_static() {                                                             \
+        return get_class_static()->get_extension();                                                                \
+    }                                                                                                              \
     Strid get_class_name() const modifier {                                                                        \
         return get_class_name_static();                                                                            \
     }                                                                                                              \
@@ -997,6 +1033,9 @@ public:                                                                         
     }                                                                                                              \
     rtti_type* get_parent_class() const modifier {                                                                 \
         return get_parent_class_static();                                                                          \
+    }                                                                                                              \
+    const std::string& get_extension() const modifier {                                                            \
+        return get_class()->get_extension();                                                                       \
     }                                                                                                              \
     friend Status tree_read(IoContext& context, IoTree& tree, struct_type& value) {                                \
         return get_class_static()->read_from_tree(&value, tree, context);                                          \
@@ -1067,6 +1106,9 @@ public:                                                                         
 
 #define WG_RTTI_FACTORY() \
     t->add_factory([]() -> RttiObject* { return new Type(); })
+
+#define WG_RTTI_EXTENSION(ext) \
+    t->set_extension(ext);
 
 #define WG_RTTI_FIELD(property, ...) \
     t->add_field<decltype(Type::property)>(SID(#property), offsetof(Type, property), __VA_ARGS__)

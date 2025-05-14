@@ -1,9 +1,14 @@
-# Wmoge asset meta file
-version: 1
-uuid: 0
-loader: ShaderAssetLoader
-rtti: Shader
-deps: [ ]
-import_data:
-  rtti: AssetImportData
-  source_files: [{file: "engine/shaders/blit.shader"}]
+uuid: 18398011413246371368
+flags:
+  - Resolvable
+cls: Shader
+importer: ShaderImporter
+import_env:
+  file_to_id:
+    - key: engine/shaders/blit.shader
+      value: 18398011413246371368
+  deps: []
+  errors: []
+import_settings:
+  rtti: AssetImportSettings
+  user_data: ''

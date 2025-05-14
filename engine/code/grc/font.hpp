@@ -28,6 +28,7 @@
 #pragma once
 
 #include "asset/asset.hpp"
+#include "asset/asset_ref.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/data.hpp"
 #include "core/flat_map.hpp"
@@ -55,6 +56,8 @@ namespace wmoge {
      * @brief Stores info about single glyph in a font file
      */
     struct FontGlyph {
+        WG_RTTI_STRUCT(FontGlyph)
+
         Size2i size;            /** character glyph width and height in pixels */
         Vec2i  bearing;         /** offset from baseline to left of glyph and to top of glyph in pixels */
         Vec2i  advance;         /** offset to advance to next glyph in X and Y axis in pixels */
@@ -63,13 +66,23 @@ namespace wmoge {
         int    code_point = -1; /** code point */
     };
 
+    WG_RTTI_STRUCT_BEGIN(FontGlyph) {
+        WG_RTTI_FIELD(size, {});
+        WG_RTTI_FIELD(bearing, {});
+        WG_RTTI_FIELD(advance, {});
+        WG_RTTI_FIELD(bitmap_uv0, {});
+        WG_RTTI_FIELD(bitmap_uv1, {});
+        WG_RTTI_FIELD(code_point, {});
+    }
+    WG_RTTI_END;
+
     /**
      * @class FontDesc
      * @brief Describes font data internal
     */
     struct FontDesc {
         flat_map<int, FontGlyph> glyphs;
-        Ref<Texture2d>           texture;
+        AssetRef<Texture2d>      texture;
         std::string              family_name;
         std::string              style_name;
         int                      height        = -1;
@@ -95,6 +108,8 @@ namespace wmoge {
         Font()           = default;
         ~Font() override = default;
 
+        Font(FontDesc& desc);
+
         /**
          * @brief Init font from desc
          * 
@@ -117,7 +132,7 @@ namespace wmoge {
         [[nodiscard]] const std::string&              get_family_name() const { return m_family_name; }
         [[nodiscard]] const std::string&              get_style_name() const { return m_style_name; }
         [[nodiscard]] const flat_map<int, FontGlyph>& get_glyphs() const { return m_glyphs; }
-        [[nodiscard]] const Ref<Texture2d>&           get_texture() const { return m_texture; }
+        [[nodiscard]] const AssetRef<Texture2d>&      get_texture() const { return m_texture; }
         [[nodiscard]] const Ref<GfxTexture>&          get_bitmap() const { return m_texture->get_texture(); }
         [[nodiscard]] const Ref<GfxSampler>&          get_sampler() const { return m_texture->get_sampler(); }
         [[nodiscard]] int                             get_height() const { return m_height; }
@@ -128,7 +143,7 @@ namespace wmoge {
 
     private:
         flat_map<int, FontGlyph> m_glyphs;
-        Ref<Texture2d>           m_texture;
+        AssetRef<Texture2d>      m_texture;
         std::string              m_family_name;
         std::string              m_style_name;
         int                      m_height        = -1;
@@ -140,7 +155,18 @@ namespace wmoge {
 
     WG_RTTI_CLASS_BEGIN(Font) {
         WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(m_glyphs, {});
+        WG_RTTI_FIELD(m_texture, {});
+        WG_RTTI_FIELD(m_family_name, {});
+        WG_RTTI_FIELD(m_style_name, {});
+        WG_RTTI_FIELD(m_height, {});
+        WG_RTTI_FIELD(m_glyphs_in_row, {});
+        WG_RTTI_FIELD(m_max_height, {});
+        WG_RTTI_FIELD(m_max_width, {});
+        WG_RTTI_FIELD(m_file_content, {});
     }
     WG_RTTI_END;
+
+    void rtti_grc_font();
 
 }// namespace wmoge

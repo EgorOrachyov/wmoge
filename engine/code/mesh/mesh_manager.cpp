@@ -41,12 +41,12 @@ namespace wmoge {
         m_callback   = std::make_shared<Mesh::Callback>([this](Mesh* mesh) { remove_mesh(mesh); });
     }
 
-    Ref<Mesh> MeshManager::create_mesh(MeshDesc& desc) {
+    Ref<Mesh> MeshManager::create_mesh(MeshDesc desc) {
         WG_PROFILE_CPU_MESH("MeshManager::create_mesh");
         std::lock_guard guard(m_mutex);
 
         desc.flags |= {MeshFlag::Managed};
-        auto mesh = make_ref<Mesh>(desc);
+        auto mesh = make_ref<Mesh>(std::move(desc));
         init_mesh(mesh.get());
         return mesh;
     }
@@ -145,14 +145,14 @@ namespace wmoge {
         array_view<const Ref<Data>>     vb = mesh->get_vertex_buffers();
         std::vector<Ref<GfxVertBuffer>> gfx_vb(vb.size());
         for (std::size_t i = 0; i < vb.size(); i++) {
-            gfx_vb[i] = m_gfx_driver->make_vert_buffer(static_cast<int>(vb[i]->size()), mesh->get_mem_usage(), SIDDBG(mesh->get_name().str() + " vert_buffer i=" + std::to_string(i)));
+            gfx_vb[i] = m_gfx_driver->make_vert_buffer(static_cast<int>(vb[i]->size()), mesh->get_mem_usage(), SIDDBG(mesh->get_name() + " vert_buffer i=" + std::to_string(i)));
         }
         mesh->set_gfx_vertex_buffers(std::move(gfx_vb));
 
         array_view<const Ref<Data>>      ib = mesh->get_index_buffers();
         std::vector<Ref<GfxIndexBuffer>> gfx_ib(ib.size());
         for (std::size_t i = 0; i < ib.size(); i++) {
-            gfx_ib[i] = m_gfx_driver->make_index_buffer(static_cast<int>(ib[i]->size()), mesh->get_mem_usage(), SIDDBG(mesh->get_name().str() + " index_buffer i=" + std::to_string(i)));
+            gfx_ib[i] = m_gfx_driver->make_index_buffer(static_cast<int>(ib[i]->size()), mesh->get_mem_usage(), SIDDBG(mesh->get_name() + " index_buffer i=" + std::to_string(i)));
         }
         mesh->set_gfx_index_buffers(std::move(gfx_ib));
 

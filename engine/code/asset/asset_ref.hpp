@@ -28,7 +28,8 @@
 #pragma once
 
 #include "asset/asset.hpp"
-#include "asset/asset_manager.hpp"
+#include "core/ref.hpp"
+#include "core/uuid.hpp"
 #include "io/stream.hpp"
 #include "io/tree.hpp"
 
@@ -43,55 +44,84 @@ namespace wmoge {
      * @brief Aux box to store asset ref and serialize/deserialize it automatically to and from files
      */
     template<typename T>
-    class AssetRef : public Ref<T> {
+    class AssetRef {
     public:
         static_assert(std::is_base_of_v<Asset, T>, "Must be an asset");
 
         AssetRef() = default;
-        AssetRef(Ref<T> ptr) : Ref<T>(std::move(ptr)) {}
+
+        AssetRef(Ref<T> ptr)
+            : m_asset_ref(std::move(ptr)) {
+        }
+
+        operator Ref<T>() const {
+            return m_asset_ref;
+        }
+        operator bool() const {
+            return m_asset_ref;
+        }
+        T* operator->() const {
+            return m_asset_ref.get();
+        }
+
+        [[nodiscard]] bool          is_not_empty() const { return m_asset_ref; }
+        [[nodiscard]] bool          is_empty() const { return !m_asset_ref; }
+        [[nodiscard]] const Ref<T>& get_ref() const { return m_asset_ref; }
+
+    private:
+        Ref<T> m_asset_ref;
+    };
+
+    /**
+     * @class AssetRefParser
+     * @brief Helper class to parse asset refs
+     */
+    class AssetRefParser {
+    public:
+        static Status parse_from_tree(IoContext& context, IoTree& tree, Ref<Asset>& asset_ref);
+        static Status parse_from_stream(IoContext& context, IoStream& stream, Ref<Asset>& asset_ref);
     };
 
     template<typename T>
     Status tree_read(IoContext& context, IoTree& tree, AssetRef<T>& ref) {
-        AssetId id;
-        WG_TREE_READ(context, tree, id);
-        Ref<T> ptr = context.get<AssetManager*>()->find(id).cast<T>();
-        if (!ptr) {
-            return StatusCode::NoAsset;
+        Ref<Asset> asset_ref;
+        WG_CHECKED(AssetRefParser::parse_from_tree(context, tree, asset_ref));
+        if (asset_ref) {
+            Ref<T> asset_ref_t = asset_ref.cast<T>();
+            if (!asset_ref_t) {
+                return StatusCode::InvalidData;
+            }
+            ref = std::move(AssetRef<T>(std::move(asset_ref_t)));
         }
-        ref = AssetRef<T>(ptr);
         return WG_OK;
     }
 
     template<typename T>
     Status tree_write(IoContext& context, IoTree& tree, const AssetRef<T>& ref) {
-        assert(ref);
-        if (!ref) {
-            return StatusCode::NoAsset;
-        }
-        WG_TREE_WRITE(context, tree, ref->get_id());
+        AssetId asset_id = ref ? ref->get_id() : AssetId();
+        WG_TREE_MAP(tree);
+        WG_TREE_WRITE_AS(context, tree, "id", asset_id);
         return WG_OK;
     }
 
     template<typename T>
     Status stream_read(IoContext& context, IoStream& stream, AssetRef<T>& ref) {
-        AssetId id;
-        WG_ARCHIVE_READ(context, stream, id);
-        Ref<T> ptr = context.get<AssetManager*>()->load(id).cast<T>();
-        if (!ptr) {
-            return StatusCode::NoAsset;
+        Ref<Asset> asset_ref;
+        WG_CHECKED(AssetRefParser::parse_from_stream(context, stream, asset_ref));
+        if (asset_ref) {
+            Ref<T> asset_ref_t = asset_ref.cast<T>();
+            if (!asset_ref_t) {
+                return StatusCode::InvalidData;
+            }
+            ref = std::move(AssetRef<T>(std::move(asset_ref_t)));
         }
-        ref = AssetRef<T>(ptr);
         return WG_OK;
     }
 
     template<typename T>
     Status stream_write(IoContext& context, IoStream& stream, const AssetRef<T>& ref) {
-        assert(ref);
-        if (!ref) {
-            return StatusCode::NoAsset;
-        }
-        WG_ARCHIVE_WRITE(context, stream, ref->get_id());
+        AssetId asset_id = ref ? ref->get_id() : AssetId();
+        WG_ARCHIVE_WRITE(context, stream, asset_id);
         return WG_OK;
     }
 
@@ -101,7 +131,7 @@ namespace wmoge {
             return SID(std::string("asset<") + rtti_type<T>()->get_str() + ">");
         }
         static Ref<RttiType> make() {
-            return make_ref<RttiTypeRefT<AssetRef<T>, T>>(name());
+            return make_ref<RttiTypeRefT<AssetRef<T>, T, RttiTypeAssetRef>>(name());
         }
     };
 

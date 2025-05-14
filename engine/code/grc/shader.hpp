@@ -81,6 +81,7 @@ namespace wmoge {
         std::optional<std::int16_t>      find_pass(std::int16_t technique, Strid name);
         std::optional<std::int16_t>      find_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant);
         std::optional<ShaderParamInfo*>  find_param(ShaderParamId id);
+        std::optional<Ref<ShaderType>>   find_type(const ShaderTypeIdx idx);
         ShaderParamId                    find_param_id(Strid name);
         void                             set_shader_callback(CallbackRef callback);
         std::optional<ShaderPermutation> permutation(Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options = {}, GfxVertAttribs attribs = GfxVertAttribs());
@@ -93,8 +94,9 @@ namespace wmoge {
         [[nodiscard]] const std::int16_t      get_num_spaces() const;
         [[nodiscard]] const std::int16_t      get_num_techniques() const;
         [[nodiscard]] const std::int16_t      get_num_passes(std::int16_t technique_idx) const;
-        [[nodiscard]] const ShaderReflection& get_reflection() const { return m_reflection; }
         [[nodiscard]] const Strid&            get_shader_name() const { return m_reflection.shader_name; }
+        [[nodiscard]] const ShaderReflection& get_reflection() const { return m_reflection; }
+        [[nodiscard]] ShaderReflection&       get_reflection() { return m_reflection; }
 
     protected:
         ShaderReflection m_reflection;
@@ -103,7 +105,10 @@ namespace wmoge {
 
     WG_RTTI_CLASS_BEGIN(Shader) {
         WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(m_reflection, {});
     }
     WG_RTTI_END;
+
+    void rtti_grc_shader();
 
 }// namespace wmoge

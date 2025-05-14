@@ -30,6 +30,8 @@
 #include "core/data.hpp"
 #include "core/status.hpp"
 #include "gfx/gfx_defs.hpp"
+#include "gfx/gfx_texture.hpp"
+#include "grc/image.hpp"
 #include "rtti/traits.hpp"
 
 #include <vector>
@@ -196,6 +198,7 @@ namespace wmoge {
          * @return Ok on success
          */
         static Status compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed, TexCompressionStats& stats);
+        static Status compress(const std::vector<Ref<Image>>& images, GfxFormat format, const TexCompressionParams& params, std::vector<GfxImageData>& compressed, GfxFormat& format_compressed, TexCompressionStats& stats);
     };
 
 }// namespace wmoge

@@ -53,6 +53,7 @@ namespace wmoge {
 
         Status create_tree();
         Status save_tree(std::string& data);
+        Status save_tree(class FileSystem* fs, const std::string& path);
         Status save_tree_json(std::string& data);
         Status parse_data(const array_view<const std::uint8_t>& data);
         Status parse_file(class FileSystem* fs, const std::string& path);
@@ -87,6 +88,7 @@ namespace wmoge {
         Status node_read_value(std::int16_t& value) override;
         Status node_read_value(std::size_t& value) override;
 
+        void node_as_leaf() override;
         void node_as_map() override;
         void node_as_list(std::size_t length) override;
 

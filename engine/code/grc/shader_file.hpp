@@ -63,6 +63,8 @@ namespace wmoge {
         std::string       value;
         std::string       ui_name;
         std::string       ui_hint;
+        DefaultTexture    texture = DefaultTexture::White;
+        DefaultSampler    sampler = DefaultSampler::Default;
         ShaderBindingType binding = ShaderBindingType::None;
         ShaderQualifiers  qualifiers;
     };
@@ -74,6 +76,8 @@ namespace wmoge {
         WG_RTTI_FIELD(value, {RttiOptional});
         WG_RTTI_FIELD(ui_name, {RttiOptional});
         WG_RTTI_FIELD(ui_hint, {RttiOptional});
+        WG_RTTI_FIELD(texture, {RttiOptional});
+        WG_RTTI_FIELD(sampler, {RttiOptional});
         WG_RTTI_FIELD(binding, {RttiOptional});
         WG_RTTI_FIELD(qualifiers, {RttiOptional});
     }
@@ -183,5 +187,7 @@ namespace wmoge {
         WG_RTTI_FIELD(sources, {RttiOptional});
     }
     WG_RTTI_END;
+
+    void rtti_grc_shader_file();
 
 }// namespace wmoge

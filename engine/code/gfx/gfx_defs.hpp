@@ -572,15 +572,6 @@ namespace wmoge {
         std::int16_t binding;
     };
 
-    /** @brief Holds data of an image in binary format */
-    struct GfxImageData {
-        Ref<Data> data;
-        int       width  = 0;
-        int       height = 0;
-        int       depth  = 0;
-        GfxFormat format = GfxFormat::RGBA8;
-    };
-
     /** @brief Config to dispatch a draw */
     struct GfxDrawCall {
         int count     = 0;

@@ -50,11 +50,11 @@ namespace wmoge {
         WG_PROFILE_CPU_RENDER("ShaderTable::load_shaders");
 
         auto load_shader = [&](const std::string& name, Ref<Shader>& shader) -> Status {
-            const AssetId shader_id("engine/shaders/" + name + ".shader");
-            shader = asset_manager->load(shader_id).cast<Shader>();
+            const std::string shader_path = "engine/shaders/" + name + ".shader";
+            shader                        = asset_manager->load_wait(shader_path).cast<Shader>();
 
             if (!shader) {
-                WG_LOG_ERROR("failed load shader " << shader_id);
+                WG_LOG_ERROR("failed load shader " << shader_path);
                 return StatusCode::NoAsset;
             }
 

@@ -50,6 +50,7 @@ namespace wmoge {
         Mask,
         Bitset,
         Ref,
+        AssetRef,
         Optional,
         Vector,
         Set,

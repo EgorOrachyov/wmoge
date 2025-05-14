@@ -29,6 +29,12 @@
 
 namespace wmoge {
 
+    bool WeakRefAccess::is_expired() {
+        std::lock_guard guard(m_mutex);
+
+        return m_object == nullptr;
+    }
+
     bool WeakRefAccess::try_release_object() {
         std::lock_guard guard(m_mutex);
 
@@ -60,6 +66,12 @@ namespace wmoge {
         }
 
         return std::nullopt;
+    }
+
+    RefCnt* WeakRefAccess::get_object_raw() {
+        std::lock_guard guard(m_mutex);
+
+        return m_object;
     }
 
 }// namespace wmoge

@@ -27,26 +27,25 @@
 
 #pragma once
 
-#include "asset/asset_loader_adapter.hpp"
 #include "grc/icon.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class IconAtlasAssetLoader
-     * @brief Loader for ui icons atlas
-     */
-    class IconAtlasAssetLoader final : public AssetLoaderTyped<IconAtlas> {
-    public:
-        WG_RTTI_CLASS(IconAtlasAssetLoader, AssetLoader);
-
-        Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) override;
-        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<IconAtlas>& asset) override;
-    };
-
-    WG_RTTI_CLASS_BEGIN(IconAtlasAssetLoader) {
-        WG_RTTI_FACTORY();
-    }
-    WG_RTTI_END;
+    //    /**
+    //     * @class IconAtlasAssetLoader
+    //     * @brief Loader for ui icons atlas
+    //     */
+    //    class IconAtlasAssetLoader final : public AssetLoaderTyped<IconAtlas> {
+    //    public:
+    //        WG_RTTI_CLASS(IconAtlasAssetLoader, AssetLoader);
+    //
+    //        Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) override;
+    //        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<IconAtlas>& asset) override;
+    //    };
+    //
+    //    WG_RTTI_CLASS_BEGIN(IconAtlasAssetLoader) {
+    //        WG_RTTI_FACTORY();
+    //    }
+    //    WG_RTTI_END;
 
 }// namespace wmoge

@@ -51,6 +51,13 @@ namespace wmoge {
         return WG_OK;
     }
 
+    Status IoYamlTree::save_tree(FileSystem* fs, const std::string& path) {
+        std::string data;
+        WG_CHECKED(save_tree(data));
+        WG_CHECKED(fs->save_file(path, data));
+        return WG_OK;
+    }
+
     Status IoYamlTree::save_tree_json(std::string& data) {
         ryml::emitrs_json(m_tree, 0, &data);
         return WG_OK;
@@ -80,7 +87,13 @@ namespace wmoge {
 #define STR(s) ryml::csubstr(s.data(), s.length())
 
     bool IoYamlTree::node_is_empty() {
-        return TOP.empty();
+        if (TOP.is_map() || TOP.is_seq()) {
+            return TOP.empty();
+        }
+        if (TOP.is_keyval()) {
+            return TOP.val_is_null();
+        }
+        return false;
     }
     bool IoYamlTree::node_has_child(const std::string_view& name) {
         return TOP.has_child(STR(name));
@@ -204,6 +217,10 @@ namespace wmoge {
         assert(can_read());
         TOP >> value;
         return WG_OK;
+    }
+
+    void IoYamlTree::node_as_leaf() {
+        TOP |= ryml::VAL;
     }
 
     void IoYamlTree::node_as_map() {

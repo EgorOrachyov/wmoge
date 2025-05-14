@@ -96,6 +96,7 @@ namespace wmoge {
 
         std::optional<const RttiField*> find_field(const Strid& name) const;
         void                            add_field(RttiField field);
+        void                            set_extension(std::string extension);
         bool                            has_field(const Strid& name) const;
         bool                            has_member(const Strid& name) const;
         bool                            has_parent() const;
@@ -106,6 +107,7 @@ namespace wmoge {
         [[nodiscard]] const flat_set<Strid>&               get_members() const { return m_members; }
         [[nodiscard]] const flat_map<Strid, std::int16_t>& get_fields_map() const { return m_fields_map; }
         [[nodiscard]] const std::vector<RttiField>&        get_fields() const { return m_fields; }
+        [[nodiscard]] const std::string&                   get_extension() const { return m_extension; }
         [[nodiscard]] RttiStruct*                          get_parent() const { return m_parent; }
 
         Status copy(void* dst, const void* src) const override;
@@ -123,6 +125,7 @@ namespace wmoge {
         flat_set<Strid>               m_members;
         flat_map<Strid, std::int16_t> m_fields_map;
         std::vector<RttiField>        m_fields;
+        std::string                   m_extension;
         RttiStruct*                   m_parent = nullptr;
     };
 

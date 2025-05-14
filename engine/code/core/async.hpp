@@ -250,6 +250,24 @@ namespace wmoge {
         static Async join(array_view<Async> dependencies);
 
         /**
+         * @brief Joins asyncs into one
+         * @return New async signaled when all deps finished or failed if one failed
+         */
+        static Async join(Async async1, Async async2);
+
+        /**
+         * @brief Joins asyncs into one
+         * @return New async signaled when all deps finished or failed if one failed
+         */
+        static Async join(Async async1, Async async2, Async async3);
+
+        /**
+         * @brief Joins asyncs into one
+         * @return New async signaled when all deps finished or failed if one failed
+         */
+        static Async join(Async async1, Async async2, Async async3, Async async4);
+
+        /**
          * @brief Make signaled (completed) async op
          * 
          * @return Completed async
@@ -296,6 +314,12 @@ namespace wmoge {
         Async as_async() {
             assert(m_state);
             return Async(m_state.template as<AsyncStateBase>());
+        }
+
+        static AsyncResult completed(T&& value) {
+            auto async_op = make_async_op<T>();
+            async_op->set_result(std::move(value));
+            return AsyncResult(async_op);
         }
 
         static AsyncResult failed() {

@@ -1,12 +1,18 @@
-# Wmoge asset meta file
-version: 1
-uuid: 0
-loader: FreetypeAssetLoader
-rtti: Font
-deps: [ ]
-description: "font"
-import_data:
-  rtti: FreetypeImportData
-  source_files: [{file: "editor/fonts/roboto_bold_small.ttf"}]
+uuid: 12990758804718308098
+flags:
+  - Resolvable
+cls: Font
+importer: FreetypeFontImporter
+import_env:
+  file_to_id:
+    - key: editor/fonts/roboto_bold_small.ttf
+      value: 12990758804718308098
+    - key: editor/fonts/roboto_bold_small.ttf.bitmap
+      value: 8907792375786458148
+  deps: []
+  errors: []
+import_settings:
+  rtti: FontImportSettings
+  user_data: ''
   height: 28
   glyphs_in_row: 16

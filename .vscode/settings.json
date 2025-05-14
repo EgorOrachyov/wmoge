@@ -99,9 +99,11 @@
         "typeindex": "cpp",
         "**/*.glsl": "hlsl",
         "**/*.asset": "yaml",
+        "**/*.manifest": "yaml",
         "**/*.shader": "yaml",
         "**/*.scene": "yaml",
         "**/*.style": "yaml",
+        "**/*.uixml": "xml",
         "*.moc": "cpp",
         "coroutine": "cpp",
         "resumable": "cpp",
@@ -114,5 +116,6 @@
     "cmake.generator": "Ninja",
     "cmake.buildArgs": [
         "-j 8"
-    ]
+    ],
+    "cmake.parallelJobs": 8
 }

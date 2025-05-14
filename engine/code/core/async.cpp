@@ -28,18 +28,13 @@
 #include "core/async.hpp"
 
 #include "async.hpp"
+#include "core/buffered_vector.hpp"
 #include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
     Async Async::join(array_view<Async> dependencies) {
         WG_PROFILE_CPU_CORE("Async::join");
-
-        if (dependencies.empty()) {
-            auto state = make_ref<AsyncState<int>>();
-            state->set_result(0);
-            return Async(std::move(state));
-        }
 
         class AsyncStateJoin : public AsyncState<int> {
         public:
@@ -77,14 +72,53 @@ namespace wmoge {
             std::atomic_int m_deps_failed{0};
         };
 
-        auto state      = make_ref<AsyncStateJoin>(int(dependencies.size()));
+        std::size_t count = 0;
+        for (auto& dependency : dependencies) {
+            if (dependency.is_not_null()) {
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            auto state = make_ref<AsyncState<int>>();
+            state->set_result(0);
+            return Async(std::move(state));
+        }
+
+        auto state      = make_ref<AsyncStateJoin>(int(count));
         auto state_base = state.as<AsyncStateBase>();
 
         for (auto& dependency : dependencies) {
-            dependency.add_dependency(state_base);
+            if (dependency.is_not_null()) {
+                dependency.add_dependency(state_base);
+            }
         }
 
         return Async(std::move(state));
+    }
+
+    Async Async::join(Async async1, Async async2) {
+        buffered_vector<Async, 2> asyncs;
+        asyncs.push_back(std::move(async1));
+        asyncs.push_back(std::move(async2));
+        return join(asyncs);
+    }
+
+    Async Async::join(Async async1, Async async2, Async async3) {
+        buffered_vector<Async, 3> asyncs;
+        asyncs.push_back(std::move(async1));
+        asyncs.push_back(std::move(async2));
+        asyncs.push_back(std::move(async3));
+        return join(asyncs);
+    }
+
+    Async Async::join(Async async1, Async async2, Async async3, Async async4) {
+        buffered_vector<Async, 4> asyncs;
+        asyncs.push_back(std::move(async1));
+        asyncs.push_back(std::move(async2));
+        asyncs.push_back(std::move(async3));
+        asyncs.push_back(std::move(async4));
+        return join(asyncs);
     }
 
     Async Async::completed() {

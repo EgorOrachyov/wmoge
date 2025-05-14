@@ -19,8 +19,11 @@ def visit(directory, exts):
 
     for entry in os.listdir(directory):
         if os.path.isfile(directory / entry) and file_filter(entry, exts):
-            with open(directory / entry, "r") as file:
-                file_loc = sum(1 for _ in file)
+            try:
+                with open(directory / entry, "r") as file:
+                    file_loc = sum(1 for _ in file)
+            except:
+                print("failed to parse file", directory / entry)
             loc += file_loc
             FILE_STATS[str(entry)] = file_loc
         if os.path.isdir(directory / entry):

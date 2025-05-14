@@ -28,12 +28,12 @@
 #pragma once
 
 #include "asset/asset.hpp"
-#include "asset/asset_import_data.hpp"
+#include "asset/asset_db.hpp"
+#include "asset/asset_import_settings.hpp"
+#include "asset/asset_importer.hpp"
 #include "asset/asset_library.hpp"
-#include "asset/asset_library_fs.hpp"
 #include "asset/asset_loader.hpp"
 #include "asset/asset_manager.hpp"
-#include "asset/asset_meta.hpp"
 #include "asset/asset_ref.hpp"
 
 #include "audio/audio_bus.hpp"

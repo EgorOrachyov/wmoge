@@ -32,6 +32,8 @@
 #include "core/ioc_container.hpp"
 #include "core/string_utils.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "grc/texture_import_settings.hpp"
+#include "grc/texture_loader.hpp"
 #include "io/tree.hpp"
 #include "profiler/profiler_cpu.hpp"
 #include "profiler/profiler_gpu.hpp"
@@ -46,67 +48,58 @@ namespace wmoge {
         }
     }
 
-    Texture::Texture(TextureDesc& desc) {
-        m_images        = std::move(desc.images);
-        m_compressed    = std::move(desc.compressed);
-        m_texture       = desc.texture;
-        m_sampler       = desc.sampler;
-        m_width         = desc.width;
-        m_height        = desc.height;
-        m_depth         = desc.depth;
-        m_array_slices  = desc.array_slices;
-        m_mips          = desc.mips;
-        m_format        = desc.format;
-        m_format_source = desc.format_source;
-        m_tex_type      = desc.tex_type;
-        m_swizz         = desc.swizz;
-        m_mem_usage     = desc.mem_usage;
-        m_usages        = desc.usages;
-        m_srgb          = desc.srgb;
-        m_compression   = desc.compression;
-        m_flags         = desc.flags;
+    Texture::Texture(TextureDesc&& desc)
+        : m_desc(std::move(desc)) {
     }
 
     void Texture::set_source_images(std::vector<Ref<Image>> images, GfxFormat format) {
-        m_images        = std::move(images);
-        m_format_source = format;
+        m_desc.images               = std::move(images);
+        m_desc.params.format_source = format;
     }
-    void Texture::set_compressed(std::vector<GfxImageData> data, const TexCompressionParams& params) {
-        m_compressed  = std::move(data);
-        m_compression = params;
-    }
+
     void Texture::set_texture(const Ref<GfxTexture>& texture) {
         m_texture = texture;
     }
+
     void Texture::set_sampler(const Ref<GfxSampler>& sampler) {
         m_sampler = sampler;
     }
-    void Texture::set_flags(const TextureFlags& flags) {
-        m_flags = flags;
-    }
+
     void Texture::set_texture_callback(CallbackRef callback) {
         m_callback = callback;
     }
 
-    GfxTextureDesc Texture::get_desc() const {
+    GfxTextureDesc Texture::get_gfx_desc() const {
         GfxTextureDesc desc;
-        desc.width        = m_width;
-        desc.height       = m_height;
-        desc.depth        = m_depth;
-        desc.array_slices = m_array_slices;
-        desc.mips_count   = m_mips;
-        desc.mem_usage    = m_mem_usage;
-        desc.usages       = m_usages;
-        desc.swizz        = m_swizz;
-        desc.format       = m_format;
-        desc.tex_type     = m_tex_type;
+        desc.width        = m_desc.params.width;
+        desc.height       = m_desc.params.height;
+        desc.depth        = m_desc.params.depth;
+        desc.array_slices = m_desc.params.array_slices;
+        desc.mips_count   = m_desc.params.mips;
+        desc.mem_usage    = m_desc.params.mem_usage;
+        desc.usages       = m_desc.params.usages;
+        desc.swizz        = m_desc.params.swizz;
+        desc.format       = m_desc.params.format;
+        desc.tex_type     = m_desc.params.tex_type;
         return desc;
     }
 
-    Texture2d::Texture2d(TextureDesc& desc) : Texture(desc) {
+    Texture2d::Texture2d(TextureDesc&& desc) : Texture(std::move(desc)) {
     }
 
-    TextureCube::TextureCube(TextureDesc& desc) : Texture(desc) {
+    TextureCube::TextureCube(TextureDesc&& desc) : Texture(std::move(desc)) {
+    }
+
+    void rtti_grc_texture() {
+        rtti_type<TextureDesc>();
+        rtti_type<Texture>();
+        rtti_type<Texture2d>();
+        rtti_type<TextureCube>();
+        rtti_type<TextureImportSettings>();
+        rtti_type<Texture2dImportSettings>();
+        rtti_type<TextureCubeImportSettings>();
+        rtti_type<Texture2dLoader>();
+        rtti_type<TextureCubeLoader>();
     }
 
 }// namespace wmoge

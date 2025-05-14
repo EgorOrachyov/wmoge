@@ -27,6 +27,7 @@
 
 #include "edt_editor.hpp"
 
+#include "asset/asset_db.hpp"
 #include "core/ioc_container.hpp"
 #include "system/engine.hpp"
 
@@ -38,11 +39,11 @@ namespace wmoge {
 
     Status EdtEditor::setup() {
         m_engine = m_ioc_container->resolve_value<Engine>();
-
         return WG_OK;
     }
 
     Status EdtEditor::init() {
+        WG_CHECKED(m_engine->asset_db()->load_manifest("editor/assets.manifest"));
         return WG_OK;
     }
 

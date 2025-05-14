@@ -28,6 +28,7 @@
 #pragma once
 
 #include "core/async.hpp"
+#include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/task_hnd.hpp"
 #include "core/task_manager.hpp"
@@ -42,7 +43,7 @@ namespace wmoge {
      *
      * Accepts context of execution.
      */
-    using TaskRunnable = std::function<int(TaskContext&)>;
+    using TaskRunnable = std::function<Status(TaskContext&)>;
 
     /**
      * @class Task

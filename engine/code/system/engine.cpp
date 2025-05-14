@@ -27,8 +27,13 @@
 
 #include "engine.hpp"
 
-#include "asset/asset_library_fs.hpp"
+#include "asset/asset_artifact_cache.hpp"
+#include "asset/asset_db.hpp"
+#include "asset/asset_import_manager.hpp"
+#include "asset/asset_library_db.hpp"
+#include "asset/asset_load_manager.hpp"
 #include "asset/asset_manager.hpp"
+#include "asset/asset_resolver.hpp"
 #include "audio/openal/al_engine.hpp"
 #include "console/console_manager.hpp"
 #include "core/callback_queue.hpp"
@@ -71,6 +76,24 @@
 
 namespace wmoge {
 
+    static void engine_load_asset_importers(AssetImportManager* import_manager, RttiTypeStorage* type_storage) {
+        std::vector<RttiClass*> importers = type_storage->find_classes([](const Ref<RttiClass>& type) {
+            return type->is_subtype_of(AssetImporter::get_class_static()) && type->can_instantiate();
+        });
+        for (auto& importer : importers) {
+            import_manager->add_importer(importer->instantiate().cast<AssetImporter>());
+        }
+    }
+
+    static void engine_load_asset_loaders(AssetLoadManager* load_manager, RttiTypeStorage* type_storage) {
+        std::vector<RttiClass*> loaders = type_storage->find_classes([](const Ref<RttiClass>& type) {
+            return type->is_subtype_of(AssetLoader::get_class_static()) && type->can_instantiate();
+        });
+        for (auto& loader : loaders) {
+            load_manager->add_loader(loader->instantiate().cast<AssetLoader>());
+        }
+    }
+
     Engine::Engine(IocContainer* ioc_container) {
         m_ioc_container = ioc_container;
     }
@@ -95,8 +118,7 @@ namespace wmoge {
     Status Engine::init() {
         WG_PROFILE_CPU_SYSTEM("Engine::init");
 
-        m_task_manager  = m_ioc_container->resolve_value<TaskManager>();
-        m_asset_manager = m_ioc_container->resolve_value<AssetManager>();
+        m_task_manager = m_ioc_container->resolve_value<TaskManager>();
 
         m_window_manager = m_ioc_container->resolve_value<GlfwWindowManager>();
         m_input          = m_ioc_container->resolve_value<GlfwInput>();
@@ -120,8 +142,21 @@ namespace wmoge {
         m_profiler_gpu->enable(true);
         m_profiler_gpu->calibrate(m_time->get_start());
 
-        m_asset_manager->load_loaders();
-        m_asset_manager->add_library(std::make_shared<AssetLibraryFileSystem>("", m_ioc_container));
+        m_asset_artifact_cache = m_ioc_container->resolve_value<AssetArtifactCache>();
+        m_asset_db             = m_ioc_container->resolve_value<AssetDb>();
+        m_asset_resolver       = m_ioc_container->resolve_value<AssetResolver>();
+        m_asset_manager        = m_ioc_container->resolve_value<AssetManager>();
+
+        WG_CHECKED(m_asset_artifact_cache->load_cache());
+        WG_CHECKED(m_asset_db->load_db());
+        WG_CHECKED(m_asset_db->load_manifest("engine/assets.manifest"));
+
+        auto asset_import_mng = m_ioc_container->resolve_value<AssetImportManager>();
+        auto asset_load_mng   = m_ioc_container->resolve_value<AssetLoadManager>();
+
+        engine_load_asset_importers(asset_import_mng, RttiTypeStorage::instance());
+        engine_load_asset_loaders(asset_load_mng, RttiTypeStorage::instance());
+        asset_load_mng->add_library(make_ref<AssetLibraryAssetDb>(m_asset_db, m_asset_resolver, m_asset_artifact_cache));
 
         m_shader_library  = m_ioc_container->resolve_value<ShaderLibrary>();
         m_pso_cache       = m_ioc_container->resolve_value<PsoCache>();
@@ -200,6 +235,8 @@ namespace wmoge {
 
         m_engine_signals->shutdown.emit();
         m_plugin_manager->shutdown();
+
+        m_asset_db->save_db();
         m_task_manager->shutdown();
         // m_console->shutdown();
         m_scene_manager->clear();
@@ -215,33 +252,35 @@ namespace wmoge {
         return m_close_requested.load();
     }
 
-    Application*    Engine::application() { return m_application; }
-    Time*           Engine::time() { return m_time; }
-    DllManager*     Engine::dll_manager() { return m_dll_manager; }
-    PluginManager*  Engine::plugin_manager() { return m_plugin_manager; }
-    Config*         Engine::config() { return m_config; }
-    CallbackQueue*  Engine::main_queue() { return m_main_queue; }
-    FileSystem*     Engine::file_system() { return m_file_system; }
-    TaskManager*    Engine::task_manager() { return m_task_manager; }
-    AssetManager*   Engine::asset_manager() { return m_asset_manager; }
-    WindowManager*  Engine::window_manager() { return m_window_manager; }
-    Input*          Engine::input() { return m_input; }
-    GfxDriver*      Engine::gfx_driver() { return m_gfx_driver; }
-    ShaderTable*    Engine::shader_table() { return m_shader_table; }
-    ShaderManager*  Engine::shader_manager() { return m_shader_manager; }
-    ShaderLibrary*  Engine::shader_library() { return m_shader_library; }
-    PsoCache*       Engine::pso_cache() { return m_pso_cache; }
-    TextureManager* Engine::texture_manager() { return m_texture_manager; }
-    MeshManager*    Engine::mesh_manager() { return m_mesh_manager; }
-    SceneManager*   Engine::scene_manager() { return m_scene_manager; }
-    ConsoleManager* Engine::console_manager() { return m_console_manager; }
-    AudioEngine*    Engine::audio_engine() { return m_audio_engine; }
-    RenderEngine*   Engine::render_engine() { return m_render_engine; }
-    ViewManager*    Engine::view_manager() { return m_view_manager; }
-    UiManager*      Engine::ui_manager() { return m_ui_manager; }
-    EcsRegistry*    Engine::ecs_registry() { return m_ecs_registry; }
-    GameManager*    Engine::game_manager() { return m_game_manager; }
-    EngineConfig*   Engine::engine_config() { return m_engine_config; }
-    EngineSignals*  Engine::engine_signals() { return m_engine_signals; }
+    Application*        Engine::application() { return m_application; }
+    Time*               Engine::time() { return m_time; }
+    DllManager*         Engine::dll_manager() { return m_dll_manager; }
+    PluginManager*      Engine::plugin_manager() { return m_plugin_manager; }
+    Config*             Engine::config() { return m_config; }
+    CallbackQueue*      Engine::main_queue() { return m_main_queue; }
+    FileSystem*         Engine::file_system() { return m_file_system; }
+    TaskManager*        Engine::task_manager() { return m_task_manager; }
+    AssetDb*            Engine::asset_db() { return m_asset_db; }
+    AssetArtifactCache* Engine::asset_artifact_cache() { return m_asset_artifact_cache; }
+    AssetManager*       Engine::asset_manager() { return m_asset_manager; }
+    WindowManager*      Engine::window_manager() { return m_window_manager; }
+    Input*              Engine::input() { return m_input; }
+    GfxDriver*          Engine::gfx_driver() { return m_gfx_driver; }
+    ShaderTable*        Engine::shader_table() { return m_shader_table; }
+    ShaderManager*      Engine::shader_manager() { return m_shader_manager; }
+    ShaderLibrary*      Engine::shader_library() { return m_shader_library; }
+    PsoCache*           Engine::pso_cache() { return m_pso_cache; }
+    TextureManager*     Engine::texture_manager() { return m_texture_manager; }
+    MeshManager*        Engine::mesh_manager() { return m_mesh_manager; }
+    SceneManager*       Engine::scene_manager() { return m_scene_manager; }
+    ConsoleManager*     Engine::console_manager() { return m_console_manager; }
+    AudioEngine*        Engine::audio_engine() { return m_audio_engine; }
+    RenderEngine*       Engine::render_engine() { return m_render_engine; }
+    ViewManager*        Engine::view_manager() { return m_view_manager; }
+    UiManager*          Engine::ui_manager() { return m_ui_manager; }
+    EcsRegistry*        Engine::ecs_registry() { return m_ecs_registry; }
+    GameManager*        Engine::game_manager() { return m_game_manager; }
+    EngineConfig*       Engine::engine_config() { return m_engine_config; }
+    EngineSignals*      Engine::engine_signals() { return m_engine_signals; }
 
 }// namespace wmoge

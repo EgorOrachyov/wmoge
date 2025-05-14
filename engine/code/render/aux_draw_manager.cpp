@@ -465,7 +465,7 @@ namespace wmoge {
 
         buffered_vector<Ref<Texture>> textures;
         textures.emplace_back(texture_manager->get_texture(DefaultTexture::White));
-        textures.emplace_back(m_font->get_texture());
+        textures.emplace_back(m_font->get_texture().get_ref().as<Texture>());
 
         auto upload_data = [&](AuxData& aux_data) -> RdgVertBuffer* {
             if (aux_data.vtx_offset == 0) {

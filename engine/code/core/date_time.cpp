@@ -49,12 +49,27 @@ namespace wmoge {
     }
 
     DateTime::DateTime(const std::string& source) {
-        DateTimeTm        tm;
-        std::stringstream str(source);
+        std::stringstream stream(source);
+        std::size_t       count;
+        stream >> count;
 
-        str >> tm.year >> tm.month >> tm.day >> tm.hour >> tm.minute >> tm.second;
+        m_value = TimePoint(Clock::duration(static_cast<Clock::rep>(count)));
+    }
 
-        *this = DateTime(tm);
+    bool DateTime::operator<(const DateTime& other) const {
+        return m_value < other.m_value;
+    }
+
+    bool DateTime::operator>(const DateTime& other) const {
+        return m_value > other.m_value;
+    }
+
+    bool DateTime::operator==(const DateTime& other) const {
+        return m_value == other.m_value;
+    }
+
+    bool DateTime::operator!=(const DateTime& other) const {
+        return m_value != other.m_value;
     }
 
     DateTimeTm DateTime::to_tm() const {
@@ -88,17 +103,8 @@ namespace wmoge {
     }
 
     std::string DateTime::to_string() const {
-        std::stringstream str;
-        DateTimeTm        tm = to_tm();
-
-        str << tm.year << ' '
-            << tm.month << ' '
-            << tm.day << ' '
-            << tm.hour << ' '
-            << tm.minute << ' '
-            << tm.second;
-
-        return str.str();
+        std::size_t count = static_cast<std::size_t>(m_value.time_since_epoch().count());
+        return std::to_string(count);
     }
 
     std::string DateTime::to_formatted(const std::string& format) const {

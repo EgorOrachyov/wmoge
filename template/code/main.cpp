@@ -34,7 +34,9 @@
 #include "assimp_plugin.hpp"
 #include "freetype_plugin.hpp"
 #include "imgui_plugin.hpp"
+#include "importers_plugin.hpp"
 #include "runtime_plugin.hpp"
+#include "stbimage_plugin.hpp"
 
 // Editor plug-ins section
 
@@ -87,8 +89,10 @@ int main(int argc, const char* const* argv) {
     engine_app_config.signals    = &engine_signals;
     engine_app_config.plugins    = {
             std::make_shared<RuntimePlugin>(),
+            std::make_shared<ImportersPlugin>(),
             std::make_shared<AssimpPlugin>(),
             std::make_shared<FreetypePlugin>(),
+            std::make_shared<StbimagePlugin>(),
             std::make_shared<ImguiPlugin>()};
 
 #ifdef WMOGE_BUILD_TYPE_GAME

@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
 #include "io/stream.hpp"
 #include "io/tree.hpp"
 
@@ -85,6 +86,7 @@ namespace wmoge {
         Sha256Builder();
 
         Sha256Builder& hash(const void* buffer, std::size_t size);
+        Sha256Builder& hash(array_view<const std::uint8_t> buffer);
         Sha256         get();
 
     private:

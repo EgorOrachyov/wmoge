@@ -107,9 +107,9 @@ namespace wmoge {
         });
     }
 
-    Status FileSystem::get_file_timespamp(const std::string& path, DateTime& timespamp) {
+    Status FileSystem::get_file_timestamp(const std::string& path, DateTime& timespamp) {
         return filter_mounts_and_apply<Status>(m_mount_points, path, StatusCode::FailedFindFile, [&](MountVolume* adapter) {
-            return adapter->get_file_timespamp(path, timespamp);
+            return adapter->get_file_timestamp(path, timespamp);
         });
     }
 
@@ -265,6 +265,22 @@ namespace wmoge {
         file_hash = sha_builder.hash(file_data.data(), file_data.size()).get();
 
         return WG_OK;
+    }
+
+    Status FileSystem::remove_file(const std::string& path) {
+        WG_PROFILE_CPU_PLATFORM("FileSystem::remove_file");
+
+        return filter_mounts_and_apply<Status>(m_mount_points, path, StatusCode::FailedFindFile, [&](MountVolume* adapter) {
+            return adapter->remove_file(path);
+        });
+    }
+
+    Status FileSystem::list_directory(const std::string& path, std::vector<FileEntry>& entries) {
+        WG_PROFILE_CPU_PLATFORM("FileSystem::list_directory");
+
+        return filter_mounts_and_apply<Status>(m_mount_points, path, StatusCode::FailedFindFile, [&](MountVolume* adapter) {
+            return adapter->list_directory(path, entries);
+        });
     }
 
     void FileSystem::watch(const std::string& path, std::function<void(const FileSystemEvent&)> callback) {

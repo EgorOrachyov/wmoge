@@ -1,0 +1,14 @@
+uuid: 16618171316110975446
+flags:
+  - Resolvable
+cls: UiMarkup
+importer: UiMarkupImporter
+import_env:
+  file_to_id:
+    - key: editor/views/window_main.uixml
+      value: 16618171316110975446
+  deps: []
+  errors: []
+import_settings:
+  rtti: AssetImportSettings
+  user_data: ''

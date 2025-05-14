@@ -69,9 +69,9 @@ namespace wmoge {
     void TaskRuntime::execute(TaskContext& context) {
         WG_PROFILE_CPU_TASK("TaskRuntime::execute", m_name.str());
 
-        auto ret = m_runnable(context);
+        const Status ret = m_runnable(context);
 
-        if (ret) {
+        if (!ret) {
             set_failed();
             WG_LOG_ERROR("failed: " << m_name << " worker: " << context.thread_name());
         } else {
@@ -118,7 +118,7 @@ namespace wmoge {
 
         Ref<TaskRuntimeParallelFor> shared_state(this);
 
-        TaskRunnable runnable_function = [shared_state](TaskContext& context) -> int {
+        TaskRunnable runnable_function = [shared_state](TaskContext& context) -> Status {
             int batch_size   = shared_state->m_batch_size;
             int num_elements = shared_state->m_num_elements;
 
@@ -146,7 +146,7 @@ namespace wmoge {
                 if (tasks_finished + 1 == shared_state->m_num_tasks) shared_state->set_result(0);
             }
 
-            return 0;
+            return WG_OK;
         };
 
         for (int i = 0; i < m_num_tasks; i++) {

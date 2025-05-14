@@ -74,35 +74,43 @@ namespace wmoge {
     }
 
     Status stream_write(IoContext& context, IoStream& stream, const Ref<Data>& data) {
-        assert(data);
+        if (!data) {
+            std::size_t size = 0;
+            WG_ARCHIVE_WRITE(context, stream, size);
+            return WG_OK;
+        }
+        assert(data->size() > 0);
         WG_ARCHIVE_WRITE(context, stream, data->m_size);
         return stream.nwrite(static_cast<int>(data->m_size), data->m_buffer);
     }
     Status stream_read(IoContext& context, IoStream& stream, Ref<Data>& data) {
         std::size_t size;
         WG_ARCHIVE_READ(context, stream, size);
+        if (size == 0) {
+            return WG_OK;
+        }
         data = make_ref<Data>(size);
         return stream.nread(static_cast<int>(size), data->buffer());
     }
 
     Status tree_write(IoContext& context, IoTree& tree, const Ref<Data>& data) {
         if (!data) {
-            tree.node_write_value("");
+            WG_TREE_LEAF(tree);
             return WG_OK;
         }
-
         std::string encoded;
-        if (Base64::encode(data, encoded)) {
-            return tree_write(context, tree, encoded);
-        }
-        return StatusCode::FailedWrite;
+        WG_CHECKED(Base64::encode(data, encoded));
+        WG_TREE_WRITE(context, tree, encoded);
+        return WG_OK;
     }
     Status tree_read(IoContext& context, IoTree& tree, Ref<Data>& data) {
-        std::string encoded;
-        if (tree_read(context, tree, encoded)) {
-            return Base64::decode(encoded, data);
+        if (tree.node_is_empty()) {
+            return WG_OK;
         }
-        return StatusCode::FailedRead;
+        std::string encoded;
+        WG_TREE_READ(context, tree, encoded);
+        WG_CHECKED(Base64::decode(encoded, data));
+        return WG_OK;
     }
 
 }// namespace wmoge

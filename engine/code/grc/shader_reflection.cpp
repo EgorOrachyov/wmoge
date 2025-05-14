@@ -110,7 +110,7 @@ namespace wmoge {
 
     ShaderStructRegister::ShaderStructRegister(Strid name, std::size_t size, ShaderManager* shader_manager) {
         m_manager                = shader_manager;
-        m_struct_type            = make_ref<ShaderTypeStruct>();
+        m_struct_type            = make_ref<ShaderType>();
         m_struct_type->name      = name;
         m_struct_type->byte_size = std::int16_t(size);
         m_struct_type->type      = ShaderBaseType::Struct;
@@ -119,38 +119,18 @@ namespace wmoge {
     ShaderStructRegister& ShaderStructRegister::add_field(Strid name, Strid struct_type) {
         ShaderTypeField& field = m_struct_type->fields.emplace_back();
         field.name             = name;
-        field.type             = m_manager->find_global_type(struct_type).value();
-        field.offset           = field.type->byte_size;
-        return *this;
-    }
-
-    ShaderStructRegister& ShaderStructRegister::add_field(Strid name, Ref<ShaderType> type, Var value) {
-        ShaderTypeField& field = m_struct_type->fields.emplace_back();
-        field.name             = name;
-        field.type             = type;
-        field.default_value    = value;
-        field.offset           = field.type->byte_size;
+        field.type             = m_manager->find_global_type_idx(struct_type).value();
+        field.offset           = m_manager->find_global_type(field.type).value()->byte_size;
         return *this;
     }
 
     ShaderStructRegister& ShaderStructRegister::add_field_array(Strid name, Strid struct_type, int n_elements) {
         ShaderTypeField& field = m_struct_type->fields.emplace_back();
         field.name             = name;
-        field.type             = m_manager->find_global_type(struct_type).value();
+        field.type             = m_manager->find_global_type_idx(struct_type).value();
         field.is_array         = true;
         field.elem_count       = n_elements;
-        field.offset           = n_elements * field.type->byte_size;
-        return *this;
-    }
-
-    ShaderStructRegister& ShaderStructRegister::add_field_array(Strid name, Ref<ShaderType> type, int n_elements, Var value) {
-        ShaderTypeField& field = m_struct_type->fields.emplace_back();
-        field.name             = name;
-        field.type             = type;
-        field.default_value    = value;
-        field.is_array         = true;
-        field.elem_count       = n_elements;
-        field.offset           = n_elements * field.type->byte_size;
+        field.offset           = n_elements * m_manager->find_global_type(field.type).value()->byte_size;
         return *this;
     }
 
@@ -192,6 +172,11 @@ namespace wmoge {
         state.ds.stencil_dfail     = ds.stencil_dfail;
         state.ds.stencil_dpass     = ds.stencil_dpass;
         state.bs.blending          = bs.blending;
+    }
+
+    void rtti_grc_shader_reflection() {
+        rtti_type<ShaderPermutation>();
+        rtti_type<ShaderReflection>();
     }
 
 }// namespace wmoge

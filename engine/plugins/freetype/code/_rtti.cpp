@@ -27,14 +27,12 @@
 
 #include "_rtti.hpp"
 
-#include "freetype_asset_loader.hpp"
-#include "freetype_import_data.hpp"
+#include "freetype_font_importer.hpp"
 
 namespace wmoge {
 
     void rtti_freetype() {
-        rtti_type<FreetypeImportData>();
-        rtti_type<FreetypeAssetLoader>();
+        rtti_type<FreetypeFontImporter>();
     }
 
 }// namespace wmoge

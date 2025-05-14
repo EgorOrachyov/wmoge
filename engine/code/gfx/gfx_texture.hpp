@@ -27,9 +27,31 @@
 
 #pragma once
 
+#include "core/data.hpp"
 #include "gfx/gfx_resource.hpp"
+#include "rtti/traits.hpp"
 
 namespace wmoge {
+
+    /** @brief Holds data of an image in binary format */
+    struct GfxImageData {
+        WG_RTTI_STRUCT(GfxImageData)
+
+        Ref<Data> data;
+        int       width  = 0;
+        int       height = 0;
+        int       depth  = 0;
+        GfxFormat format = GfxFormat::RGBA8;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(GfxImageData) {
+        WG_RTTI_FIELD(data, {});
+        WG_RTTI_FIELD(width, {});
+        WG_RTTI_FIELD(height, {});
+        WG_RTTI_FIELD(depth, {});
+        WG_RTTI_FIELD(format, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class GfxTextureDesc

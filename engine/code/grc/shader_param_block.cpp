@@ -72,8 +72,14 @@ namespace wmoge {
                     return StatusCode::InvalidState;
                 }
 
+                auto param_type = provider.get_shader()->find_type(param->type);
+                if (!param_type) {
+                    WG_LOG_ERROR("no such type " << param->type.name);
+                    return StatusCode::InvalidState;
+                }
+
                 const std::int16_t offset  = param->offset;
-                const std::int16_t size    = param->elem_count * param->type->byte_size;
+                const std::int16_t size    = param->elem_count * (*param_type)->byte_size;
                 std::uint8_t*      ptr     = (*buffer)->buffer();
                 T                  to_copy = v;
 
@@ -150,8 +156,14 @@ namespace wmoge {
                     return StatusCode::InvalidState;
                 }
 
+                auto param_type = provider.get_shader()->find_type(param->type);
+                if (!param_type) {
+                    WG_LOG_ERROR("no such type " << param->type.name);
+                    return StatusCode::InvalidState;
+                }
+
                 const std::int16_t  offset = param->offset;
-                const std::int16_t  size   = param->elem_count * param->type->byte_size;
+                const std::int16_t  size   = param->elem_count * (*param_type)->byte_size;
                 const std::uint8_t* ptr    = (*buffer)->buffer();
                 T                   to_copy;
 
@@ -262,22 +274,23 @@ namespace wmoge {
             p.array_element = 0;
             v.offset        = 0;
 
+            const ShaderTypeIdx    type_idx = binding.type;
+            const Ref<ShaderType>& type     = m_shader->get_reflection().type_map[type_idx.idx];
+
             switch (binding.binding) {
                 case ShaderBindingType::InlineUniformBuffer:
                 case ShaderBindingType::UniformBuffer:
                     p.type  = GfxBindingType::UniformBuffer;
-                    v.range = binding.type->byte_size;
+                    v.range = type->byte_size;
                     break;
                 case ShaderBindingType::StorageBuffer:
                     p.type  = GfxBindingType::StorageBuffer;
-                    v.range = binding.type->byte_size;
+                    v.range = type->byte_size;
                     break;
                 case ShaderBindingType::Sampler2d:
                 case ShaderBindingType::Sampler2dArray:
                 case ShaderBindingType::SamplerCube:
-                    p.type     = GfxBindingType::SampledTexture;
-                    v.resource = binding.default_tex.as<GfxResource>();
-                    v.sampler  = binding.default_sampler;
+                    p.type = GfxBindingType::SampledTexture;
                     break;
                 case ShaderBindingType::StorageImage2d:
                     p.type = GfxBindingType::StorageImage;

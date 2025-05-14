@@ -361,4 +361,30 @@ namespace wmoge {
         return WG_OK;
     }
 
+    Status TexCompression::compress(const std::vector<Ref<Image>>& images, GfxFormat format, const TexCompressionParams& params, std::vector<GfxImageData>& compressed, GfxFormat& format_compressed, TexCompressionStats& stats) {
+        if (images.empty()) {
+            return WG_OK;
+        }
+
+        std::vector<GfxImageData> source_data;
+        source_data.reserve(images.size());
+
+        for (auto& image : images) {
+            GfxImageData data;
+            data.format = format;
+            data.depth  = 1;
+            data.width  = image->get_width();
+            data.height = image->get_height();
+            data.data   = image->get_pixel_data();
+            source_data.push_back(data);
+        }
+
+        WG_CHECKED(TexCompression::compress(params, source_data, compressed, stats));
+        assert(source_data.size() == compressed.size());
+
+        format_compressed = compressed.front().format;
+
+        return WG_OK;
+    }
+
 }// namespace wmoge

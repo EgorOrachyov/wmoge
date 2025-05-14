@@ -101,6 +101,7 @@ namespace wmoge {
         virtual Status node_read_value(std::int16_t& value) = 0;
         virtual Status node_read_value(std::size_t& value)  = 0;
 
+        virtual void node_as_leaf()                   = 0;
         virtual void node_as_map()                    = 0;
         virtual void node_as_list(std::size_t length) = 0;
 
@@ -211,6 +212,7 @@ namespace wmoge {
         WG_TREE_WRITE(tree, *((const super*) (&what))); \
     } while (false)
 
+#define WG_TREE_LEAF(tree)        tree.node_as_leaf()
 #define WG_TREE_MAP(tree)         tree.node_as_map()
 #define WG_TREE_SEQ(tree, length) tree.node_as_list(length)
 
@@ -362,6 +364,8 @@ namespace wmoge {
     Status tree_write(IoContext& context, IoTree& tree, const std::optional<T>& wrapper) {
         if (wrapper.has_value()) {
             WG_TREE_WRITE(context, tree, wrapper.value());
+        } else {
+            WG_TREE_LEAF(tree);
         }
         return WG_OK;
     }

@@ -54,6 +54,10 @@ namespace wmoge {
         template<typename M, std::size_t MinCapacity>
         array_view(const ankerl::svector<M, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
 
+        operator array_view<const T>() const {
+            return array_view<const T>(m_data, m_size);
+        }
+
         T& operator[](const std::size_t i) {
             assert(i < size());
             assert(m_data);

@@ -1,0 +1,12 @@
+uuid: 10258568960416946343
+flags:
+  - Hidden
+cls: Texture2d
+importer: ''
+import_env:
+  file_to_id:
+    - key: editor/fonts/roboto_bold_italic.ttf.bitmap
+      value: 10258568960416946343
+  deps: []
+  errors: []
+import_settings: 

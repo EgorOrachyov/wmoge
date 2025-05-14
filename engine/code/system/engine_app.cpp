@@ -67,6 +67,8 @@
 #include "system/plugin_manager.hpp"
 #include "ui/ui_manager.hpp"
 
+#include "asset/_bind.hpp"
+
 #include "asset/_rtti.hpp"
 #include "audio/_rtti.hpp"
 #include "console/_rtti.hpp"
@@ -105,7 +107,6 @@ namespace wmoge {
         ioc->bind_by_ioc<PsoCache>();
         ioc->bind_by_ioc<TextureManager>();
         ioc->bind_by_ioc<MeshManager>();
-        ioc->bind_by_ioc<AssetManager>();
         ioc->bind_by_ioc<RenderEngine>();
         bind_by_ioc_scene_manager(ioc);
         bind_by_ioc_game_manager(ioc);
@@ -159,6 +160,8 @@ namespace wmoge {
         ioc->bind_by_factory<GfxDriver>([ioc]() {
             return std::shared_ptr<GfxDriver>(ioc->resolve_value<VKDriver>(), [](auto p) {});
         });
+
+        bind_asset(ioc);
     }
 
     static Status unbind_globals(IocContainer* ioc) {
@@ -179,11 +182,13 @@ namespace wmoge {
         ioc->unbind<VKDriver>();
         ioc->unbind<GlfwInput>();
         ioc->unbind<GlfwWindowManager>();
-        ioc->unbind<AssetManager>();
         ioc->unbind<IoAsyncFileSystem>();
         ioc->unbind<PluginManager>();
         ioc->unbind<DllManager>();
         ioc->unbind<ConsoleManager>();
+
+        unbind_asset(ioc);
+
         return WG_OK;
     }
 

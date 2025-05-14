@@ -28,7 +28,6 @@
 #include "freetype_plugin.hpp"
 
 #include "_rtti.hpp"
-#include "freetype_asset_loader.hpp"
 
 namespace wmoge {
 

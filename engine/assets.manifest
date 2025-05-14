@@ -1,0 +1,5 @@
+assets:
+  - "./shaders/aux_draw.shader"
+  - "./shaders/blit.shader"
+  - "./shaders/canvas.shader"
+  - "./shaders/fill.shader"

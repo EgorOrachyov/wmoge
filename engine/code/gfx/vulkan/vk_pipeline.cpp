@@ -167,10 +167,10 @@ namespace wmoge {
             blend_attachments[0].blendEnable         = true;
             blend_attachments[0].alphaBlendOp        = VK_BLEND_OP_ADD;
             blend_attachments[0].colorBlendOp        = VK_BLEND_OP_ADD;
-            blend_attachments[0].srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-            blend_attachments[0].srcAlphaBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+            blend_attachments[0].srcColorBlendFactor = VK_BLEND_FACTOR_ONE;
             blend_attachments[0].dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-            blend_attachments[0].srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+            blend_attachments[0].srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+            blend_attachments[0].dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
         }
 
         VkPipelineColorBlendStateCreateInfo color_blending{};

@@ -30,6 +30,7 @@
 #include "core/log.hpp"
 #include "grc/shader_builder.hpp"
 #include "grc/shader_compiler.hpp"
+#include "grc/shader_loader.hpp"
 #include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
@@ -46,7 +47,8 @@ namespace wmoge {
         }
     }
 
-    Shader::Shader(ShaderReflection&& reflection) : m_reflection(std::move(reflection)) {
+    Shader::Shader(ShaderReflection&& reflection)
+        : m_reflection(std::move(reflection)) {
     }
 
     Status Shader::fill_layout_desc(GfxDescSetLayoutDesc& desc, std::int16_t space) const {
@@ -185,41 +187,44 @@ namespace wmoge {
 
         assert(lang == GfxShaderLang::GlslVk450);
 
-        auto                                                          builder = compiler->make_builder();
-        std::function<void(const Ref<ShaderTypeStruct>& struct_type)> visitor;
-        flat_set<Ref<ShaderTypeStruct>>                               visited;
+        auto                                      builder = compiler->make_builder();
+        std::function<void(const ShaderTypeIdx&)> visitor;
+        flat_set<std::int16_t>                    visited;
 
-        auto emit_struct = [&](const Ref<ShaderTypeStruct>& struct_type) {
+        auto emit_struct = [&](const ShaderTypeIdx& struct_type_idx) {
+            const Ref<ShaderType>& struct_type = m_reflection.type_map[struct_type_idx.idx];
             for (const auto& field : struct_type->fields) {
+                const Ref<ShaderType>& type = m_reflection.type_map[field.type.idx];
                 if (field.is_array && field.elem_count == 0) {
-                    builder->add_field(field.type->name, field.name, std::nullopt);
+                    builder->add_field(type->name, field.name, std::nullopt);
                 }
                 if (field.is_array && field.elem_count > 0) {
-                    builder->add_field(field.type->name, field.name, field.elem_count);
+                    builder->add_field(type->name, field.name, field.elem_count);
                 }
                 if (!field.is_array) {
-                    builder->add_field(field.type->name, field.name);
+                    builder->add_field(type->name, field.name);
                 }
             }
         };
 
-        visitor = [&](const Ref<ShaderTypeStruct>& struct_type) {
-            assert(struct_type);
+        visitor = [&](const ShaderTypeIdx& struct_type_idx) {
+            assert(struct_type_idx.idx >= 0);
 
-            if (visited.find(struct_type) != visited.end()) {
+            if (visited.find(struct_type_idx.idx) != visited.end()) {
                 return;
             }
 
-            visited.insert(struct_type);
+            visited.insert(struct_type_idx.idx);
+            const Ref<ShaderType>& struct_type = m_reflection.type_map[struct_type_idx.idx];
 
             for (const auto& filed : struct_type->fields) {
-                if (filed.type->type == ShaderBaseType::Struct) {
-                    visitor(filed.type.cast<ShaderTypeStruct>());
+                if (m_reflection.type_map[filed.type.idx]->type == ShaderBaseType::Struct) {
+                    visitor(filed.type);
                 }
             }
 
             builder->begin_struct(struct_type->name);
-            emit_struct(struct_type);
+            emit_struct(struct_type_idx);
             builder->end_struct();
         };
 
@@ -234,11 +239,11 @@ namespace wmoge {
                     case ShaderBindingType::InlineUniformBuffer:
                     case ShaderBindingType::UniformBuffer:
                     case ShaderBindingType::StorageBuffer: {
-                        auto s = binding.type.cast<ShaderTypeStruct>();
-                        assert(s);
-                        for (const auto& filed : s->fields) {
-                            if (filed.type->type == ShaderBaseType::Struct) {
-                                visitor(filed.type.cast<ShaderTypeStruct>());
+                        const Ref<ShaderType>& struct_type = m_reflection.type_map[binding.type.idx];
+                        for (const auto& fieled : struct_type->fields) {
+                            const Ref<ShaderType>& type = m_reflection.type_map[fieled.type.idx];
+                            if (type->type == ShaderBaseType::Struct) {
+                                visitor(fieled.type);
                             }
                         }
                         break;
@@ -259,7 +264,7 @@ namespace wmoge {
                     case ShaderBindingType::InlineUniformBuffer:
                     case ShaderBindingType::UniformBuffer:
                         builder->begin_uniform_binding(space_idx, binding_idx, binding.name, binding.qualifiers);
-                        emit_struct(binding.type.cast<ShaderTypeStruct>());
+                        emit_struct(binding.type);
                         builder->end_uniform_binding();
                         break;
 
@@ -281,7 +286,7 @@ namespace wmoge {
 
                     case ShaderBindingType::StorageBuffer:
                         builder->begin_storage_binding(space_idx, binding_idx, binding.name, binding.qualifiers);
-                        emit_struct(binding.type.cast<ShaderTypeStruct>());
+                        emit_struct(binding.type);
                         builder->end_storage_binding();
                         break;
 
@@ -357,6 +362,13 @@ namespace wmoge {
         }
 
         return &m_reflection.params_info[id.value];
+    }
+
+    std::optional<Ref<ShaderType>> Shader::find_type(const ShaderTypeIdx idx) {
+        if (idx.idx < m_reflection.type_map.size()) {
+            return m_reflection.type_map[idx.idx];
+        }
+        return std::nullopt;
     }
 
     ShaderParamId Shader::find_param_id(Strid name) {
@@ -463,6 +475,12 @@ namespace wmoge {
 
     const std::int16_t Shader::get_num_passes(std::int16_t technique_idx) const {
         return std::int16_t(m_reflection.techniques[technique_idx].passes.size());
+    }
+
+    void rtti_grc_shader() {
+        rtti_type<Shader>();
+        rtti_type<ShaderLoader>();
+        rtti_type<ShaderCompiler>();
     }
 
 }// namespace wmoge

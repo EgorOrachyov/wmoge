@@ -71,6 +71,9 @@ namespace wmoge {
     RttiClass* RttiObject::get_parent_class() const {
         return get_parent_class_static();
     }
+    const std::string& RttiObject::get_extension() const {
+        return get_extension_static();
+    }
 
     Strid RttiObject::get_class_name_static() {
         static Strid g_class_name("RttiObject");
@@ -88,6 +91,11 @@ namespace wmoge {
         static RttiClass* g_class = nullptr;
         return g_class;
     }
+    const std::string& RttiObject::get_extension_static() {
+        static std::string g_extension = ".object";
+        return g_extension;
+    }
+
     Status RttiObject::tree_read_object(IoContext& context, IoTree& tree, Ref<RttiObject>& object) {
         assert(!object);
 
@@ -114,6 +122,7 @@ namespace wmoge {
     }
     Status RttiObject::tree_write_object(IoContext& context, IoTree& tree, const Ref<RttiObject>& object) {
         if (!object) {
+            WG_TREE_LEAF(tree);
             return WG_OK;
         }
         WG_TREE_MAP(tree);

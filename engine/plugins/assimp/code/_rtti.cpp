@@ -27,15 +27,12 @@
 
 #include "_rtti.hpp"
 
-#include "assimp_asset_loader.hpp"
-#include "assimp_import_data.hpp"
+#include "assimp_mesh_importer.hpp"
 
 namespace wmoge {
 
     void rtti_assimp() {
-        rtti_type<AssimpMeshAssetLoader>();
-        rtti_type<AssimpProcess>();
-        rtti_type<AssimpMeshImportData>();
+        rtti_type<AssimpMeshImporter>();
     }
 
 }// namespace wmoge

@@ -34,11 +34,11 @@
 #include "core/ref.hpp"
 #include "core/simple_id.hpp"
 #include "core/string_id.hpp"
-#include "core/var.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "grc/texture.hpp"
 #include "platform/file_system.hpp"
 #include "rtti/traits.hpp"
 
@@ -100,32 +100,19 @@ namespace wmoge {
     };
 
     /**
-     * @class ShaderType
-     * @brief Recursive complex type for declaring of anything in a shader what has a type
-    */
-    struct ShaderType : public RttiObject {
-        WG_RTTI_CLASS(ShaderType, RttiObject);
+     * @class ShaderTypeIdx
+     * @brief Aux struct to save/load type ref and identify type at runtime
+     */
+    struct ShaderTypeIdx {
+        WG_RTTI_STRUCT(ShaderTypeIdx);
 
-        Strid          name;                               // type name
-        ShaderBaseType type         = ShaderBaseType::None;// type of its base
-        std::int16_t   n_row        = -1;                  // num of rows for vector like types
-        std::int16_t   n_col        = -1;                  // num of columns for matrix like types
-        std::int16_t   n_elem       = -1;                  // num of elements in vec/mat type
-        std::int16_t   byte_size    = 0;                   // raw byte size
-        bool           is_primitive = false;               // is a primitive type, raw value in a memory
-        bool           is_builtin   = false;               // is type pre-defined in the engine (no save/load)
+        Strid        name;
+        std::int16_t idx = -1;
     };
 
-    WG_RTTI_CLASS_BEGIN(ShaderType) {
-        WG_RTTI_FACTORY();
+    WG_RTTI_STRUCT_BEGIN(ShaderTypeIdx) {
         WG_RTTI_FIELD(name, {});
-        WG_RTTI_FIELD(type, {});
-        WG_RTTI_FIELD(n_row, {});
-        WG_RTTI_FIELD(n_col, {});
-        WG_RTTI_FIELD(n_elem, {});
-        WG_RTTI_FIELD(byte_size, {});
-        WG_RTTI_FIELD(is_primitive, {});
-        WG_RTTI_FIELD(is_builtin, {});
+        WG_RTTI_FIELD(idx, {});
     }
     WG_RTTI_END;
 
@@ -136,12 +123,12 @@ namespace wmoge {
     struct ShaderTypeField {
         WG_RTTI_STRUCT(ShaderTypeField);
 
-        Strid           name;              // field name
-        Ref<ShaderType> type;              // base element type (elem type of array)
-        std::int16_t    offset     = -1;   // offset in a struct from this to next field
-        std::int16_t    elem_count = 0;    // count of elem in array (0 if array is unbound)
-        bool            is_array   = false;// is array field
-        Var             default_value;     // optional default value to set
+        Strid         name;            // field name
+        ShaderTypeIdx type;            // base element type (elem type of array)
+        std::int16_t  offset     = -1; // offset in a struct from this to next field
+        std::int16_t  elem_count = 0;  // count of elem in array (0 if array is unbound)
+        std::string   default_value;   // optional default value to set
+        bool          is_array = false;// is array field
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderTypeField) {
@@ -149,24 +136,40 @@ namespace wmoge {
         WG_RTTI_FIELD(type, {});
         WG_RTTI_FIELD(offset, {});
         WG_RTTI_FIELD(elem_count, {});
+        WG_RTTI_FIELD(default_value, {});
         WG_RTTI_FIELD(is_array, {});
-        // WG_RTTI_FIELD(default_value, {});
     }
     WG_RTTI_END;
 
     /**
-     * @class ShaderTypeStruct
-     * @brief Recursive complex shader struct type
+     * @class ShaderType
+     * @brief Recursive complex type for declaring of anything in a shader what has a type
     */
-    class ShaderTypeStruct : public ShaderType {
-        WG_RTTI_CLASS(ShaderTypeStruct, ShaderType);
+    struct ShaderType : public RttiObject {
+        WG_RTTI_CLASS(ShaderType, RttiObject);
 
-        std::vector<ShaderTypeField> fields;// fields of a struct type
+        Strid                        name;                       // type name
+        ShaderBaseType               type = ShaderBaseType::None;// type of its base
+        std::vector<ShaderTypeField> fields;                     // fields of a struct type
+        std::int16_t                 n_row        = -1;          // num of rows for vector like types
+        std::int16_t                 n_col        = -1;          // num of columns for matrix like types
+        std::int16_t                 n_elem       = -1;          // num of elements in vec/mat type
+        std::int16_t                 byte_size    = 0;           // raw byte size
+        bool                         is_primitive = false;       // is a primitive type, raw value in a memory
+        bool                         is_builtin   = false;       // is type pre-defined in the engine (no save/load)
     };
 
-    WG_RTTI_CLASS_BEGIN(ShaderTypeStruct) {
+    WG_RTTI_CLASS_BEGIN(ShaderType) {
         WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(type, {});
         WG_RTTI_FIELD(fields, {});
+        WG_RTTI_FIELD(n_row, {});
+        WG_RTTI_FIELD(n_col, {});
+        WG_RTTI_FIELD(n_elem, {});
+        WG_RTTI_FIELD(byte_size, {});
+        WG_RTTI_FIELD(is_primitive, {});
+        WG_RTTI_FIELD(is_builtin, {});
     }
     WG_RTTI_END;
 
@@ -179,15 +182,14 @@ namespace wmoge {
         ShaderStructRegister(Strid name, std::size_t size, class ShaderManager* shader_manager);
 
         ShaderStructRegister& add_field(Strid name, Strid struct_type);
-        ShaderStructRegister& add_field(Strid name, Ref<ShaderType> type, Var value = Var());
         ShaderStructRegister& add_field_array(Strid name, Strid struct_type, int n_elements = 0);
-        ShaderStructRegister& add_field_array(Strid name, Ref<ShaderType> type, int n_elements = 0, Var value = Var());
+        ShaderStructRegister& add_field_array(Strid name, Ref<ShaderType> type, int n_elements = 0, std::string value = std::string());
 
         Status finish();
 
     private:
-        Ref<ShaderTypeStruct> m_struct_type;
-        class ShaderManager*  m_manager;
+        Ref<ShaderType>      m_struct_type;
+        class ShaderManager* m_manager;
     };
 
     /**
@@ -226,14 +228,12 @@ namespace wmoge {
         WG_RTTI_STRUCT(ShaderConstant);
 
         Strid       name;
-        Var         value;
-        std::string str;
+        std::string value;
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderConstant) {
         WG_RTTI_FIELD(name, {});
-        // WG_RTTI_FIELD(value, {});
-        WG_RTTI_FIELD(str, {});
+        WG_RTTI_FIELD(value, {});
     }
     WG_RTTI_END;
 
@@ -280,11 +280,11 @@ namespace wmoge {
         WG_RTTI_STRUCT(ShaderBinding);
 
         Strid             name;
-        Ref<ShaderType>   type;
+        ShaderTypeIdx     type;
         ShaderBindingType binding = ShaderBindingType::None;
         ShaderQualifiers  qualifiers;
-        Ref<GfxTexture>   default_tex;
-        Ref<GfxSampler>   default_sampler;
+        DefaultTexture    default_tex     = DefaultTexture::White;
+        DefaultSampler    default_sampler = DefaultSampler::Default;
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderBinding) {
@@ -292,8 +292,8 @@ namespace wmoge {
         WG_RTTI_FIELD(type, {});
         WG_RTTI_FIELD(binding, {});
         WG_RTTI_FIELD(qualifiers, {});
-        // default_tex
-        // default_sampler
+        WG_RTTI_FIELD(default_tex, {});
+        WG_RTTI_FIELD(default_sampler, {});
     }
     WG_RTTI_END;
 
@@ -467,21 +467,21 @@ namespace wmoge {
     struct ShaderPassInfo {
         WG_RTTI_STRUCT(ShaderPassInfo);
 
-        Strid                name;
-        PipelineState        state;
-        ShaderOptions        options;
-        flat_map<Strid, Var> tags;
-        std::string          ui_name;
-        std::string          ui_hint;
-        std::vector<Strid>   options_remap;
-        std::vector<Strid>   variants_remap;
+        Strid                        name;
+        PipelineState                state;
+        ShaderOptions                options;
+        flat_map<Strid, std::string> tags;
+        std::string                  ui_name;
+        std::string                  ui_hint;
+        std::vector<Strid>           options_remap;
+        std::vector<Strid>           variants_remap;
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderPassInfo) {
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(state, {});
         WG_RTTI_FIELD(options, {});
-        // WG_RTTI_FIELD(tags, {});
+        WG_RTTI_FIELD(tags, {});
         WG_RTTI_FIELD(ui_name, {});
         WG_RTTI_FIELD(ui_hint, {});
         WG_RTTI_FIELD(options_remap, {});
@@ -499,7 +499,7 @@ namespace wmoge {
         Strid                           name;
         buffered_vector<ShaderPassInfo> passes;
         flat_map<Strid, std::int16_t>   passes_map;
-        flat_map<Strid, Var>            tags;
+        flat_map<Strid, std::string>    tags;
         std::string                     ui_name;
         std::string                     ui_hint;
     };
@@ -508,7 +508,7 @@ namespace wmoge {
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(passes, {});
         WG_RTTI_FIELD(passes_map, {});
-        // WG_RTTI_FIELD(tags, {});
+        WG_RTTI_FIELD(tags, {});
         WG_RTTI_FIELD(ui_name, {});
         WG_RTTI_FIELD(ui_hint, {});
     }
@@ -526,24 +526,21 @@ namespace wmoge {
     struct ShaderParamInfo {
         WG_RTTI_STRUCT(ShaderParamInfo);
 
-        Strid             name;             // fully qualified param name
-        Ref<ShaderType>   type;             // param base type (in case of array - element type)
-        ShaderBindingType binding_type;     // binding type where param is
-        std::int16_t      space      = -1;  // binding space
-        std::int16_t      binding    = -1;  // binding index in space
-        std::int16_t      offset     = -1;  // byte offset of scalar data in a buffer
-        std::int16_t      buffer     = -1;  // buffer index in space
-        std::int16_t      elem_idx   = -1;  // element index of array element
-        std::int16_t      elem_count = 1;   // count of elements (array size)
-        std::int16_t      byte_size  = -1;  // size in bytes (not for all type of params actual)
-        std::string       ui_name;          // optional ui name
-        std::string       ui_hint;          // optional ui hint
-        Var               ui_range_min;     // optional min range for scalar value
-        Var               ui_range_max;     // optional max range for scalar value
-        Var               default_var;      // optional default scalar value
-        Ref<GfxTexture>   default_tex;      // optional texture
-        Ref<GfxSampler>   default_sampler;  // optional sampler
-        std::string       default_value_str;// optional display string of default value
+        Strid             name;                                     // fully qualified param name
+        ShaderTypeIdx     type;                                     // param base type (in case of array - element type)
+        ShaderBindingType binding_type;                             // binding type where param is
+        std::int16_t      space      = -1;                          // binding space
+        std::int16_t      binding    = -1;                          // binding index in space
+        std::int16_t      offset     = -1;                          // byte offset of scalar data in a buffer
+        std::int16_t      buffer     = -1;                          // buffer index in space
+        std::int16_t      elem_idx   = -1;                          // element index of array element
+        std::int16_t      elem_count = 1;                           // count of elements (array size)
+        std::int16_t      byte_size  = -1;                          // size in bytes (not for all type of params actual)
+        std::string       ui_name;                                  // optional ui name
+        std::string       ui_hint;                                  // optional ui hint
+        std::string       default_value;                            // optional default scalar value
+        DefaultTexture    default_tex     = DefaultTexture::White;  // optional texture
+        DefaultSampler    default_sampler = DefaultSampler::Default;// optional sampler
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderParamInfo) {
@@ -559,12 +556,9 @@ namespace wmoge {
         WG_RTTI_FIELD(byte_size, {});
         WG_RTTI_FIELD(ui_name, {});
         WG_RTTI_FIELD(ui_hint, {});
-        // WG_RTTI_FIELD(ui_range_min, {});
-        // WG_RTTI_FIELD(ui_range_max, {});
-        // WG_RTTI_FIELD(default_var, {});
-        // WG_RTTI_FIELD(default_tex, {});
-        // WG_RTTI_FIELD(default_sampler, {});
-        WG_RTTI_FIELD(default_value_str, {});
+        WG_RTTI_FIELD(default_value, {});
+        WG_RTTI_FIELD(default_tex, {});
+        WG_RTTI_FIELD(default_sampler, {});
     }
     WG_RTTI_END;
 
@@ -631,21 +625,23 @@ namespace wmoge {
     struct ShaderReflection {
         WG_RTTI_STRUCT(ShaderReflection);
 
-        Strid                                  shader_name;   // shader script global unique name
-        Strid                                  shader_extends;// shader script which we extend in this one
-        ShaderDomain                           domain;        // shader domain
-        std::string                            ui_name;       // optional ui name
-        std::string                            ui_hint;       // optional ui hint
-        flat_map<Strid, std::int16_t>          params_id;     // mapping of full param name to its id
-        std::vector<ShaderParamInfo>           params_info;   // id to param info
-        std::vector<ShaderBufferInfo>          buffers;       // buffer info for scalar params packing
-        flat_map<Strid, Ref<ShaderTypeStruct>> declarations;  // shader defined struct types
-        std::vector<ShaderConstant>            constants;     // shader defined constanst
-        std::vector<ShaderSpace>               spaces;        // binding spaces for descriptor sets creation
-        std::vector<ShaderSourceFile>          sources;       // source code modules
-        std::vector<ShaderTechniqueInfo>       techniques;    // shader techniques info
-        flat_map<Strid, std::int16_t>          techniques_map;// mapping techniques name to its id
-        flat_set<GfxShaderLang>                languages;     // shader languages, which it provides
+        Strid                            shader_name;   // shader script global unique name
+        Strid                            shader_extends;// shader script which we extend in this one
+        ShaderDomain                     domain;        // shader domain
+        std::string                      ui_name;       // optional ui name
+        std::string                      ui_hint;       // optional ui hint
+        flat_map<Strid, std::int16_t>    params_id;     // mapping of full param name to its id
+        std::vector<ShaderParamInfo>     params_info;   // id to param info
+        std::vector<ShaderBufferInfo>    buffers;       // buffer info for scalar params packing
+        flat_map<Strid, Ref<ShaderType>> declarations;  // shader defined struct types
+        std::vector<ShaderConstant>      constants;     // shader defined constanst
+        std::vector<ShaderSpace>         spaces;        // binding spaces for descriptor sets creation
+        std::vector<ShaderSourceFile>    sources;       // source code modules
+        std::vector<ShaderTechniqueInfo> techniques;    // shader techniques info
+        flat_map<Strid, std::int16_t>    techniques_map;// mapping techniques name to its id
+        flat_set<GfxShaderLang>          languages;     // shader languages, which it provides
+        std::vector<ShaderTypeIdx>       type_idxs;     // aux type indices to build type map after loading
+        std::vector<Ref<ShaderType>>     type_map;      // aux type map to get type info by its index
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderReflection) {
@@ -664,8 +660,12 @@ namespace wmoge {
         WG_RTTI_FIELD(techniques, {});
         WG_RTTI_FIELD(techniques_map, {});
         WG_RTTI_FIELD(languages, {});
+        WG_RTTI_FIELD(type_idxs, {});
+        WG_RTTI_FIELD(type_map, {RttiNoSaveLoad});
     }
     WG_RTTI_END;
+
+    void rtti_grc_shader_reflection();
 
 }// namespace wmoge
 

@@ -28,77 +28,68 @@
 #pragma once
 
 #include "asset/asset.hpp"
-#include "asset/asset_library.hpp"
-#include "asset/asset_loader.hpp"
-#include "asset/asset_meta.hpp"
+#include "asset/asset_import_env.hpp"
+#include "asset/asset_import_settings.hpp"
 #include "core/async.hpp"
-#include "core/buffered_vector.hpp"
 #include "core/flat_map.hpp"
-#include "core/string_id.hpp"
-#include "core/task.hpp"
-#include "rtti/traits.hpp"
+#include "core/uuid.hpp"
+#include "rtti/type_ref.hpp"
 
-#include <filesystem>
 #include <functional>
 #include <memory>
 #include <mutex>
-#include <unordered_map>
-#include <vector>
+
+namespace wmoge {
+    class FileSystem;
+    class TaskManager;
+    class AssetDb;
+    class AssetCache;
+    class AssetLoadManager;
+    class AssetImporter;
+    class AssetImportManager;
+}// namespace wmoge
 
 namespace wmoge {
 
     /**
      * @class AssetManager
-     * @brief Manages assets loading and caching in the engine
-     *
-     * Asset manager is responsible for all engine assets management.
-     * It supports all common asset manipulation operations.
-     *
-     * - Automatically resolves asset names
-     * - Uses asset pak to abstract asset storage
-     * - Allows to load a asset using name
-     * - Allows async loading
-     * - Allows async loading of asset with dependencies
+     * @brief Manages assets importing, loading and caching in the engine
      */
     class AssetManager {
     public:
-        AssetManager(class IocContainer* ioc);
+        using AsyncAssetRef = AsyncResult<Ref<Asset>>;
+        using AsyncAssetId  = AsyncResult<UUID>;
 
-        AsyncResult<Ref<Asset>>      load_async(const AssetId& name);
-        Ref<Asset>                   load(const AssetId& name);
-        Ref<Asset>                   find(const AssetId& name);
-        void                         add_loader(Ref<AssetLoader> loader);
-        void                         add_library(std::shared_ptr<AssetLibrary> library);
-        std::optional<AssetLoader*>  find_loader(const Strid& loader_rtti);
-        std::optional<AssetMeta>     resolve_asset_meta(const AssetId& asset);
-        std::optional<AssetLibrary*> resolve_asset(const AssetId& asset);
-        void                         clear();
-        void                         load_loaders();
+        AssetManager(FileSystem*         file_system,
+                     AssetDb*            asset_db,
+                     AssetCache*         asset_cache,
+                     AssetLoadManager*   load_manager,
+                     AssetImportManager* import_manager);
+
+        [[nodiscard]] AsyncAssetRef load(UUID asset_id);
+        [[nodiscard]] AsyncAssetRef load(const std::string& asset_name);
+        [[nodiscard]] Ref<Asset>    load_wait(UUID asset_id);
+        [[nodiscard]] Ref<Asset>    load_wait(const std::string& asset_name);
+        [[nodiscard]] AsyncAssetId  import(const std::string& asset_path, AssetFlags flags, AssetImporter* importer, const Ref<AssetImportSettings>& settings, AssetImportEnv env);
+        [[nodiscard]] AsyncAssetId  reimport(UUID asset_id);
+        void                        cache(Ref<Asset> asset, bool replace = true);
+        [[nodiscard]] bool          is_import_enabled() const { return m_import_enabled; }
+        [[nodiscard]] bool          is_caching_enabled() const { return m_caching_enabled; }
 
     private:
-        struct LoadState : public RefCnt {
-            buffered_vector<Async> deps;
-            AsyncOp<Ref<Asset>>    async_op;
-            AssetLoadContext       context;
-            AssetLoadRequest       request;
-            AssetLoadResult        result;
-            AssetLibrary*          library = nullptr;
-            AssetLoader*           loader  = nullptr;
-            std::vector<Ref<Data>> data_buffers;
-        };
+        using EvictCallback    = std::function<void(Asset*)>;
+        using EvictCallbackPtr = std::shared_ptr<EvictCallback>;
 
-        std::vector<std::shared_ptr<AssetLibrary>>   m_libraries;
-        flat_map<AssetId, WeakRef<Asset>>            m_assets;
-        flat_map<AssetId, Ref<LoadState>>            m_loading;
-        flat_map<Strid, Ref<AssetLoader>>            m_loaders;
-        std::shared_ptr<std::function<void(Asset*)>> m_callback;
-
-        class FileSystem*      m_file_system   = nullptr;
-        class RttiTypeStorage* m_type_storage  = nullptr;
-        class IocContainer*    m_ioc_container = nullptr;
-        class TaskManager*     m_task_manager  = nullptr;
-
-        mutable std::recursive_mutex m_mutex;
+        flat_map<std::string, AsyncAssetId> m_importing;
+        EvictCallbackPtr                    m_callback;
+        FileSystem*                         m_file_system     = nullptr;
+        AssetDb*                            m_asset_db        = nullptr;
+        AssetCache*                         m_asset_cache     = nullptr;
+        AssetLoadManager*                   m_load_manager    = nullptr;
+        AssetImportManager*                 m_import_manager  = nullptr;
+        bool                                m_import_enabled  = true;
+        bool                                m_caching_enabled = true;
+        mutable std::recursive_mutex        m_mutex;
     };
 
 }// namespace wmoge

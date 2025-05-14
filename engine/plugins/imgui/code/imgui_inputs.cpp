@@ -108,6 +108,7 @@ namespace wmoge {
         element.text = std::move(processor.pop_str_from_buffer());
     }
 
+    /** @brief Aux structure to pass context to imgui callback */
     struct ImguiInputTextUserData {
         ImguiProcessor& processor;
         UiInputTextExt& element;

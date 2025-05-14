@@ -35,6 +35,7 @@
 #include "core/string_id.hpp"
 #include "core/string_utf.hpp"
 #include "platform/file.hpp"
+#include "platform/file_entry.hpp"
 #include "platform/mount_volume.hpp"
 
 #include <deque>
@@ -95,7 +96,7 @@ namespace wmoge {
         bool        exists(const std::string& path);
         bool        exists_physical(const std::string& path);
         Status      get_file_size(const std::string& path, std::size_t& size);
-        Status      get_file_timespamp(const std::string& path, DateTime& timespamp);
+        Status      get_file_timestamp(const std::string& path, DateTime& timespamp);
         Status      read_file(const std::string& path, std::string& data);
         Status      read_file(const std::string& path, Ref<Data>& data);
         Status      read_file(const std::string& path, std::vector<std::uint8_t>& data);
@@ -104,6 +105,8 @@ namespace wmoge {
         Status      save_file(const std::string& path, const std::string& data);
         Status      save_file(const std::string& path, const std::vector<std::uint8_t>& data);
         Status      hash_file(const std::string& path, Sha256& file_hash);
+        Status      remove_file(const std::string& path);
+        Status      list_directory(const std::string& path, std::vector<FileEntry>& entries);
         void        watch(const std::string& path, std::function<void(const FileSystemEvent&)> callback);
         void        add_mounting(const MountPoint& point, bool front = false);
         void        root(const std::filesystem::path& path);
@@ -112,19 +115,13 @@ namespace wmoge {
         [[nodiscard]] const std::filesystem::path& root_path() const;
 
     private:
-        std::deque<MountPoint> m_mount_points;// serached after resouliton second, ordered by priority
+        using FileSystemWatcherPtr = std::unique_ptr<struct FileSystemWatcher>;
 
-        std::filesystem::path m_executable_path;// absolute exe path
-        std::filesystem::path m_root_path;      // path to root directory of engine files (virtual)
-        std::filesystem::path m_eng_path;       // path to directory with engine private files
-        std::filesystem::path m_assets_path;    // path to assets inside root
-        std::filesystem::path m_cache_path;     // path to cache inside root
-        std::filesystem::path m_debug_path;     // path to debug data inside root
-        std::filesystem::path m_log_path;       // path to log data inside root
-
-        std::vector<std::unique_ptr<struct FileSystemWatcher>> m_watchers;
-
-        Ref<MountVolume> m_root_volume;
+        std::deque<MountPoint>            m_mount_points;   // serached after resouliton second, ordered by priority
+        std::filesystem::path             m_executable_path;// absolute exe path
+        std::filesystem::path             m_root_path;      // path to root directory of engine files (virtual)
+        std::vector<FileSystemWatcherPtr> m_watchers;       // wather instances tracking file changes
+        Ref<MountVolume>                  m_root_volume;    // default root volume of fs
     };
 
 }// namespace wmoge

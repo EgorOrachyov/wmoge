@@ -134,9 +134,8 @@ namespace wmoge {
         std::vector<EcsArch>                                 m_arch_by_idx;       // arch mask, indexed by arch idx
         std::vector<std::pair<EcsAccess, EcsQueuryFunction>> m_on_destroy;        // queries executed on destroy of some entities
         int                                                  m_entity_counter = 0;// total count of created entities
-
-        CallbackQueue m_queue;       // queue for async world operations, flushed on sync
-        EcsRegistry*  m_ecs_registry;// registry of the ecs world
+        CallbackQueue                                        m_queue;             // queue for async world operations, flushed on sync
+        EcsRegistry*                                         m_ecs_registry;      // registry of the ecs world
 
         mutable SpinMutex m_mutex;
     };

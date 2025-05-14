@@ -48,15 +48,15 @@ namespace wmoge {
         init_default_samplers();
     }
 
-    Ref<Texture2d> TextureManager::create_texture_2d(TextureDesc& desc) {
+    Ref<Texture2d> TextureManager::create_texture_2d(TextureDesc desc) {
         WG_PROFILE_CPU_GRC("TextureManager::create_texture_2d");
         std::lock_guard guard(m_mutex);
 
-        assert(desc.tex_type == GfxTex::Tex2d);
-        assert(desc.array_slices == 1);
+        assert(desc.params.tex_type == GfxTex::Tex2d);
+        assert(desc.params.array_slices == 1);
 
-        desc.flags |= {TextureFlag::Managed};
-        auto texture = make_ref<Texture2d>(desc);
+        desc.params.flags |= {TextureFlag::Managed};
+        auto texture = make_ref<Texture2d>(std::move(desc));
         init_texture(texture.get());
         return texture;
     }
@@ -65,27 +65,27 @@ namespace wmoge {
         WG_PROFILE_CPU_GRC("TextureManager::create_texture_2d");
 
         TextureDesc desc;
-        desc.tex_type      = GfxTex::Tex2d;
-        desc.flags         = flags;
-        desc.width         = width;
-        desc.height        = height;
-        desc.mips          = mips;
-        desc.swizz         = swizz;
-        desc.format        = format;
-        desc.format_source = format;
-        desc.sampler       = get_sampler(DefaultSampler::Default);
-        return create_texture_2d(desc);
+        desc.params.tex_type      = GfxTex::Tex2d;
+        desc.params.flags         = flags;
+        desc.params.width         = width;
+        desc.params.height        = height;
+        desc.params.mips          = mips;
+        desc.params.swizz         = swizz;
+        desc.params.format        = format;
+        desc.params.format_source = format;
+        desc.sampler              = DefaultSampler::Default;
+        return create_texture_2d(std::move(desc));
     }
 
-    Ref<TextureCube> TextureManager::create_texture_cube(TextureDesc& desc) {
+    Ref<TextureCube> TextureManager::create_texture_cube(TextureDesc desc) {
         WG_PROFILE_CPU_GRC("TextureManager::create_texture_cube");
         std::lock_guard guard(m_mutex);
 
-        assert(desc.tex_type == GfxTex::TexCube);
-        assert(desc.array_slices == 6);
+        assert(desc.params.tex_type == GfxTex::TexCube);
+        assert(desc.params.array_slices == 6);
 
-        desc.flags |= {TextureFlag::Managed};
-        auto texture = make_ref<TextureCube>(desc);
+        desc.params.flags |= {TextureFlag::Managed};
+        auto texture = make_ref<TextureCube>(std::move(desc));
         init_texture(texture.get());
         return texture;
     }
@@ -98,6 +98,14 @@ namespace wmoge {
 
         texture->set_texture_callback(m_callback);
         m_textures[texture.get()].weak_ref = texture;
+    }
+
+    void TextureManager::add_texture_and_init(const Ref<Texture>& texture) {
+        assert(texture);
+        assert(!has_texture(texture.get()));
+
+        std::lock_guard guard(m_mutex);
+        init_texture(texture.get());
     }
 
     void TextureManager::remove_texture(Texture* texture) {
@@ -169,45 +177,12 @@ namespace wmoge {
 
     Status TextureManager::generate_mips(const std::vector<Ref<Image>>& images, std::vector<Ref<Image>>& mips) {
         WG_PROFILE_CPU_ASSET("TextureManager::generate_mips");
-
-        for (auto& image : images) {
-            std::vector<Ref<Image>> face_mips;
-            WG_CHECKED(image->generate_mip_chain(face_mips));
-
-            for (auto& mip : face_mips) {
-                mips.push_back(mip);
-            }
-        }
-
-        return WG_OK;
+        return Image::generate_mips(images, mips);
     }
 
     Status TextureManager::generate_compressed_data(const std::vector<Ref<Image>>& images, GfxFormat format, const TexCompressionParams& params, std::vector<GfxImageData>& compressed, GfxFormat& format_compressed, TexCompressionStats& stats) {
         WG_PROFILE_CPU_ASSET("TextureManager::generate_compressed_data");
-
-        if (images.empty()) {
-            return WG_OK;
-        }
-
-        std::vector<GfxImageData> source_data;
-        source_data.reserve(images.size());
-
-        for (auto& image : images) {
-            GfxImageData data;
-            data.format = format;
-            data.depth  = 1;
-            data.width  = image->get_width();
-            data.height = image->get_height();
-            data.data   = image->get_pixel_data();
-            source_data.push_back(data);
-        }
-
-        WG_CHECKED(TexCompression::compress(params, source_data, compressed, stats));
-        assert(source_data.size() == compressed.size());
-
-        format_compressed = compressed.front().format;
-
-        return WG_OK;
+        return TexCompression::compress(images, format, params, compressed, format_compressed, stats);
     }
 
     const Ref<Texture>& TextureManager::get_texture(DefaultTexture texture) {
@@ -262,7 +237,6 @@ namespace wmoge {
             std::memcpy(image->get_pixel_data()->buffer(), tex_colors[i].data(), sizeof(std::uint8_t[4]));
 
             m_default_textures[i] = create_texture_2d({}, GfxFormat::RGBA8, 1, 1, 1, GfxTexSwizz::None);
-            m_default_textures[i]->set_id(SID(tex_names[i]));
             m_default_textures[i]->set_source_images(std::move(source_images), GfxFormat::RGBA8);
             queue_texture_upload(m_default_textures[i].get());
         }
@@ -275,14 +249,15 @@ namespace wmoge {
         entry.weak_ref = WeakRef<Texture>(texture);
 
         const bool           is_pooled = texture->get_flags().get(TextureFlag::Pooled);
-        const GfxTextureDesc desc      = texture->get_desc();
+        const GfxTextureDesc desc      = texture->get_gfx_desc();
 
         if (is_pooled) {
-            texture->set_texture(m_pool->allocate(desc, SIDDBG(texture->get_name().str())));
+            texture->set_texture(m_pool->allocate(desc, SIDDBG(texture->get_name())));
         } else {
-            texture->set_texture(m_gfx_driver->make_texture(desc, SIDDBG(texture->get_name().str())));
+            texture->set_texture(m_gfx_driver->make_texture(desc, SIDDBG(texture->get_name())));
         }
 
+        texture->set_sampler(get_sampler(texture->get_desc().sampler));
         texture->set_texture_callback(m_callback);
     }
 

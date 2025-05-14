@@ -27,35 +27,9 @@
 
 #include "_rtti.hpp"
 
-#include "asset/default_asset_loader.hpp"
-#include "asset/icon_atlas_asset_loader.hpp"
-#include "asset/icon_atlas_import_data.hpp"
-#include "asset/image_asset_loader.hpp"
-#include "asset/image_import_data.hpp"
-#include "asset/shader_asset_loader.hpp"
-#include "asset/texture_asset_loader.hpp"
-#include "asset/texture_import_data.hpp"
-#include "asset/ui_markup_asset_loader.hpp"
-#include "asset/wav_asset_loader.hpp"
-#include "asset/wav_import_data.hpp"
-
 namespace wmoge {
 
     void rtti_runtime() {
-        rtti_type<DefaultAssetLoader>();
-        rtti_type<ImageAssetLoader>();
-        rtti_type<ImageImportData>();
-        rtti_type<ShaderAssetLoader>();
-        rtti_type<Texture2dAssetLoader>();
-        rtti_type<TextureCubeAssetLoader>();
-        rtti_type<TextureImportData>();
-        rtti_type<Texture2dImportData>();
-        rtti_type<TextureCubeImportData>();
-        rtti_type<IconAtlasAssetLoader>();
-        rtti_type<IconAtlasImportData>();
-        rtti_type<UiMarkupAssetLoader>();
-        rtti_type<WavAssetLoader>();
-        rtti_type<WavImportData>();
     }
 
 }// namespace wmoge

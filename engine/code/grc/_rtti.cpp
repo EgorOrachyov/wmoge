@@ -30,6 +30,7 @@
 #include "grc/font.hpp"
 #include "grc/icon.hpp"
 #include "grc/image.hpp"
+#include "grc/image_import_settings.hpp"
 #include "grc/pso_file.hpp"
 #include "grc/shader.hpp"
 #include "grc/shader_compiler.hpp"
@@ -40,35 +41,14 @@
 namespace wmoge {
 
     void rtti_grc() {
-        rtti_type<ShaderReflection>();
-        rtti_type<ShaderFileOption>();
-        rtti_type<ShaderFileParam>();
-        rtti_type<ShaderFileParamBlock>();
-        rtti_type<ShaderFilePass>();
-        rtti_type<ShaderFileTechnique>();
-        rtti_type<ShaderFileSource>();
-        rtti_type<ShaderFile>();
-        rtti_type<Shader>();
-        rtti_type<Shader>();
-        rtti_type<ShaderPermutation>();
-        rtti_type<ShaderCompiler>();
-        rtti_type<FilePsoVertFormat>();
-        rtti_type<FilePsoRenderPass>();
-        rtti_type<FilePsoLayout>();
-        rtti_type<FilePsoShader>();
-        rtti_type<FilePsoStateGraphics>();
-        rtti_type<FilePsoStateCompute>();
-        rtti_type<FilePsoData>();
-        rtti_type<Image>();
-        rtti_type<Texture>();
-        rtti_type<Texture2d>();
-        rtti_type<TextureCube>();
-        rtti_type<Font>();
-        rtti_type<IconInfo>();
-        rtti_type<IconAtlasPage>();
-        rtti_type<IconAtlasDesc>();
-        rtti_type<IconAtlas>();
-        rtti_type<Icon>();
+        rtti_grc_image();
+        rtti_grc_shader_reflection();
+        rtti_grc_shader_file();
+        rtti_grc_shader();
+        rtti_grc_pso();
+        rtti_grc_texture();
+        rtti_grc_icon();
+        rtti_grc_font();
     }
 
 }// namespace wmoge

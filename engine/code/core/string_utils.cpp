@@ -130,6 +130,11 @@ namespace wmoge {
         return pos != std::string::npos && pos == 0;
     }
 
+    bool StringUtils::is_ends_with(const std::string& str, const std::string& suffix) {
+        auto pos = str.find(suffix);
+        return pos != std::string::npos && pos + suffix.length() == str.length();
+    }
+
     std::string StringUtils::find_replace_first(const std::string& source, const std::string& substring, const std::string& replacement) {
         const auto iter = source.find(substring);
 

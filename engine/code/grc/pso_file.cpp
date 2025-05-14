@@ -29,4 +29,14 @@
 
 namespace wmoge {
 
+    void rtti_grc_pso() {
+        rtti_type<FilePsoVertFormat>();
+        rtti_type<FilePsoRenderPass>();
+        rtti_type<FilePsoLayout>();
+        rtti_type<FilePsoShader>();
+        rtti_type<FilePsoStateGraphics>();
+        rtti_type<FilePsoStateCompute>();
+        rtti_type<FilePsoData>();
+    }
+
 }// namespace wmoge

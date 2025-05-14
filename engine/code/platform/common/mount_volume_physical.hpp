@@ -51,9 +51,11 @@ namespace wmoge {
         bool        exists(const std::string& path) override;
         bool        exists_physical(const std::string& path) override;
         Status      get_file_size(const std::string& path, std::size_t& size) override;
-        Status      get_file_timespamp(const std::string& path, DateTime& timespamp) override;
+        Status      get_file_timestamp(const std::string& path, DateTime& timespamp) override;
         Status      open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) override;
         Status      open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) override;
+        Status      remove_file(const std::string& path) override;
+        Status      list_directory(const std::string& path, std::vector<FileEntry>& entries) override;
         Status      mounted() override;
 
     private:

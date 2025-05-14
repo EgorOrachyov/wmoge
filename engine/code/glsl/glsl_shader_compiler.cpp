@@ -371,11 +371,11 @@ namespace wmoge {
     }
 
     Async GlslShaderCompilerAdapter::compile(const Ref<ShaderCompilerRequest>& request, const Async& depends_on) {
-        Task task(request->input.name, [compiler = m_glsl_compiler, request](TaskContext&) {
+        Task task(request->input.name, [compiler = m_glsl_compiler, request](TaskContext&) -> Status {
             if (!compiler->compile(*request)) {
-                return 1;
+                return StatusCode::Error;
             }
-            return 0;
+            return WG_OK;
         });
         return task.schedule(m_task_manager, depends_on).as_async();
     }

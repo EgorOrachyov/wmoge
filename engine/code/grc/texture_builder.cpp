@@ -32,81 +32,75 @@
 
 namespace wmoge {
 
-    static void log_texture_compression_result(const Strid& name, const TextureDesc& desc, const TexCompressionStats& stats) {
+    static void log_texture_compression_result(const Strid& name, const TextureParams& params, const TexCompressionStats& stats) {
 #ifdef WG_DEBUG
         WG_LOG_INFO("compressed texture "
                     << name
-                    << " dim=" << Vec3i(desc.width, desc.height, desc.depth)
-                    << " array=" << desc.array_slices
-                    << " fmt=" << magic_enum::enum_name(desc.format)
+                    << " dim=" << Vec3i(params.width, params.height, params.depth)
+                    << " array=" << params.array_slices
+                    << " fmt=" << magic_enum::enum_name(params.format)
                     << " from=" << StringUtils::from_mem_size(stats.source_size)
                     << " to=" << StringUtils::from_mem_size(stats.result_size)
                     << " ratio=" << stats.ratio << "%");
 #endif
     }
 
-    TextureBuilder::TextureBuilder(Strid name, TextureManager* texture_manager)
-        : m_builder_name(name),
-          m_texture_manager(texture_manager) {
+    TextureDescBuilder::TextureDescBuilder(std::string name)
+        : m_name(std::move(name)) {
     }
 
-    TextureBuilder& TextureBuilder::set_flags(TextureFlags flags) {
+    TextureDescBuilder& TextureDescBuilder::set_flags(TextureFlags flags) {
         m_flags = flags;
         return *this;
     }
 
-    TextureBuilder& TextureBuilder::set_image(Ref<Image> image, GfxFormat format) {
+    TextureDescBuilder& TextureDescBuilder::set_image(Ref<Image> image, GfxFormat format) {
         m_source_image = std::move(image);
         m_format       = format;
         return *this;
     }
 
-    TextureBuilder& TextureBuilder::set_images(std::vector<Ref<Image>> images, GfxFormat format) {
+    TextureDescBuilder& TextureDescBuilder::set_images(std::vector<Ref<Image>> images, GfxFormat format) {
         m_source_images = std::move(images);
         m_format        = format;
         return *this;
     }
 
-    TextureBuilder& TextureBuilder::set_mipmaps(bool mips) {
+    TextureDescBuilder& TextureDescBuilder::set_mipmaps(bool mips) {
         m_mipmaps = mips;
         return *this;
     }
 
-    TextureBuilder& TextureBuilder::set_swizz(GfxTexSwizz swizz) {
+    TextureDescBuilder& TextureDescBuilder::set_swizz(GfxTexSwizz swizz) {
         m_swizz = swizz;
         return *this;
     }
 
-    TextureBuilder& TextureBuilder::set_resize(TexResizeParams resize) {
+    TextureDescBuilder& TextureDescBuilder::set_resize(TexResizeParams resize) {
         m_resize = resize;
         return *this;
     }
 
-    TextureBuilder& TextureBuilder::set_compression(TexCompressionFormat format) {
+    TextureDescBuilder& TextureDescBuilder::set_compression(TexCompressionFormat format) {
         m_compression.format = format;
         return *this;
     }
 
-    TextureBuilder& TextureBuilder::set_compression(TexCompressionParams compression) {
+    TextureDescBuilder& TextureDescBuilder::set_compression(TexCompressionParams compression) {
         m_compression = compression;
         return *this;
     }
 
-    TextureBuilder& TextureBuilder::set_sampler(DefaultSampler sampler) {
-        m_sampler = m_texture_manager->get_sampler(sampler);
+    TextureDescBuilder& TextureDescBuilder::set_sampler(DefaultSampler sampler) {
+        m_sampler = sampler;
         return *this;
     }
 
-    TextureBuilder& TextureBuilder::set_sampler(GfxSamplerDesc sampler) {
-        m_sampler = m_texture_manager->get_gfx_driver()->make_sampler(sampler, SIDDBG(sampler.to_string()));
-        return *this;
-    }
-
-    Status TextureBuilder::build_2d(Ref<Texture2d>& out_texture) {
-        WG_PROFILE_CPU_ASSET("TextureBuilder::build_2d");
+    Status TextureDescBuilder::build_desc_2d(TextureDesc& out_desc) {
+        WG_PROFILE_CPU_ASSET("TextureDescBuilder::build_desc_2d");
 
         if (!TexResize::resize(m_resize, *m_source_image)) {
-            WG_LOG_ERROR("failed to resize source image " << m_builder_name);
+            WG_LOG_ERROR("failed to resize source image " << m_name);
             return StatusCode::FailedResize;
         }
 
@@ -115,40 +109,104 @@ namespace wmoge {
 
         const int num_mips = m_mipmaps ? Image::max_mips_count(m_source_image->get_width(), m_source_image->get_height(), 1) : 1;
 
-        TextureDesc desc;
-        desc.tex_type      = GfxTex::Tex2d;
-        desc.flags         = flags;
-        desc.width         = m_source_image->get_width();
-        desc.height        = m_source_image->get_height();
-        desc.mips          = num_mips;
-        desc.format_source = m_format;
-        desc.format        = m_format;
-        desc.swizz         = m_swizz;
-        desc.sampler       = m_sampler;
-        desc.images        = {m_source_image};
+        out_desc.name                 = m_name;
+        out_desc.params.tex_type      = GfxTex::Tex2d;
+        out_desc.params.flags         = flags;
+        out_desc.params.width         = m_source_image->get_width();
+        out_desc.params.height        = m_source_image->get_height();
+        out_desc.params.mips          = num_mips;
+        out_desc.params.format_source = m_format;
+        out_desc.params.format        = m_format;
+        out_desc.params.swizz         = m_swizz;
+        out_desc.sampler              = m_sampler;
+        out_desc.images               = {m_source_image};
 
         if (m_mipmaps) {
             std::vector<Ref<Image>> mips;
-            if (!m_texture_manager->generate_mips(desc.images, mips)) {
-                WG_LOG_ERROR("failed to gen mip chain for " << m_builder_name);
+            if (!Image::generate_mips(out_desc.images, mips)) {
+                WG_LOG_ERROR("failed to gen mip chain for " << m_name);
                 return StatusCode::Error;
             }
-            std::swap(desc.images, mips);
+            std::swap(out_desc.images, mips);
         }
 
         if (m_compression.format != TexCompressionFormat::Unknown) {
-            if (!m_texture_manager->generate_compressed_data(desc.images, m_format, m_compression, desc.compressed, desc.format, m_compression_stats)) {
-                WG_LOG_ERROR("failed to compress data for " << m_builder_name);
+            if (!TexCompression::compress(out_desc.images, m_format, m_compression, out_desc.compressed, out_desc.params.format, m_compression_stats)) {
+                WG_LOG_ERROR("failed to compress data for " << m_name);
                 return StatusCode::Error;
             }
             if (m_log) {
-                log_texture_compression_result(m_builder_name, desc, m_compression_stats);
+                log_texture_compression_result(m_name, out_desc.params, m_compression_stats);
             }
         }
 
+        return WG_OK;
+    }
+
+    Status TextureDescBuilder::build_desc_cube(TextureDesc& out_desc) {
+        WG_PROFILE_CPU_ASSET("TextureDescBuilder::build_desc_cube");
+
+        for (Ref<Image>& source_image : m_source_images) {
+            if (!TexResize::resize(m_resize, *source_image)) {
+                WG_LOG_ERROR("failed to resize source image " << m_name);
+                return StatusCode::FailedResize;
+            }
+        }
+
+        TextureFlags flags;
+        flags.set(TextureFlag::Compressed, m_compression.format != TexCompressionFormat::Unknown);
+
+        const int num_mips = m_mipmaps ? Image::max_mips_count(m_source_images[0]->get_width(), m_source_images[0]->get_height(), 1) : 1;
+
+        out_desc.name                 = m_name;
+        out_desc.params.tex_type      = GfxTex::TexCube;
+        out_desc.params.flags         = flags;
+        out_desc.params.width         = m_source_images[0]->get_width();
+        out_desc.params.height        = m_source_images[0]->get_height();
+        out_desc.params.array_slices  = 6;
+        out_desc.params.mips          = num_mips;
+        out_desc.params.format_source = m_format;
+        out_desc.params.format        = m_format;
+        out_desc.params.swizz         = m_swizz;
+        out_desc.sampler              = m_sampler;
+        out_desc.images               = std::move(m_source_images);
+
+        if (m_mipmaps) {
+            std::vector<Ref<Image>> mips;
+            if (!Image::generate_mips(out_desc.images, mips)) {
+                WG_LOG_ERROR("failed to gen mip chain for " << m_name);
+                return StatusCode::Error;
+            }
+            std::swap(out_desc.images, mips);
+        }
+
+        if (m_compression.format != TexCompressionFormat::Unknown) {
+            if (!TexCompression::compress(out_desc.images, m_format, m_compression, out_desc.compressed, out_desc.params.format, m_compression_stats)) {
+                WG_LOG_ERROR("failed to compress data for " << m_name);
+                return StatusCode::Error;
+            }
+            if (m_log) {
+                log_texture_compression_result(m_name, out_desc.params, m_compression_stats);
+            }
+        }
+
+        return WG_OK;
+    }
+
+    TextureBuilder::TextureBuilder(std::string name, TextureManager* texture_manager)
+        : TextureDescBuilder(std::move(name)),
+          m_texture_manager(texture_manager) {
+    }
+
+    Status TextureBuilder::build_2d(Ref<Texture2d>& out_texture) {
+        WG_PROFILE_CPU_ASSET("TextureBuilder::build_2d");
+
+        TextureDesc desc;
+        WG_CHECKED(build_desc_2d(desc));
+
         out_texture = m_texture_manager->create_texture_2d(desc);
         if (!out_texture) {
-            WG_LOG_ERROR("failed to instantiate texture " << m_builder_name);
+            WG_LOG_ERROR("failed to instantiate texture " << m_name);
             return StatusCode::FailedInstantiate;
         }
 
@@ -160,53 +218,12 @@ namespace wmoge {
     Status TextureBuilder::build_cube(Ref<TextureCube>& out_texture) {
         WG_PROFILE_CPU_ASSET("TextureBuilder::build_cube");
 
-        for (Ref<Image>& source_image : m_source_images) {
-            if (!TexResize::resize(m_resize, *source_image)) {
-                WG_LOG_ERROR("failed to resize source image " << m_builder_name);
-                return StatusCode::FailedResize;
-            }
-        }
-
-        TextureFlags flags;
-        flags.set(TextureFlag::Compressed, m_compression.format != TexCompressionFormat::Unknown);
-
-        const int num_mips = m_mipmaps ? Image::max_mips_count(m_source_images[0]->get_width(), m_source_images[0]->get_height(), 1) : 1;
-
         TextureDesc desc;
-        desc.tex_type      = GfxTex::TexCube;
-        desc.flags         = flags;
-        desc.width         = m_source_images[0]->get_width();
-        desc.height        = m_source_images[0]->get_height();
-        desc.array_slices  = 6;
-        desc.mips          = num_mips;
-        desc.format_source = m_format;
-        desc.format        = m_format;
-        desc.swizz         = m_swizz;
-        desc.sampler       = m_sampler;
-        desc.images        = std::move(m_source_images);
-
-        if (m_mipmaps) {
-            std::vector<Ref<Image>> mips;
-            if (!m_texture_manager->generate_mips(desc.images, mips)) {
-                WG_LOG_ERROR("failed to gen mip chain for " << m_builder_name);
-                return StatusCode::Error;
-            }
-            std::swap(desc.images, mips);
-        }
-
-        if (m_compression.format != TexCompressionFormat::Unknown) {
-            if (!m_texture_manager->generate_compressed_data(desc.images, m_format, m_compression, desc.compressed, desc.format, m_compression_stats)) {
-                WG_LOG_ERROR("failed to compress data for " << m_builder_name);
-                return StatusCode::Error;
-            }
-            if (m_log) {
-                log_texture_compression_result(m_builder_name, desc, m_compression_stats);
-            }
-        }
+        WG_CHECKED(build_desc_cube(desc));
 
         out_texture = m_texture_manager->create_texture_cube(desc);
         if (!out_texture) {
-            WG_LOG_ERROR("failed to instantiate texture " << m_builder_name);
+            WG_LOG_ERROR("failed to instantiate texture " << m_name);
             return StatusCode::FailedInstantiate;
         }
 

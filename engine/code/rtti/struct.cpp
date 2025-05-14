@@ -67,6 +67,10 @@ namespace wmoge {
         m_members.insert(m_fields.back().get_name());
     }
 
+    void RttiStruct::set_extension(std::string extension) {
+        m_extension = std::move(extension);
+    }
+
     bool RttiStruct::has_field(const Strid& name) const {
         auto query = m_fields_map.find(name);
         return query != m_fields_map.end();

@@ -57,7 +57,6 @@ namespace wmoge {
         m_processor = std::make_unique<ImguiProcessor>(this);
 
         m_style_default = make_ref<UiStyle>();
-        m_style_default->set_id(SID("style/imgui/default"));
         imgui_style_from_imgui_style(m_style_default, ImGui::GetStyle());
 
         m_style = m_style_default;

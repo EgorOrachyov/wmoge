@@ -145,6 +145,15 @@ namespace wmoge {
          */
         static Size2i mip_size(int mip, int width, int height);
 
+        /**
+         * @brief Generates mips for a list of images starting form mip 0 to max mip
+         *
+         * @param mips List to store generated mips
+         *
+         * @return True if generated all mips
+         */
+        static Status generate_mips(const std::vector<Ref<Image>>& images, std::vector<Ref<Image>>& mips);
+
     private:
         Ref<Data> m_pixel_data;
         int       m_width      = 0;
@@ -162,5 +171,7 @@ namespace wmoge {
         WG_RTTI_FIELD(m_pixel_size, {});
     }
     WG_RTTI_END;
+
+    void rtti_grc_image();
 
 }// namespace wmoge

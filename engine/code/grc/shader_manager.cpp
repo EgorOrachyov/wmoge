@@ -104,6 +104,20 @@ namespace wmoge {
         buffered_vector<Strid>        inline_params_names;
         buffered_vector<std::int16_t> inline_params_sizes;
 
+        std::function<void(const Ref<ShaderType>&)> register_type_func;
+
+        auto register_type = [&](const Ref<ShaderType>& type) {
+            if (type->type == ShaderBaseType::Struct) {
+                for (const auto& field : type->fields) {
+                    auto field_type = find_global_type(field.type).value();
+                    register_type_func(field_type);
+                }
+            }
+            builder.add_type(type);
+        };
+
+        register_type_func = register_type;
+
         for (const auto& param_block : file.param_blocks) {
             bool         block_has_inline_params = false;
             std::int16_t block_size              = 0;
@@ -117,9 +131,7 @@ namespace wmoge {
                 }
 
                 auto type = qtype.value();
-                if (type->type == ShaderBaseType::Struct) {
-                    builder.add_struct(type.cast<ShaderTypeStruct>());
-                }
+                register_type_func(type);
 
                 if (type->is_primitive) {
                     block_has_inline_params = true;
@@ -153,11 +165,13 @@ namespace wmoge {
                 std::size_t field_size         = type->byte_size;
                 std::size_t field_size_aligned = Math::align(type->byte_size, sizeof(Vec4f));
 
-                struct_bilder.add_field(param.name, type, param.value.empty() ? Var() : Var(param.value));
+                struct_bilder.add_field(param.name, type->name, param.value);
 
                 while (field_size < field_size_aligned) {
-                    struct_bilder.add_field(SID("Padding" + StringUtils::from_int(next_pad_idx++)), type);
-                    field_size += type->byte_size;
+                    auto filler_type = ShaderTypes::FLOAT;
+                    builder.add_type(filler_type);
+                    struct_bilder.add_field(SID("Padding" + StringUtils::from_int(next_pad_idx++)), filler_type->name);
+                    field_size += filler_type->byte_size;
                 }
             }
 
@@ -191,7 +205,7 @@ namespace wmoge {
                 if (type == ShaderTypes::SAMPLER2D) {
                     auto texture = Enum::parse<DefaultTexture>((std::string) param.value);
                     auto sampler = DefaultSampler::Default;
-                    space_builder.add_texture_2d(param.name, m_texture_manager->get_texture_gfx(texture), m_texture_manager->get_sampler(sampler));
+                    space_builder.add_texture_2d(param.name, texture, sampler);
                     continue;
                 }
                 if (type == ShaderTypes::SAMPLER2D_ARRAY) {
@@ -256,6 +270,33 @@ namespace wmoge {
                 param_info.ui_name          = param.ui_name.empty() ? param.name.str() : param.ui_name;
                 param_info.ui_hint          = param.ui_hint;
             }
+        }
+
+        return WG_OK;
+    }
+
+    Status ShaderManager::build_types_map(ShaderReflection& reflection) {
+        assert(reflection.type_map.empty());
+
+        reflection.type_map.resize(reflection.type_idxs.size());
+
+        for (const ShaderTypeIdx& type_idx : reflection.type_idxs) {
+            auto gtype = find_global_type(type_idx);
+            if (gtype) {
+                reflection.type_map[type_idx.idx] = *gtype;
+                continue;
+            }
+            auto dtype = reflection.declarations.find(type_idx.name);
+            if (dtype != reflection.declarations.end()) {
+                reflection.type_map[type_idx.idx] = dtype->second;
+                continue;
+            }
+            WG_LOG_ERROR("no type to build type map for "
+                         << reflection.shader_name
+                         << " type idx " << type_idx.name
+                         << " idx=" << type_idx.idx);
+
+            return StatusCode::InvalidData;
         }
 
         return WG_OK;
@@ -366,19 +407,19 @@ namespace wmoge {
                 return std::nullopt;
             }
 
-            Task cache_task(request->input.name, [shader_library = m_shader_library, permutation, platform, request, weak_shader_entry = WeakRef<Entry>(&shader_entry)](TaskContext&) {
+            Task cache_task(request->input.name, [shader_library = m_shader_library, permutation, platform, request, weak_shader_entry = WeakRef<Entry>(&shader_entry)](TaskContext&) -> Status {
                 WG_PROFILE_CPU_GRC("Shader::cache_compiled_program");
 
                 Ref<Entry> shader_entry = weak_shader_entry.acquire();
                 if (!shader_entry) {
-                    return 0;
+                    return WG_OK;
                 }
 
                 std::unique_lock lock(shader_entry->mutex);
                 ShaderProgram&   entry = shader_entry->cache.get_or_add_entry(platform, permutation);
 
                 if (!request->output.status) {
-                    return 1;
+                    return StatusCode::Error;
                 }
 
                 std::size_t num_modules = request->output.bytecode.size();
@@ -395,7 +436,7 @@ namespace wmoge {
                     entry.modules.push_back(module.bytecode_hash);
                 }
 
-                return 0;
+                return WG_OK;
             });
 
             auto cache_task_hnd = cache_task.schedule(m_task_manager, compilation_task);
@@ -403,7 +444,7 @@ namespace wmoge {
             cache_task_hnd.add_on_completion([platform, permutation, weak_shader_entry = WeakRef<Entry>(&shader_entry)](AsyncStatus status, std::optional<int>&) {
                 Ref<Entry> shader_entry = weak_shader_entry.acquire();
                 if (!shader_entry) {
-                    return 0;
+                    return;
                 }
 
                 std::unique_lock lock(shader_entry->mutex);
@@ -413,7 +454,7 @@ namespace wmoge {
                 entry.status = status == AsyncStatus::Ok ? ShaderStatus::InBytecode : ShaderStatus::Failed;
 
                 WG_LOG_INFO("finish compilation of entry " << entry.name << " status=" << Enum::to_str(entry.status));
-                return 0;
+                return;
             });
 
             entry.status           = ShaderStatus::InCompilation;
@@ -529,12 +570,24 @@ namespace wmoge {
         return entry.cache.save_cache(m_file_system, path, platform);
     }
 
+    std::optional<ShaderTypeIdx> ShaderManager::find_global_type_idx(Strid name) {
+        auto q = m_global_types.find(name);
+        if (q != m_global_types.end()) {
+            return ShaderTypeIdx{q->second->name, -1};
+        }
+        return std::nullopt;
+    }
+
     std::optional<Ref<ShaderType>> ShaderManager::find_global_type(Strid name) {
         auto q = m_global_types.find(name);
         if (q != m_global_types.end()) {
             return q->second;
         }
-        return std::optional<Ref<ShaderType>>();
+        return std::nullopt;
+    }
+
+    std::optional<Ref<ShaderType>> ShaderManager::find_global_type(ShaderTypeIdx idx) {
+        return find_global_type(idx.name);
     }
 
     bool ShaderManager::is_global_type(Strid name) {

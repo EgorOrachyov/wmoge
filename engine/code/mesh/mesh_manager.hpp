@@ -48,7 +48,7 @@ namespace wmoge {
     public:
         MeshManager(class IocContainer* ioc);
 
-        Ref<Mesh> create_mesh(MeshDesc& desc);
+        Ref<Mesh> create_mesh(MeshDesc desc);
         void      add_mesh(const Ref<Mesh>& mesh);
         void      remove_mesh(Mesh* mesh);
         void      queue_mesh_upload(Mesh* mesh);

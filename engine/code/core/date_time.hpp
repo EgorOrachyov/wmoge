@@ -67,6 +67,11 @@ namespace wmoge {
         DateTime(const DateTimeTm& tm);
         DateTime(const std::string& source);
 
+        [[nodiscard]] bool operator<(const DateTime& other) const;
+        [[nodiscard]] bool operator>(const DateTime& other) const;
+        [[nodiscard]] bool operator==(const DateTime& other) const;
+        [[nodiscard]] bool operator!=(const DateTime& other) const;
+
         [[nodiscard]] DateTimeTm  to_tm() const;
         [[nodiscard]] std::time_t to_time_t() const;
         [[nodiscard]] std::tm     to_tm_t() const;

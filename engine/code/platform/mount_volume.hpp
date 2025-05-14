@@ -33,6 +33,7 @@
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
 #include "platform/file.hpp"
+#include "platform/file_entry.hpp"
 
 #include <filesystem>
 
@@ -50,9 +51,11 @@ namespace wmoge {
         virtual bool        exists(const std::string& path) { return false; }
         virtual bool        exists_physical(const std::string& path) { return false; }
         virtual Status      get_file_size(const std::string& path, std::size_t& size) { return StatusCode::NotImplemented; }
-        virtual Status      get_file_timespamp(const std::string& path, DateTime& timespamp) { return StatusCode::NotImplemented; }
+        virtual Status      get_file_timestamp(const std::string& path, DateTime& timespamp) { return StatusCode::NotImplemented; }
         virtual Status      open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) { return StatusCode::NotImplemented; }
         virtual Status      open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) { return StatusCode::NotImplemented; }
+        virtual Status      remove_file(const std::string& path) { return StatusCode::NotImplemented; }
+        virtual Status      list_directory(const std::string& path, std::vector<FileEntry>& entries) { return StatusCode::NotImplemented; }
         virtual Status      mounted() { return WG_OK; }
     };
 

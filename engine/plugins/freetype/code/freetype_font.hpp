@@ -65,4 +65,27 @@ namespace wmoge {
         TextureManager* m_texture_manager;
     };
 
+    /**
+     * @class FreetypeFontLoader
+     * @brief Provides utilies to work with .ttf font via freetype library
+    */
+    class FreetypeFontLoader {
+    public:
+        /**
+         * @brief Loads font from a .ttf file from file system using specified height in pixels
+         *
+         * @note Uses FreeType2 library for .ttf file loading
+         *
+         * @param path Path of font file
+         * @param font_desc Font desc to be loaded
+         * @param bitmap_desc Bitmap texture desc
+         * @param ttf_data Content of the font .ttf file in a file system
+         * @param height Font height in pixels
+         * @param glyphs_in_row Num of glyphs in a row of a bitmap
+         *
+         * @return True if font loaded
+         */
+        Status load(const std::string& path, FontDesc& font_desc, TextureDesc& bitmap_desc, array_view<const std::uint8_t> ttf_data, int height = 40, int glyphs_in_row = 16);
+    };
+
 }// namespace wmoge

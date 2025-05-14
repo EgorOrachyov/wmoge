@@ -30,6 +30,7 @@
 #include "core/array_view.hpp"
 #include "rtti/type.hpp"
 
+#include <functional>
 #include <vector>
 
 namespace wmoge {
@@ -103,6 +104,22 @@ namespace wmoge {
     };
 
     /**
+     * @class RttiTypeAssetRef
+     * @brief Base rtti to inspect asset ref counted value
+    */
+    class RttiTypeAssetRef : public RttiType {
+    public:
+        RttiTypeAssetRef(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
+
+        [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
+
+        [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::AssetRef; }
+
+    protected:
+        RttiType* m_value_type = nullptr;
+    };
+
+    /**
      * @class RttiTypeOptional
      * @brief Base rtti to inspect optional value
     */
@@ -111,6 +128,7 @@ namespace wmoge {
         RttiTypeOptional(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
         virtual Status set_value(void* dst, const void* src) const { return StatusCode::NotImplemented; }
+        virtual Status visit(void* src, const std::function<Status(const void*)>& func) const { return StatusCode::NotImplemented; }
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
 
@@ -129,6 +147,7 @@ namespace wmoge {
         RttiTypeVector(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
         virtual Status push_back(void* src, void* value) const { return StatusCode::NotImplemented; }
+        virtual Status iterate(void* src, const std::function<Status(const void*)>& func) const { return StatusCode::NotImplemented; }
 
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
 
@@ -146,6 +165,8 @@ namespace wmoge {
     public:
         RttiTypeSet(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
 
+        virtual Status iterate(void* src, const std::function<Status(const void*)>& func) const { return StatusCode::NotImplemented; }
+
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
 
         [[nodiscard]] static RttiArchetype static_archetype() { return RttiArchetype::Set; }
@@ -161,6 +182,8 @@ namespace wmoge {
     class RttiTypeMap : public RttiType {
     public:
         RttiTypeMap(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
+
+        virtual Status iterate(void* src, const std::function<Status(const void*, const void*)>& func) const { return StatusCode::NotImplemented; }
 
         [[nodiscard]] const RttiType* get_key_type() const { return m_key_type; }
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }
@@ -179,6 +202,8 @@ namespace wmoge {
     class RttiTypePair : public RttiType {
     public:
         RttiTypePair(Strid name, std::size_t byte_size) : RttiType(name, byte_size, static_archetype()) {}
+
+        virtual Status visit(void* src, const std::function<Status(const void*, const void*)>& func) const { return StatusCode::NotImplemented; }
 
         [[nodiscard]] const RttiType* get_key_type() const { return m_key_type; }
         [[nodiscard]] const RttiType* get_value_type() const { return m_value_type; }

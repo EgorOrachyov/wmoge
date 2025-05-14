@@ -147,11 +147,11 @@ namespace wmoge {
     Async SceneManager::build_scene_async(TaskManager* task_manager, const SceneRef& scene, const Ref<SceneDataAsset>& data) {
         WG_PROFILE_CPU_SCENE("SceneManager::build_scene_async");
 
-        Task task(scene->get_name(), [scene, data, this](TaskContext&) {
+        Task task(scene->get_name(), [scene, data, this](TaskContext&) -> Status {
             if (!build_scene(scene, data->get_data())) {
-                return 1;
+                return StatusCode::Error;
             }
-            return 0;
+            return WG_OK;
         });
 
         return task.schedule(task_manager).as_async();

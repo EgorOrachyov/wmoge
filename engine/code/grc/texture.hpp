@@ -51,30 +51,88 @@ namespace wmoge {
         Font        // Texture created as a font glyph atlas
     };
 
+    /** @brief Built-in default textures */
+    enum class DefaultTexture {
+        White = 0,
+        Black,
+        Red,
+        Green,
+        Blue,
+        Gray,
+        Total
+    };
+
+    /** @brief Built-in default samplers */
+    enum class DefaultSampler {
+        Default = 0,
+        Linear,
+        Nearest,
+        Total
+    };
+
     /** @brief Flags assigned to texture asset */
     using TextureFlags = Mask<TextureFlag>;
 
-    /** @brief Texture asset desc for construction */
+    /** @brief Texture asset base params for construction */
+    struct TextureParams {
+        WG_RTTI_STRUCT(TextureParams)
+
+        int                  width         = 0;
+        int                  height        = 0;
+        int                  depth         = 1;
+        int                  array_slices  = 1;
+        int                  mips          = 1;
+        GfxFormat            format        = GfxFormat::Unknown;
+        GfxFormat            format_source = GfxFormat::Unknown;
+        GfxTex               tex_type      = GfxTex::Tex2d;
+        GfxTexSwizz          swizz         = GfxTexSwizz::None;
+        GfxMemUsage          mem_usage     = GfxMemUsage::GpuLocal;
+        GfxTexUsages         usages        = {GfxTexUsageFlag::Sampling};
+        bool                 srgb          = false;
+        TexCompressionParams compression{};
+        TextureFlags         flags;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(TextureParams) {
+        WG_RTTI_FIELD(width, {});
+        WG_RTTI_FIELD(height, {});
+        WG_RTTI_FIELD(depth, {});
+        WG_RTTI_FIELD(array_slices, {});
+        WG_RTTI_FIELD(mips, {});
+        WG_RTTI_FIELD(format, {});
+        WG_RTTI_FIELD(format_source, {});
+        WG_RTTI_FIELD(tex_type, {});
+        WG_RTTI_FIELD(swizz, {});
+        WG_RTTI_FIELD(mem_usage, {});
+        WG_RTTI_FIELD(usages, {});
+        WG_RTTI_FIELD(srgb, {});
+        WG_RTTI_FIELD(compression, {});
+        WG_RTTI_FIELD(flags, {});
+    }
+    WG_RTTI_END;
+
+    /** 
+     * @class TextureDesc
+     * @brief Texture asset desc for construction
+     */
     struct TextureDesc {
+        WG_RTTI_STRUCT(TextureDesc)
+
         std::vector<Ref<Image>>   images;
         std::vector<GfxImageData> compressed;
-        Ref<GfxTexture>           texture;
-        Ref<GfxSampler>           sampler;
-        int                       width         = 0;
-        int                       height        = 0;
-        int                       depth         = 1;
-        int                       array_slices  = 1;
-        int                       mips          = 1;
-        GfxFormat                 format        = GfxFormat::Unknown;
-        GfxFormat                 format_source = GfxFormat::Unknown;
-        GfxTex                    tex_type      = GfxTex::Tex2d;
-        GfxTexSwizz               swizz         = GfxTexSwizz::None;
-        GfxMemUsage               mem_usage     = GfxMemUsage::GpuLocal;
-        GfxTexUsages              usages        = {GfxTexUsageFlag::Sampling};
-        bool                      srgb          = false;
-        TexCompressionParams      compression{};
-        TextureFlags              flags;
+        std::string               name;
+        DefaultSampler            sampler;
+        TextureParams             params;
     };
+
+    WG_RTTI_STRUCT_BEGIN(TextureDesc) {
+        WG_RTTI_FIELD(images, {});
+        WG_RTTI_FIELD(compressed, {});
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(sampler, {});
+        WG_RTTI_FIELD(params, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class Texture
@@ -82,7 +140,7 @@ namespace wmoge {
      */
     class Texture : public Asset {
     public:
-        WG_RTTI_CLASS(Texture, Asset);
+        WG_RTTI_CLASS(Texture, Asset)
 
         using Callback    = std::function<void(Texture*)>;
         using CallbackRef = std::shared_ptr<Callback>;
@@ -95,59 +153,45 @@ namespace wmoge {
          * 
          * @brief desc Texture desc
          */
-        Texture(TextureDesc& desc);
+        Texture(TextureDesc&& desc);
 
         void set_source_images(std::vector<Ref<Image>> images, GfxFormat format);
-        void set_compressed(std::vector<GfxImageData> data, const TexCompressionParams& params);
         void set_texture(const Ref<GfxTexture>& texture);
         void set_sampler(const Ref<GfxSampler>& sampler);
-        void set_flags(const TextureFlags& flags);
         void set_texture_callback(CallbackRef callback);
 
-        [[nodiscard]] const std::vector<Ref<Image>>&   get_images() const { return m_images; }
-        [[nodiscard]] const std::vector<GfxImageData>& get_compressed() const { return m_compressed; }
+        [[nodiscard]] const std::vector<Ref<Image>>&   get_images() const { return m_desc.images; }
+        [[nodiscard]] const std::vector<GfxImageData>& get_compressed() const { return m_desc.compressed; }
+        [[nodiscard]] const std::string&               get_name() const { return m_desc.name; }
         [[nodiscard]] const Ref<GfxTexture>&           get_texture() const { return m_texture; }
         [[nodiscard]] const Ref<GfxSampler>&           get_sampler() const { return m_sampler; }
-        [[nodiscard]] int                              get_width() const { return m_width; }
-        [[nodiscard]] int                              get_height() const { return m_height; }
-        [[nodiscard]] int                              get_depth() const { return m_depth; }
-        [[nodiscard]] int                              get_array_slices() const { return m_array_slices; }
-        [[nodiscard]] int                              get_mips() const { return m_mips; }
-        [[nodiscard]] GfxFormat                        get_format() const { return m_format; }
-        [[nodiscard]] GfxFormat                        get_format_source() const { return m_format_source; }
-        [[nodiscard]] GfxTex                           get_tex_type() const { return m_tex_type; }
-        [[nodiscard]] GfxTexSwizz                      get_tex_swizz() const { return m_swizz; }
-        [[nodiscard]] GfxMemUsage                      get_mem_usage() const { return m_mem_usage; }
-        [[nodiscard]] GfxTexUsages                     get_usages() const { return m_usages; }
-        [[nodiscard]] bool                             get_srgb() const { return m_srgb; }
-        [[nodiscard]] const TexCompressionParams&      get_compression() const { return m_compression; }
-        [[nodiscard]] const TextureFlags&              get_flags() const { return m_flags; }
-        [[nodiscard]] GfxTextureDesc                   get_desc() const;
+        [[nodiscard]] int                              get_width() const { return m_desc.params.width; }
+        [[nodiscard]] int                              get_height() const { return m_desc.params.height; }
+        [[nodiscard]] int                              get_depth() const { return m_desc.params.depth; }
+        [[nodiscard]] int                              get_array_slices() const { return m_desc.params.array_slices; }
+        [[nodiscard]] int                              get_mips() const { return m_desc.params.mips; }
+        [[nodiscard]] GfxFormat                        get_format() const { return m_desc.params.format; }
+        [[nodiscard]] GfxFormat                        get_format_source() const { return m_desc.params.format_source; }
+        [[nodiscard]] GfxTex                           get_tex_type() const { return m_desc.params.tex_type; }
+        [[nodiscard]] GfxTexSwizz                      get_tex_swizz() const { return m_desc.params.swizz; }
+        [[nodiscard]] GfxMemUsage                      get_mem_usage() const { return m_desc.params.mem_usage; }
+        [[nodiscard]] GfxTexUsages                     get_usages() const { return m_desc.params.usages; }
+        [[nodiscard]] bool                             get_srgb() const { return m_desc.params.srgb; }
+        [[nodiscard]] const TexCompressionParams&      get_compression() const { return m_desc.params.compression; }
+        [[nodiscard]] const TextureFlags&              get_flags() const { return m_desc.params.flags; }
+        [[nodiscard]] GfxTextureDesc                   get_gfx_desc() const;
+        [[nodiscard]] const TextureDesc&               get_desc() const { return m_desc; }
 
     protected:
-        std::vector<Ref<Image>>   m_images;
-        std::vector<GfxImageData> m_compressed;
-        Ref<GfxTexture>           m_texture;
-        Ref<GfxSampler>           m_sampler;
-        int                       m_width         = 0;
-        int                       m_height        = 0;
-        int                       m_depth         = 0;
-        int                       m_array_slices  = 0;
-        int                       m_mips          = 0;
-        GfxFormat                 m_format        = GfxFormat::Unknown;
-        GfxFormat                 m_format_source = GfxFormat::Unknown;
-        GfxTex                    m_tex_type      = GfxTex::Tex2d;
-        GfxTexSwizz               m_swizz         = GfxTexSwizz::None;
-        GfxMemUsage               m_mem_usage     = GfxMemUsage::GpuLocal;
-        GfxTexUsages              m_usages        = {GfxTexUsageFlag::Sampling};
-        bool                      m_srgb          = false;
-        TexCompressionParams      m_compression{};
-        TextureFlags              m_flags;
-        CallbackRef               m_callback;
+        TextureDesc     m_desc;
+        Ref<GfxTexture> m_texture;
+        Ref<GfxSampler> m_sampler;
+        CallbackRef     m_callback;
     };
 
     WG_RTTI_CLASS_BEGIN(Texture) {
         WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(m_desc, {});
     }
     WG_RTTI_END;
 
@@ -159,10 +203,8 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(Texture2d, Texture);
 
-        Texture2d()           = default;
-        ~Texture2d() override = default;
-
-        Texture2d(TextureDesc& desc);
+        Texture2d() = default;
+        Texture2d(TextureDesc&& desc);
     };
 
     WG_RTTI_CLASS_BEGIN(Texture2d) {
@@ -178,15 +220,40 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(TextureCube, Texture);
 
-        TextureCube()           = default;
-        ~TextureCube() override = default;
-
-        TextureCube(TextureDesc& desc);
+        TextureCube() = default;
+        TextureCube(TextureDesc&& desc);
     };
 
     WG_RTTI_CLASS_BEGIN(TextureCube) {
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
+
+    /**
+     * @class TextureCubeFile
+     * @brief Struct for loading cube textures from .texcube file
+     */
+    struct TextureCubeFile {
+        WG_RTTI_STRUCT(TextureCubeFile)
+
+        std::string right;
+        std::string left;
+        std::string top;
+        std::string bottom;
+        std::string front;
+        std::string back;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(TextureCubeFile) {
+        WG_RTTI_FIELD(right, {});
+        WG_RTTI_FIELD(left, {});
+        WG_RTTI_FIELD(top, {});
+        WG_RTTI_FIELD(bottom, {});
+        WG_RTTI_FIELD(front, {});
+        WG_RTTI_FIELD(back, {});
+    }
+    WG_RTTI_END;
+
+    void rtti_grc_texture();
 
 }// namespace wmoge

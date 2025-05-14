@@ -28,6 +28,7 @@
 #include "font.hpp"
 
 #include "gfx/gfx_driver.hpp"
+#include "grc/font_import_settings.hpp"
 #include "grc/image.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler_cpu.hpp"
@@ -36,6 +37,18 @@
 #include <string>
 
 namespace wmoge {
+
+    Font::Font(FontDesc& desc) {
+        m_glyphs        = std::move(desc.glyphs);
+        m_texture       = std::move(desc.texture);
+        m_family_name   = std::move(desc.family_name);
+        m_style_name    = std::move(desc.style_name);
+        m_height        = desc.height;
+        m_glyphs_in_row = desc.glyphs_in_row;
+        m_max_height    = desc.max_height;
+        m_max_width     = desc.max_width;
+        m_file_content  = std::move(desc.file_content);
+    }
 
     Status Font::init(const FontDesc& desc) {
         m_glyphs        = desc.glyphs;
@@ -74,6 +87,11 @@ namespace wmoge {
         }
 
         return Vec2f(advance_x, height);
+    }
+
+    void rtti_grc_font() {
+        rtti_type<Font>();
+        rtti_type<FontImportSettings>();
     }
 
 }// namespace wmoge

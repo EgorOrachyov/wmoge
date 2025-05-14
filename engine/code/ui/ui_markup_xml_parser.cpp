@@ -59,8 +59,8 @@ namespace wmoge {
         }
     };
 
-    UiMarkupParser::UiMarkupParser(Strid name, UiMarkupDecs& desc, array_view<const std::uint8_t> xml_buffer, RttiTypeStorage* type_storage)
-        : m_name(name), m_desc(desc), m_xml_buffer(xml_buffer), m_type_storage(type_storage) {
+    UiMarkupParser::UiMarkupParser(std::string name, UiMarkupDecs& desc, array_view<const std::uint8_t> xml_buffer, RttiTypeStorage* type_storage)
+        : m_name(std::move(name)), m_desc(desc), m_xml_buffer(xml_buffer), m_type_storage(type_storage) {
     }
 
     Status UiMarkupParser::parse() {

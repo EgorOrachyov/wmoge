@@ -28,7 +28,6 @@
 #include "assimp_plugin.hpp"
 
 #include "_rtti.hpp"
-#include "assimp_asset_loader.hpp"
 
 namespace wmoge {
 

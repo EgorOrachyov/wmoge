@@ -1,0 +1,12 @@
+uuid: 7716353615833748691
+flags:
+  - Hidden
+cls: Texture2d
+importer: ''
+import_env:
+  file_to_id:
+    - key: editor/fonts/roboto_light.ttf.bitmap
+      value: 7716353615833748691
+  deps: []
+  errors: []
+import_settings: 

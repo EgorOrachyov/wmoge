@@ -29,6 +29,6 @@
 
 namespace wmoge {
 
-    void rtti_glsl();
+    void rtti_grc();
 
 }// namespace wmoge

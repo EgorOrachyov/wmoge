@@ -1,12 +1,18 @@
-# Wmoge asset meta file
-version: 1
-uuid: 0
-loader: FreetypeAssetLoader
-rtti: Font
-deps: [ ]
-description: "font"
-import_data:
-  rtti: FreetypeImportData
-  source_files: [{file: "editor/fonts/roboto_black_italic.ttf"}]
+uuid: 5476464690915011635
+flags:
+  - Resolvable
+cls: Font
+importer: FreetypeFontImporter
+import_env:
+  file_to_id:
+    - key: editor/fonts/roboto_black_italic.ttf
+      value: 5476464690915011635
+    - key: editor/fonts/roboto_black_italic.ttf.bitmap
+      value: 6864243949204656953
+  deps: []
+  errors: []
+import_settings:
+  rtti: FontImportSettings
+  user_data: ''
   height: 38
   glyphs_in_row: 16

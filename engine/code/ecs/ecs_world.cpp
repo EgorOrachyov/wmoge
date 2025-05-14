@@ -211,7 +211,7 @@ namespace wmoge {
     Async EcsWorld::execute_async(TaskManager* task_manager, Async depends_on, const EcsAccess& access, const EcsQueuryFunction& func) {
         WG_PROFILE_CPU_ECS("EcsWorld::execute_async");
 
-        Task task(access.name, [access, func, this](TaskContext&) {
+        Task task(access.name, [access, func, this](TaskContext&) -> Status {
             for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
                 if (!access.match(m_arch_by_idx[arch_idx])) {
                     continue;
@@ -225,7 +225,7 @@ namespace wmoge {
                 func(context);
             }
 
-            return 0;
+            return WG_OK;
         });
 
         return task.schedule(task_manager, depends_on).as_async();
@@ -234,7 +234,7 @@ namespace wmoge {
     Async EcsWorld::execute_parallel(TaskManager* task_manager, Async depends_on, const EcsAccess& access, const EcsQueuryFunction& func) {
         WG_PROFILE_CPU_ECS("EcsWorld::execute_parallel");
 
-        TaskParallelFor task(access.name, [access, func, this](TaskContext&, int batch_id, int batch_count) {
+        TaskParallelFor task(access.name, [access, func, this](TaskContext&, int batch_id, int batch_count) -> Status {
             for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
                 if (!access.match(m_arch_by_idx[arch_idx])) {
                     continue;
@@ -247,7 +247,7 @@ namespace wmoge {
                 func(context);
             }
 
-            return 0;
+            return WG_OK;
         });
 
         return task.schedule(task_manager, task_manager->get_num_workers(), 1, depends_on).as_async();

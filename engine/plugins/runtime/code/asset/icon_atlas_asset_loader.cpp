@@ -35,78 +35,78 @@
 
 namespace wmoge {
 
-    Status IconAtlasAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
-        Ref<IconAtlasImportData> import_data = context.asset_meta.import_data.cast<IconAtlasImportData>();
-        if (!import_data) {
-            WG_LOG_ERROR("no import data for " << asset_id);
-            return StatusCode::InvalidData;
-        }
-        for (auto& icon : import_data->icons) {
-            request.add_data_file(icon.name, icon.image);
-        }
-        return WG_OK;
-    }
-
-    Status IconAtlasAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<IconAtlas>& asset) {
-        WG_PROFILE_CPU_ASSET("IconAtlasAssetLoader::load_typed");
-
-        Ref<IconAtlasImportData> import_data = context.asset_meta.import_data.cast<IconAtlasImportData>();
-        if (!import_data) {
-            WG_LOG_ERROR("no import data for " << asset_id);
-            return StatusCode::InvalidData;
-        }
-
-        auto ioc             = context.ioc;
-        auto texture_manager = ioc->resolve_value<TextureManager>();
-
-        IconAtlasDesc desc;
-
-        for (auto& icon : import_data->icons) {
-            Ref<Image> icon_image = make_ref<Image>();
-
-            if (!icon_image->load(result.get_data_file(icon.name), import_data->channels)) {
-                WG_LOG_ERROR("failed to load icon image " << icon.image);
-                return StatusCode::Error;
-            }
-
-            IconAtlasPage page;
-
-            TextureBuilder builder(icon.name, texture_manager);
-            builder
-                    .set_image(icon_image, import_data->format)
-                    .set_resize(TexResizeParams())
-                    .set_swizz(GfxTexSwizz::None)
-                    .set_sampler(DefaultSampler::Linear)
-                    .set_compression(import_data->compression)
-                    .set_flags({TextureFlag::Pooled, TextureFlag::FromDisk});
-
-            if (!builder.build_2d(page.texture)) {
-                WG_LOG_ERROR("failed to build texture " << asset_id);
-                return StatusCode::Error;
-            }
-
-            page.texture->set_id(AssetId(icon.image));
-            page.source_images.push_back(icon_image);
-
-            IconInfo info;
-            info.name    = icon.name;
-            info.id      = static_cast<int>(desc.icons.size());
-            info.page_id = static_cast<int>(desc.pages.size());
-            info.uv_pos  = icon.uv_pos;
-            info.uv_size = icon.uv_size;
-            info.tint    = icon.tint;
-            info.pixels  = icon.uv_size * icon_image->get_sizef();
-
-            desc.icons_map[icon.name] = info.id;
-            desc.icons.push_back(std::move(info));
-            desc.pages.push_back(std::move(page));
-        }
-
-        asset = make_ref<IconAtlas>();
-        asset->set_id(asset_id);
-        asset->set_desc(std::move(desc));
-
-        return WG_OK;
-    }
+    //    Status IconAtlasAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
+    //        Ref<IconAtlasImportData> import_data = context.asset_meta.import_data.cast<IconAtlasImportData>();
+    //        if (!import_data) {
+    //            WG_LOG_ERROR("no import data for " << asset_id);
+    //            return StatusCode::InvalidData;
+    //        }
+    //        for (auto& icon : import_data->icons) {
+    //            request.add_data_file(icon.name, icon.image);
+    //        }
+    //        return WG_OK;
+    //    }
+    //
+    //    Status IconAtlasAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<IconAtlas>& asset) {
+    //        WG_PROFILE_CPU_ASSET("IconAtlasAssetLoader::load_typed");
+    //
+    //        Ref<IconAtlasImportData> import_data = context.asset_meta.import_data.cast<IconAtlasImportData>();
+    //        if (!import_data) {
+    //            WG_LOG_ERROR("no import data for " << asset_id);
+    //            return StatusCode::InvalidData;
+    //        }
+    //
+    //        auto ioc             = context.ioc;
+    //        auto texture_manager = ioc->resolve_value<TextureManager>();
+    //
+    //        IconAtlasDesc desc;
+    //
+    //        for (auto& icon : import_data->icons) {
+    //            Ref<Image> icon_image = make_ref<Image>();
+    //
+    //            if (!icon_image->load(result.get_data_file(icon.name), import_data->channels)) {
+    //                WG_LOG_ERROR("failed to load icon image " << icon.image);
+    //                return StatusCode::Error;
+    //            }
+    //
+    //            IconAtlasPage page;
+    //
+    //            TextureBuilder builder(icon.name.str(), texture_manager);
+    //            builder
+    //                    .set_image(icon_image, import_data->format)
+    //                    .set_resize(TexResizeParams())
+    //                    .set_swizz(GfxTexSwizz::None)
+    //                    .set_sampler(DefaultSampler::Linear)
+    //                    .set_compression(import_data->compression)
+    //                    .set_flags({TextureFlag::Pooled, TextureFlag::FromDisk});
+    //
+    //            if (!builder.build_2d(page.texture)) {
+    //                WG_LOG_ERROR("failed to build texture " << asset_id);
+    //                return StatusCode::Error;
+    //            }
+    //
+    //            page.texture->set_id(AssetId(icon.image));
+    //            page.source_images.push_back(icon_image);
+    //
+    //            IconInfo info;
+    //            info.name    = icon.name;
+    //            info.id      = static_cast<int>(desc.icons.size());
+    //            info.page_id = static_cast<int>(desc.pages.size());
+    //            info.uv_pos  = icon.uv_pos;
+    //            info.uv_size = icon.uv_size;
+    //            info.tint    = icon.tint;
+    //            info.pixels  = icon.uv_size * icon_image->get_sizef();
+    //
+    //            desc.icons_map[icon.name] = info.id;
+    //            desc.icons.push_back(std::move(info));
+    //            desc.pages.push_back(std::move(page));
+    //        }
+    //
+    //        asset = make_ref<IconAtlas>();
+    //        asset->set_id(asset_id);
+    //        asset->set_desc(std::move(desc));
+    //
+    //        return WG_OK;
+    //    }
 
 }// namespace wmoge
