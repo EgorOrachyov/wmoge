@@ -103,8 +103,6 @@ Collaboration diagram for wmoge::IoStreamFile:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a18cca4ec4752016515096d5d9b7f7b54"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoStreamFile.html#a18cca4ec4752016515096d5d9b7f7b54">IoStreamFile</a> ()</td></tr>
 <tr class="separator:a18cca4ec4752016515096d5d9b7f7b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a655ddcdca2205a95f47f42ae3c5d15bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoStreamFile.html#a655ddcdca2205a95f47f42ae3c5d15bb">~IoStreamFile</a> () override</td></tr>
-<tr class="separator:a655ddcdca2205a95f47f42ae3c5d15bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1b878ab124caf7815e346e93de27dc0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoStreamFile.html#ac1b878ab124caf7815e346e93de27dc0">set</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1File.html">File</a> &gt; file, <a class="el" href="namespacewmoge.html#aa934f7865ebf785da6a10e341cd8845f">FileOpenModeFlags</a> flags)</td></tr>
 <tr class="separator:ac1b878ab124caf7815e346e93de27dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed9d7101a4441e2b3ae305e6feae1b47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoStreamFile.html#aed9d7101a4441e2b3ae305e6feae1b47">open</a> (class <a class="el" href="classwmoge_1_1FileSystem.html">FileSystem</a> *file_system, const std::string &amp;file_path, <a class="el" href="namespacewmoge.html#aa934f7865ebf785da6a10e341cd8845f">FileOpenModeFlags</a> flags)</td></tr>
@@ -113,10 +111,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1762ae1cf7bb5c0388938dd932d19d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae96b53c271cc48b69e5b431bccc47c18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoStreamFile.html#ae96b53c271cc48b69e5b431bccc47c18">nread</a> (std::size_t num_bytes, void *bytes) override</td></tr>
 <tr class="separator:ae96b53c271cc48b69e5b431bccc47c18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab65002c9ebb9aff3e5df572eecd70dec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoStreamFile.html#ab65002c9ebb9aff3e5df572eecd70dec">begin_compressed</a> () override</td></tr>
-<tr class="separator:ab65002c9ebb9aff3e5df572eecd70dec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acebc1276672edc75c01ea7a9df05fbf4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoStreamFile.html#acebc1276672edc75c01ea7a9df05fbf4">end_compressed</a> () override</td></tr>
-<tr class="separator:acebc1276672edc75c01ea7a9df05fbf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1IoStream"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1IoStream')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1IoStream.html">wmoge::IoStream</a></td></tr>
 <tr class="memitem:a8ad1236dde9f910eb4f99c26da2aed26 inherit pub_methods_classwmoge_1_1IoStream"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1IoStream.html#a8ad1236dde9f910eb4f99c26da2aed26">~IoStream</a> () override=default</td></tr>
 <tr class="separator:a8ad1236dde9f910eb4f99c26da2aed26 inherit pub_methods_classwmoge_1_1IoStream"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,86 +165,7 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a655ddcdca2205a95f47f42ae3c5d15bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a655ddcdca2205a95f47f42ae3c5d15bb">&#9670;&nbsp;</a></span>~IoStreamFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">wmoge::IoStreamFile::~IoStreamFile </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab65002c9ebb9aff3e5df572eecd70dec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab65002c9ebb9aff3e5df572eecd70dec">&#9670;&nbsp;</a></span>begin_compressed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::IoStreamFile::begin_compressed </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classwmoge_1_1IoStream.html#aa902d5baecbf74a4ede9063456817926">wmoge::IoStream</a>.</p>
-
-</div>
-</div>
-<a id="acebc1276672edc75c01ea7a9df05fbf4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acebc1276672edc75c01ea7a9df05fbf4">&#9670;&nbsp;</a></span>end_compressed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::IoStreamFile::end_compressed </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classwmoge_1_1IoStream.html#aada1737eacd5adc0e5cc47c9d8362bc4">wmoge::IoStream</a>.</p>
-
-</div>
-</div>
 <a id="ae96b53c271cc48b69e5b431bccc47c18"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae96b53c271cc48b69e5b431bccc47c18">&#9670;&nbsp;</a></span>nread()</h2>
 

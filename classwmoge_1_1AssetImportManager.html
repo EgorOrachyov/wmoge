@@ -93,8 +93,8 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a47e44b3b6f6012f5a680122df8fede1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetImportManager.html#a47e44b3b6f6012f5a680122df8fede1e">AssetImportManager</a> (<a class="el" href="classwmoge_1_1AssetImportManager.html#a2442c44aba251aea0bf06fad2c4332a9">UuidProvider</a> uuid_provider, <a class="el" href="classwmoge_1_1IoContext.html">IoContext</a> io_context, <a class="el" href="classwmoge_1_1FileSystem.html">FileSystem</a> *file_system, <a class="el" href="classwmoge_1_1IocContainer.html">IocContainer</a> *ioc_containter, <a class="el" href="classwmoge_1_1TaskManager.html">TaskManager</a> *task_manager)</td></tr>
 <tr class="separator:a47e44b3b6f6012f5a680122df8fede1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac846c5ded3712559ab7de63128c7fcfb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1AsyncResult.html">AsyncResult</a>&lt; <a class="el" href="structwmoge_1_1AssetImportResult.html">AssetImportResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetImportManager.html#ac846c5ded3712559ab7de63128c7fcfb">import</a> (const std::string &amp;path, <a class="el" href="classwmoge_1_1AssetImporter.html">AssetImporter</a> *importer, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1AssetImportSettings.html">AssetImportSettings</a> &gt; &amp;settings, <a class="el" href="structwmoge_1_1AssetImportEnv.html">AssetImportEnv</a> env, const <a class="el" href="classwmoge_1_1AssetImportManager.html#a990841660350fc669a0facc897a6aedd">DepsResolver</a> &amp;deps_resolver)</td></tr>
-<tr class="separator:ac846c5ded3712559ab7de63128c7fcfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a719a1e73c9e3d3702fdcd9d12d6719b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1AsyncResult.html">AsyncResult</a>&lt; <a class="el" href="structwmoge_1_1AssetImportResult.html">AssetImportResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetImportManager.html#a719a1e73c9e3d3702fdcd9d12d6719b3">import</a> (const std::string &amp;path, <a class="el" href="classwmoge_1_1AssetImporter.html">AssetImporter</a> *importer, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1AssetImportSettings.html">AssetImportSettings</a> &gt; &amp;settings, const <a class="el" href="structwmoge_1_1AssetImportEnv.html">AssetImportEnv</a> &amp;env, const <a class="el" href="classwmoge_1_1AssetImportManager.html#a990841660350fc669a0facc897a6aedd">DepsResolver</a> &amp;deps_resolver)</td></tr>
+<tr class="separator:a719a1e73c9e3d3702fdcd9d12d6719b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bb9904825a3e97ac786ee88a042c6c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1AsyncResult.html">AsyncResult</a>&lt; <a class="el" href="structwmoge_1_1AssetImportResult.html">AssetImportResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetImportManager.html#a5bb9904825a3e97ac786ee88a042c6c0">try_find_import</a> (const std::string &amp;path)</td></tr>
 <tr class="separator:a5bb9904825a3e97ac786ee88a042c6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e52ba5515f8c34e4687eab7bee7101a"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classwmoge_1_1AssetImporter.html">AssetImporter</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetImportManager.html#a1e52ba5515f8c34e4687eab7bee7101a">find_importer</a> (const std::string &amp;path)</td></tr>
@@ -251,8 +251,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac846c5ded3712559ab7de63128c7fcfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac846c5ded3712559ab7de63128c7fcfb">&#9670;&nbsp;</a></span>import()</h2>
+<a id="a719a1e73c9e3d3702fdcd9d12d6719b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a719a1e73c9e3d3702fdcd9d12d6719b3">&#9670;&nbsp;</a></span>import()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,7 +278,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structwmoge_1_1AssetImportEnv.html">AssetImportEnv</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1AssetImportEnv.html">AssetImportEnv</a> &amp;&#160;</td>
           <td class="paramname"><em>env</em>, </td>
         </tr>
         <tr>

@@ -82,20 +82,17 @@ Collaboration diagram for wmoge::AssetImportResult:</div>
 <div class="dyncontent">
 <div class="center"><img src="structwmoge_1_1AssetImportResult__coll__graph.png" border="0" usemap="#awmoge_1_1AssetImportResult_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1AssetImportResult_coll__map" id="awmoge_1_1AssetImportResult_coll__map">
-<area shape="rect" title="Asset importing results." alt="" coords="378,199,557,225"/>
+<area shape="rect" title="Asset importing results." alt="" coords="267,199,446,225"/>
 <area shape="rect" href="structwmoge_1_1AssetImportAssetInfo.html" title="Asset info created by importer." alt="" coords="165,109,362,136"/>
 <area shape="rect" href="structwmoge_1_1Mask.html" title=" " alt="" coords="5,5,188,32"/>
 <area shape="rect" href="classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="212,5,315,32"/>
 <area shape="rect" href="classwmoge_1_1RttiRef.html" title=" " alt="" coords="339,5,524,32"/>
-<area shape="rect" href="structwmoge_1_1AssetImportEnv.html" title="Asset import enviroment serialized and re&#45;used for every import action." alt="" coords="386,109,549,136"/>
-<area shape="rect" href="classwmoge_1_1DateTime.html" title="Represents a date and time value." alt="" coords="573,109,700,136"/>
+<area shape="rect" href="classwmoge_1_1DateTime.html" title="Represents a date and time value." alt="" coords="387,109,513,136"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a46deccbf23823e155ed89858ecd1ed27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1AssetImportEnv.html">AssetImportEnv</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetImportResult.html#a46deccbf23823e155ed89858ecd1ed27">env</a></td></tr>
-<tr class="separator:a46deccbf23823e155ed89858ecd1ed27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a464cfa0fcc96438b11d1b6d0b49f03ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1AssetImportAssetInfo.html">AssetImportAssetInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetImportResult.html#a464cfa0fcc96438b11d1b6d0b49f03ba">main</a></td></tr>
 <tr class="separator:a464cfa0fcc96438b11d1b6d0b49f03ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5d8567b9ddfcb4e4509a31375558345"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structwmoge_1_1AssetImportAssetInfo.html">AssetImportAssetInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetImportResult.html#ac5d8567b9ddfcb4e4509a31375558345">children</a></td></tr>
@@ -104,6 +101,12 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aac9d54bad9894be0575f601d5c180d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e39bf9131dbedc95efa26c5e6e54f04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1DateTime.html">DateTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetImportResult.html#a1e39bf9131dbedc95efa26c5e6e54f04">timestamp</a></td></tr>
 <tr class="separator:a1e39bf9131dbedc95efa26c5e6e54f04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd2eeaecc31436f32a2d2482f622b30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">flat_map</a>&lt; std::string, <a class="el" href="classwmoge_1_1UUID.html">UUID</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetImportResult.html#a3cd2eeaecc31436f32a2d2482f622b30">file_to_id</a></td></tr>
+<tr class="separator:a3cd2eeaecc31436f32a2d2482f622b30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97b8ced6b0a1d143a0efdb6bb79e9f4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a50fff4269d034e864cd64cde62fb00f9">flat_set</a>&lt; <a class="el" href="classwmoge_1_1AssetId.html">AssetId</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetImportResult.html#a97b8ced6b0a1d143a0efdb6bb79e9f4e">deps</a></td></tr>
+<tr class="separator:a97b8ced6b0a1d143a0efdb6bb79e9f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdc4b9d1a14da00d437002500a92e7db"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structwmoge_1_1AssetImportError.html">AssetImportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetImportResult.html#acdc4b9d1a14da00d437002500a92e7db">errors</a></td></tr>
+<tr class="separator:acdc4b9d1a14da00d437002500a92e7db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classwmoge_1_1Asset.html" title="Base class for any engine asset.">Asset</a> importing results. </p>
@@ -122,14 +125,42 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a46deccbf23823e155ed89858ecd1ed27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46deccbf23823e155ed89858ecd1ed27">&#9670;&nbsp;</a></span>env</h2>
+<a id="a97b8ced6b0a1d143a0efdb6bb79e9f4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97b8ced6b0a1d143a0efdb6bb79e9f4e">&#9670;&nbsp;</a></span>deps</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structwmoge_1_1AssetImportEnv.html">AssetImportEnv</a> wmoge::AssetImportResult::env</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a50fff4269d034e864cd64cde62fb00f9">flat_set</a>&lt;<a class="el" href="classwmoge_1_1AssetId.html">AssetId</a>&gt; wmoge::AssetImportResult::deps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acdc4b9d1a14da00d437002500a92e7db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdc4b9d1a14da00d437002500a92e7db">&#9670;&nbsp;</a></span>errors</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structwmoge_1_1AssetImportError.html">AssetImportError</a>&gt; wmoge::AssetImportResult::errors</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3cd2eeaecc31436f32a2d2482f622b30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cd2eeaecc31436f32a2d2482f622b30">&#9670;&nbsp;</a></span>file_to_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">flat_map</a>&lt;std::string, <a class="el" href="classwmoge_1_1UUID.html">UUID</a>&gt; wmoge::AssetImportResult::file_to_id</td>
         </tr>
       </table>
 </div><div class="memdoc">

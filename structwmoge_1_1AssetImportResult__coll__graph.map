@@ -1,9 +1,8 @@
 <map id="wmoge::AssetImportResult" name="wmoge::AssetImportResult">
-<area shape="rect" id="node1" title="Asset importing results." alt="" coords="378,199,557,225"/>
+<area shape="rect" id="node1" title="Asset importing results." alt="" coords="267,199,446,225"/>
 <area shape="rect" id="node2" href="$structwmoge_1_1AssetImportAssetInfo.html" title="Asset info created by importer." alt="" coords="165,109,362,136"/>
 <area shape="rect" id="node3" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="5,5,188,32"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="212,5,315,32"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1RttiRef.html" title=" " alt="" coords="339,5,524,32"/>
-<area shape="rect" id="node6" href="$structwmoge_1_1AssetImportEnv.html" title="Asset import enviroment serialized and re&#45;used for every import action." alt="" coords="386,109,549,136"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1DateTime.html" title="Represents a date and time value." alt="" coords="573,109,700,136"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1DateTime.html" title="Represents a date and time value." alt="" coords="387,109,513,136"/>
 </map>
