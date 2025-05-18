@@ -66,9 +66,9 @@ namespace wmoge {
     struct AssetImportEnv {
         WG_RTTI_STRUCT(AssetImportEnv)
 
-        flat_map<std::string, UUID>   file_to_id;
-        flat_set<AssetId>             deps;
-        std::vector<AssetImportError> errors;
+        std::vector<std::pair<std::string, UUID>> file_to_id;
+        std::vector<AssetId>                      deps;
+        std::vector<AssetImportError>             errors;
     };
 
     WG_RTTI_STRUCT_BEGIN(AssetImportEnv) {
@@ -106,11 +106,13 @@ namespace wmoge {
      * @brief Asset importing results
      */
     struct AssetImportResult {
-        AssetImportEnv                    env;
         AssetImportAssetInfo              main;
         std::vector<AssetImportAssetInfo> children;
         std::vector<std::string>          sources;
         DateTime                          timestamp;
+        flat_map<std::string, UUID>       file_to_id;
+        flat_set<AssetId>                 deps;
+        std::vector<AssetImportError>     errors;
     };
 
 }// namespace wmoge

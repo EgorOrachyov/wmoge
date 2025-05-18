@@ -1,7 +1,6 @@
 uuid: 6643508697648322194
 flags:
   - Resolvable
-cls: UiStyle
 importer: AssetNativeImporter
 import_env:
   file_to_id:
@@ -14,22 +13,22 @@ import_env:
       path: editor/fonts/roboto_regular.ttf
     - id: 5354418955324083996
       path: editor/fonts/roboto_medium.ttf
-    - id: 6708578728034997760
-      path: editor/fonts/roboto_black.ttf
     - id: 5476464690915011635
       path: editor/fonts/roboto_black_italic.ttf
-    - id: 13526067265454288763
-      path: editor/fonts/roboto_bold.ttf
+    - id: 6708578728034997760
+      path: editor/fonts/roboto_black.ttf
     - id: 12990758804718308098
       path: editor/fonts/roboto_bold_small.ttf
+    - id: 13526067265454288763
+      path: editor/fonts/roboto_bold.ttf
     - id: 2372283663608212278
       path: editor/fonts/roboto_italic.ttf
     - id: 7888168840883931926
       path: editor/fonts/roboto_light_italic.ttf
-    - id: 3002838932350132949
-      path: editor/fonts/roboto_medium_italic.ttf
     - id: 2950733916632536715
       path: editor/fonts/roboto_bold_italic.ttf
+    - id: 3002838932350132949
+      path: editor/fonts/roboto_medium_italic.ttf
   errors: []
 import_settings:
   rtti: AssetImportSettings

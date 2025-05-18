@@ -33,18 +33,18 @@
 
 namespace wmoge {
 
-    Status Compression::estimate_lz4(const void* in, int size, int& max_compressed_size) {
+    Status Compression::estimate_lz4(array_view<const std::uint8_t> in, std::size_t& max_compressed_size) {
         WG_PROFILE_CPU_IO("Compression::estimate_lz4");
 
-        max_compressed_size = LZ4_compressBound(size);
+        max_compressed_size = LZ4_compressBound(static_cast<int>(in.size()));
 
         return WG_OK;
     }
 
-    Status Compression::compress_lz4(const void* in, int size, int max_compressed_size, int& compressed_size, std::uint8_t* out) {
+    Status Compression::compress_lz4(array_view<const std::uint8_t> in, array_view<std::uint8_t> out, std::size_t& compressed_size) {
         WG_PROFILE_CPU_IO("Compression::compress_lz4");
 
-        compressed_size = LZ4_compress_default(reinterpret_cast<const char*>(in), reinterpret_cast<char*>(out), size, max_compressed_size);
+        compressed_size = LZ4_compress_default(reinterpret_cast<const char*>(in.data()), reinterpret_cast<char*>(out.data()), static_cast<int>(in.size()), static_cast<int>(out.size()));
         if (compressed_size > 0) {
             return WG_OK;
         }
@@ -52,11 +52,11 @@ namespace wmoge {
         return StatusCode::FailedCompress;
     }
 
-    Status Compression::decompress_lz4(const void* in, int compressed_size, int decompressed_size, std::uint8_t* out) {
+    Status Compression::decompress_lz4(array_view<const std::uint8_t> in, array_view<std::uint8_t> out) {
         WG_PROFILE_CPU_IO("Compression::decompress_lz4");
 
-        const int decompressed_bytes = LZ4_decompress_safe(reinterpret_cast<const char*>(in), reinterpret_cast<char*>(out), compressed_size, decompressed_size);
-        if (decompressed_bytes == decompressed_size) {
+        const int decompressed_bytes = LZ4_decompress_safe(reinterpret_cast<const char*>(in.data()), reinterpret_cast<char*>(out.data()), static_cast<int>(in.size()), static_cast<int>(out.size()));
+        if (decompressed_bytes == out.size()) {
             return StatusCode::Ok;
         }
 

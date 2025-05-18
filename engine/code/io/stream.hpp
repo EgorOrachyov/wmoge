@@ -58,8 +58,6 @@ namespace wmoge {
 
         virtual Status nwrite(std::size_t num_bytes, const void* bytes) { return StatusCode::NotImplemented; };
         virtual Status nread(std::size_t num_bytes, void* bytes) { return StatusCode::NotImplemented; };
-        virtual Status begin_compressed() { return StatusCode::NotImplemented; };
-        virtual Status end_compressed() { return StatusCode::NotImplemented; };
 
         [[nodiscard]] bool         can_read() const { return m_can_read; }
         [[nodiscard]] bool         can_write() const { return m_can_write; }

@@ -137,7 +137,7 @@ namespace wmoge {
         return async.is_ok() ? async.result() : Ref<Asset>();
     }
 
-    AssetManager::AsyncAssetId AssetManager::import(const std::string& asset_path, AssetFlags flags, AssetImporter* importer, const Ref<AssetImportSettings>& settings, AssetImportEnv env) {
+    AssetManager::AsyncAssetId AssetManager::import(const std::string& asset_path, AssetFlags flags, AssetImporter* importer, const Ref<AssetImportSettings>& settings, const AssetImportEnv& env) {
         WG_PROFILE_CPU_ASSET("AssetManager::import");
 
         if (!is_import_enabled()) {
@@ -154,7 +154,7 @@ namespace wmoge {
 
         AsyncOp<UUID> async_result = make_async_op<UUID>();
 
-        auto import_result = m_import_manager->import(asset_path, importer, settings, std::move(env), [this](UUID asset_id) -> AsyncAssetRef {
+        auto import_result = m_import_manager->import(asset_path, importer, settings, env, [this](UUID asset_id) -> AsyncAssetRef {
             return load(asset_id);
         });
 
@@ -219,7 +219,7 @@ namespace wmoge {
 
         auto async_result = make_async_op<UUID>();
 
-        auto import_result = m_import_manager->import(asset_path, *importer, settings, std::move(env), [this](UUID asset_id) -> AsyncAssetRef {
+        auto import_result = m_import_manager->import(asset_path, *importer, settings, env, [this](UUID asset_id) -> AsyncAssetRef {
             return load(asset_id);
         });
 

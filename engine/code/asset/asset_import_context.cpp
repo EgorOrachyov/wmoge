@@ -33,28 +33,37 @@
 
 namespace wmoge {
 
-    AssetImportContext::AssetImportContext(std::string         path,
-                                           AssetImportEnv      env,
-                                           const UuidProvider& uuid_provider,
-                                           IoContext           io_context,
-                                           FileSystem*         file_system,
-                                           IocContainer*       ioc_containter)
+    AssetImportContext::AssetImportContext(std::string           path,
+                                           const AssetImportEnv& env,
+                                           const UuidProvider&   uuid_provider,
+                                           IoContext             io_context,
+                                           FileSystem*           file_system,
+                                           IocContainer*         ioc_containter)
         : m_path(std::move(path)),
           m_uuid_provider(uuid_provider),
           m_io_context(std::move(io_context)),
           m_file_system(file_system),
           m_ioc_containter(ioc_containter) {
         m_result.timestamp = DateTime::now();
-        m_result.env       = std::move(env);
+
+        m_result.file_to_id.reserve(env.file_to_id.size());
+        for (const auto& e : env.file_to_id) {
+            m_result.file_to_id[e.first] = e.second;
+        }
+
+        m_result.deps.reserve(env.deps.size());
+        for (const auto& e : env.deps) {
+            m_result.deps.insert(e);
+        }
     }
 
     UUID AssetImportContext::alloc_asset_uuid(const std::string& asset_path) {
-        auto       query = m_result.env.file_to_id.find(asset_path);
-        const UUID id    = query != m_result.env.file_to_id.end() ? query->second : m_uuid_provider();
+        auto       query = m_result.file_to_id.find(asset_path);
+        const UUID id    = query != m_result.file_to_id.end() ? query->second : m_uuid_provider();
         if (m_ids.find(id) != m_ids.end()) {
             WG_LOG_ERROR("conflicting ids for same path " << asset_path << ", fix path uniqueness");
         }
-        m_result.env.file_to_id[asset_path] = id;
+        m_result.file_to_id[asset_path] = id;
         m_ids.insert(id);
         return id;
     }
@@ -67,11 +76,11 @@ namespace wmoge {
     }
 
     void AssetImportContext::clear_deps() {
-        m_result.env.deps.clear();
+        m_result.deps.clear();
     }
 
     void AssetImportContext::add_asset_dep(AssetId asset_id) {
-        m_result.env.deps.insert(asset_id);
+        m_result.deps.insert(asset_id);
     }
 
     void AssetImportContext::add_asset_deps(array_view<const AssetId> asset_ids) {
@@ -120,7 +129,7 @@ namespace wmoge {
     }
 
     void AssetImportContext::add_error(AssetImportError error) {
-        m_result.env.errors.push_back(std::move(error));
+        m_result.errors.push_back(std::move(error));
     }
 
 }// namespace wmoge

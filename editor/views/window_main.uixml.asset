@@ -1,7 +1,6 @@
 uuid: 16618171316110975446
 flags:
   - Resolvable
-cls: UiMarkup
 importer: UiMarkupImporter
 import_env:
   file_to_id:

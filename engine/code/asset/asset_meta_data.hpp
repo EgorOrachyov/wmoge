@@ -45,7 +45,6 @@ namespace wmoge {
 
         UUID                     uuid;
         AssetFlags               flags;
-        RttiRefClass             cls;
         RttiRefClass             importer;
         AssetImportEnv           import_env;
         Ref<AssetImportSettings> import_settings;
@@ -55,7 +54,6 @@ namespace wmoge {
         WG_RTTI_EXTENSION(".asset");
         WG_RTTI_FIELD(uuid, {RttiOptional});
         WG_RTTI_FIELD(flags, {RttiOptional});
-        WG_RTTI_FIELD(cls, {});
         WG_RTTI_FIELD(importer, {});
         WG_RTTI_FIELD(import_env, {RttiOptional});
         WG_RTTI_FIELD(import_settings, {});

@@ -30,6 +30,7 @@
 #include "core/task.hpp"
 #include "core/task_manager.hpp"
 #include "io/async_file_system.hpp"
+#include "io/compression.hpp"
 #include "io/stream_file.hpp"
 #include "io/tree_yaml.hpp"
 #include "platform/common/file_mem.hpp"
@@ -48,6 +49,8 @@ namespace wmoge {
         Sha256       hash;
         std::string  name;
         std::size_t  size;
+        std::size_t  size_compressed;
+        bool         is_compressed;
         RttiRefClass cls;
     };
 
@@ -55,6 +58,8 @@ namespace wmoge {
         WG_RTTI_FIELD(hash, {});
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(size, {});
+        WG_RTTI_FIELD(size_compressed, {});
+        WG_RTTI_FIELD(is_compressed, {});
         WG_RTTI_FIELD(cls, {});
     }
     WG_RTTI_END;
@@ -88,9 +93,25 @@ namespace wmoge {
             return Async::failed();
         }
 
-        Async read_file_async = m_async_file_system->read_file(artifact_file_name(artifact_id), buffer).as_async();
+        Async read_file_async;
 
-        Task parse_file_task(SIDDBG("deserialize_artifact"), [this, artifact_id, buffer, artifact](TaskContext&) -> Status {
+        if (query->second.is_compressed) {
+            Ref<Data>                file_data = make_ref<Data>(query->second.size_compressed);
+            array_view<std::uint8_t> file_data_buffer{file_data->buffer(), file_data->size()};
+
+            Async fetch_file = m_async_file_system->read_file(artifact_file_name(artifact_id), file_data_buffer).as_async();
+
+            Task decompress_artifact(SIDDBG("decompress_artifact"), [file_data, file_data_buffer, buffer](TaskContext&) -> Status {
+                WG_CHECKED(Compression::decompress_lz4(file_data_buffer, buffer));
+                return WG_OK;
+            });
+
+            read_file_async = decompress_artifact.schedule(m_task_manager, fetch_file).as_async();
+        } else {
+            read_file_async = m_async_file_system->read_file(artifact_file_name(artifact_id), buffer).as_async();
+        }
+
+        Task deserialize_artifact(SIDDBG("deserialize_artifact"), [this, artifact_id, buffer, artifact](TaskContext&) -> Status {
             IoContext context = m_io_context;
 
             Ref<FileMemReader> file = make_ref<FileMemReader>();
@@ -107,7 +128,7 @@ namespace wmoge {
             return WG_OK;
         });
 
-        return parse_file_task.schedule(m_task_manager, read_file_async).as_async();
+        return deserialize_artifact.schedule(m_task_manager, read_file_async).as_async();
     }
 
     bool AssetArtifactCache::has(UUID artifact_id) const {
@@ -142,27 +163,57 @@ namespace wmoge {
 
         IoContext context = m_io_context;
 
-        Ref<FileMemWriter> file = make_ref<FileMemWriter>();
-
-        std::string file_name = artifact_file_name(artifact_id);
+        Sha256      file_hash;
+        std::size_t file_size            = 0;
+        std::size_t file_size_compressed = 0;
+        bool        is_compressed        = false;
+        std::string file_name            = artifact_file_name(artifact_id);
         {
-            IoStreamFile stream;
+            Ref<FileMemWriter> file = make_ref<FileMemWriter>();
+            IoStreamFile       stream;
             WG_CHECKED(stream.set(file, {FileOpenMode::Out, FileOpenMode::Binary}));
             WG_CHECKED(artifact->write_to_stream(context, stream));
-            WG_CHECKED(m_file_system->save_file(artifact_file_name(artifact_id), file->get_buffer()));
+
+            std::vector<std::uint8_t> file_data = std::move(file->get_buffer());
+            file_size                           = file_data.size();
+
+            if (file_data.size() > COMPRESS_THRESHOLD) {
+                is_compressed = true;
+
+                std::size_t required_size;
+                WG_CHECKED(Compression::estimate_lz4(file_data, required_size));
+
+                std::vector<std::uint8_t> file_data_compressed(required_size);
+                WG_CHECKED(Compression::compress_lz4(file_data, file_data_compressed, file_size_compressed));
+
+                file_data_compressed.resize(file_size_compressed);
+                std::swap(file_data, file_data_compressed);
+
+                WG_LOG_INFO("compressed " << artifact_id
+                                          << " from " << StringUtils::from_mem_size(file_size)
+                                          << " to " << StringUtils::from_mem_size(file_size_compressed)
+                                          << " ratio " << float(file_size) / (float(file_size_compressed) + 0.01f));
+            }
+
+            WG_CHECKED(m_file_system->save_file(artifact_file_name(artifact_id), file_data));
+            file_hash = Sha256Builder().hash(file_data).get();
         }
 
         Entry artifact_info;
-        artifact_info.name = name;
-        artifact_info.cls  = artifact->get_class();
-        artifact_info.size = file->get_buffer().size();
-        artifact_info.hash = Sha256Builder().hash(file->get_buffer()).get();
+        artifact_info.name            = name;
+        artifact_info.cls             = artifact->get_class();
+        artifact_info.size            = file_size;
+        artifact_info.size_compressed = file_size_compressed;
+        artifact_info.is_compressed   = is_compressed;
+        artifact_info.hash            = file_hash;
 
         FileAssetArtifactMetaInfo artifact_data;
-        artifact_data.name = artifact_info.name;
-        artifact_data.cls  = artifact_info.cls;
-        artifact_data.hash = artifact_info.hash;
-        artifact_data.size = artifact_info.size;
+        artifact_data.name            = artifact_info.name;
+        artifact_data.cls             = artifact_info.cls;
+        artifact_data.hash            = artifact_info.hash;
+        artifact_data.size            = artifact_info.size;
+        artifact_data.size_compressed = artifact_info.size_compressed;
+        artifact_data.is_compressed   = artifact_info.is_compressed;
         {
             std::string artifact_meta_data;
             IoYamlTree  artifact_meta_tree;
@@ -214,10 +265,12 @@ namespace wmoge {
             WG_TREE_READ(context, artifact_meta_tree, artifact_info);
 
             Entry entry;
-            entry.name = artifact_info.name;
-            entry.cls  = artifact_info.cls;
-            entry.hash = artifact_info.hash;
-            entry.size = artifact_info.size;
+            entry.name            = artifact_info.name;
+            entry.cls             = artifact_info.cls;
+            entry.hash            = artifact_info.hash;
+            entry.size            = artifact_info.size;
+            entry.size_compressed = artifact_info.size_compressed;
+            entry.is_compressed   = artifact_info.is_compressed;
 
             m_artifacts[artifact_id] = entry;
         }

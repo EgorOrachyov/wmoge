@@ -225,9 +225,7 @@ namespace wmoge {
         }
 
         FileShaderLibrary library;
-        WG_CHECKED(stream.begin_compressed());
         WG_ARCHIVE_READ(context, stream, library);
-        WG_CHECKED(stream.end_compressed());
 
         std::unique_lock lock(m_mutex);
 
@@ -285,9 +283,7 @@ namespace wmoge {
             return StatusCode::FailedOpenFile;
         }
 
-        WG_CHECKED(stream.begin_compressed());
         WG_ARCHIVE_WRITE(context, stream, library);
-        WG_CHECKED(stream.end_compressed());
 
         WG_LOG_INFO("save " << file_path
                             << " at=" << library.timestamp

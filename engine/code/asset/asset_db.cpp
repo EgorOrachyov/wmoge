@@ -128,6 +128,21 @@ namespace wmoge {
             WG_CHECKED(add_asset(std::move(asset)));
         }
 
+        AssetImportEnv env;
+        env.errors = import_result.errors;
+
+        env.file_to_id.reserve(import_result.file_to_id.size());
+        for (const auto& e : import_result.file_to_id) {
+            env.file_to_id.emplace_back(e.first, e.second);
+        }
+        std::sort(env.file_to_id.begin(), env.file_to_id.end());
+
+        env.deps.reserve(import_result.deps.size());
+        for (const auto& e : import_result.deps) {
+            env.deps.push_back(e);
+        }
+        std::sort(env.deps.begin(), env.deps.end());
+
         AssetData asset;
         asset.uuid            = main.uuid;
         asset.flags           = flags | main.flags;
@@ -137,7 +152,7 @@ namespace wmoge {
         asset.children        = std::move(children_uuid);
         asset.loader          = main.loader;
         asset.importer        = importer;
-        asset.import_env      = import_result.env;
+        asset.import_env      = std::move(env);
         asset.import_settings = import_settings;
         asset.timestamp       = import_result.timestamp;
 
@@ -193,7 +208,10 @@ namespace wmoge {
 
         const UUID asset_id = asset_data.uuid;
 
-        asset_data.import_env.file_to_id[asset_data.path] = asset_id;
+        if (asset_data.parent.is_null() && asset_data.import_env.file_to_id.empty()) {
+            asset_data.import_env.file_to_id.emplace_back(asset_data.path, asset_data.uuid);
+        }
+
         m_asset_resolver->add(asset_data.path, asset_id);
         m_assets[asset_id] = std::move(asset_data);
 
@@ -213,7 +231,6 @@ namespace wmoge {
         AssetData asset;
         asset.path            = asset_path;
         asset.uuid            = asset_id;
-        asset.cls             = asset_meta_data.cls;
         asset.flags           = asset_meta_data.flags;
         asset.importer        = asset_meta_data.importer;
         asset.import_env      = asset_meta_data.import_env;
@@ -367,7 +384,6 @@ namespace wmoge {
         const AssetData& asset          = m_assets[asset_id];
         asset_meta_data.uuid            = asset.uuid;
         asset_meta_data.flags           = asset.flags;
-        asset_meta_data.cls             = asset.cls;
         asset_meta_data.importer        = asset.importer;
         asset_meta_data.import_env      = asset.import_env;
         asset_meta_data.import_settings = asset.import_settings;
@@ -403,6 +419,10 @@ namespace wmoge {
         }
 
         const AssetData& asset = m_assets[asset_id];
+
+        if (asset.flags.get(AssetFlag::Hidden)) {
+            return WG_OK;
+        }
 
         AssetMetaData meta_data;
         WG_CHECKED(get_asset_meta(asset_id, meta_data));

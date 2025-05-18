@@ -1,7 +1,6 @@
 uuid: 2545272171602926369
 flags:
   - Resolvable
-cls: Shader
 importer: ShaderImporter
 import_env:
   file_to_id:

@@ -55,12 +55,12 @@ namespace wmoge {
     public:
         using UuidProvider = std::function<UUID()>;
 
-        AssetImportContext(std::string         path,
-                           AssetImportEnv      env,
-                           const UuidProvider& uuid_provider,
-                           IoContext           io_context,
-                           FileSystem*         file_system,
-                           IocContainer*       ioc_containter);
+        AssetImportContext(std::string           path,
+                           const AssetImportEnv& env,
+                           const UuidProvider&   uuid_provider,
+                           IoContext             io_context,
+                           FileSystem*           file_system,
+                           IocContainer*         ioc_containter);
 
         [[nodiscard]] UUID        alloc_asset_uuid(const std::string& asset_path);
         [[nodiscard]] std::string resolve_path(const std::string& path);
@@ -76,7 +76,7 @@ namespace wmoge {
         void                      add_error(AssetImportError error);
 
         [[nodiscard]] AssetImportResult&       get_result() { return m_result; }
-        [[nodiscard]] const flat_set<AssetId>& get_asset_deps() const { return m_result.env.deps; }
+        [[nodiscard]] const flat_set<AssetId>& get_asset_deps() const { return m_result.deps; }
         [[nodiscard]] const IoContext&         get_io_context() const { return m_io_context; }
         [[nodiscard]] FileSystem*              get_file_system() const { return m_file_system; }
         [[nodiscard]] IocContainer*            get_ioc_container() const { return m_ioc_containter; }

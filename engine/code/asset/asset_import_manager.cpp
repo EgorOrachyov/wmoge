@@ -48,7 +48,7 @@ namespace wmoge {
           m_task_manager(task_manager) {
     }
 
-    AsyncResult<AssetImportResult> AssetImportManager::import(const std::string& path, AssetImporter* importer, const Ref<AssetImportSettings>& settings, AssetImportEnv env, const DepsResolver& deps_resolver) {
+    AsyncResult<AssetImportResult> AssetImportManager::import(const std::string& path, AssetImporter* importer, const Ref<AssetImportSettings>& settings, const AssetImportEnv& env, const DepsResolver& deps_resolver) {
         WG_PROFILE_CPU_ASSET("AssetImportManager::import");
 
         std::lock_guard guard(m_mutex);
@@ -65,7 +65,7 @@ namespace wmoge {
         entry->async_op       = make_async_op<AssetImportResult>();
         entry->settings       = settings;
         entry->importer       = importer;
-        entry->import_context = std::make_unique<AssetImportContext>(fs_folder, std::move(env), m_uuid_provider, m_io_context, m_file_system, m_ioc_containter);
+        entry->import_context = std::make_unique<AssetImportContext>(fs_folder, env, m_uuid_provider, m_io_context, m_file_system, m_ioc_containter);
 
         if (!entry->importer->collect_dependencies(*entry->import_context, path, settings)) {
             WG_LOG_ERROR("failed to collect deps to import asset at " << path);

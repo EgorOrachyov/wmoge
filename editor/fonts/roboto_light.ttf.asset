@@ -1,7 +1,6 @@
 uuid: 258683858237739702
 flags:
   - Resolvable
-cls: Font
 importer: FreetypeFontImporter
 import_env:
   file_to_id:

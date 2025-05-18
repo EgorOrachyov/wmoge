@@ -70,7 +70,7 @@ namespace wmoge {
         [[nodiscard]] AsyncAssetRef load(const std::string& asset_name);
         [[nodiscard]] Ref<Asset>    load_wait(UUID asset_id);
         [[nodiscard]] Ref<Asset>    load_wait(const std::string& asset_name);
-        [[nodiscard]] AsyncAssetId  import(const std::string& asset_path, AssetFlags flags, AssetImporter* importer, const Ref<AssetImportSettings>& settings, AssetImportEnv env);
+        [[nodiscard]] AsyncAssetId  import(const std::string& asset_path, AssetFlags flags, AssetImporter* importer, const Ref<AssetImportSettings>& settings, const AssetImportEnv& env);
         [[nodiscard]] AsyncAssetId  reimport(UUID asset_id);
         void                        cache(Ref<Asset> asset, bool replace = true);
         [[nodiscard]] bool          is_import_enabled() const { return m_import_enabled; }

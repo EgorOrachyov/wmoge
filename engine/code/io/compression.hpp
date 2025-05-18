@@ -28,6 +28,7 @@
 #ifndef WMOGE_COMPRESSION_HPP
 #define WMOGE_COMPRESSION_HPP
 
+#include "core/array_view.hpp"
 #include "core/status.hpp"
 
 #include <cinttypes>
@@ -45,36 +46,32 @@ namespace wmoge {
          * @brief Estimates upper boundary for compressed buffer size
          * 
          * @param in buffer to compress
-         * @param size buffer size
          * @param max_compressed_size estimate
          * 
          * @return Ok on success
         */
-        static Status estimate_lz4(const void* in, int size, int& max_compressed_size);
+        static Status estimate_lz4(array_view<const std::uint8_t> in, std::size_t& max_compressed_size);
 
         /**
          * @brief Compress provided buffer
          *
          * @param in buffer to compress
-         * @param size buffer size
-         * @param max_compressed_size max output buffer size
          * @param out output buffer
+         * @param compressed_size copressed data size
          *
          * @return Ok on success
          */
-        static Status compress_lz4(const void* in, int size, int max_compressed_size, int& compressed_size, std::uint8_t* out);
+        static Status compress_lz4(array_view<const std::uint8_t> in, array_view<std::uint8_t> out, std::size_t& compressed_size);
 
         /**
          * @brief Decompress provided buffer
          *
          * @param in buffer to decompress
-         * @param compressed_size size of compressed buffer
-         * @param decompressed_size decompressed data size
          * @param out buffer for decompressed data
          *
          * @return Ok in success
          */
-        static Status decompress_lz4(const void* in, int compressed_size, int decompressed_size, std::uint8_t* out);
+        static Status decompress_lz4(array_view<const std::uint8_t> in, array_view<std::uint8_t> out);
     };
 
 }// namespace wmoge

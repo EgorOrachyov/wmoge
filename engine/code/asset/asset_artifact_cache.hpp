@@ -68,12 +68,15 @@ namespace wmoge {
         struct Entry {
             Sha256       hash;
             std::string  name;
-            std::size_t  size;
+            std::size_t  size            = 0;
+            std::size_t  size_compressed = 0;
+            bool         is_compressed   = false;
             RttiRefClass cls;
         };
 
-        static constexpr char ARTIFACT_FILE_EXT[]      = ".data";
-        static constexpr char ARTIFACT_FILE_META_EXT[] = ".artifact";
+        static constexpr char        ARTIFACT_FILE_EXT[]      = ".data";
+        static constexpr char        ARTIFACT_FILE_META_EXT[] = ".artifact";
+        static constexpr std::size_t COMPRESS_THRESHOLD       = 1024 * 4;
 
         [[nodiscard]] std::string artifact_file_name(UUID artifact_id);
         [[nodiscard]] std::string artifact_meta_name(UUID artifact_id);

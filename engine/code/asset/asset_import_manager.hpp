@@ -66,7 +66,7 @@ namespace wmoge {
                            IocContainer* ioc_containter,
                            TaskManager*  task_manager);
 
-        [[nodiscard]] AsyncResult<AssetImportResult> import(const std::string& path, AssetImporter* importer, const Ref<AssetImportSettings>& settings, AssetImportEnv env, const DepsResolver& deps_resolver);
+        [[nodiscard]] AsyncResult<AssetImportResult> import(const std::string& path, AssetImporter* importer, const Ref<AssetImportSettings>& settings, const AssetImportEnv& env, const DepsResolver& deps_resolver);
         [[nodiscard]] AsyncResult<AssetImportResult> try_find_import(const std::string& path);
         [[nodiscard]] std::optional<AssetImporter*>  find_importer(const std::string& path);
         [[nodiscard]] std::optional<AssetImporter*>  find_importer(RttiRefClass importer_cls);

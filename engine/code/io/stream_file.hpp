@@ -42,31 +42,14 @@ namespace wmoge {
     class IoStreamFile final : public IoStream {
     public:
         IoStreamFile();
-        ~IoStreamFile() override;
 
         Status set(Ref<File> file, FileOpenModeFlags flags);
         Status open(class FileSystem* file_system, const std::string& file_path, FileOpenModeFlags flags);
         Status nwrite(std::size_t num_bytes, const void* bytes) override;
         Status nread(std::size_t num_bytes, void* bytes) override;
-        Status begin_compressed() override;
-        Status end_compressed() override;
 
     private:
-        Status             append_raw(std::size_t num_bytes, const void* bytes);
-        Status             append_file(std::size_t num_bytes, const void* bytes);
-        Status             fetch_raw(std::size_t num_bytes, void* bytes);
-        Status             fecth_file(std::size_t num_bytes, void* bytes);
-        Status             flush_compressed();
-        Status             fetch_decompressed();
-        [[nodiscard]] bool is_compressed();
-
-    private:
-        std::vector<std::uint8_t> m_buffer_raw;
-        std::vector<std::uint8_t> m_buffer_compressed;
-        std::size_t               m_offset             = 0;
-        std::size_t               m_buffer_size        = 0;
-        std::int32_t              m_compression_region = 0;
-        Ref<File>                 m_file;
+        Ref<File> m_file;
     };
 
 }// namespace wmoge
