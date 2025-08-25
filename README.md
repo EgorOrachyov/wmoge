@@ -102,6 +102,11 @@ project for educational purposes only.
 
 ### References
 
+* [Modernizing geometry rendering in Alan Wake 2](https://www.youtube.com/watch?v=l98JgYBQz68)
+* [GPU driven Rendering with Mesh Shaders in Alan Wake 2](https://www.youtube.com/watch?v=EtX7WnFhxtQ)
+* [ECS Scripting of Alan Wake 2](https://gdcvault.com/play/1034295/ECS-in-Practice-The-Case)
+* [RE ENGINE Meshlet Rendering Pipeline](https://www.youtube.com/watch?v=nWgPtCDXlPc)
+* [RE:2023 Is Rendering Still Evolving?](https://www.youtube.com/watch?v=7XWdiktsVyo)
 * [Refactoring the Mesh Drawing Pipeline for Unreal Engine 4.22](https://www.youtube.com/watch?v=qx1c190aGhs)
 * [Mesh Drawing Pipeline | Unreal Engine 4.27 Documentation](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/Rendering/MeshDrawingPipeline/)
 * [Creating a Custom Mesh Component in UE4](https://medium.com/realities-io/creating-a-custom-mesh-component-in-ue4-part-0-intro-2c762c5f0cd6)
@@ -110,7 +115,6 @@ project for educational purposes only.
 * [Master Class: How to assign Game Inputs through Actionmapping in CRYENGINE](https://www.youtube.com/watch?v=uTmHUIypR-4)
 * [Master Class: Comprehensive Guide to Working with Audio in CRYENGINE](https://www.youtube.com/watch?v=oG1trk1PLMM)
 * [Master Class: Art Asset Pipeline, PBR Texture Mapping in CRYENGINE](https://www.youtube.com/watch?v=hGFP_4TYL2o)
-* [ECS Scripting of Alan Wake 2](https://gdcvault.com/play/1034295/ECS-in-Practice-The-Case)
 * [HypeHype Mobile Rendering Architecture](https://advances.realtimerendering.com/s2023/index.html)
 * [Creating a Tools Pipeline for Horizon: Zero Dawn](https://www.youtube.com/watch?v=KRJkBxKv1VM)
 * [The Future of Scene Description on 'God of War'](https://www.gdcvault.com/play/1026345/The-Future-of-Scene-Description)
@@ -222,6 +226,7 @@ respond as soon as possible to them.
 | `📁 docs`           | Additional project documents and resources                |
 | `📁 deps`           | Third-party project dependencies, stored as is            |
 | `📁 engine`         | Engine sources code, shaders, config, plugins sources     |
+| `📁 editor`         | Editor sources code, editor resources, plugins sources    |
 | `📁 template`       | Template project which can be used as a base for a game   |
 | `📁 games`          | Example games created with engine                         |
 | `📄 CMakeLists.txt` | CMake configuration, add as sub directory to your project |

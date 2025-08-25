@@ -9,8 +9,10 @@ on:
     paths:
       - '.github/**'
       - 'deps/**'
-      - 'engine/runtime/**'
+      - 'engine/code/**'
       - 'engine/plugins/**'
+      - 'editor/code/**'
+      - 'editor/plugins/**'
       - 'games/**'
       - 'template/**'
       - '.gitignore'

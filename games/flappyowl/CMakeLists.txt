@@ -1,2 +1,0 @@
-set(FLAPPYOWL_APP_ICON_RESOURCE "${CMAKE_CURRENT_SOURCE_DIR}/owl.rc")
-wmoge_game(flappyowl main.cpp ${FLAPPYOWL_APP_ICON_RESOURCE})
