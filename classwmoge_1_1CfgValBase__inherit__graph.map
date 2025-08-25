@@ -1,0 +1,11 @@
+<map id="wmoge::CfgValBase" name="wmoge::CfgValBase">
+<area shape="rect" id="node1" title="Base class for any config object." alt="" coords="5,122,144,149"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1CfgCmd.html" title="Cfg command which can be executed from external." alt="" coords="192,97,309,123"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1CfgVal.html" title=" " alt="" coords="196,147,305,174"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1CfgValT.html" title=" " alt="" coords="365,5,512,47"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1CfgValT.html" title=" " alt="" coords="357,71,520,98"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1CfgValT.html" title=" " alt="" coords="357,122,520,149"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1CfgList.html" title="Cfg var with list of options to select." alt="" coords="383,173,495,199"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1CfgTrigger.html" title="Cfg trigger which can be triggered for one frame." alt="" coords="373,223,504,250"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1CfgValT.html" title="Typed wrapper for a config val." alt="" coords="365,274,512,301"/>
+</map>

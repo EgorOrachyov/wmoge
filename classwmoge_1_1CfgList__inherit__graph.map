@@ -1,0 +1,5 @@
+<map id="wmoge::CfgList" name="wmoge::CfgList">
+<area shape="rect" id="node1" title="Cfg var with list of options to select." alt="" coords="19,155,131,181"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1CfgVal.html" title=" " alt="" coords="20,80,129,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1CfgValBase.html" title="Base class for any config object." alt="" coords="5,5,144,32"/>
+</map>

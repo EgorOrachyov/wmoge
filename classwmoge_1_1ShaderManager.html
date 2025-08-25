@@ -81,8 +81,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac1c6a08538285e6abe869783f5500ec0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#ac1c6a08538285e6abe869783f5500ec0">ShaderManager</a> (class <a class="el" href="classwmoge_1_1IocContainer.html">IocContainer</a> *ioc)</td></tr>
-<tr class="separator:ac1c6a08538285e6abe869783f5500ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7001d9844f96432c0c0153815859a1a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a7001d9844f96432c0c0153815859a1a9">ShaderManager</a> (<a class="el" href="classwmoge_1_1TaskManager.html">TaskManager</a> *task_manager, <a class="el" href="classwmoge_1_1FileSystem.html">FileSystem</a> *file_system, <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *gfx_driver, <a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a> *texture_manager, <a class="el" href="classwmoge_1_1ShaderLibrary.html">ShaderLibrary</a> *shader_library, <a class="el" href="classwmoge_1_1PsoCache.html">PsoCache</a> *pso_cache, <a class="el" href="classwmoge_1_1CfgManager.html">CfgManager</a> *cfg_manager)</td></tr>
+<tr class="separator:a7001d9844f96432c0c0153815859a1a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32c72a4494c6ed84038d1d6b70323fb2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a32c72a4494c6ed84038d1d6b70323fb2">load_shader_reflection</a> (const <a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a> &amp;file, <a class="el" href="structwmoge_1_1ShaderReflection.html">ShaderReflection</a> &amp;reflection)</td></tr>
 <tr class="separator:a32c72a4494c6ed84038d1d6b70323fb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae8585e6d415f8f46b4de89e78afa754"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#aae8585e6d415f8f46b4de89e78afa754">build_types_map</a> (<a class="el" href="structwmoge_1_1ShaderReflection.html">ShaderReflection</a> &amp;reflection)</td></tr>
@@ -150,8 +150,8 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Global shaders manager. </p>
 <p>Manages shaders data loading, runtime data creation, shader compilation and caching. Allows to save and load shaders permutation cache from disk. Supports hot-reload for shaders developent in a debug mode. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac1c6a08538285e6abe869783f5500ec0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1c6a08538285e6abe869783f5500ec0">&#9670;&nbsp;</a></span>ShaderManager()</h2>
+<a id="a7001d9844f96432c0c0153815859a1a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7001d9844f96432c0c0153815859a1a9">&#9670;&nbsp;</a></span>ShaderManager()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -159,9 +159,49 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">wmoge::ShaderManager::ShaderManager </td>
           <td>(</td>
-          <td class="paramtype">class <a class="el" href="classwmoge_1_1IocContainer.html">IocContainer</a> *&#160;</td>
-          <td class="paramname"><em>ioc</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1TaskManager.html">TaskManager</a> *&#160;</td>
+          <td class="paramname"><em>task_manager</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1FileSystem.html">FileSystem</a> *&#160;</td>
+          <td class="paramname"><em>file_system</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *&#160;</td>
+          <td class="paramname"><em>gfx_driver</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a> *&#160;</td>
+          <td class="paramname"><em>texture_manager</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1ShaderLibrary.html">ShaderLibrary</a> *&#160;</td>
+          <td class="paramname"><em>shader_library</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1PsoCache.html">PsoCache</a> *&#160;</td>
+          <td class="paramname"><em>pso_cache</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1CfgManager.html">CfgManager</a> *&#160;</td>
+          <td class="paramname"><em>cfg_manager</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

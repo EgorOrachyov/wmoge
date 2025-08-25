@@ -1,0 +1,4 @@
+<map id="wmoge::CfgCmd" name="wmoge::CfgCmd">
+<area shape="rect" id="node1" title="Cfg command which can be executed from external." alt="" coords="16,80,133,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1CfgValBase.html" title="Base class for any config object." alt="" coords="5,5,144,32"/>
+</map>

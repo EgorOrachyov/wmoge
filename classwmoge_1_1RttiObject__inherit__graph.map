@@ -1,17 +1,16 @@
 <map id="wmoge::RttiObject" name="wmoge::RttiObject">
-<area shape="rect" id="node1" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,1049,292,1076"/>
+<area shape="rect" id="node1" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,935,292,961"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="359,45,510,86"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1AssetImportSettings.html" title="Asset import settings base class for specific importes custom settings classes." alt="" coords="340,157,529,184"/>
 <area shape="rect" id="node10" href="$classwmoge_1_1AssetImporter.html" title="An interface for a class which imports asset(s) to engine from external formats." alt="" coords="359,461,511,488"/>
 <area shape="rect" id="node19" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading asset in a specific runtime format." alt="" coords="363,821,507,848"/>
-<area shape="rect" id="node25" href="$classwmoge_1_1ConsoleObject.html" title="Base class for any console object." alt="" coords="357,999,512,1025"/>
-<area shape="rect" id="node29" href="$classwmoge_1_1EntityFeature.html" title="Describes single aspect/feature of a particular ecs entity." alt="" coords="361,1049,508,1076"/>
-<area shape="rect" id="node31" href="$classwmoge_1_1EntityFeatureVector.html" title="Optimized storage for features of a group of entities." alt="" coords="343,1100,527,1127"/>
-<area shape="rect" id="node33" href="$classwmoge_1_1PfxFeature.html" title="Pfx reusable feature which controls single aspect of particles." alt="" coords="368,1151,501,1177"/>
-<area shape="rect" id="node34" href="$classwmoge_1_1ShaderCompiler.html" title="Interface to a shader compiler." alt="" coords="353,1201,516,1228"/>
-<area shape="rect" id="node36" href="$structwmoge_1_1ShaderType.html" title="Recursive complex type for declaring of anything in a shader what has a type." alt="" coords="365,1252,504,1279"/>
-<area shape="rect" id="node37" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="369,1536,500,1563"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,1049,116,1076"/>
+<area shape="rect" id="node25" href="$classwmoge_1_1EntityFeature.html" title="Describes single aspect/feature of a particular ecs entity." alt="" coords="361,909,508,936"/>
+<area shape="rect" id="node27" href="$classwmoge_1_1EntityFeatureVector.html" title="Optimized storage for features of a group of entities." alt="" coords="343,960,527,987"/>
+<area shape="rect" id="node29" href="$classwmoge_1_1PfxFeature.html" title="Pfx reusable feature which controls single aspect of particles." alt="" coords="368,1011,501,1037"/>
+<area shape="rect" id="node30" href="$classwmoge_1_1ShaderCompiler.html" title="Interface to a shader compiler." alt="" coords="353,1061,516,1088"/>
+<area shape="rect" id="node32" href="$structwmoge_1_1ShaderType.html" title="Recursive complex type for declaring of anything in a shader what has a type." alt="" coords="365,1112,504,1139"/>
+<area shape="rect" id="node33" href="$classwmoge_1_1UiElement.html" title="Base class for all ui elements." alt="" coords="369,1485,500,1512"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,935,116,961"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1Asset.html" title="Base class for any engine asset." alt="" coords="633,5,737,32"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1FontImportSettings.html" title="Settings to import a font." alt="" coords="595,56,776,83"/>
 <area shape="rect" id="node7" href="$classwmoge_1_1ImageImportSettings.html" title="Settings to import an image." alt="" coords="590,107,781,133"/>
@@ -30,22 +29,23 @@
 <area shape="rect" id="node22" href="$classwmoge_1_1ShaderLoader.html" title="Loader for shaders in engine format for gpu rendering." alt="" coords="610,796,761,823"/>
 <area shape="rect" id="node23" href="$classwmoge_1_1Texture2dLoader.html" title="Asset loader for runtime texture2d objects for gpu rendering." alt="" coords="602,847,769,873"/>
 <area shape="rect" id="node24" href="$classwmoge_1_1TextureCubeLoader.html" title="Asset loader for runtime textureCube objects for gpu rendering." alt="" coords="594,897,777,924"/>
-<area shape="rect" id="node26" href="$classwmoge_1_1ConsoleCmd.html" title="Console command which can be executed from console." alt="" coords="613,948,757,975"/>
-<area shape="rect" id="node27" href="$classwmoge_1_1ConsoleTrigger.html" title="Console trigger which can be triggered for one frame." alt="" coords="607,999,764,1025"/>
-<area shape="rect" id="node28" href="$classwmoge_1_1ConsoleVar.html" title="Console var which can hold some value." alt="" coords="617,1049,754,1076"/>
-<area shape="rect" id="node30" href="$classwmoge_1_1EntitySimpleFeature.html" title=" " alt="" coords="577,1100,793,1127"/>
-<area shape="rect" id="node32" href="$classwmoge_1_1EntitySimpleFeatureVector.html" title=" " alt="" coords="592,1151,779,1193"/>
-<area shape="rect" id="node35" href="$classwmoge_1_1GlslShaderCompilerAdapter.html" title="Interface implementation for ShaderCompiler." alt="" coords="593,1217,778,1258"/>
-<area shape="rect" id="node38" href="$classwmoge_1_1UiButton.html" title="Ui button element which can be clicked." alt="" coords="625,1283,746,1309"/>
-<area shape="rect" id="node39" href="$classwmoge_1_1UiCheckBoxButton.html" title="Ui check box button which can be checked or unchecked." alt="" coords="595,1333,775,1360"/>
-<area shape="rect" id="node40" href="$classwmoge_1_1UiComboBox.html" title="Ui combo box with items which can be dropped down." alt="" coords="612,1384,759,1411"/>
-<area shape="rect" id="node41" href="$classwmoge_1_1UiCompletionPopup.html" title="Ui completion popup for text input." alt="" coords="593,1435,778,1461"/>
-<area shape="rect" id="node42" href="$classwmoge_1_1UiContextMenu.html" title="Ui context menu which can be shown on an element." alt="" coords="606,1485,765,1512"/>
-<area shape="rect" id="node43" href="$classwmoge_1_1UiDockSpace.html" title="Ui element which allows to organize and dock inside other windows." alt="" coords="610,1536,761,1563"/>
-<area shape="rect" id="node44" href="$classwmoge_1_1UiDragFloat.html" title="Ui float field with drag option." alt="" coords="616,1587,755,1613"/>
-<area shape="rect" id="node45" href="$classwmoge_1_1UiDragInt.html" title="Ui int field with drag option." alt="" coords="623,1637,748,1664"/>
-<area shape="rect" id="node46" href="$classwmoge_1_1UiInputFloat.html" title="Ui float input field with step editing." alt="" coords="615,1688,756,1715"/>
-<area shape="rect" id="node47" href="$classwmoge_1_1UiInputInt.html" title="Ui int input field with step editing." alt="" coords="622,1739,749,1765"/>
-<area shape="rect" id="node48" href="$classwmoge_1_1UiInputText.html" title="Ui text input field." alt="" coords="617,1789,754,1816"/>
-<area shape="rect" id="node49" href="$classwmoge_1_1UiInputTextExt.html" title="Ui extended text input field with rich callbacks and completion." alt="" coords="608,1840,763,1867"/>
+<area shape="rect" id="node26" href="$classwmoge_1_1EntitySimpleFeature.html" title=" " alt="" coords="577,948,793,975"/>
+<area shape="rect" id="node28" href="$classwmoge_1_1EntitySimpleFeatureVector.html" title=" " alt="" coords="592,999,779,1041"/>
+<area shape="rect" id="node31" href="$classwmoge_1_1GlslShaderCompilerAdapter.html" title="Interface implementation for ShaderCompiler." alt="" coords="593,1065,778,1106"/>
+<area shape="rect" id="node34" href="$classwmoge_1_1UiButton.html" title="Ui button element which can be clicked." alt="" coords="625,1131,746,1157"/>
+<area shape="rect" id="node35" href="$classwmoge_1_1UiCheckBoxButton.html" title="Ui check box button which can be checked or unchecked." alt="" coords="595,1181,775,1208"/>
+<area shape="rect" id="node36" href="$classwmoge_1_1UiComboBox.html" title="Ui combo box with items which can be dropped down." alt="" coords="612,1232,759,1259"/>
+<area shape="rect" id="node37" href="$classwmoge_1_1UiCompletionPopup.html" title="Ui completion popup for text input." alt="" coords="593,1283,778,1309"/>
+<area shape="rect" id="node38" href="$classwmoge_1_1UiContextMenu.html" title="Ui context menu which can be shown on an element." alt="" coords="606,1333,765,1360"/>
+<area shape="rect" id="node39" href="$classwmoge_1_1UiDockSpace.html" title="Ui element which allows to organize and dock inside other windows." alt="" coords="610,1384,761,1411"/>
+<area shape="rect" id="node40" href="$classwmoge_1_1UiDragFloat.html" title="Ui float field with drag option." alt="" coords="616,1435,755,1461"/>
+<area shape="rect" id="node41" href="$classwmoge_1_1UiDragInt.html" title="Ui int field with drag option." alt="" coords="623,1485,748,1512"/>
+<area shape="rect" id="node42" href="$classwmoge_1_1UiInputFloat.html" title="Ui float input field with step editing." alt="" coords="615,1536,756,1563"/>
+<area shape="rect" id="node43" href="$classwmoge_1_1UiInputInt.html" title="Ui int input field with step editing." alt="" coords="622,1587,749,1613"/>
+<area shape="rect" id="node44" href="$classwmoge_1_1UiInputText.html" title="Ui text input field." alt="" coords="617,1637,754,1664"/>
+<area shape="rect" id="node45" href="$classwmoge_1_1UiInputTextExt.html" title="Ui extended text input field with rich callbacks and completion." alt="" coords="608,1688,763,1715"/>
+<area shape="rect" id="node46" href="$classwmoge_1_1UiListBox.html" title="Ui list box with items shown in a multi&#45;line box." alt="" coords="622,1739,749,1765"/>
+<area shape="rect" id="node47" href="$classwmoge_1_1UiMenu.html" title="Ui menu which can store menu items." alt="" coords="628,1789,743,1816"/>
+<area shape="rect" id="node48" href="$classwmoge_1_1UiMenuBar.html" title="Ui window top menu bar." alt="" coords="618,1840,753,1867"/>
+<area shape="rect" id="node49" href="$classwmoge_1_1UiMenuItem.html" title="Ui menu item which can be placed inside a menu." alt="" coords="615,1891,756,1917"/>
 </map>

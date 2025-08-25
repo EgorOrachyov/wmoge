@@ -262,7 +262,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1RdgStorageBuffer.html#a5fb224b73241529f8641d031dd4779f9">wmoge::RdgStorageBuffer</a>
 , <a class="el" href="classwmoge_1_1RdgUniformBuffer.html#aafc35c31ff77fbae78d9e795601a494f">wmoge::RdgUniformBuffer</a>
 , <a class="el" href="classwmoge_1_1RdgVertBuffer.html#a9982f8cab730a7c88708c4fa563291e7">wmoge::RdgVertBuffer</a>
-, <a class="el" href="classwmoge_1_1ShaderParamBlock.html#a9692d9034b917c3c0ed03f3915a6514a">wmoge::ShaderParamBlock</a>
+, <a class="el" href="classwmoge_1_1ShaderParamBlock.html#a6f8a6c31d35db9e1932f279a2b66f200">wmoge::ShaderParamBlock</a>
 </li>
 <li>get_buffer_ref()
 : <a class="el" href="classwmoge_1_1RdgIndexBuffer.html#ade749c1ea6b23556d8c6819fd962f1a2">wmoge::RdgIndexBuffer</a>
@@ -421,10 +421,13 @@ $(function() {
 , <a class="el" href="classwmoge_1_1SceneDataAsset.html#a406f1e81a70e10de3b0ed7c4eecf881b">wmoge::SceneDataAsset</a>
 </li>
 <li>get_defaul_value()
-: <a class="el" href="classwmoge_1_1ConsoleVar.html#a5ccaea482f04f75416773e7aec264247">wmoge::ConsoleVar</a>
+: <a class="el" href="classwmoge_1_1CfgVal.html#a281ba678ccc7a92a7207aa56c25c9979">wmoge::CfgVal</a>
 </li>
 <li>get_default_bus()
 : <a class="el" href="classwmoge_1_1AudioEngine.html#aeb91758110d4511147f1aee359979546">wmoge::AudioEngine</a>
+</li>
+<li>get_default_value_of()
+: <a class="el" href="classwmoge_1_1CfgValT.html#af7ae59396cf7514dfe38b1444a364e0b">wmoge::CfgValT&lt; T &gt;</a>
 </li>
 <li>get_delta_time()
 : <a class="el" href="classwmoge_1_1PfxEmitter.html#ae08b49fb449afa9daee85058bbdb9985">wmoge::PfxEmitter</a>
@@ -705,7 +708,6 @@ $(function() {
 </li>
 <li>get_help()
 : <a class="el" href="classwmoge_1_1CmdLineOptions.html#a76af3fecd218f87c1e0fb9be03ac4857">wmoge::CmdLineOptions</a>
-, <a class="el" href="classwmoge_1_1ConsoleObject.html#afb86db63df5b8f0e25220725076d436a">wmoge::ConsoleObject</a>
 </li>
 <li>get_icon_info()
 : <a class="el" href="classwmoge_1_1IconAtlas.html#a9a234bef43038809506bf5cbeae179d6">wmoge::IconAtlas</a>
@@ -877,7 +879,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1AssetLoadContext.html#a4619f89f0456d23e1176f844374e6cbf">wmoge::AssetLoadContext</a>
 , <a class="el" href="classwmoge_1_1AudioBus.html#a41c64a0a07a0c62129b4a698058d681c">wmoge::AudioBus</a>
 , <a class="el" href="classwmoge_1_1AudioPlayback.html#a51981cb344cc90547e43ea8ca57fbfa4">wmoge::AudioPlayback</a>
-, <a class="el" href="classwmoge_1_1ConsoleObject.html#af09b6989e090dc5f22117a6796be3008">wmoge::ConsoleObject</a>
+, <a class="el" href="classwmoge_1_1CfgValBase.html#ad732553815b6397c04957b97f1a00d87">wmoge::CfgValBase</a>
 , <a class="el" href="classwmoge_1_1IoStream.html#adbda4567df0ef55f4b44eeee1996d775">wmoge::IoStream</a>
 , <a class="el" href="classwmoge_1_1IoTree.html#aadd7e5d706d4da9ed3f113abcc450e1a">wmoge::IoTree</a>
 , <a class="el" href="classwmoge_1_1Mesh.html#a2d0e4a997b59d463441ef701fe013561">wmoge::Mesh</a>
@@ -945,7 +947,10 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Model.html#a185c4f5690bb12c836803c3f39ca908d">wmoge::Model</a>
 </li>
 <li>get_on_execute()
-: <a class="el" href="classwmoge_1_1ConsoleCmd.html#a11187351e75e95c68e50a7634ff03136">wmoge::ConsoleCmd</a>
+: <a class="el" href="classwmoge_1_1CfgCmd.html#a66184fa7cdf785a6314360dedc51dd45">wmoge::CfgCmd</a>
+</li>
+<li>get_options()
+: <a class="el" href="classwmoge_1_1CfgList.html#ae6ee388d3ccc2b653eaee7f33baa9c0e">wmoge::CfgList</a>
 </li>
 <li>get_or_add_entry()
 : <a class="el" href="classwmoge_1_1ShaderCache.html#ad5004508f6c90cea5f35210402b0b72f">wmoge::ShaderCache</a>
@@ -969,7 +974,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1ShaderManager.html#ad9d1125dd93de70c59a13bf7d9c759f6">wmoge::ShaderManager</a>
 </li>
 <li>get_or_create_pso()
-: <a class="el" href="classwmoge_1_1PsoCache.html#a058ebe3beb91549d17d537f276d050c5">wmoge::PsoCache</a>
+: <a class="el" href="classwmoge_1_1PsoCache.html#a6c78435195645a1d55752b511bcbbacf">wmoge::PsoCache</a>
 </li>
 <li>get_or_create_pso_compute()
 : <a class="el" href="classwmoge_1_1ShaderManager.html#a97f99c95c039ca09689ed7d74e176748">wmoge::ShaderManager</a>
@@ -1099,7 +1104,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1AssetRef.html#a6d2ca57b11977067d631e2d4c889b241">wmoge::AssetRef&lt; T &gt;</a>
 </li>
 <li>get_reflection()
-: <a class="el" href="classwmoge_1_1Shader.html#a072840c7de652c8c26ad635f91bba27f">wmoge::Shader</a>
+: <a class="el" href="classwmoge_1_1Shader.html#a4a4177301cb06b25ff1f1bfb6889bab4">wmoge::Shader</a>
 , <a class="el" href="classwmoge_1_1ShaderBuilder.html#a438c5947cf43fee32c5d3400ca5df9c1">wmoge::ShaderBuilder</a>
 </li>
 <li>get_resources()
@@ -1140,6 +1145,9 @@ $(function() {
 </li>
 <li>get_sections()
 : <a class="el" href="classwmoge_1_1IniFile.html#a6af4990a971e57db6263445fc5db4e99">wmoge::IniFile</a>
+</li>
+<li>get_selected()
+: <a class="el" href="classwmoge_1_1CfgList.html#a5d1bc4b4d6f46fbff1fd516705561de7">wmoge::CfgList</a>
 </li>
 <li>get_settings()
 : <a class="el" href="classwmoge_1_1GraphicsPipeline.html#ab3d787706cc523016fc16ead5ab338ab">wmoge::GraphicsPipeline</a>
@@ -1362,12 +1370,15 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Texture.html#ab94fd57bd90da15b895fdadd1ef9121f">wmoge::Texture</a>
 </li>
 <li>get_value()
-: <a class="el" href="classwmoge_1_1ConfigFile.html#a38e0b4995ae7bc3d2e33b44a351d5704">wmoge::ConfigFile</a>
-, <a class="el" href="classwmoge_1_1ConsoleVar.html#a3df46948352912f0248d9828e6459797">wmoge::ConsoleVar</a>
+: <a class="el" href="classwmoge_1_1CfgVal.html#a5ce3979f0aa2d22649180f2b33dd6d4b">wmoge::CfgVal</a>
+, <a class="el" href="classwmoge_1_1ConfigFile.html#aed39cf5ed402eee85afbf91a5ba61439">wmoge::ConfigFile</a>
 , <a class="el" href="classwmoge_1_1RttiAttributeBaseStringT.html#a024179d1c641e50bd4eafebc55bc7cf3">wmoge::RttiAttributeBaseStringT&lt; type &gt;</a>
 </li>
+<li>get_value_of()
+: <a class="el" href="classwmoge_1_1CfgValT.html#a452ccdf8edae52a1014641227bf5583d">wmoge::CfgValT&lt; T &gt;</a>
+</li>
 <li>get_value_type()
-: <a class="el" href="classwmoge_1_1ConsoleVar.html#ace3c450672f4c18d35e043c51ee09599">wmoge::ConsoleVar</a>
+: <a class="el" href="classwmoge_1_1CfgVal.html#ae5fe066744b2a499cde1bb7c3a573c9d">wmoge::CfgVal</a>
 , <a class="el" href="classwmoge_1_1RttiTypeAssetRef.html#ab4706e9b64e71a86384662799c364381">wmoge::RttiTypeAssetRef</a>
 , <a class="el" href="classwmoge_1_1RttiTypeMap.html#a3df48eeb882d45532fdb84eacf3f0821">wmoge::RttiTypeMap</a>
 , <a class="el" href="classwmoge_1_1RttiTypeMask.html#a09c7e2d8c7115f6e7e3408251f290859">wmoge::RttiTypeMask</a>

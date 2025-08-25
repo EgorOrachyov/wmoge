@@ -1,3 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1AssetImportManager.html" title="Manages import process of assets to engine from external formats." alt="" coords="5,5,196,32"/>
+<area shape="rect" id="node1" href="$structwmoge_1_1AssetImportError.html" title="Asset import error reported by importer and saved in import history." alt="" coords="5,5,173,32"/>
 </map>

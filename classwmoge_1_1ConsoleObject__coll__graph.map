@@ -1,6 +1,0 @@
-<map id="wmoge::ConsoleObject" name="wmoge::ConsoleObject">
-<area shape="rect" id="node1" title="Base class for any console object." alt="" coords="60,171,215,197"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="5,81,133,108"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="14,5,125,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="158,81,255,108"/>
-</map>

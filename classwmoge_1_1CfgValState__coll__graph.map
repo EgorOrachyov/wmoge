@@ -1,0 +1,6 @@
+<map id="wmoge::CfgValState" name="wmoge::CfgValState">
+<area shape="rect" id="node1" title="Shared state of config vals for changes propagation and ownership management." alt="" coords="116,109,256,136"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Var.html" title="Universal resalable variant value with support for common engine types and containers." alt="" coords="141,5,231,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="256,5,353,32"/>
+</map>
