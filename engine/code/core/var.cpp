@@ -38,6 +38,11 @@ namespace wmoge {
         return v.hash();
     }
 
+    Var::Var(bool value) {
+        m_type        = VarType::Bool;
+        m_data.m_bool = value;
+    }
+
     Var::Var(long long value) {
         m_type       = VarType::Int;
         m_data.m_int = value;
@@ -99,6 +104,9 @@ namespace wmoge {
 
     Var::Var(const Var& var) {
         switch (var.type()) {
+            case VarType::Bool:
+                m_data.m_bool = var.m_data.m_bool;
+                break;
             case VarType::Int:
                 m_data.m_int = var.m_data.m_int;
                 break;
@@ -144,6 +152,9 @@ namespace wmoge {
 
     Var::Var(Var&& var) noexcept {
         switch (var.type()) {
+            case VarType::Bool:
+                m_data.m_bool = var.m_data.m_bool;
+                break;
             case VarType::Int:
                 m_data.m_int = var.m_data.m_int;
                 break;
@@ -217,6 +228,8 @@ namespace wmoge {
         switch (type()) {
             case VarType::Nil:
                 return true;
+            case VarType::Bool:
+                return m_data.m_bool == var.m_data.m_bool;
             case VarType::Int:
                 return m_data.m_int == var.m_data.m_int;
             case VarType::Float:
@@ -248,6 +261,8 @@ namespace wmoge {
         switch (type()) {
             case VarType::Nil:
                 return false;
+            case VarType::Bool:
+                return m_data.m_bool != var.m_data.m_bool;
             case VarType::Int:
                 return m_data.m_int != var.m_data.m_int;
             case VarType::Float:
@@ -279,6 +294,8 @@ namespace wmoge {
         switch (type()) {
             case VarType::Nil:
                 return false;
+            case VarType::Bool:
+                return m_data.m_bool < var.m_data.m_bool;
             case VarType::Int:
                 return m_data.m_int < var.m_data.m_int;
             case VarType::Float:
@@ -336,6 +353,8 @@ namespace wmoge {
         switch (type()) {
             case VarType::Nil:
                 return false;
+            case VarType::Bool:
+                return m_data.m_bool;
             case VarType::Int:
                 return m_data.m_int;
             case VarType::Float:
@@ -348,6 +367,8 @@ namespace wmoge {
         switch (type()) {
             case VarType::Nil:
                 return 0;
+            case VarType::Bool:
+                return m_data.m_bool;
             case VarType::Int:
                 return m_data.m_int;
             case VarType::Float:
@@ -370,6 +391,8 @@ namespace wmoge {
         switch (type()) {
             case VarType::Nil:
                 return 0;
+            case VarType::Bool:
+                return m_data.m_bool;
             case VarType::Int:
                 return static_cast<double>(m_data.m_int);
             case VarType::Float:
@@ -503,6 +526,9 @@ namespace wmoge {
             case VarType::Nil:
                 stream << "nil";
                 break;
+            case VarType::Bool:
+                stream << (m_data.m_bool ? "true" : "false");
+                break;
             case VarType::Int:
                 stream << m_data.m_int;
                 break;
@@ -587,6 +613,9 @@ namespace wmoge {
     }
     void Var::build_hash(std::size_t& accum) const {
         switch (type()) {
+            case VarType::Bool:
+                accum ^= std::hash<bool>()(m_data.m_bool);
+                break;
             case VarType::Int:
                 accum ^= std::hash<long long>()(m_data.m_int);
                 break;

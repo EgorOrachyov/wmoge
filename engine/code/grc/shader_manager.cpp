@@ -33,11 +33,11 @@
 #include "core/task.hpp"
 #include "grc/pso_cache.hpp"
 #include "grc/shader_builder.hpp"
-#include "grc/shader_cache.hpp"
 #include "grc/shader_compiler.hpp"
 #include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
+#include "io/config_manager.hpp"
 #include "io/enum.hpp"
 #include "math/math_utils.hpp"
 #include "platform/file_system.hpp"
@@ -53,27 +53,34 @@
 
 namespace wmoge {
 
-    ShaderManager::ShaderManager(IocContainer* ioc) {
+    ShaderManager::ShaderManager(TaskManager*    task_manager,
+                                 FileSystem*     file_system,
+                                 GfxDriver*      gfx_driver,
+                                 TextureManager* texture_manager,
+                                 ShaderLibrary*  shader_library,
+                                 PsoCache*       pso_cache,
+                                 CfgManager*     cfg_manager) {
         WG_PROFILE_CPU_GRC("ShaderManager::ShaderManager");
 
-        m_task_manager    = ioc->resolve_value<ShaderTaskManager>();
-        m_file_system     = ioc->resolve_value<FileSystem>();
-        m_gfx_driver      = ioc->resolve_value<GfxDriver>();
-        m_texture_manager = ioc->resolve_value<TextureManager>();
-        m_shader_library  = ioc->resolve_value<ShaderLibrary>();
-        m_pso_cache       = ioc->resolve_value<PsoCache>();
+        m_task_manager    = task_manager;
+        m_file_system     = file_system;
+        m_gfx_driver      = gfx_driver;
+        m_texture_manager = texture_manager;
+        m_shader_library  = shader_library;
+        m_pso_cache       = pso_cache;
 
-        m_shaders_folder          = "engine/shaders";
-        m_shaders_cache_path      = "cache/";
-        m_active_platform         = m_gfx_driver->get_shader_platform();
-        m_compilation_enable      = false;
-        m_load_cache              = false;
-        m_save_cache              = false;
-        m_hot_reload_enable       = false;
-        m_hot_reload_on_change    = false;
-        m_hot_reload_on_trigger   = false;
-        m_hot_reload_interval_sec = 5.0f;
-        m_callback                = std::make_shared<Shader::Callback>([this](Shader* shader) { remove_shader(shader); });
+        WG_CFG_BIND_VAL(cfg_manager, m_shaders_folder, "folder where shader sources are located");
+        WG_CFG_BIND_VAL(cfg_manager, m_shaders_cache_path, "folder to cache compiled shaders");
+        WG_CFG_BIND_VAL(cfg_manager, m_compilation_enable, "enables shaders compilation at runtime");
+        WG_CFG_BIND_VAL(cfg_manager, m_load_cache, "allows to load compiled shaders from cache");
+        WG_CFG_BIND_VAL(cfg_manager, m_save_cache, "allows to save compiled shaders to disk");
+        WG_CFG_BIND_VAL(cfg_manager, m_hot_reload_enable, "allows hot reload at runtime of shaders");
+        WG_CFG_BIND_VAL(cfg_manager, m_hot_reload_on_change, "allows reload on shader changes");
+        WG_CFG_BIND_VAL(cfg_manager, m_hot_reload_on_trigger, "allows reload by manual trigger");
+        WG_CFG_BIND_VAL(cfg_manager, m_hot_reload_interval_sec, "minimum interval for reloads");
+
+        m_active_platform = m_gfx_driver->get_shader_platform();
+        m_callback        = std::make_shared<Shader::Callback>([this](Shader* shader) { remove_shader(shader); });
 
         auto builtin_types = ShaderTypes::builtin();
         for (auto& type : builtin_types) {
@@ -389,16 +396,16 @@ namespace wmoge {
                 return entry.program;
             }
 
+            entry.status = ShaderStatus::None;
+            entry.modules.clear();
+        }
+        if (entry.status == ShaderStatus::None) {
             if (!is_compilation_enabled()) {
                 entry.status = ShaderStatus::Failed;
                 WG_LOG_INFO("failed to create " << entry.name << ", compilation disabled");
                 return std::nullopt;
             }
 
-            entry.status = ShaderStatus::None;
-            entry.modules.clear();
-        }
-        if (entry.status == ShaderStatus::None) {
             Ref<ShaderCompilerRequest> request;
 
             Async compilation_task = compile_program(shader, platform, permutation, request);

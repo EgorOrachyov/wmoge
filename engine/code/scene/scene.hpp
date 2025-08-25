@@ -67,9 +67,9 @@ namespace wmoge {
      * 
      * Scene data is optimized for runtime simulation, fast deserialization, not for the editing.
      * Editing of the scene done by a separate stucture, managed outside. Editing metadata stored
-     * only for editor scenes, don not affecting final runtime performace. It follows SOLID principels,
+     * only for editor scenes, not affecting final runtime performace. It follows SOLID principels,
      * gives flexibility and performance in the final game (where Godot, UE, CryEngine, Unity use
-     * mix or editor and scene logic, what causes pure CPU performance of scene processing).
+     * mix or editor and scene logic, what causes poor CPU performance of scene processing).
      * 
      * Update of this scene state, sinmulation, scene rendering is done externally.
      * Scene data is travered by a scene manager, and required operations performed there.

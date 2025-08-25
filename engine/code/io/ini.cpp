@@ -57,9 +57,9 @@ namespace wmoge {
                 Var         var;
 
                 if (value == "true") {
-                    var = Var(1);
+                    var = Var(true);
                 } else if (value == "false") {
-                    var = Var(0);
+                    var = Var(false);
                 } else if (value[0] == '\"') {
                     var = Var(value.substr(1, value.find_last_of('\"') - 1));
                 } else {

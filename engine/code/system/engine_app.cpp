@@ -29,7 +29,6 @@
 
 #include "asset/asset_manager.hpp"
 #include "audio/openal/al_engine.hpp"
-#include "console/console_manager.hpp"
 #include "core/callback_queue.hpp"
 #include "core/cmd_line.hpp"
 #include "core/ioc_container.hpp"
@@ -39,13 +38,9 @@
 #include "game/game_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
-#include "grc/pso_cache.hpp"
-#include "grc/shader_compiler.hpp"
-#include "grc/shader_library.hpp"
-#include "grc/shader_manager.hpp"
-#include "grc/texture_manager.hpp"
 #include "io/async_file_system.hpp"
 #include "io/config.hpp"
+#include "io/config_manager.hpp"
 #include "io/enum.hpp"
 #include "mesh/mesh_manager.hpp"
 #include "platform/dll_manager.hpp"
@@ -68,10 +63,10 @@
 #include "ui/ui_manager.hpp"
 
 #include "asset/_bind.hpp"
+#include "grc/_bind.hpp"
 
 #include "asset/_rtti.hpp"
 #include "audio/_rtti.hpp"
-#include "console/_rtti.hpp"
 #include "game/_rtti.hpp"
 #include "glsl/_rtti.hpp"
 #include "grc/_rtti.hpp"
@@ -89,7 +84,6 @@ namespace wmoge {
     static void bind_globals(IocContainer* ioc) {
         ioc->bind_by_pointer<Log>(Log::instance());
         ioc->bind_by_pointer<RttiTypeStorage>(RttiTypeStorage::instance());
-        ioc->bind<ConsoleManager>();
         ioc->bind<PluginManager>();
         ioc->bind<Time>();
         ioc->bind<FileSystem>();
@@ -102,15 +96,18 @@ namespace wmoge {
         ioc->bind_by_ioc<ProfilerCapture>();
         ioc->bind_by_ioc<Config>();
         ioc->bind_by_ioc<GlslShaderCompiler>();
-        ioc->bind_by_ioc<ShaderLibrary>();
-        ioc->bind_by_ioc<ShaderManager>();
-        ioc->bind_by_ioc<PsoCache>();
-        ioc->bind_by_ioc<TextureManager>();
         ioc->bind_by_ioc<MeshManager>();
         ioc->bind_by_ioc<RenderEngine>();
         bind_by_ioc_scene_manager(ioc);
         bind_by_ioc_game_manager(ioc);
         ioc->bind_by_ioc<Engine>();
+
+        ioc->bind_by_factory<CfgManager>([ioc]() {
+            Config* config = ioc->resolve_value<Config>();
+            return std::make_shared<CfgManager>([config](Strid name, VarType type, Var& value) {
+                return config->try_get_value_of(name, type, value);
+            });
+        });
 
         ioc->bind_by_factory<IoAsyncFileSystem>([ioc]() {
             const int num_workers = 4;
@@ -120,11 +117,6 @@ namespace wmoge {
         ioc->bind_by_factory<TaskManager>([ioc]() {
             const int num_workers = 4;
             return std::make_shared<TaskManager>(num_workers);
-        });
-
-        ioc->bind_by_factory<ShaderTaskManager>([ioc]() {
-            const int num_workers = 4;
-            return std::make_shared<ShaderTaskManager>(num_workers);
         });
 
         ioc->bind_by_factory<GlfwInput>([ioc]() {
@@ -162,6 +154,7 @@ namespace wmoge {
         });
 
         bind_asset(ioc);
+        bind_grc(ioc);
     }
 
     static Status unbind_globals(IocContainer* ioc) {
@@ -169,13 +162,11 @@ namespace wmoge {
         ioc->unbind<UiManager>();
         ioc->unbind<ViewManager>();
         ioc->unbind<SceneManager>();
-        ioc->unbind<PsoCache>();
         ioc->unbind<ShaderTable>();
-        ioc->unbind<ShaderManager>();
-        ioc->unbind<ShaderLibrary>();
-        ioc->unbind<ShaderTaskManager>();
+
+        unbind_grc(ioc);
+
         ioc->unbind<GlslShaderCompiler>();
-        ioc->unbind<TextureManager>();
         ioc->unbind<MeshManager>();
         ioc->unbind<RenderEngine>();
         ioc->unbind<TaskManager>();
@@ -185,7 +176,7 @@ namespace wmoge {
         ioc->unbind<IoAsyncFileSystem>();
         ioc->unbind<PluginManager>();
         ioc->unbind<DllManager>();
-        ioc->unbind<ConsoleManager>();
+        ioc->unbind<CfgManager>();
 
         unbind_asset(ioc);
 
@@ -197,7 +188,6 @@ namespace wmoge {
         rtti_rtti();
         rtti_asset();
         rtti_audio();
-        rtti_console();
         rtti_grc();
         rtti_glsl();
         rtti_material();

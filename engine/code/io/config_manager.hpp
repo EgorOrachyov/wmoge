@@ -25,17 +25,53 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "_rtti.hpp"
+#pragma once
 
-#include "console/console_objects.hpp"
+#include "core/flat_map.hpp"
+#include "io/config_val.hpp"
+
+#include <functional>
+#include <vector>
 
 namespace wmoge {
 
-    void rtti_console() {
-        rtti_type<ConsoleObject>();
-        rtti_type<ConsoleVar>();
-        rtti_type<ConsoleCmd>();
-        rtti_type<ConsoleTrigger>();
-    }
+    /**
+     * @class CfgManager
+     * @brief Stores and processes all config objects
+     */
+    class CfgManager {
+    public:
+        using InitValResolver = std::function<Status(Strid name, VarType type, Var& value)>;
+
+        CfgManager(InitValResolver resolver = InitValResolver());
+
+        void             add_object(Ref<CfgValState> object);
+        Ref<CfgValState> add_val(Strid name, std::string help, Var value);
+        Ref<CfgValState> add_trigger(Strid name, std::string help);
+        Ref<CfgValState> add_cmd(Strid name, std::string help, CfgOnCmdExecute on_execute);
+        Ref<CfgValState> add_list(Strid name, std::string help, int selected, std::vector<std::string> options);
+        Status           set_val(Strid name, Var value);
+        Status           set_trigger(Strid name, bool value);
+        Status           set_list(Strid name, int value);
+        Status           exec_command(Strid name, array_view<std::string> args);
+        Ref<CfgValState> try_find_object(Strid name);
+        bool             has_object(Strid name);
+        void             update();
+        void             dump_objects(std::vector<Ref<CfgValState>>& out_vals);
+
+    private:
+        flat_map<Strid, Ref<CfgValState>> m_objects;
+        std::vector<Ref<CfgValState>>     m_triggered;
+        InitValResolver                   m_init_val_resolver;
+    };
 
 }// namespace wmoge
+
+#define WG_CFG_BIND_VAL(cfg, val, help) \
+    val.bind(cfg->add_val(val.get_name(), std::string(help), val.get_value()))
+#define WG_CFG_BIND_TRIGGER(cfg, val, help) \
+    val.bind(cfg->add_trigger(val.get_name(), std::string(help)))
+#define WG_CFG_BIND_CMD(cfg, val, function, help) \
+    val.bind(cfg->add_cmd(val.get_name(), std::string(help), function))
+#define WG_CFG_BIND_LIST(cfg, val, selected, options, help) \
+    val.bind(cfg->add_list(val.get_name(), std::string(help), int(selected), options))

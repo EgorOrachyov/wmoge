@@ -52,12 +52,13 @@ namespace wmoge {
      */
     enum class VarType : int {
         Nil         = 0, // Null or empty value type
-        Int         = 1, // Integer number type
-        Float       = 2, // Floating point number type
-        String      = 3, // String type
-        Strid       = 4, // Strid (string id) type
-        Array       = 5, // Array (dynamic vector) of var values
-        Map         = 6, // Map of var to var value
+        Bool        = 1, // Boolean value type
+        Int         = 2, // Integer number type
+        Float       = 3, // Floating point number type
+        String      = 4, // String type
+        Strid       = 5, // Strid (string id) type
+        Array       = 6, // Array (dynamic vector) of var values
+        Map         = 7, // Map of var to var value
         ArrayInt    = 8, // Array of int values
         ArrayFloat  = 9, // Array of float values
         ArrayByte   = 10,// Array of byte (uint8) value
@@ -92,6 +93,7 @@ namespace wmoge {
     class Var {
     public:
         Var() = default;
+        Var(bool value);
         Var(long long value);
         Var(int value);
         Var(double value);
@@ -165,6 +167,7 @@ namespace wmoge {
         VarType m_type = VarType::Nil;
 
         union {
+            bool         m_bool;
             long long    m_int;
             double       m_float;
             std::uint8_t m_mem[MEM_SIZE] = {0};

@@ -41,6 +41,7 @@ namespace wmoge {
     class DllManager;
     class PluginManager;
     class Config;
+    class CfgManager;
     class CallbackQueue;
     class FileSystem;
     class TaskManager;
@@ -58,7 +59,6 @@ namespace wmoge {
     class TextureManager;
     class MeshManager;
     class SceneManager;
-    class ConsoleManager;
     class AudioEngine;
     class RenderEngine;
     class ViewManager;
@@ -114,7 +114,7 @@ namespace wmoge {
         TextureManager*     texture_manager();
         MeshManager*        mesh_manager();
         SceneManager*       scene_manager();
-        ConsoleManager*     console_manager();
+        CfgManager*         cfg_manager();
         AudioEngine*        audio_engine();
         RenderEngine*       render_engine();
         ViewManager*        view_manager();
@@ -150,7 +150,7 @@ namespace wmoge {
         TextureManager*     m_texture_manager      = nullptr;
         MeshManager*        m_mesh_manager         = nullptr;
         SceneManager*       m_scene_manager        = nullptr;
-        ConsoleManager*     m_console_manager      = nullptr;
+        CfgManager*         m_cfg_manager          = nullptr;
         AudioEngine*        m_audio_engine         = nullptr;
         RenderEngine*       m_render_engine        = nullptr;
         ViewManager*        m_view_manager         = nullptr;

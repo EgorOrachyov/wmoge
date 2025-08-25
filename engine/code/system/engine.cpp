@@ -35,7 +35,6 @@
 #include "asset/asset_manager.hpp"
 #include "asset/asset_resolver.hpp"
 #include "audio/openal/al_engine.hpp"
-#include "console/console_manager.hpp"
 #include "core/callback_queue.hpp"
 #include "core/cmd_line.hpp"
 #include "core/ioc_container.hpp"
@@ -50,6 +49,7 @@
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
 #include "io/config.hpp"
+#include "io/config_manager.hpp"
 #include "io/enum.hpp"
 #include "mesh/mesh_manager.hpp"
 #include "platform/dll_manager.hpp"
@@ -99,15 +99,15 @@ namespace wmoge {
     }
 
     Status Engine::setup() {
-        m_application     = m_ioc_container->resolve_value<Application>();
-        m_time            = m_ioc_container->resolve_value<Time>();
-        m_file_system     = m_ioc_container->resolve_value<FileSystem>();
-        m_config          = m_ioc_container->resolve_value<Config>();
-        m_console_manager = m_ioc_container->resolve_value<ConsoleManager>();
-        m_dll_manager     = m_ioc_container->resolve_value<DllManager>();
-        m_plugin_manager  = m_ioc_container->resolve_value<PluginManager>();
-        m_engine_config   = m_ioc_container->resolve_value<EngineConfig>();
-        m_engine_signals  = m_ioc_container->resolve_value<EngineSignals>();
+        m_application    = m_ioc_container->resolve_value<Application>();
+        m_time           = m_ioc_container->resolve_value<Time>();
+        m_file_system    = m_ioc_container->resolve_value<FileSystem>();
+        m_config         = m_ioc_container->resolve_value<Config>();
+        m_cfg_manager    = m_ioc_container->resolve_value<CfgManager>();
+        m_dll_manager    = m_ioc_container->resolve_value<DllManager>();
+        m_plugin_manager = m_ioc_container->resolve_value<PluginManager>();
+        m_engine_config  = m_ioc_container->resolve_value<EngineConfig>();
+        m_engine_signals = m_ioc_container->resolve_value<EngineSignals>();
 
         m_engine_signals->setup.emit();
         m_plugin_manager->setup(m_ioc_container);
@@ -224,6 +224,7 @@ namespace wmoge {
 
         m_engine_signals->end_frame.emit();
         m_gfx_driver->end_frame(true);
+        m_cfg_manager->update();
 
         return WG_OK;
     }
@@ -273,7 +274,7 @@ namespace wmoge {
     TextureManager*     Engine::texture_manager() { return m_texture_manager; }
     MeshManager*        Engine::mesh_manager() { return m_mesh_manager; }
     SceneManager*       Engine::scene_manager() { return m_scene_manager; }
-    ConsoleManager*     Engine::console_manager() { return m_console_manager; }
+    CfgManager*         Engine::cfg_manager() { return m_cfg_manager; }
     AudioEngine*        Engine::audio_engine() { return m_audio_engine; }
     RenderEngine*       Engine::render_engine() { return m_render_engine; }
     ViewManager*        Engine::view_manager() { return m_view_manager; }

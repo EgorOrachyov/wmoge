@@ -113,18 +113,12 @@ namespace wmoge {
                 if (!config->load(path_engine_config + "/game.cfg", ConfigStackMode::Overwrite)) {
                     std::cerr << "failed to load engine game.cfg file, check your configure file of path" << std::endl;
                 }
-                if (!config->load(path_engine_config + "/cvars.cfg", ConfigStackMode::Overwrite)) {
-                    std::cerr << "failed to load engine cvars.cfg file, check your configure file of path" << std::endl;
-                }
 
                 if (!config->load(path_game_config + "/engine.cfg", ConfigStackMode::Overwrite)) {
                     std::cerr << "failed to load game engine.cfg file, check your configuration file or path" << std::endl;
                 }
                 if (!config->load(path_game_config + "/game.cfg", ConfigStackMode::Overwrite)) {
                     std::cerr << "failed to load game game.cfg file, check your configure file of path" << std::endl;
-                }
-                if (!config->load(path_game_config + "/cvars.cfg", ConfigStackMode::Overwrite)) {
-                    std::cerr << "failed to load game cvars.cfg file, check your configure file of path" << std::endl;
                 }
 
                 WG_CHECKED(config_read(config, "engine", *engine_config));

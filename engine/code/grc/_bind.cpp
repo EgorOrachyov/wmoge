@@ -25,10 +25,48 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "_bind.hpp"
+
+#include "core/ioc_container.hpp"
+#include "gfx/gfx_driver.hpp"
+#include "grc/pso_cache.hpp"
+#include "grc/shader_compiler.hpp"
+#include "grc/shader_library.hpp"
+#include "grc/shader_manager.hpp"
+#include "grc/texture_manager.hpp"
+#include "io/config_manager.hpp"
+#include "platform/file_system.hpp"
 
 namespace wmoge {
 
-    void rtti_console();
+    void bind_grc(IocContainer* ioc) {
+        ioc->bind_by_ioc<ShaderLibrary>();
+        ioc->bind_by_ioc<PsoCache>();
+        ioc->bind_by_ioc<TextureManager>();
+
+        ioc->bind_by_factory<ShaderTaskManager>([ioc]() {
+            const int num_workers = 4;
+            return std::make_shared<ShaderTaskManager>(num_workers);
+        });
+
+        ioc->bind_by_factory<ShaderManager>([ioc]() {
+            return std::make_shared<ShaderManager>(
+                    ioc->resolve_value<ShaderTaskManager>(),
+                    ioc->resolve_value<FileSystem>(),
+                    ioc->resolve_value<GfxDriver>(),
+                    ioc->resolve_value<TextureManager>(),
+                    ioc->resolve_value<ShaderLibrary>(),
+                    ioc->resolve_value<PsoCache>(),
+                    ioc->resolve_value<CfgManager>());
+        });
+    }
+
+    void unbind_grc(IocContainer* ioc) {
+        ioc->unbind<ShaderManager>();
+        ioc->unbind<ShaderLibrary>();
+        ioc->unbind<PsoCache>();
+        ioc->unbind<ShaderTaskManager>();
+        ioc->unbind<TextureManager>();
+    }
 
 }// namespace wmoge

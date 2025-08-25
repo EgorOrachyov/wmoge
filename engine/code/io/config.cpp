@@ -31,6 +31,7 @@
 #include "platform/file_system.hpp"
 
 namespace wmoge {
+
     Config::Config(IocContainer* ioc) {
         m_file_system = ioc->resolve_value<FileSystem>();
     }
@@ -76,6 +77,26 @@ namespace wmoge {
 
     Status Config::get_color4f(const Strid& key, Color4f& value) const {
         return m_file->get_color4f(key, value);
+    }
+
+    Status Config::try_get_value_of(const Strid& key, VarType type, Var& value) {
+        Var* p_var = nullptr;
+        m_file->get_value(key, p_var);
+        if (!p_var) {
+            return WG_OK;
+        }
+        if (type == VarType::Bool) {
+            value = (bool) *p_var;
+        } else if (type == VarType::Int) {
+            value = (int) *p_var;
+        } else if (type == VarType::Float) {
+            value = (float) *p_var;
+        } else if (type == VarType::String) {
+            value = (std::string) *p_var;
+        } else {
+            return StatusCode::InvalidState;
+        }
+        return WG_OK;
     }
 
     bool Config::get_bool_or_default(const Strid& key, bool def_value) const {

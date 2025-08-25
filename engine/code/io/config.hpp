@@ -60,6 +60,8 @@ namespace wmoge {
         Status get_string(const Strid& key, std::string& value) const;
         Status get_color4f(const Strid& key, Color4f& value) const;
 
+        Status try_get_value_of(const Strid& key, VarType type, Var& value);
+
         [[nodiscard]] bool        get_bool_or_default(const Strid& key, bool def_value = false) const;
         [[nodiscard]] int         get_int_or_default(const Strid& key, int def_value = 0) const;
         [[nodiscard]] float       get_float_or_default(const Strid& key, float def_value = 1.0f) const;

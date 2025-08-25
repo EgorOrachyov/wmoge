@@ -38,11 +38,22 @@
 #include "grc/shader_file.hpp"
 #include "grc/shader_param_block.hpp"
 #include "grc/shader_reflection.hpp"
+#include "io/config_val.hpp"
 #include "platform/file_system.hpp"
 
 #include <functional>
 #include <memory>
 #include <mutex>
+
+namespace wmoge {
+    class TaskManager;
+    class FileSystem;
+    class GfxDriver;
+    class TextureManager;
+    class ShaderLibrary;
+    class PsoCache;
+    class CfgManager;
+}// namespace wmoge
 
 namespace wmoge {
 
@@ -56,7 +67,13 @@ namespace wmoge {
     */
     class ShaderManager {
     public:
-        ShaderManager(class IocContainer* ioc);
+        ShaderManager(TaskManager*    task_manager,
+                      FileSystem*     file_system,
+                      GfxDriver*      gfx_driver,
+                      TextureManager* texture_manager,
+                      ShaderLibrary*  shader_library,
+                      PsoCache*       pso_cache,
+                      CfgManager*     cfg_manager);
 
         Status                               load_shader_reflection(const ShaderFile& file, ShaderReflection& reflection);
         Status                               build_types_map(ShaderReflection& reflection);
@@ -111,24 +128,25 @@ namespace wmoge {
         ShaderCompilerOptions                                     m_compiler_options;
         ShaderCompilerEnv                                         m_compiler_env;
         flat_map<Strid, Ref<ShaderType>>                          m_global_types;
-        std::string                                               m_shaders_folder;
-        std::string                                               m_shaders_cache_path;
-        bool                                                      m_load_cache;
-        bool                                                      m_save_cache;
-        bool                                                      m_compilation_enable;
-        bool                                                      m_hot_reload_enable;
-        bool                                                      m_hot_reload_on_change;
-        bool                                                      m_hot_reload_on_trigger;
-        float                                                     m_hot_reload_interval_sec;
         GfxShaderPlatform                                         m_active_platform;
         Shader::CallbackRef                                       m_callback;
 
-        class TaskManager*    m_task_manager    = nullptr;
-        class FileSystem*     m_file_system     = nullptr;
-        class GfxDriver*      m_gfx_driver      = nullptr;
-        class TextureManager* m_texture_manager = nullptr;
-        class ShaderLibrary*  m_shader_library  = nullptr;
-        class PsoCache*       m_pso_cache       = nullptr;
+        CfgValString m_shaders_folder{"engine.shaders.folder", "engine/shaders/"};
+        CfgValString m_shaders_cache_path{"engine.shaders.cache_path", "cache/"};
+        CfgValBool   m_load_cache{"engine.shaders.load_cache", false};
+        CfgValBool   m_save_cache{"engine.shaders.save_cache", false};
+        CfgValBool   m_compilation_enable{"engine.shaders.compilation_enable", true};
+        CfgValBool   m_hot_reload_enable{"engine.shaders.hot_reload_enable", false};
+        CfgValBool   m_hot_reload_on_change{"engine.shaders.hot_reload_on_change", false};
+        CfgValBool   m_hot_reload_on_trigger{"engine.shaders.hot_reload_on_trigger", false};
+        CfgValFloat  m_hot_reload_interval_sec{"engine.shaders.hot_reload_interval_sec", 5.0f};
+
+        TaskManager*    m_task_manager    = nullptr;
+        FileSystem*     m_file_system     = nullptr;
+        GfxDriver*      m_gfx_driver      = nullptr;
+        TextureManager* m_texture_manager = nullptr;
+        ShaderLibrary*  m_shader_library  = nullptr;
+        PsoCache*       m_pso_cache       = nullptr;
 
         mutable RwMutexReadPrefer m_mutex;
     };
