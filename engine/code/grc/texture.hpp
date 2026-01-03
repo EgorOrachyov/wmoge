@@ -37,7 +37,6 @@
 #include "grc/texture_compression.hpp"
 #include "grc/texture_pool.hpp"
 #include "grc/texture_resize.hpp"
-#include "io/serialization.hpp"
 
 namespace wmoge {
 

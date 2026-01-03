@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MEM_LINEAR_HPP
-#define WMOGE_MEM_LINEAR_HPP
+#pragma once
 
 #include "core/buffered_vector.hpp"
 
@@ -58,5 +57,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MEM_LINEAR_HPP

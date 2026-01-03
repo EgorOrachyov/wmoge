@@ -34,7 +34,7 @@
 #include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
-#include "io/config_manager.hpp"
+#include "io/cfg_val_manager.hpp"
 #include "platform/file_system.hpp"
 
 namespace wmoge {
@@ -57,7 +57,7 @@ namespace wmoge {
                     ioc->resolve_value<TextureManager>(),
                     ioc->resolve_value<ShaderLibrary>(),
                     ioc->resolve_value<PsoCache>(),
-                    ioc->resolve_value<CfgManager>());
+                    ioc->resolve_value<CfgValManager>());
         });
     }
 

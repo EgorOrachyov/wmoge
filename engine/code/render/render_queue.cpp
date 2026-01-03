@@ -90,11 +90,11 @@ namespace wmoge {
 
         //     for (int i = 0; i < GfxLimits::MAX_VERT_BUFFERS; i++) {
         //         if (!vert_buffers.buffers[i]) { break; }
-        //         gfx_ctx->bind_vert_buffer(Ref<GfxVertBuffer>(vert_buffers.buffers[i]), i, vert_buffers.offsets[i]);
+        //         gfx_ctx->bind_vert_buffer(Ref<GfxBuffer>(vert_buffers.buffers[i]), i, vert_buffers.offsets[i]);
         //     }
 
         //     if (cmd.index_setup.buffer) {
-        //         gfx_ctx->bind_index_buffer(Ref<GfxIndexBuffer>(index_setup.buffer), index_setup.index_type, index_setup.offset);
+        //         gfx_ctx->bind_index_buffer(Ref<GfxBuffer>(index_setup.buffer), index_setup.index_type, index_setup.offset);
         //         gfx_ctx->draw_indexed(call_params.count, call_params.base, call_params.instances);
         //     } else {
         //         gfx_ctx->draw(call_params.count, call_params.base, call_params.instances);

@@ -37,81 +37,21 @@ namespace wmoge {
 
     /**
      * @class VKBuffer
-     * @brief Base class for vulkan buffers
+     * @brief Vulkan implementation for gfx buffer class
      */
-    class VKBuffer {
+    class VKBuffer final : public VKResource<GfxBuffer> {
     public:
-        virtual ~VKBuffer() = default;
+        VKBuffer(const GfxBufferDesc& desc, const Strid& name, class VKDriver& driver);
+        ~VKBuffer() override;
 
-        void                    init(VkDeviceSize size, VkBufferUsageFlags flags, GfxMemUsage usage);
-        void                    release();
-        void*                   map();
-        void                    unmap(class VKCmdList* cmd);
-        void                    update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, array_view<const std::uint8_t> data);
-        virtual class VKDriver& driver() = 0;
+        void update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, array_view<const std::uint8_t> data);
 
-        VkDeviceSize  size() const { return m_size; }
-        VkBuffer      buffer() const { return m_buffer; }
-        VmaAllocation allocation() const { return m_allocation; }
+        [[nodiscard]] VkBuffer      buffer() const { return m_buffer; }
+        [[nodiscard]] VmaAllocation allocation() const { return m_allocation; }
 
     protected:
-        VkDeviceSize  m_size               = 0;
-        VkBuffer      m_buffer             = VK_NULL_HANDLE;
-        VmaAllocation m_allocation         = VK_NULL_HANDLE;
-        VkBuffer      m_staging_buffer     = VK_NULL_HANDLE;
-        VmaAllocation m_staging_allocation = VK_NULL_HANDLE;
-    };
-
-    /**
-     * @class VKVertBuffer
-     * @brief Gfx vulkan vertex buffer implementation
-     */
-    class VKVertBuffer final : public VKResource<GfxVertBuffer>, public VKBuffer {
-    public:
-        VKVertBuffer(class VKDriver& driver);
-        ~VKVertBuffer() override;
-
-        void            create(int size, GfxMemUsage usage, const Strid& name);
-        class VKDriver& driver() override { return m_driver; }
-    };
-
-    /**
-     * @class VKIndexBuffer
-     * @brief Gfx vulkan index buffer implementation
-     */
-    class VKIndexBuffer final : public VKResource<GfxIndexBuffer>, public VKBuffer {
-    public:
-        VKIndexBuffer(class VKDriver& driver);
-        ~VKIndexBuffer() override;
-
-        void            create(int size, GfxMemUsage usage, const Strid& name);
-        class VKDriver& driver() override { return m_driver; }
-    };
-
-    /**
-     * @class VKUniformBuffer
-     * @brief Gfx vulkan uniform buffer implementation
-     */
-    class VKUniformBuffer final : public VKResource<GfxUniformBuffer>, public VKBuffer {
-    public:
-        VKUniformBuffer(class VKDriver& driver);
-        ~VKUniformBuffer() override;
-
-        void            create(int size, GfxMemUsage usage, const Strid& name);
-        class VKDriver& driver() override { return m_driver; }
-    };
-
-    /**
-     * @class VKStorageBuffer
-     * @brief Gfx vulkan storage buffer implementation
-     */
-    class VKStorageBuffer final : public VKResource<GfxStorageBuffer>, public VKBuffer {
-    public:
-        VKStorageBuffer(class VKDriver& driver);
-        ~VKStorageBuffer() override;
-
-        void            create(int size, GfxMemUsage usage, const Strid& name);
-        class VKDriver& driver() override { return m_driver; }
+        VkBuffer      m_buffer     = VK_NULL_HANDLE;
+        VmaAllocation m_allocation = VK_NULL_HANDLE;
     };
 
 }// namespace wmoge

@@ -32,27 +32,23 @@
 
 namespace wmoge {
 
-    namespace edt_hooks {
+    void EditorHooks::editor(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc) {
+        options.add_string("editor_remap", "remap for editor directory (for debug mostly)", "editor/");
 
-        void editor(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc) {
-            options.add_string("editor_remap", "remap for editor directory (for debug mostly)", "editor/");
+        list.add([ioc](CmdLineParseResult& result) {
+            FileSystem* file_system = ioc->resolve_value<FileSystem>();
 
-            list.add([ioc](CmdLineParseResult& result) {
-                FileSystem* file_system = ioc->resolve_value<FileSystem>();
+            const bool                  mount_front = true;
+            const std::filesystem::path root_path   = file_system->root_path();
 
-                const bool                  mount_front = true;
-                const std::filesystem::path root_path   = file_system->root_path();
+            Ref<MountVolumePhysical> volume_editor = make_ref<MountVolumePhysical>(root_path / result.get_string("editor_remap"), "editor/");
+            file_system->add_mounting({"editor/", std::move(volume_editor)}, mount_front);
 
-                Ref<MountVolumePhysical> volume_editor = make_ref<MountVolumePhysical>(root_path / result.get_string("editor_remap"), "editor/");
-                file_system->add_mounting({"editor/", std::move(volume_editor)}, mount_front);
+            Ref<MountVolumePhysical> volume_local = make_ref<MountVolumePhysical>(root_path / ".wgeditor", "editor_local/");
+            file_system->add_mounting({"editor_local/", std::move(volume_local)}, mount_front);
 
-                Ref<MountVolumePhysical> volume_local = make_ref<MountVolumePhysical>(root_path / ".wgeditor", "editor_local/");
-                file_system->add_mounting({"editor_local/", std::move(volume_local)}, mount_front);
-
-                return WG_OK;
-            });
-        }
-
-    };// namespace edt_hooks
+            return WG_OK;
+        });
+    }
 
 }// namespace wmoge

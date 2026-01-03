@@ -47,38 +47,15 @@ namespace wmoge {
         assert(m_barriers_image.empty());
     }
 
-    void VKCmdList::update_vert_buffer(GfxVertBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::update_vert_buffer");
+    void VKCmdList::update_buffer(GfxBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
+        WG_PROFILE_CPU_VULKAN("VKCmdList::update_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
 
-        static_cast<VKVertBuffer*>(buffer)->update(m_cmd_buffer, offset, range, data);
+        static_cast<VKBuffer*>(buffer)->update(m_cmd_buffer, offset, range, data);
     }
-    void VKCmdList::update_index_buffer(GfxIndexBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::update_index_buffer");
 
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        static_cast<VKIndexBuffer*>(buffer)->update(m_cmd_buffer, offset, range, data);
-    }
-    void VKCmdList::update_uniform_buffer(GfxUniformBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::update_uniform_buffer");
-
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        static_cast<VKUniformBuffer*>(buffer)->update(m_cmd_buffer, offset, range, data);
-    }
-    void VKCmdList::update_storage_buffer(GfxStorageBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::update_storage_buffer");
-
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        static_cast<VKStorageBuffer*>(buffer)->update(m_cmd_buffer, offset, range, data);
-    }
     void VKCmdList::update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, array_view<const std::uint8_t> data) {
         WG_PROFILE_CPU_VULKAN("VKCmdList::update_texture_2d");
 
@@ -104,100 +81,13 @@ namespace wmoge {
         dynamic_cast<VKTexture*>(texture.get())->update_cube(m_cmd_buffer, mip, face, region, data);
     }
 
-    void* VKCmdList::map_vert_buffer(const Ref<GfxVertBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::map_vert_buffer");
-
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        return (dynamic_cast<VKVertBuffer*>(buffer.get()))->map();
-    }
-    void* VKCmdList::map_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::map_index_buffer");
-
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        return (dynamic_cast<VKIndexBuffer*>(buffer.get()))->map();
-    }
-    void* VKCmdList::map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::map_uniform_buffer");
-
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        return (dynamic_cast<VKUniformBuffer*>(buffer.get()))->map();
-    }
-    void* VKCmdList::map_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::map_storage_buffer");
-
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        return (dynamic_cast<VKStorageBuffer*>(buffer.get()))->map();
-    }
-    void VKCmdList::unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::unmap_vert_buffer");
-
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        dynamic_cast<VKVertBuffer*>(buffer.get())->unmap(this);
-        flush_barriers();
-    }
-    void VKCmdList::unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::unmap_index_buffer");
-
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        dynamic_cast<VKIndexBuffer*>(buffer.get())->unmap(this);
-        flush_barriers();
-    }
-    void VKCmdList::unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::unmap_uniform_buffer");
-
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        dynamic_cast<VKUniformBuffer*>(buffer.get())->unmap(this);
-        flush_barriers();
-    }
-    void VKCmdList::unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::unmap_storage_buffer");
-
-        assert(buffer);
-        assert(!m_in_render_pass);
-
-        dynamic_cast<VKStorageBuffer*>(buffer.get())->unmap(this);
-        flush_barriers();
-    }
-
     void VKCmdList::barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType src, GfxTexBarrierType dst) {
         WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_image");
 
         barrier(dynamic_cast<VKTexture*>(texture.get()), src, dst);
         flush_barriers();
     }
-    void VKCmdList::barrier_buffer(const Ref<GfxVertBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_buffer");
-
-        barrier(dynamic_cast<VKBuffer*>(buffer.get()));
-        flush_barriers();
-    }
-    void VKCmdList::barrier_buffer(const Ref<GfxIndexBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_buffer");
-
-        barrier(dynamic_cast<VKBuffer*>(buffer.get()));
-        flush_barriers();
-    }
-    void VKCmdList::barrier_buffer(const Ref<GfxUniformBuffer>& buffer) {
-        WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_buffer");
-
-        barrier(dynamic_cast<VKBuffer*>(buffer.get()));
-        flush_barriers();
-    }
-    void VKCmdList::barrier_buffer(const Ref<GfxStorageBuffer>& buffer) {
+    void VKCmdList::barrier_buffer(const Ref<GfxBuffer>& buffer) {
         WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_buffer");
 
         barrier(dynamic_cast<VKBuffer*>(buffer.get()));
@@ -357,13 +247,13 @@ namespace wmoge {
         m_current_pso_layout     = m_current_pso_compute->layout();
         m_pipeline_bound_compute = true;
     }
-    void VKCmdList::bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset) {
+    void VKCmdList::bind_vert_buffer(GfxBuffer* buffer, int index, int offset) {
         WG_PROFILE_CPU_VULKAN("VKCmdList::bind_vert_buffer");
 
         assert(m_pipeline_bound_graphics);
         assert(buffer);
 
-        m_current_vert_buffers[index]         = static_cast<VKVertBuffer*>(buffer);
+        m_current_vert_buffers[index]         = static_cast<VKBuffer*>(buffer);
         m_current_vert_buffers_offsets[index] = offset;
 
         VkBuffer     vk_vert_buffer        = m_current_vert_buffers[index]->buffer();
@@ -371,13 +261,13 @@ namespace wmoge {
 
         vkCmdBindVertexBuffers(m_cmd_buffer, index, 1, &vk_vert_buffer, &vk_vert_buffer_offset);
     }
-    void VKCmdList::bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
+    void VKCmdList::bind_index_buffer(const Ref<GfxBuffer>& buffer, GfxIndexType index_type, int offset) {
         WG_PROFILE_CPU_VULKAN("VKCmdList::bind_index_buffer");
 
         assert(m_pipeline_bound_graphics);
         assert(buffer);
 
-        m_current_index_buffer = buffer.cast<VKIndexBuffer>();
+        m_current_index_buffer = buffer.cast<VKBuffer>();
         vkCmdBindIndexBuffer(m_cmd_buffer, m_current_index_buffer->buffer(), offset, VKDefs::get_index_type(index_type));
     }
     void VKCmdList::bind_desc_set(const Ref<GfxDescSet>& set, int index) {

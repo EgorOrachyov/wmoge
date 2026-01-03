@@ -55,47 +55,31 @@ namespace wmoge {
     public:
         ~GfxCmdList() override = default;
 
-        virtual void update_vert_buffer(GfxVertBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data)                            = 0;
-        virtual void update_index_buffer(GfxIndexBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data)                          = 0;
-        virtual void update_uniform_buffer(GfxUniformBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data)                      = 0;
-        virtual void update_storage_buffer(GfxStorageBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data)                      = 0;
+        virtual void update_buffer(GfxBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data)                                     = 0;
         virtual void update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, array_view<const std::uint8_t> data)                   = 0;
         virtual void update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, array_view<const std::uint8_t> dataa) = 0;
         virtual void update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, array_view<const std::uint8_t> data)       = 0;
 
-        virtual void* map_vert_buffer(const Ref<GfxVertBuffer>& buffer)       = 0;
-        virtual void* map_index_buffer(const Ref<GfxIndexBuffer>& buffer)     = 0;
-        virtual void* map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) = 0;
-        virtual void* map_storage_buffer(const Ref<GfxStorageBuffer>& buffer) = 0;
-
-        virtual void unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer)       = 0;
-        virtual void unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer)     = 0;
-        virtual void unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) = 0;
-        virtual void unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) = 0;
-
         virtual void barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType src, GfxTexBarrierType dst) = 0;
-        virtual void barrier_buffer(const Ref<GfxVertBuffer>& buffer)                                            = 0;
-        virtual void barrier_buffer(const Ref<GfxIndexBuffer>& buffer)                                           = 0;
-        virtual void barrier_buffer(const Ref<GfxUniformBuffer>& buffer)                                         = 0;
-        virtual void barrier_buffer(const Ref<GfxStorageBuffer>& buffer)                                         = 0;
+        virtual void barrier_buffer(const Ref<GfxBuffer>& buffer)                                                = 0;
 
         virtual void barrier_images(array_view<GfxTexture*> textures, GfxTexBarrierType src, GfxTexBarrierType dst) = 0;
         virtual void barrier_buffers(array_view<GfxBuffer*> buffers)                                                = 0;
 
-        virtual void begin_render_pass(const GfxRenderPassBeginInfo& pass_desc)                                    = 0;
-        virtual void begin_render_pass(const GfxRenderPassWindowBeginInfo& pass_desc)                              = 0;
-        virtual void peek_render_pass(GfxRenderPassRef& rp)                                                        = 0;
-        virtual void viewport(const Rect2i& viewport)                                                              = 0;
-        virtual void bind_pso(const Ref<GfxPsoGraphics>& pipeline)                                                 = 0;
-        virtual void bind_pso(const Ref<GfxPsoCompute>& pipeline)                                                  = 0;
-        virtual void bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset = 0)                            = 0;
-        virtual void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0) = 0;
-        virtual void bind_desc_set(const Ref<GfxDescSet>& set, int index)                                          = 0;
-        virtual void bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset = 0)                           = 0;
-        virtual void draw(int vertex_count, int base_vertex, int instance_count)                                   = 0;
-        virtual void draw_indexed(int index_count, int base_vertex, int instance_count)                            = 0;
-        virtual void dispatch(Vec3i group_count)                                                                   = 0;
-        virtual void end_render_pass()                                                                             = 0;
+        virtual void begin_render_pass(const GfxRenderPassBeginInfo& pass_desc)                               = 0;
+        virtual void begin_render_pass(const GfxRenderPassWindowBeginInfo& pass_desc)                         = 0;
+        virtual void peek_render_pass(GfxRenderPassRef& rp)                                                   = 0;
+        virtual void viewport(const Rect2i& viewport)                                                         = 0;
+        virtual void bind_pso(const Ref<GfxPsoGraphics>& pipeline)                                            = 0;
+        virtual void bind_pso(const Ref<GfxPsoCompute>& pipeline)                                             = 0;
+        virtual void bind_vert_buffer(GfxBuffer* buffer, int index, int offset = 0)                           = 0;
+        virtual void bind_index_buffer(const Ref<GfxBuffer>& buffer, GfxIndexType index_type, int offset = 0) = 0;
+        virtual void bind_desc_set(const Ref<GfxDescSet>& set, int index)                                     = 0;
+        virtual void bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset = 0)                      = 0;
+        virtual void draw(int vertex_count, int base_vertex, int instance_count)                              = 0;
+        virtual void draw_indexed(int index_count, int base_vertex, int instance_count)                       = 0;
+        virtual void dispatch(Vec3i group_count)                                                              = 0;
+        virtual void end_render_pass()                                                                        = 0;
 
         virtual void reset_pool(const Ref<GfxQueryPool>& query_pool, int count)                             = 0;
         virtual void write_timestamp(const Ref<GfxQueryPool>& query_pool, int query_idx, GfxQueryFlag flag) = 0;

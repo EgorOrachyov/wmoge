@@ -109,23 +109,23 @@ namespace wmoge {
         rdg_release_resource(texture, m_texture_pool);
     }
 
-    GfxUniformBufferRef RdgPool::allocate_uniform_buffer(const GfxBufferDesc& desc) {
-        return rdg_allocate_resource<GfxUniformBufferRef>(m_uniform_buffer_pool, desc, m_driver, [&, this](const GfxBufferDesc& desc) {
+    GfxBufferRef RdgPool::allocate_uniform_buffer(const GfxBufferDesc& desc) {
+        return rdg_allocate_resource<GfxBufferRef>(m_uniform_buffer_pool, desc, m_driver, [&, this](const GfxBufferDesc& desc) {
             return m_driver->make_uniform_buffer(desc.size, desc.usage, SIDDBG("pool_buffer"));
         });
     }
 
-    void RdgPool::release_uniform_buffer(const GfxUniformBufferRef& buffer) {
+    void RdgPool::release_uniform_buffer(const GfxBufferRef& buffer) {
         rdg_release_resource(buffer, m_uniform_buffer_pool);
     }
 
-    GfxStorageBufferRef RdgPool::allocate_storage_buffer(const GfxBufferDesc& desc) {
-        return rdg_allocate_resource<GfxStorageBufferRef>(m_storage_buffer_pool, desc, m_driver, [&, this](const GfxBufferDesc& desc) {
+    GfxBufferRef RdgPool::allocate_storage_buffer(const GfxBufferDesc& desc) {
+        return rdg_allocate_resource<GfxBufferRef>(m_storage_buffer_pool, desc, m_driver, [&, this](const GfxBufferDesc& desc) {
             return m_driver->make_storage_buffer(desc.size, desc.usage, SIDDBG("pool_buffer"));
         });
     }
 
-    void RdgPool::release_storage_buffer(const GfxStorageBufferRef& buffer) {
+    void RdgPool::release_storage_buffer(const GfxBufferRef& buffer) {
         rdg_release_resource(buffer, m_storage_buffer_pool);
     }
 

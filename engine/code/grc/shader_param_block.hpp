@@ -102,8 +102,7 @@ namespace wmoge {
         Status set_var(ShaderParamId param_id, const Mat4x4f& v);
         Status set_var(ShaderParamId param_id, const Ref<GfxTexture>& v);
         Status set_var(ShaderParamId param_id, const Ref<GfxSampler>& v);
-        Status set_var(ShaderParamId param_id, const Ref<GfxUniformBuffer>& v);
-        Status set_var(ShaderParamId param_id, const Ref<GfxStorageBuffer>& v);
+        Status set_var(ShaderParamId param_id, const Ref<GfxBuffer>& v);
 
         Status get_var(ShaderParamId param_id, int& v);
         Status get_var(ShaderParamId param_id, float& v);
@@ -116,8 +115,7 @@ namespace wmoge {
         Status get_var(ShaderParamId param_id, Mat4x4f& v);
         Status get_var(ShaderParamId param_id, Ref<GfxTexture>& v);
         Status get_var(ShaderParamId param_id, Ref<GfxSampler>& v);
-        Status get_var(ShaderParamId param_id, Ref<GfxUniformBuffer>& v);
-        Status get_var(ShaderParamId param_id, Ref<GfxStorageBuffer>& v);
+        Status get_var(ShaderParamId param_id, Ref<GfxBuffer>& v);
 
         [[nodiscard]] const Ref<GfxDescSet>&          get_gfx_set() { return m_gfx_set; }
         [[nodiscard]] Shader*                         get_shader() { return m_shader; }

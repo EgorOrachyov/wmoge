@@ -108,12 +108,12 @@ namespace wmoge {
 
         std::vector<GfxBuffer*> for_barrier;
         for (Mesh* mesh : for_upload) {
-            array_view<const Ref<GfxVertBuffer>> gfx_vb = mesh->get_gfx_vertex_buffers();
+            array_view<const Ref<GfxBuffer>> gfx_vb = mesh->get_gfx_vertex_buffers();
             for (auto& buffer : gfx_vb) {
                 for_barrier.push_back(buffer.get());
             }
 
-            array_view<const Ref<GfxIndexBuffer>> gfx_ib = mesh->get_gfx_index_buffers();
+            array_view<const Ref<GfxBuffer>> gfx_ib = mesh->get_gfx_index_buffers();
             for (auto& buffer : gfx_ib) {
                 for_barrier.push_back(buffer.get());
             }
@@ -142,15 +142,15 @@ namespace wmoge {
         auto& entry    = m_meshes[mesh];
         entry.weak_ref = WeakRef<Mesh>(mesh);
 
-        array_view<const Ref<Data>>     vb = mesh->get_vertex_buffers();
-        std::vector<Ref<GfxVertBuffer>> gfx_vb(vb.size());
+        array_view<const Ref<Data>> vb = mesh->get_vertex_buffers();
+        std::vector<Ref<GfxBuffer>> gfx_vb(vb.size());
         for (std::size_t i = 0; i < vb.size(); i++) {
             gfx_vb[i] = m_gfx_driver->make_vert_buffer(static_cast<int>(vb[i]->size()), mesh->get_mem_usage(), SIDDBG(mesh->get_name() + " vert_buffer i=" + std::to_string(i)));
         }
         mesh->set_gfx_vertex_buffers(std::move(gfx_vb));
 
-        array_view<const Ref<Data>>      ib = mesh->get_index_buffers();
-        std::vector<Ref<GfxIndexBuffer>> gfx_ib(ib.size());
+        array_view<const Ref<Data>> ib = mesh->get_index_buffers();
+        std::vector<Ref<GfxBuffer>> gfx_ib(ib.size());
         for (std::size_t i = 0; i < ib.size(); i++) {
             gfx_ib[i] = m_gfx_driver->make_index_buffer(static_cast<int>(ib[i]->size()), mesh->get_mem_usage(), SIDDBG(mesh->get_name() + " index_buffer i=" + std::to_string(i)));
         }
@@ -169,23 +169,23 @@ namespace wmoge {
         WG_PROFILE_CPU_MESH("MeshManager::upload_mesh");
         WG_PROFILE_GPU_SCOPE("MeshManager::upload_mesh", cmd);
 
-        array_view<const Ref<Data>>          vb     = mesh->get_vertex_buffers();
-        array_view<const Ref<GfxVertBuffer>> gfx_vb = mesh->get_gfx_vertex_buffers();
+        array_view<const Ref<Data>>      vb     = mesh->get_vertex_buffers();
+        array_view<const Ref<GfxBuffer>> gfx_vb = mesh->get_gfx_vertex_buffers();
         {
             WG_PROFILE_GPU_SCOPE("upload_vert_buffers", cmd.get());
 
             for (std::size_t i = 0; i < vb.size(); i++) {
-                cmd->update_vert_buffer(gfx_vb[i], 0, static_cast<int>(vb[i]->size()), {vb[i]->buffer(), vb[i]->size()});
+                cmd->update_buffer(gfx_vb[i], 0, static_cast<int>(vb[i]->size()), {vb[i]->buffer(), vb[i]->size()});
             }
         }
 
-        array_view<const Ref<Data>>           ib     = mesh->get_index_buffers();
-        array_view<const Ref<GfxIndexBuffer>> gfx_ib = mesh->get_gfx_index_buffers();
+        array_view<const Ref<Data>>      ib     = mesh->get_index_buffers();
+        array_view<const Ref<GfxBuffer>> gfx_ib = mesh->get_gfx_index_buffers();
         {
             WG_PROFILE_GPU_SCOPE("upload_index_buffers", cmd.get());
 
             for (std::size_t i = 0; i < ib.size(); i++) {
-                cmd->update_index_buffer(gfx_ib[i], 0, static_cast<int>(ib[i]->size()), {ib[i]->buffer(), ib[i]->size()});
+                cmd->update_buffer(gfx_ib[i], 0, static_cast<int>(ib[i]->size()), {ib[i]->buffer(), ib[i]->size()});
             }
         }
     }

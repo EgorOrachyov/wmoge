@@ -48,8 +48,8 @@
 #include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
-#include "io/config.hpp"
-#include "io/config_manager.hpp"
+#include "io/cfg_storage.hpp"
+#include "io/cfg_val_manager.hpp"
 #include "io/enum.hpp"
 #include "mesh/mesh_manager.hpp"
 #include "platform/dll_manager.hpp"
@@ -67,7 +67,7 @@
 #include "scene/scene_manager.hpp"
 #include "system/app.hpp"
 #include "system/engine.hpp"
-#include "system/engine_config.hpp"
+#include "system/engine_cfg.hpp"
 #include "system/engine_signals.hpp"
 #include "system/plugin_manager.hpp"
 #include "ui/ui_manager.hpp"
@@ -99,15 +99,15 @@ namespace wmoge {
     }
 
     Status Engine::setup() {
-        m_application    = m_ioc_container->resolve_value<Application>();
-        m_time           = m_ioc_container->resolve_value<Time>();
-        m_file_system    = m_ioc_container->resolve_value<FileSystem>();
-        m_config         = m_ioc_container->resolve_value<Config>();
-        m_cfg_manager    = m_ioc_container->resolve_value<CfgManager>();
-        m_dll_manager    = m_ioc_container->resolve_value<DllManager>();
-        m_plugin_manager = m_ioc_container->resolve_value<PluginManager>();
-        m_engine_config  = m_ioc_container->resolve_value<EngineConfig>();
-        m_engine_signals = m_ioc_container->resolve_value<EngineSignals>();
+        m_application     = m_ioc_container->resolve_value<Application>();
+        m_time            = m_ioc_container->resolve_value<Time>();
+        m_file_system     = m_ioc_container->resolve_value<FileSystem>();
+        m_cfg_storage     = m_ioc_container->resolve_value<CfgStorage>();
+        m_cfg_val_manager = m_ioc_container->resolve_value<CfgValManager>();
+        m_dll_manager     = m_ioc_container->resolve_value<DllManager>();
+        m_plugin_manager  = m_ioc_container->resolve_value<PluginManager>();
+        m_engine_signals  = m_ioc_container->resolve_value<EngineSignals>();
+        m_engine_cfg      = m_ioc_container->resolve_value<EngineCfg>();
 
         m_engine_signals->setup.emit();
         m_plugin_manager->setup(m_ioc_container);
@@ -124,13 +124,13 @@ namespace wmoge {
         m_input          = m_ioc_container->resolve_value<GlfwInput>();
 
         WindowInfo window_info;
-        window_info.width    = m_config->get_int_or_default(SID("engine.window.width"), 1280);
-        window_info.height   = m_config->get_int_or_default(SID("engine.window.height"), 720);
-        window_info.title    = m_config->get_string_or_default(SID("engine.window.title"), "wmoge");
+        window_info.width    = m_cfg_storage->get_int_or_default(SID("engine.window.width"), 1280);
+        window_info.height   = m_cfg_storage->get_int_or_default(SID("engine.window.height"), 720);
+        window_info.title    = m_cfg_storage->get_string_or_default(SID("engine.window.title"), "wmoge");
         window_info.icons[0] = make_ref<Image>();
-        window_info.icons[0]->load(m_file_system, m_config->get_string_or_default(SID("engine.window.icon_default")), 4);
+        window_info.icons[0]->load(m_file_system, m_cfg_storage->get_string_or_default(SID("engine.window.icon_default")), 4);
         window_info.icons[1] = make_ref<Image>();
-        window_info.icons[1]->load(m_file_system, m_config->get_string_or_default(SID("engine.window.icon_small")), 4);
+        window_info.icons[1]->load(m_file_system, m_cfg_storage->get_string_or_default(SID("engine.window.icon_small")), 4);
 
         auto window = m_window_manager->create_window(window_info);
         WG_LOG_INFO("init window " << window_info.id);
@@ -178,7 +178,7 @@ namespace wmoge {
         WG_CHECKED(m_shader_table->reflect_types(m_shader_manager));
         WG_CHECKED(m_shader_table->load_shaders(m_asset_manager));
 
-        m_config->get_bool(SID("engine.window.exit"), m_exit_on_close);
+        m_cfg_storage->get_bool(SID("engine.window.exit"), m_exit_on_close);
 
         m_engine_signals->init.emit();
         m_plugin_manager->init();
@@ -224,7 +224,7 @@ namespace wmoge {
 
         m_engine_signals->end_frame.emit();
         m_gfx_driver->end_frame(true);
-        m_cfg_manager->update();
+        m_cfg_val_manager->update();
 
         return WG_OK;
     }
@@ -257,7 +257,8 @@ namespace wmoge {
     Time*               Engine::time() { return m_time; }
     DllManager*         Engine::dll_manager() { return m_dll_manager; }
     PluginManager*      Engine::plugin_manager() { return m_plugin_manager; }
-    Config*             Engine::config() { return m_config; }
+    CfgStorage*         Engine::cfg_storage() { return m_cfg_storage; }
+    CfgValManager*      Engine::cfg_val_manager() { return m_cfg_val_manager; }
     CallbackQueue*      Engine::main_queue() { return m_main_queue; }
     FileSystem*         Engine::file_system() { return m_file_system; }
     TaskManager*        Engine::task_manager() { return m_task_manager; }
@@ -274,14 +275,13 @@ namespace wmoge {
     TextureManager*     Engine::texture_manager() { return m_texture_manager; }
     MeshManager*        Engine::mesh_manager() { return m_mesh_manager; }
     SceneManager*       Engine::scene_manager() { return m_scene_manager; }
-    CfgManager*         Engine::cfg_manager() { return m_cfg_manager; }
     AudioEngine*        Engine::audio_engine() { return m_audio_engine; }
     RenderEngine*       Engine::render_engine() { return m_render_engine; }
     ViewManager*        Engine::view_manager() { return m_view_manager; }
     UiManager*          Engine::ui_manager() { return m_ui_manager; }
     EcsRegistry*        Engine::ecs_registry() { return m_ecs_registry; }
     GameManager*        Engine::game_manager() { return m_game_manager; }
-    EngineConfig*       Engine::engine_config() { return m_engine_config; }
     EngineSignals*      Engine::engine_signals() { return m_engine_signals; }
+    EngineCfg*          Engine::engine_cfg() { return m_engine_cfg; }
 
 }// namespace wmoge

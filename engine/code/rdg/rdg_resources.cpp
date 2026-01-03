@@ -84,22 +84,22 @@ namespace wmoge {
         m_desc = desc;
     }
 
-    RdgVertBuffer::RdgVertBuffer(const GfxVertBufferRef& buffer, RdgResourceId id)
+    RdgVertBuffer::RdgVertBuffer(const GfxBufferRef& buffer, RdgResourceId id)
         : RdgBuffer(buffer->desc(), id, buffer->name()) {
         m_gfx = buffer;
     }
 
-    RdgIndexBuffer::RdgIndexBuffer(const GfxIndexBufferRef& buffer, RdgResourceId id)
+    RdgIndexBuffer::RdgIndexBuffer(const GfxBufferRef& buffer, RdgResourceId id)
         : RdgBuffer(buffer->desc(), id, buffer->name()) {
         m_gfx = buffer;
     }
 
-    RdgUniformBuffer::RdgUniformBuffer(const GfxUniformBufferRef& buffer, RdgResourceId id)
+    RdgUniformBuffer::RdgUniformBuffer(const GfxBufferRef& buffer, RdgResourceId id)
         : RdgBuffer(buffer->desc(), id, buffer->name()) {
         m_gfx = buffer;
     }
 
-    RdgStorageBuffer::RdgStorageBuffer(const GfxStorageBufferRef& buffer, RdgResourceId id)
+    RdgStorageBuffer::RdgStorageBuffer(const GfxBufferRef& buffer, RdgResourceId id)
         : RdgBuffer(buffer->desc(), id, buffer->name()) {
         m_gfx = buffer;
     }

@@ -149,64 +149,64 @@ namespace wmoge {
     class RdgVertBuffer : public RdgBuffer {
     public:
         using RdgBuffer::RdgBuffer;
-        RdgVertBuffer(const GfxVertBufferRef& buffer, RdgResourceId id);
+        RdgVertBuffer(const GfxBufferRef& buffer, RdgResourceId id);
 
         GfxResourceRef get_gfx() const override { return m_gfx; }
         bool           is_vertex() const override { return true; }
 
-        [[nodiscard]] GfxVertBuffer*          get_buffer() const { return m_gfx.get(); }
-        [[nodiscard]] const GfxVertBufferRef& get_buffer_ref() const { return m_gfx; }
+        [[nodiscard]] GfxBuffer*          get_buffer() const { return m_gfx.get(); }
+        [[nodiscard]] const GfxBufferRef& get_buffer_ref() const { return m_gfx; }
 
     private:
-        GfxVertBufferRef m_gfx;
+        GfxBufferRef m_gfx;
     };
 
     /** @brief Rdg index buffer resource */
     class RdgIndexBuffer : public RdgBuffer {
     public:
         using RdgBuffer::RdgBuffer;
-        RdgIndexBuffer(const GfxIndexBufferRef& buffer, RdgResourceId id);
+        RdgIndexBuffer(const GfxBufferRef& buffer, RdgResourceId id);
 
         GfxResourceRef get_gfx() const override { return m_gfx; }
         bool           is_index() const override { return true; }
 
-        [[nodiscard]] GfxIndexBuffer*          get_buffer() const { return m_gfx.get(); }
-        [[nodiscard]] const GfxIndexBufferRef& get_buffer_ref() const { return m_gfx; }
+        [[nodiscard]] GfxBuffer*          get_buffer() const { return m_gfx.get(); }
+        [[nodiscard]] const GfxBufferRef& get_buffer_ref() const { return m_gfx; }
 
     private:
-        GfxIndexBufferRef m_gfx;
+        GfxBufferRef m_gfx;
     };
 
     /** @brief Rdg uniform buffer resource */
     class RdgUniformBuffer : public RdgBuffer {
     public:
         using RdgBuffer::RdgBuffer;
-        RdgUniformBuffer(const GfxUniformBufferRef& buffer, RdgResourceId id);
+        RdgUniformBuffer(const GfxBufferRef& buffer, RdgResourceId id);
 
         GfxResourceRef get_gfx() const override { return m_gfx; }
         bool           is_uniform() const override { return true; }
 
-        [[nodiscard]] GfxUniformBuffer*          get_buffer() const { return m_gfx.get(); }
-        [[nodiscard]] const GfxUniformBufferRef& get_buffer_ref() const { return m_gfx; }
+        [[nodiscard]] GfxBuffer*          get_buffer() const { return m_gfx.get(); }
+        [[nodiscard]] const GfxBufferRef& get_buffer_ref() const { return m_gfx; }
 
     private:
-        GfxUniformBufferRef m_gfx;
+        GfxBufferRef m_gfx;
     };
 
     /** @brief Rdg storage buffer resource */
     class RdgStorageBuffer : public RdgBuffer {
     public:
         using RdgBuffer::RdgBuffer;
-        RdgStorageBuffer(const GfxStorageBufferRef& buffer, RdgResourceId id);
+        RdgStorageBuffer(const GfxBufferRef& buffer, RdgResourceId id);
 
         GfxResourceRef get_gfx() const override { return m_gfx; }
         bool           is_storage() const override { return true; }
 
-        [[nodiscard]] GfxStorageBuffer*          get_buffer() const { return m_gfx.get(); }
-        [[nodiscard]] const GfxStorageBufferRef& get_buffer_ref() const { return m_gfx; }
+        [[nodiscard]] GfxBuffer*          get_buffer() const { return m_gfx.get(); }
+        [[nodiscard]] const GfxBufferRef& get_buffer_ref() const { return m_gfx; }
 
     private:
-        GfxStorageBufferRef m_gfx;
+        GfxBufferRef m_gfx;
     };
 
 }// namespace wmoge

@@ -27,31 +27,41 @@
 
 #pragma once
 
-#include "math/vec.hpp"
+#include "core/log.hpp"
+#include "io/cfg_val.hpp"
 
 namespace wmoge {
 
+    class CfgValManager;
+
     /**
-     * @class Color
-     * @brief Utilities to work with colors
+     * @brief Config variables collection for engine-wide common sub-systems 
      */
-    class Color {
+    class EngineCfg {
     public:
-        static Color4f WHITE4f;
-        static Color4f BLACK4f;
-        static Color4f RED4f;
-        static Color4f GREEN4f;
-        static Color4f BLUE4f;
-        static Color4f YELLOW4f;
+        struct Log {
+            CfgValBool           to_out{"engine.log.to_out", true};
+            CfgValEnum<LogLevel> to_out_level{"engine.log.to_out_level", LogLevel::Info};
+            CfgValBool           to_file{"engine.log.to_file", true};
+            CfgValEnum<LogLevel> to_file_level{"engine.log.to_file_level", LogLevel::Info};
+            CfgValBool           to_console{"engine.log.to_console", true};
+            CfgValEnum<LogLevel> to_console_level{"engine.log.to_console_level", LogLevel::Info};
 
-        static Color3f WHITE3f;
-        static Color3f BLACK3f;
-        static Color3f RED3f;
-        static Color3f GREEN3f;
-        static Color3f BLUE3f;
-        static Color3f YELLOW3f;
+            void bind(CfgValManager* cfg_manager);
+        };
 
-        static Color4f from_hex4(unsigned int rgba);
+        struct Profiler {
+            CfgValBool enable{"engine.profiler.enable", false};
+            CfgValBool trace_cpu{"engine.profiler.trace_cpu", true};
+            CfgValBool trace_gpu{"engine.profiler.trace_gpu", true};
+
+            void bind(CfgValManager* cfg_manager);
+        };
+
+        Log      log;
+        Profiler profiler;
+
+        void bind(CfgValManager* cfg_manager);
     };
 
 }// namespace wmoge

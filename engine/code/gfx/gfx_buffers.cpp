@@ -42,6 +42,7 @@ namespace wmoge {
         GfxBufferDesc d;
         d.size  = m_size;
         d.usage = m_usage;
+        d.type  = m_type;
         return d;
     }
 

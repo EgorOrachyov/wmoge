@@ -25,7 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "config_file.hpp"
+#include "cfg_file.hpp"
 
 #include "core/data.hpp"
 #include "core/string_utils.hpp"
@@ -37,8 +37,8 @@
 
 namespace wmoge {
 
-    Status ConfigFile::load_from_file(FileSystem* file_system, const std::string& path) {
-        WG_PROFILE_CPU_ASSET("ConfigFile::load_from_file");
+    Status CfgFile::load_from_file(FileSystem* file_system, const std::string& path) {
+        WG_PROFILE_CPU_ASSET("CfgFile::load_from_file");
 
         std::string content;
         if (!file_system->read_file(path, content)) {
@@ -49,8 +49,8 @@ namespace wmoge {
         return load_from_content(content);
     }
 
-    Status ConfigFile::load_from_content(const std::string& content) {
-        WG_PROFILE_CPU_ASSET("ConfigFile::load_from_content");
+    Status CfgFile::load_from_content(const std::string& content) {
+        WG_PROFILE_CPU_ASSET("CfgFile::load_from_content");
 
         IniFile file;
         WG_CHECKED(file.parse(content));
@@ -67,8 +67,8 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ConfigFile::stack(const ConfigFile& other, ConfigStackMode mode) {
-        WG_PROFILE_CPU_ASSET("ConfigFile::stack");
+    Status CfgFile::stack(const CfgFile& other, ConfigStackMode mode) {
+        WG_PROFILE_CPU_ASSET("CfgFile::stack");
 
         for (const auto& other_entry : other.m_entries) {
             const Strid& key = other_entry.first;
@@ -82,36 +82,36 @@ namespace wmoge {
         return WG_OK;
     }
 
-    void ConfigFile::clear() {
+    void CfgFile::clear() {
         m_entries.clear();
     }
 
-    bool ConfigFile::is_empty() {
+    bool CfgFile::is_empty() {
         return m_entries.empty();
     }
 
-    Status ConfigFile::set_bool(const Strid& key, const bool& value, bool overwrite) {
+    Status CfgFile::set_bool(const Strid& key, const bool& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
             return WG_OK;
         }
         return StatusCode::NoValue;
     }
-    Status ConfigFile::set_int(const Strid& key, const int& value, bool overwrite) {
+    Status CfgFile::set_int(const Strid& key, const int& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
             return WG_OK;
         }
         return StatusCode::NoValue;
     }
-    Status ConfigFile::set_float(const Strid& key, const float& value, bool overwrite) {
+    Status CfgFile::set_float(const Strid& key, const float& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
             return WG_OK;
         }
         return StatusCode::NoValue;
     }
-    Status ConfigFile::set_string(const Strid& key, const std::string& value, bool overwrite) {
+    Status CfgFile::set_string(const Strid& key, const std::string& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
             return WG_OK;
@@ -119,66 +119,66 @@ namespace wmoge {
         return StatusCode::NoValue;
     }
 
-    Status ConfigFile::get_bool(const Strid& key, bool& value) const {
+    Status CfgFile::get_bool(const Strid& key, bool& value) const {
         const Var* p_var;
         if (!get_value(key, p_var)) return StatusCode::NoValue;
         value = (*p_var).operator int();
         return WG_OK;
     }
-    Status ConfigFile::get_int(const Strid& key, int& value) const {
+    Status CfgFile::get_int(const Strid& key, int& value) const {
         const Var* p_var;
         if (!get_value(key, p_var)) return StatusCode::NoValue;
         value = *p_var;
         return WG_OK;
     }
-    Status ConfigFile::get_float(const Strid& key, float& value) const {
+    Status CfgFile::get_float(const Strid& key, float& value) const {
         const Var* p_var;
         if (!get_value(key, p_var)) return StatusCode::NoValue;
         value = *p_var;
         return WG_OK;
     }
-    Status ConfigFile::get_string(const Strid& key, std::string& value) const {
+    Status CfgFile::get_string(const Strid& key, std::string& value) const {
         const Var* p_var;
         if (!get_value(key, p_var)) return StatusCode::NoValue;
         value = p_var->operator String();
         return WG_OK;
     }
-    Status ConfigFile::get_color4f(const Strid& key, Color4f& value) const {
+    Status CfgFile::get_color4f(const Strid& key, Color4f& value) const {
         const Var* p_var;
         if (!get_value(key, p_var)) return StatusCode::NoValue;
         value = Color::from_hex4(static_cast<unsigned int>(StringUtils::to_ulong(p_var->operator String(), 16)));
         return WG_OK;
     }
 
-    bool ConfigFile::get_bool_or_default(const Strid& key, bool value) const {
+    bool CfgFile::get_bool_or_default(const Strid& key, bool value) const {
         get_bool(key, value);
         return value;
     }
-    int ConfigFile::get_int_or_default(const Strid& key, int value) const {
+    int CfgFile::get_int_or_default(const Strid& key, int value) const {
         get_int(key, value);
         return value;
     }
-    float ConfigFile::get_float_or_default(const Strid& key, float value) const {
+    float CfgFile::get_float_or_default(const Strid& key, float value) const {
         get_float(key, value);
         return value;
     }
-    std::string ConfigFile::get_string_or_default(const Strid& key, std::string value) const {
+    std::string CfgFile::get_string_or_default(const Strid& key, std::string value) const {
         get_string(key, value);
         return value;
     }
-    Color4f ConfigFile::get_color4f_or_default(const Strid& key, Color4f value) const {
+    Color4f CfgFile::get_color4f_or_default(const Strid& key, Color4f value) const {
         get_color4f(key, value);
         return value;
     }
 
-    bool ConfigFile::get_value(const Strid& key, Var*& element) {
+    bool CfgFile::get_value(const Strid& key, Var*& element) {
         auto it_element = m_entries.find(key);
         if (it_element == m_entries.end()) return false;
 
         element = &it_element->second;
         return true;
     }
-    bool ConfigFile::get_value(const Strid& key, const Var*& element) const {
+    bool CfgFile::get_value(const Strid& key, const Var*& element) const {
         auto it_element = m_entries.find(key);
         if (it_element == m_entries.end()) return false;
 

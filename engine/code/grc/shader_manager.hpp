@@ -38,7 +38,7 @@
 #include "grc/shader_file.hpp"
 #include "grc/shader_param_block.hpp"
 #include "grc/shader_reflection.hpp"
-#include "io/config_val.hpp"
+#include "io/cfg_val.hpp"
 #include "platform/file_system.hpp"
 
 #include <functional>
@@ -52,7 +52,7 @@ namespace wmoge {
     class TextureManager;
     class ShaderLibrary;
     class PsoCache;
-    class CfgManager;
+    class CfgValManager;
 }// namespace wmoge
 
 namespace wmoge {
@@ -73,7 +73,7 @@ namespace wmoge {
                       TextureManager* texture_manager,
                       ShaderLibrary*  shader_library,
                       PsoCache*       pso_cache,
-                      CfgManager*     cfg_manager);
+                      CfgValManager*  cfg_manager);
 
         Status                               load_shader_reflection(const ShaderFile& file, ShaderReflection& reflection);
         Status                               build_types_map(ShaderReflection& reflection);

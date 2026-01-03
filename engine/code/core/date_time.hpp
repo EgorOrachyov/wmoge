@@ -27,8 +27,7 @@
 
 #pragma once
 
-#include "date_time.hpp"
-#include "io/serialization.hpp"
+#include "core/status.hpp"
 
 #include <chrono>
 #include <cstddef>
@@ -39,6 +38,10 @@
 #include <type_traits>
 
 namespace wmoge {
+
+    class IoContext;
+    class IoTree;
+    class IoStream;
 
     /**
      * @class DateTimeTm

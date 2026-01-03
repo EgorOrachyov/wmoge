@@ -30,7 +30,6 @@
 #include "asset/asset.hpp"
 #include "core/array_view.hpp"
 #include "core/data.hpp"
-#include "io/serialization.hpp"
 #include "math/vec.hpp"
 
 #include <string>

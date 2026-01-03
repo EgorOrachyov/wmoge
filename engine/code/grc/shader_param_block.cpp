@@ -111,11 +111,7 @@ namespace wmoge {
             GfxDescSetResource& resource   = resources->at(param->binding);
             GfxDescBindValue&   bind_value = resource.second;
 
-            if constexpr (std::is_same_v<T, Ref<GfxUniformBuffer>>) {
-                bind_value.resource = v.template as<GfxResource>();
-                return WG_OK;
-            }
-            if constexpr (std::is_same_v<T, Ref<GfxStorageBuffer>>) {
+            if constexpr (std::is_same_v<T, Ref<GfxBuffer>>) {
                 bind_value.resource = v.template as<GfxResource>();
                 return WG_OK;
             }
@@ -197,12 +193,8 @@ namespace wmoge {
             const GfxDescSetResource& resource   = resources->at(param->binding);
             const GfxDescBindValue&   bind_value = resource.second;
 
-            if constexpr (std::is_same_v<T, Ref<GfxUniformBuffer>>) {
-                v = bind_value.resource.template cast<GfxUniformBuffer>();
-                return WG_OK;
-            }
-            if constexpr (std::is_same_v<T, Ref<GfxStorageBuffer>>) {
-                v = bind_value.resource.template cast<GfxStorageBuffer>();
+            if constexpr (std::is_same_v<T, Ref<GfxBuffer>>) {
+                v = bind_value.resource.template cast<GfxBuffer>();
                 return WG_OK;
             }
             if constexpr (std::is_same_v<T, Ref<GfxTexture>>) {
@@ -350,11 +342,11 @@ namespace wmoge {
                     dirty_set();
                 }
 
-                Ref<GfxUniformBuffer> buffer = v.resource.cast<GfxUniformBuffer>();
+                Ref<GfxBuffer> buffer = v.resource.cast<GfxBuffer>();
                 assert(buffer);
                 assert(buffer->size() == src->size());
 
-                cmd_list->update_uniform_buffer(buffer, v.offset, v.range, {src->buffer(), src->size()});
+                cmd_list->update_buffer(buffer, v.offset, v.range, {src->buffer(), src->size()});
                 barrier_buffers.push_back(buffer);
             }
         }
@@ -410,8 +402,7 @@ namespace wmoge {
     Status ShaderParamBlock::set_var(ShaderParamId param_id, const Mat4x4f& v) { WG_GRC_SET_VAR_BUFF; }
     Status ShaderParamBlock::set_var(ShaderParamId param_id, const Ref<GfxTexture>& v) { WG_GRC_SET_VAR_BIND; }
     Status ShaderParamBlock::set_var(ShaderParamId param_id, const Ref<GfxSampler>& v) { WG_GRC_SET_VAR_BIND; }
-    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Ref<GfxUniformBuffer>& v) { WG_GRC_SET_VAR_BIND; }
-    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Ref<GfxStorageBuffer>& v) { WG_GRC_SET_VAR_BIND; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Ref<GfxBuffer>& v) { WG_GRC_SET_VAR_BIND; }
 
     Status ShaderParamBlock::get_var(ShaderParamId param_id, int& v) { WG_GRC_GET_VAR_BUFF; }
     Status ShaderParamBlock::get_var(ShaderParamId param_id, float& v) { WG_GRC_GET_VAR_BUFF; }
@@ -424,8 +415,7 @@ namespace wmoge {
     Status ShaderParamBlock::get_var(ShaderParamId param_id, Mat4x4f& v) { WG_GRC_GET_VAR_BUFF; }
     Status ShaderParamBlock::get_var(ShaderParamId param_id, Ref<GfxTexture>& v) { WG_GRC_GET_VAR_BIND; }
     Status ShaderParamBlock::get_var(ShaderParamId param_id, Ref<GfxSampler>& v) { WG_GRC_GET_VAR_BIND; }
-    Status ShaderParamBlock::get_var(ShaderParamId param_id, Ref<GfxUniformBuffer>& v) { WG_GRC_GET_VAR_BIND; }
-    Status ShaderParamBlock::get_var(ShaderParamId param_id, Ref<GfxStorageBuffer>& v) { WG_GRC_GET_VAR_BIND; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Ref<GfxBuffer>& v) { WG_GRC_GET_VAR_BIND; }
 
     Ref<Data>* ShaderParamBlock::get_buffer(std::int16_t buffer_idx) {
         return &m_buffers[buffer_idx];

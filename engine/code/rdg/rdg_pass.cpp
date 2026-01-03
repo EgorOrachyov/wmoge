@@ -262,23 +262,8 @@ namespace wmoge {
         m_use_window       = m_is_color_pass && pass.is_window_pass();
     }
 
-    Status RdgPassContext::update_vert_buffer(GfxVertBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        m_cmd_list->update_vert_buffer(buffer, offset, range, data);
-        return WG_OK;
-    }
-
-    Status RdgPassContext::update_index_buffer(GfxIndexBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        m_cmd_list->update_index_buffer(buffer, offset, range, data);
-        return WG_OK;
-    }
-
-    Status RdgPassContext::update_uniform_buffer(GfxUniformBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        m_cmd_list->update_uniform_buffer(buffer, offset, range, data);
-        return WG_OK;
-    }
-
-    Status RdgPassContext::update_storage_buffer(GfxStorageBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        m_cmd_list->update_storage_buffer(buffer, offset, range, data);
+    Status RdgPassContext::update_buffer(GfxBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
+        m_cmd_list->update_buffer(buffer, offset, range, data);
         return WG_OK;
     }
 
@@ -357,12 +342,12 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status RdgPassContext::bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset) {
+    Status RdgPassContext::bind_vert_buffer(GfxBuffer* buffer, int index, int offset) {
         m_cmd_list->bind_vert_buffer(buffer, index, offset);
         return WG_OK;
     }
 
-    Status RdgPassContext::bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
+    Status RdgPassContext::bind_index_buffer(const Ref<GfxBuffer>& buffer, GfxIndexType index_type, int offset) {
         m_cmd_list->bind_index_buffer(buffer, index_type, offset);
         return WG_OK;
     }

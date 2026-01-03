@@ -62,8 +62,7 @@ namespace wmoge {
         Status set_var(const Mat4x4f& v);
         Status set_var(const Ref<GfxTexture>& v);
         Status set_var(const Ref<GfxSampler>& v);
-        Status set_var(const Ref<GfxUniformBuffer>& v);
-        Status set_var(const Ref<GfxStorageBuffer>& v);
+        Status set_var(const Ref<GfxBuffer>& v);
 
         Status get_var(int& v);
         Status get_var(float& v);
@@ -76,8 +75,7 @@ namespace wmoge {
         Status get_var(Mat4x4f& v);
         Status get_var(Ref<GfxTexture>& v);
         Status get_var(Ref<GfxSampler>& v);
-        Status get_var(Ref<GfxUniformBuffer>& v);
-        Status get_var(Ref<GfxStorageBuffer>& v);
+        Status get_var(Ref<GfxBuffer>& v);
 
         [[nodiscard]] bool is_valid() const { return m_param_id.is_valid(); }
         [[nodiscard]] bool is_invalid() const { return m_param_id.is_invalid(); }

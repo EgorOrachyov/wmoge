@@ -42,8 +42,9 @@ namespace wmoge {
         [[nodiscard]] bool operator==(const GfxBufferDesc& other) const;
         [[nodiscard]] bool is_compatible(const GfxBufferDesc& other) const;
 
-        int         size  = 0;
-        GfxMemUsage usage = GfxMemUsage::GpuLocal;
+        int           size  = 0;
+        GfxMemUsage   usage = GfxMemUsage::GpuLocal;
+        GfxBufferType type  = GfxBufferType::Vertex;
     };
 
     /**
@@ -57,110 +58,14 @@ namespace wmoge {
         [[nodiscard]] GfxBufferDesc desc() const;
         [[nodiscard]] int           size() const { return m_size; }
         [[nodiscard]] GfxMemUsage   buffer_usage() const { return m_usage; }
+        [[nodiscard]] GfxBufferType buffer_type() const { return m_type; }
 
     protected:
-        int         m_size;
-        GfxMemUsage m_usage;
+        int           m_size;
+        GfxMemUsage   m_usage;
+        GfxBufferType m_type;
     };
 
     using GfxBufferRef = Ref<GfxBuffer>;
-
-    /**
-     * @class GfxVertBuffer
-     * @brief Gfx vertex buffer
-     */
-    class GfxVertBuffer : public GfxBuffer {
-    public:
-        ~GfxVertBuffer() override = default;
-    };
-
-    using GfxVertBufferRef = Ref<GfxVertBuffer>;
-
-    /**
-     * @class GfxIndexBuffer
-     * @brief Gfx index buffer
-     */
-    class GfxIndexBuffer : public GfxBuffer {
-    public:
-        ~GfxIndexBuffer() override = default;
-    };
-
-    using GfxIndexBufferRef = Ref<GfxIndexBuffer>;
-
-    /**
-     * @class GfxUniformBuffer
-     * @brief Gfx uniform buffer
-     */
-    class GfxUniformBuffer : public GfxBuffer {
-    public:
-        ~GfxUniformBuffer() override = default;
-    };
-
-    using GfxUniformBufferRef = Ref<GfxUniformBuffer>;
-
-    /**
-     * @class GfxStorageBuffer
-     * @brief Gfx storage buffer
-     */
-    class GfxStorageBuffer : public GfxBuffer {
-    public:
-        ~GfxStorageBuffer() override = default;
-    };
-
-    using GfxStorageBufferRef = Ref<GfxStorageBuffer>;
-
-    /**
-     * @brief Setup to bind a particular buffer range
-     * @tparam Buffer
-     */
-    template<typename Buffer>
-    struct GfxBufferSetup {
-        Buffer* buffer = nullptr;
-        int     offset = 0;
-        int     range  = 0;
-    };
-
-    /**
-     * @class GfxVertBuffersSetup
-     * @brief Setup to bind an vertex buffers
-     */
-    struct GfxVertBuffersSetup {
-        GfxVertBuffer* buffers[GfxLimits::MAX_VERT_BUFFERS] = {0};
-        int            offsets[GfxLimits::MAX_VERT_BUFFERS] = {0};
-
-        bool operator==(const GfxVertBuffersSetup& other) const {
-            for (int i = 0; i < GfxLimits::MAX_VERT_BUFFERS; i++) {
-                if (buffers[i] != other.buffers[i]) {
-                    return false;
-                }
-                if (offsets[i] != other.offsets[i]) {
-                    return false;
-                }
-            }
-            return true;
-        }
-    };
-
-    /**
-     * @class GfxIndexBufferSetup
-     * @brief Setup to bind an index buffer
-     */
-    struct GfxIndexBufferSetup {
-        GfxIndexBuffer* buffer     = nullptr;
-        int             offset     = 0;
-        GfxIndexType    index_type = GfxIndexType::Uint32;
-
-        bool operator==(const GfxIndexBufferSetup& other) const {
-            return buffer == other.buffer &&
-                   offset == other.offset &&
-                   index_type == other.index_type;
-        }
-    };
-
-    /** @brief Setup to bind uniform buffer */
-    using GfxUniformBufferSetup = GfxBufferSetup<GfxUniformBuffer>;
-
-    /** @brief Setup to bind storage buffer */
-    using GfxStorageBufferSetup = GfxBufferSetup<GfxStorageBuffer>;
 
 }// namespace wmoge

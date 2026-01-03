@@ -71,13 +71,13 @@ namespace wmoge {
     struct RenderCmd final {
         static constexpr int NUM_DESC_SETS = 3;
 
-        GfxVertBuffersSetup vert_buffers;                                       //< Source of vertex data
-        GfxIndexBufferSetup index_setup;                                        //< Setup of index data for indexed draw
-        GfxDescSet*         desc_sets[NUM_DESC_SETS]{nullptr, nullptr, nullptr};//< Custom desc sets with frame, material and mesh data
-        int                 desc_sets_slots[NUM_DESC_SETS]{-1, -1, -1};         //< Custom desc sets slots
-        GfxPsoGraphics*     pipeline = nullptr;                                 //< Complete compiled PSO to render
-        GfxDrawCall         call_params;                                        //< Params to do a draw
-        int                 primitive_buffer = -1;                              //< Idx of vert buffer to put dynamic instancing data
+        // GfxVertBuffersSetup vert_buffers;                                       //< Source of vertex data
+        // GfxIndexBufferSetup index_setup;                                        //< Setup of index data for indexed draw
+        GfxDescSet*     desc_sets[NUM_DESC_SETS]{nullptr, nullptr, nullptr};//< Custom desc sets with frame, material and mesh data
+        int             desc_sets_slots[NUM_DESC_SETS]{-1, -1, -1};         //< Custom desc sets slots
+        GfxPsoGraphics* pipeline = nullptr;                                 //< Complete compiled PSO to render
+        GfxDrawCall     call_params;                                        //< Params to do a draw
+        int             primitive_buffer = -1;                              //< Idx of vert buffer to put dynamic instancing data
     };
 
     static_assert(std::is_trivially_destructible_v<RenderCmd>, "render cmd must be trivial as possible");

@@ -219,33 +219,55 @@ namespace wmoge {
 
         return make_ref<VKVertFormat>(elements, name);
     }
-    Ref<GfxVertBuffer> VKDriver::make_vert_buffer(int size, GfxMemUsage usage, const Strid& name) {
+    Ref<GfxBuffer> VKDriver::make_buffer(const GfxBufferDesc& desc, const Strid& name) {
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_buffer");
+
+        return make_ref<VKBuffer>(desc, name, *this);
+    }
+    Ref<GfxBuffer> VKDriver::make_vert_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_PROFILE_CPU_VULKAN("VKDriver::make_vert_buffer");
 
-        auto buffer = make_ref<VKVertBuffer>(*this);
-        buffer->create(size, usage, name);
-        return buffer;
+        GfxBufferDesc desc;
+        desc.size  = size;
+        desc.usage = usage;
+        desc.type  = GfxBufferType::Vertex;
+        return make_ref<VKBuffer>(desc, name, *this);
     }
-    Ref<GfxIndexBuffer> VKDriver::make_index_buffer(int size, GfxMemUsage usage, const Strid& name) {
+    Ref<GfxBuffer> VKDriver::make_index_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_PROFILE_CPU_VULKAN("VKDriver::make_index_buffer");
 
-        auto buffer = make_ref<VKIndexBuffer>(*this);
-        buffer->create(size, usage, name);
-        return buffer;
+        GfxBufferDesc desc;
+        desc.size  = size;
+        desc.usage = usage;
+        desc.type  = GfxBufferType::Index;
+        return make_ref<VKBuffer>(desc, name, *this);
     }
-    Ref<GfxUniformBuffer> VKDriver::make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name) {
+    Ref<GfxBuffer> VKDriver::make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_PROFILE_CPU_VULKAN("VKDriver::make_uniform_buffer");
 
-        auto buffer = make_ref<VKUniformBuffer>(*this);
-        buffer->create(size, usage, name);
-        return buffer;
+        GfxBufferDesc desc;
+        desc.size  = size;
+        desc.usage = usage;
+        desc.type  = GfxBufferType::Uniform;
+        return make_ref<VKBuffer>(desc, name, *this);
     }
-    Ref<GfxStorageBuffer> VKDriver::make_storage_buffer(int size, GfxMemUsage usage, const Strid& name) {
+    Ref<GfxBuffer> VKDriver::make_storage_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_PROFILE_CPU_VULKAN("VKDriver::make_storage_buffer");
 
-        auto buffer = make_ref<VKStorageBuffer>(*this);
-        buffer->create(size, usage, name);
-        return buffer;
+        GfxBufferDesc desc;
+        desc.size  = size;
+        desc.usage = usage;
+        desc.type  = GfxBufferType::Storage;
+        return make_ref<VKBuffer>(desc, name, *this);
+    }
+    Ref<GfxBuffer> VKDriver::make_staging_buffer(int size, const Strid& name) {
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_staging_buffer");
+
+        GfxBufferDesc desc;
+        desc.size  = size;
+        desc.usage = GfxMemUsage::CpuCopyGpu;
+        desc.type  = GfxBufferType::Staging;
+        return make_ref<VKBuffer>(desc, name, *this);
     }
     Ref<GfxShader> VKDriver::make_shader(GfxShaderDesc desc, const Strid& name) {
         WG_PROFILE_CPU_VULKAN("VKDriver::make_shader");

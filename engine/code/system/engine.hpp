@@ -40,8 +40,8 @@ namespace wmoge {
     class Time;
     class DllManager;
     class PluginManager;
-    class Config;
-    class CfgManager;
+    class CfgStorage;
+    class CfgValManager;
     class CallbackQueue;
     class FileSystem;
     class TaskManager;
@@ -66,8 +66,8 @@ namespace wmoge {
     class EcsRegistry;
     class ProfilerGpu;
     class GameManager;
-    class EngineConfig;
     class EngineSignals;
+    class EngineCfg;
     class IocContainer;
 }// namespace wmoge
 
@@ -97,7 +97,8 @@ namespace wmoge {
         Time*               time();
         DllManager*         dll_manager();
         PluginManager*      plugin_manager();
-        Config*             config();
+        CfgStorage*         cfg_storage();
+        CfgValManager*      cfg_val_manager();
         CallbackQueue*      main_queue();
         FileSystem*         file_system();
         TaskManager*        task_manager();
@@ -114,15 +115,14 @@ namespace wmoge {
         TextureManager*     texture_manager();
         MeshManager*        mesh_manager();
         SceneManager*       scene_manager();
-        CfgManager*         cfg_manager();
         AudioEngine*        audio_engine();
         RenderEngine*       render_engine();
         ViewManager*        view_manager();
         UiManager*          ui_manager();
         EcsRegistry*        ecs_registry();
         GameManager*        game_manager();
-        EngineConfig*       engine_config();
         EngineSignals*      engine_signals();
+        EngineCfg*          engine_cfg();
 
     private:
         std::atomic_bool m_close_requested{false};
@@ -132,7 +132,8 @@ namespace wmoge {
         Time*               m_time                 = nullptr;
         DllManager*         m_dll_manager          = nullptr;
         PluginManager*      m_plugin_manager       = nullptr;
-        Config*             m_config               = nullptr;
+        CfgStorage*         m_cfg_storage          = nullptr;
+        CfgValManager*      m_cfg_val_manager      = nullptr;
         CallbackQueue*      m_main_queue           = nullptr;
         FileSystem*         m_file_system          = nullptr;
         TaskManager*        m_task_manager         = nullptr;
@@ -150,7 +151,6 @@ namespace wmoge {
         TextureManager*     m_texture_manager      = nullptr;
         MeshManager*        m_mesh_manager         = nullptr;
         SceneManager*       m_scene_manager        = nullptr;
-        CfgManager*         m_cfg_manager          = nullptr;
         AudioEngine*        m_audio_engine         = nullptr;
         RenderEngine*       m_render_engine        = nullptr;
         ViewManager*        m_view_manager         = nullptr;
@@ -158,8 +158,8 @@ namespace wmoge {
         EcsRegistry*        m_ecs_registry         = nullptr;
         ProfilerGpu*        m_profiler_gpu         = nullptr;
         GameManager*        m_game_manager         = nullptr;
-        EngineConfig*       m_engine_config        = nullptr;
         EngineSignals*      m_engine_signals       = nullptr;
+        EngineCfg*          m_engine_cfg           = nullptr;
         IocContainer*       m_ioc_container        = nullptr;
 
         bool m_exit_on_close = true;

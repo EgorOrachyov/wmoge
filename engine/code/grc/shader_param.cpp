@@ -68,8 +68,7 @@ namespace wmoge {
     Status ShaderParam::set_var(const Mat4x4f& v) { WG_GRC_SET_VAR_BUFF; }
     Status ShaderParam::set_var(const Ref<GfxTexture>& v) { WG_GRC_SET_VAR_BIND; }
     Status ShaderParam::set_var(const Ref<GfxSampler>& v) { WG_GRC_SET_VAR_BIND; }
-    Status ShaderParam::set_var(const Ref<GfxUniformBuffer>& v) { WG_GRC_SET_VAR_BIND; }
-    Status ShaderParam::set_var(const Ref<GfxStorageBuffer>& v) { WG_GRC_SET_VAR_BIND; }
+    Status ShaderParam::set_var(const Ref<GfxBuffer>& v) { WG_GRC_SET_VAR_BIND; }
 
     Status ShaderParam::get_var(int& v) { WG_GRC_GET_VAR_BUFF; }
     Status ShaderParam::get_var(float& v) { WG_GRC_GET_VAR_BUFF; }
@@ -82,7 +81,6 @@ namespace wmoge {
     Status ShaderParam::get_var(Mat4x4f& v) { WG_GRC_GET_VAR_BUFF; }
     Status ShaderParam::get_var(Ref<GfxTexture>& v) { WG_GRC_GET_VAR_BIND; }
     Status ShaderParam::get_var(Ref<GfxSampler>& v) { WG_GRC_GET_VAR_BIND; }
-    Status ShaderParam::get_var(Ref<GfxUniformBuffer>& v) { WG_GRC_GET_VAR_BIND; }
-    Status ShaderParam::get_var(Ref<GfxStorageBuffer>& v) { WG_GRC_GET_VAR_BIND; }
+    Status ShaderParam::get_var(Ref<GfxBuffer>& v) { WG_GRC_GET_VAR_BIND; }
 
 }// namespace wmoge

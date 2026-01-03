@@ -25,65 +25,65 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "config.hpp"
+#include "cfg_storage.hpp"
 
 #include "core/ioc_container.hpp"
 #include "platform/file_system.hpp"
 
 namespace wmoge {
 
-    Config::Config(IocContainer* ioc) {
+    CfgStorage::CfgStorage(IocContainer* ioc) {
         m_file_system = ioc->resolve_value<FileSystem>();
     }
 
-    Status Config::load(const std::string& path, ConfigStackMode mode) {
-        ConfigFile config;
+    Status CfgStorage::load(const std::string& path, ConfigStackMode mode) {
+        CfgFile config;
         WG_CHECKED(config.load_from_file(m_file_system, path));
         WG_CHECKED(m_file->stack(config, mode));
         return WG_OK;
     }
 
-    Status Config::set_bool(const Strid& key, const bool& value, bool overwrite) {
+    Status CfgStorage::set_bool(const Strid& key, const bool& value, bool overwrite) {
         return m_file->set_bool(key, value, overwrite);
     }
 
-    Status Config::set_int(const Strid& key, const int& value, bool overwrite) {
+    Status CfgStorage::set_int(const Strid& key, const int& value, bool overwrite) {
         return m_file->set_int(key, value, overwrite);
     }
 
-    Status Config::set_float(const Strid& key, const float& value, bool overwrite) {
+    Status CfgStorage::set_float(const Strid& key, const float& value, bool overwrite) {
         return m_file->set_float(key, value, overwrite);
     }
 
-    Status Config::set_string(const Strid& key, const std::string& value, bool overwrite) {
+    Status CfgStorage::set_string(const Strid& key, const std::string& value, bool overwrite) {
         return m_file->set_string(key, value, overwrite);
     }
 
-    Status Config::get_bool(const Strid& key, bool& value) const {
+    Status CfgStorage::get_bool(const Strid& key, bool& value) const {
         return m_file->get_bool(key, value);
     }
 
-    Status Config::get_int(const Strid& key, int& value) const {
+    Status CfgStorage::get_int(const Strid& key, int& value) const {
         return m_file->get_int(key, value);
     }
 
-    Status Config::get_float(const Strid& key, float& value) const {
+    Status CfgStorage::get_float(const Strid& key, float& value) const {
         return m_file->get_float(key, value);
     }
 
-    Status Config::get_string(const Strid& key, std::string& value) const {
+    Status CfgStorage::get_string(const Strid& key, std::string& value) const {
         return m_file->get_string(key, value);
     }
 
-    Status Config::get_color4f(const Strid& key, Color4f& value) const {
+    Status CfgStorage::get_color4f(const Strid& key, Color4f& value) const {
         return m_file->get_color4f(key, value);
     }
 
-    Status Config::try_get_value_of(const Strid& key, VarType type, Var& value) {
+    Status CfgStorage::try_get_value_of(const Strid& key, VarType type, Var& value) {
         Var* p_var = nullptr;
         m_file->get_value(key, p_var);
         if (!p_var) {
-            return WG_OK;
+            return StatusCode::NoValue;
         }
         if (type == VarType::Bool) {
             value = (bool) *p_var;
@@ -99,23 +99,23 @@ namespace wmoge {
         return WG_OK;
     }
 
-    bool Config::get_bool_or_default(const Strid& key, bool def_value) const {
+    bool CfgStorage::get_bool_or_default(const Strid& key, bool def_value) const {
         return m_file->get_bool_or_default(key, def_value);
     }
 
-    int Config::get_int_or_default(const Strid& key, int def_value) const {
+    int CfgStorage::get_int_or_default(const Strid& key, int def_value) const {
         return m_file->get_int_or_default(key, def_value);
     }
 
-    float Config::get_float_or_default(const Strid& key, float def_value) const {
+    float CfgStorage::get_float_or_default(const Strid& key, float def_value) const {
         return m_file->get_float_or_default(key, def_value);
     }
 
-    std::string Config::get_string_or_default(const Strid& key, std::string def_value) const {
+    std::string CfgStorage::get_string_or_default(const Strid& key, std::string def_value) const {
         return m_file->get_string_or_default(key, def_value);
     }
 
-    Color4f Config::get_color4f_or_default(const Strid& key, Color4f def_value) const {
+    Color4f CfgStorage::get_color4f_or_default(const Strid& key, Color4f def_value) const {
         return m_file->get_color4f_or_default(key, def_value);
     }
 

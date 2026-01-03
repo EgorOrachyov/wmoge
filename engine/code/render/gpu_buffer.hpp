@@ -59,44 +59,44 @@ namespace wmoge {
 
     /** @brief Policy to allocate vertex buffer */
     struct GpuMemVert {
-        using BufferType = GfxVertBuffer;
+        using BufferType = GfxBuffer;
 
         void make(GfxDriver* driver, int size, GfxMemUsage mem_usage, const Strid& name) {
             buffer = driver->make_vert_buffer(size, mem_usage, name);
         }
         void update(GfxCmdList* cmd_list, const array_view<const std::uint8_t>& data) {
-            cmd_list->update_vert_buffer(buffer, 0, static_cast<int>(data.size()), data);
+            cmd_list->update_buffer(buffer, 0, static_cast<int>(data.size()), data);
         }
 
-        GfxVertBufferRef buffer;
+        GfxBufferRef buffer;
     };
 
     /** @brief Policy to allocate index buffer */
     struct GpuMemIndex {
-        using BufferType = GfxIndexBuffer;
+        using BufferType = GfxBuffer;
 
         void make(GfxDriver* driver, int size, GfxMemUsage mem_usage, const Strid& name) {
             buffer = driver->make_index_buffer(size, mem_usage, name);
         }
         void update(GfxCmdList* cmd_list, const array_view<const std::uint8_t>& data) {
-            cmd_list->update_index_buffer(buffer, 0, static_cast<int>(data.size()), data);
+            cmd_list->update_buffer(buffer, 0, static_cast<int>(data.size()), data);
         }
 
-        GfxIndexBufferRef buffer;
+        GfxBufferRef buffer;
     };
 
     /** @brief Policy to allocate storage buffer */
     struct GpuMemStorage {
-        using BufferType = GfxStorageBuffer;
+        using BufferType = GfxBuffer;
 
         void make(GfxDriver* driver, int size, GfxMemUsage mem_usage, const Strid& name) {
             buffer = driver->make_storage_buffer(size, mem_usage, name);
         }
         void update(GfxCmdList* cmd_list, const array_view<const std::uint8_t>& data) {
-            cmd_list->update_storage_buffer(buffer, 0, static_cast<int>(data.size()), data);
+            cmd_list->update_buffer(buffer, 0, static_cast<int>(data.size()), data);
         }
 
-        GfxStorageBufferRef buffer;
+        GfxBufferRef buffer;
     };
 
     /** @brief Policy for host-cached vertex buffer */

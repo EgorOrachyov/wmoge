@@ -37,7 +37,7 @@
 #include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
-#include "io/config_manager.hpp"
+#include "io/cfg_val_manager.hpp"
 #include "io/enum.hpp"
 #include "math/math_utils.hpp"
 #include "platform/file_system.hpp"
@@ -59,7 +59,7 @@ namespace wmoge {
                                  TextureManager* texture_manager,
                                  ShaderLibrary*  shader_library,
                                  PsoCache*       pso_cache,
-                                 CfgManager*     cfg_manager) {
+                                 CfgValManager*  cfg_manager) {
         WG_PROFILE_CPU_GRC("ShaderManager::ShaderManager");
 
         m_task_manager    = task_manager;

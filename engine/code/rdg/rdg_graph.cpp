@@ -112,7 +112,7 @@ namespace wmoge {
         return resource.get();
     }
 
-    RdgStorageBuffer* RdgGraph::import_storage_buffer(const GfxStorageBufferRef& buffer) {
+    RdgStorageBuffer* RdgGraph::import_storage_buffer(const GfxBufferRef& buffer) {
         if (RdgStorageBuffer* r = find_storage_buffer(buffer)) {
             return r;
         }
@@ -121,7 +121,7 @@ namespace wmoge {
         return resource.get();
     }
 
-    RdgStorageBuffer* RdgGraph::find_storage_buffer(const GfxStorageBufferRef& buffer) {
+    RdgStorageBuffer* RdgGraph::find_storage_buffer(const GfxBufferRef& buffer) {
         auto q = m_resources_imported.find(buffer.get());
         if (q != m_resources_imported.end()) {
             return dynamic_cast<RdgStorageBuffer*>(q->second);
@@ -129,7 +129,7 @@ namespace wmoge {
         return nullptr;
     }
 
-    RdgVertBuffer* RdgGraph::import_vert_buffer(const GfxVertBufferRef& buffer) {
+    RdgVertBuffer* RdgGraph::import_vert_buffer(const GfxBufferRef& buffer) {
         if (RdgVertBuffer* r = find_vert_buffer(buffer)) {
             return r;
         }
@@ -138,7 +138,7 @@ namespace wmoge {
         return resource.get();
     }
 
-    RdgVertBuffer* RdgGraph::find_vert_buffer(const GfxVertBufferRef& buffer) {
+    RdgVertBuffer* RdgGraph::find_vert_buffer(const GfxBufferRef& buffer) {
         auto q = m_resources_imported.find(buffer.get());
         if (q != m_resources_imported.end()) {
             return dynamic_cast<RdgVertBuffer*>(q->second);
@@ -146,7 +146,7 @@ namespace wmoge {
         return nullptr;
     }
 
-    RdgIndexBuffer* RdgGraph::import_index_buffer(const GfxIndexBufferRef& buffer) {
+    RdgIndexBuffer* RdgGraph::import_index_buffer(const GfxBufferRef& buffer) {
         if (RdgIndexBuffer* r = find_index_buffer(buffer)) {
             return r;
         }
@@ -155,7 +155,7 @@ namespace wmoge {
         return resource.get();
     }
 
-    RdgIndexBuffer* RdgGraph::find_index_buffer(const GfxIndexBufferRef& buffer) {
+    RdgIndexBuffer* RdgGraph::find_index_buffer(const GfxBufferRef& buffer) {
         auto q = m_resources_imported.find(buffer.get());
         if (q != m_resources_imported.end()) {
             return dynamic_cast<RdgIndexBuffer*>(q->second);

@@ -103,10 +103,7 @@ namespace wmoge {
                        class RdgGraph*      graph,
                        const class RdgPass& pass);
 
-        Status update_vert_buffer(GfxVertBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
-        Status update_index_buffer(GfxIndexBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
-        Status update_uniform_buffer(GfxUniformBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
-        Status update_storage_buffer(GfxStorageBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
+        Status update_buffer(GfxBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
 
         Status validate_param_block(ShaderParamBlock* param_block);
 
@@ -117,8 +114,8 @@ namespace wmoge {
         Status bind_pso_compute(Shader* shader, const ShaderPermutation& permutation);
         Status bind_pso_compute(Shader* shader, Strid technique, Strid pass, const buffered_vector<ShaderOptionVariant>& options);
         Status viewport(const Rect2i& viewport);
-        Status bind_vert_buffer(GfxVertBuffer* buffer, int index = 0, int offset = 0);
-        Status bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0);
+        Status bind_vert_buffer(GfxBuffer* buffer, int index = 0, int offset = 0);
+        Status bind_index_buffer(const Ref<GfxBuffer>& buffer, GfxIndexType index_type, int offset = 0);
         Status draw(int vertex_count, int base_vertex, int instance_count);
         Status draw_indexed(int index_count, int base_vertex, int instance_count);
         Status dispatch(Vec3i group_count);

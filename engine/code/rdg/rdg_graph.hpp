@@ -69,12 +69,12 @@ namespace wmoge {
         RdgTexture*       import_texture(const GfxTextureRef& texture);
         RdgTexture*       find_texture(const GfxTextureRef& texture);
         RdgStorageBuffer* create_storage_buffer(const GfxBufferDesc& desc, Strid name);
-        RdgStorageBuffer* import_storage_buffer(const GfxStorageBufferRef& buffer);
-        RdgStorageBuffer* find_storage_buffer(const GfxStorageBufferRef& buffer);
-        RdgVertBuffer*    import_vert_buffer(const GfxVertBufferRef& buffer);
-        RdgVertBuffer*    find_vert_buffer(const GfxVertBufferRef& buffer);
-        RdgIndexBuffer*   import_index_buffer(const GfxIndexBufferRef& buffer);
-        RdgIndexBuffer*   find_index_buffer(const GfxIndexBufferRef& buffer);
+        RdgStorageBuffer* import_storage_buffer(const GfxBufferRef& buffer);
+        RdgStorageBuffer* find_storage_buffer(const GfxBufferRef& buffer);
+        RdgVertBuffer*    import_vert_buffer(const GfxBufferRef& buffer);
+        RdgVertBuffer*    find_vert_buffer(const GfxBufferRef& buffer);
+        RdgIndexBuffer*   import_index_buffer(const GfxBufferRef& buffer);
+        RdgIndexBuffer*   find_index_buffer(const GfxBufferRef& buffer);
         RdgParamBlock*    create_param_block(const std::function<RdgParamBlockRef(RdgResourceId)>& factory);
 
         Ref<Data>             make_upload_data(array_view<const std::uint8_t> buffer);

@@ -47,12 +47,12 @@ namespace wmoge {
         if (!(this_cmd.call_params == other_cmd.call_params)) {
             return false;
         }
-        if (!(this_cmd.vert_buffers == other_cmd.vert_buffers)) {
-            return false;
-        }
-        if (!(this_cmd.index_setup == other_cmd.index_setup)) {
-            return false;
-        }
+        //if (!(this_cmd.vert_buffers == other_cmd.vert_buffers)) {
+        //    return false;
+        //}
+        //if (!(this_cmd.index_setup == other_cmd.index_setup)) {
+        //    return false;
+        //}
         for (int i = 0; i < RenderCmd::NUM_DESC_SETS; i++) {
             if (this_cmd.desc_sets[i] != other_cmd.desc_sets[i]) {
                 return false;
@@ -76,13 +76,13 @@ namespace wmoge {
         }
 
         for (int i = 0; i < GfxLimits::MAX_VERT_BUFFERS; i++) {
-            hash ^= Crc32Util::hash(&cmd.vert_buffers.buffers[i], sizeof(GfxVertBuffer*));
-            hash ^= Crc32Util::hash(&cmd.vert_buffers.offsets[i], sizeof(int));
+            //hash ^= Crc32Util::hash(&cmd.vert_buffers.buffers[i], sizeof(GfxBuffer*));
+            //hash ^= Crc32Util::hash(&cmd.vert_buffers.offsets[i], sizeof(int));
         }
 
-        hash ^= Crc32Util::hash(&cmd.index_setup.buffer, sizeof(GfxIndexBuffer*));
-        hash ^= Crc32Util::hash(&cmd.index_setup.offset, sizeof(int));
-        hash ^= Crc32Util::hash(&cmd.index_setup.index_type, sizeof(GfxIndexType));
+        //hash ^= Crc32Util::hash(&cmd.index_setup.buffer, sizeof(GfxBuffer*));
+        //hash ^= Crc32Util::hash(&cmd.index_setup.offset, sizeof(int));
+        //hash ^= Crc32Util::hash(&cmd.index_setup.index_type, sizeof(GfxIndexType));
 
         hash ^= Crc32Util::hash(&cmd.call_params.base, sizeof(int));
         hash ^= Crc32Util::hash(&cmd.call_params.count, sizeof(int));
@@ -154,7 +154,7 @@ namespace wmoge {
 
         std::vector<SortableRenderCmd>& cmds                  = queue.get_queue();
         GpuVertBuffer<int>&             primitives_ids        = m_scene->get_objects_ids();
-        GfxVertBuffer*                  primitives_ids_buffer = primitives_ids.get_buffer().get();
+        GfxBuffer*                      primitives_ids_buffer = primitives_ids.get_buffer().get();
 
         const std::size_t primitives_ids_capacity = primitives_ids.size();
 
@@ -183,11 +183,11 @@ namespace wmoge {
                 }
 
                 // Create new cmd and fill in
-                RenderCmd* cmd                                   = m_cmd_allocator->allocate();
-                *cmd                                             = *cmds[idx_first].cmd;
-                cmd->vert_buffers.buffers[cmd->primitive_buffer] = primitives_ids_buffer;
-                cmd->vert_buffers.offsets[cmd->primitive_buffer] = int(id_offset * sizeof(int));
-                cmd->call_params.instances                       = num_merged;
+                RenderCmd* cmd = m_cmd_allocator->allocate();
+                *cmd           = *cmds[idx_first].cmd;
+                //cmd->vert_buffers.buffers[cmd->primitive_buffer] = primitives_ids_buffer;
+                //cmd->vert_buffers.offsets[cmd->primitive_buffer] = int(id_offset * sizeof(int));
+                cmd->call_params.instances = num_merged;
 
                 SortableRenderCmd new_cmd;
                 new_cmd.cmd = cmd;
@@ -202,9 +202,9 @@ namespace wmoge {
                 cmds[idx_write] = cmds[idx_read];
 
                 // Copy existing cmd and slightly modify
-                RenderCmd* cmd                                   = cmds[idx_write].cmd;
-                cmd->vert_buffers.buffers[cmd->primitive_buffer] = primitives_ids_buffer;
-                cmd->vert_buffers.offsets[cmd->primitive_buffer] = int(id_offset * sizeof(int));
+                RenderCmd* cmd = cmds[idx_write].cmd;
+                //cmd->vert_buffers.buffers[cmd->primitive_buffer] = primitives_ids_buffer;
+                //cmd->vert_buffers.offsets[cmd->primitive_buffer] = int(id_offset * sizeof(int));
             }
 
             idx_read += 1;

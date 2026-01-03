@@ -36,7 +36,6 @@
 #include "gfx/gfx_texture.hpp"
 #include "grc/image.hpp"
 #include "grc/texture.hpp"
-#include "io/serialization.hpp"
 #include "math/vec.hpp"
 
 #include <vector>

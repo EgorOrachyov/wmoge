@@ -60,7 +60,7 @@ namespace wmoge {
         static constexpr int QUEUE_COUNT = MESH_PASSES_TOTAL;
 
         std::array<RenderQueue, QUEUE_COUNT> queues;
-        Ref<GfxUniformBuffer>                view_data;
+        Ref<GfxBuffer>                       view_data;
         Ref<GfxDescSet>                      view_set;
         int                                  index = 0;
     };

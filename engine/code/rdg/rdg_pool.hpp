@@ -48,10 +48,10 @@ namespace wmoge {
         void                set_frames_before_gc(int frames);
         GfxTextureRef       allocate_texture(const GfxTextureDesc& desc);
         void                release_texture(const GfxTextureRef& texture);
-        GfxUniformBufferRef allocate_uniform_buffer(const GfxBufferDesc& desc);
-        void                release_uniform_buffer(const GfxUniformBufferRef& buffer);
-        GfxStorageBufferRef allocate_storage_buffer(const GfxBufferDesc& desc);
-        void                release_storage_buffer(const GfxStorageBufferRef& buffer);
+        GfxBufferRef        allocate_uniform_buffer(const GfxBufferDesc& desc);
+        void                release_uniform_buffer(const GfxBufferRef& buffer);
+        GfxBufferRef        allocate_storage_buffer(const GfxBufferDesc& desc);
+        void                release_storage_buffer(const GfxBufferRef& buffer);
         ShaderParamBlockRef allocate_param_block(const ShaderParamBlockDesc& desc);
         void                release_param_block(const ShaderParamBlockRef& param_block);
 
@@ -64,8 +64,8 @@ namespace wmoge {
         };
 
         using PoolTexture          = PoolEntry<GfxTexture>;
-        using PoolUniformBuffer    = PoolEntry<GfxUniformBuffer>;
-        using PoolStorageBuffer    = PoolEntry<GfxStorageBuffer>;
+        using PoolUniformBuffer    = PoolEntry<GfxBuffer>;
+        using PoolStorageBuffer    = PoolEntry<GfxBuffer>;
         using PoolShaderParamBlock = PoolEntry<ShaderParamBlock>;
 
         std::vector<PoolTexture>          m_texture_pool;

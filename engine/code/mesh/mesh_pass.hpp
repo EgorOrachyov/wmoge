@@ -59,8 +59,8 @@ namespace wmoge {
      * @brief Compiled state required to draw a mesh subset into a particular pass
     */
     struct MeshPass {
-        GfxVertBuffersSetup vert_setup;
-        GfxIndexBufferSetup index_setup;
+        // GfxVertBuffersSetup vert_setup;
+        // GfxIndexBufferSetup index_setup;
         Ref<GfxVertFormat>  format;
         Ref<GfxPsoGraphics> pipeline;
         MeshPassType        pass_type = MeshPassType::Total;

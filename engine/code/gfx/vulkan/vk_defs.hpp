@@ -207,6 +207,8 @@ namespace wmoge {
 
         static bool can_memory_map(GfxMemUsage usage) {
             switch (usage) {
+                case GfxMemUsage::CpuCopyGpu:
+                    return true;
                 case GfxMemUsage::CpuVisibleGpu:
                     return true;
                 case GfxMemUsage::GpuVisibleCpu:
@@ -222,6 +224,8 @@ namespace wmoge {
 
         static VkMemoryPropertyFlags get_memory_properties(GfxMemUsage usage) {
             switch (usage) {
+                case GfxMemUsage::CpuCopyGpu:
+                    return VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT;
                 case GfxMemUsage::CpuVisibleGpu:
                     return VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
                            VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
@@ -240,6 +244,8 @@ namespace wmoge {
 
         static VmaMemoryUsage get_memory_usage(GfxMemUsage usage) {
             switch (usage) {
+                case GfxMemUsage::CpuCopyGpu:
+                    return VMA_MEMORY_USAGE_AUTO_PREFER_HOST;
                 case GfxMemUsage::CpuVisibleGpu:
                     return VMA_MEMORY_USAGE_AUTO_PREFER_HOST;
                 case GfxMemUsage::GpuVisibleCpu:
@@ -255,18 +261,37 @@ namespace wmoge {
 
         static VmaAllocationCreateFlags get_allocation_flags(GfxMemUsage usage) {
             switch (usage) {
+                case GfxMemUsage::CpuCopyGpu:
+                    return VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT;
                 case GfxMemUsage::CpuVisibleGpu:
-                    return VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT |
-                           VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT;
+                    return VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT;
                 case GfxMemUsage::GpuVisibleCpu:
-                    return VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT |
-                           VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT;
+                    return VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT;
                 case GfxMemUsage::GpuLocal:
                     return 0;
                 case GfxMemUsage::GpuDedicated:
                     return VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT;
                 default:
                     return 0;
+            }
+        }
+
+        static VkBufferUsageFlags get_buffer_usage(GfxBufferType type) {
+            switch (type) {
+                case GfxBufferType::Vertex:
+                    return VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+                case GfxBufferType::Index:
+                    return VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+                case GfxBufferType::Uniform:
+                    return VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+                case GfxBufferType::Storage:
+                    return VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+                case GfxBufferType::Staging:
+                    return VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
+
+                default:
+                    WG_LOG_ERROR("unsupported GfxBufferType");
+                    return VK_BUFFER_USAGE_FLAG_BITS_MAX_ENUM;
             }
         }
 

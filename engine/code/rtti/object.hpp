@@ -28,7 +28,6 @@
 #pragma once
 
 #include "core/ref.hpp"
-#include "io/serialization.hpp"
 #include "rtti/class.hpp"
 
 namespace wmoge {

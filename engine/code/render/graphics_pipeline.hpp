@@ -124,8 +124,8 @@ namespace wmoge {
         std::vector<Ref<GfxTexture>> bloom_downsample;//< [full] [half] ... Bloom downsample sample chain
         std::vector<Ref<GfxTexture>> bloom_upsample;  //< [full] [half] ... Bloom upsample sample chain
 
-        Ref<GfxStorageBuffer> lum_histogram;//< Luminance histogram of the hdr color buffer
-        Ref<GfxStorageBuffer> lum_luminance;//< Luminance avg and exposure correction
+        Ref<GfxBuffer> lum_histogram;//< Luminance histogram of the hdr color buffer
+        Ref<GfxBuffer> lum_luminance;//< Luminance avg and exposure correction
     };
 
     /**

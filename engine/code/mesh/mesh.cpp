@@ -46,10 +46,10 @@ namespace wmoge {
     void Mesh::set_mesh_callback(CallbackRef callback) {
         m_callback = std::move(callback);
     }
-    void Mesh::set_gfx_vertex_buffers(std::vector<Ref<GfxVertBuffer>> gfx_vertex_buffers) {
+    void Mesh::set_gfx_vertex_buffers(std::vector<Ref<GfxBuffer>> gfx_vertex_buffers) {
         m_gfx_vertex_buffers = std::move(gfx_vertex_buffers);
     }
-    void Mesh::set_gfx_index_buffers(std::vector<Ref<GfxIndexBuffer>> gfx_index_buffers) {
+    void Mesh::set_gfx_index_buffers(std::vector<Ref<GfxBuffer>> gfx_index_buffers) {
         m_gfx_index_buffers = std::move(gfx_index_buffers);
     }
 
@@ -58,37 +58,15 @@ namespace wmoge {
         m_gfx_index_buffers.clear();
     }
 
-    GfxVertBuffersSetup Mesh::get_vert_buffers_setup(int chunk_id) const {
-        GfxVertBuffersSetup setup;
-        const MeshChunk&    chunk = get_chunk(chunk_id);
-        for (int i = 0; i < chunk.vert_stream_count; i++) {
-            const MeshVertStream& stream = m_desc.vert_streams[chunk.vert_stream_offset + i];
-            setup.buffers[i]             = m_gfx_vertex_buffers[stream.buffer].get();
-            setup.offsets[i]             = stream.offset;
-        }
-        return setup;
-    }
-    GfxIndexBufferSetup Mesh::get_index_buffer_setup(int chunk_id) const {
-        GfxIndexBufferSetup setup;
-        const MeshChunk&    chunk = get_chunk(chunk_id);
-        if (chunk.index_stream != -1) {
-            const MeshIndexStream& stream = m_desc.index_streams[chunk.index_stream];
-            setup.buffer                  = m_gfx_index_buffers[stream.buffer].get();
-            setup.offset                  = stream.offset;
-            setup.index_type              = stream.index_type;
-        }
-        return setup;
-    }
-
     const MeshChunk& Mesh::get_chunk(int i) const {
         assert(i < m_desc.chunks.size());
         return m_desc.chunks[i];
     }
-    const Ref<GfxVertBuffer>& Mesh::get_gfx_vertex_buffer(int i) const {
+    const Ref<GfxBuffer>& Mesh::get_gfx_vertex_buffer(int i) const {
         assert(i < m_gfx_vertex_buffers.size());
         return m_gfx_vertex_buffers[i];
     }
-    const Ref<GfxIndexBuffer>& Mesh::get_gfx_index_buffer(int i) const {
+    const Ref<GfxBuffer>& Mesh::get_gfx_index_buffer(int i) const {
         assert(i < m_gfx_vertex_buffers.size());
         return m_gfx_index_buffers[i];
     }

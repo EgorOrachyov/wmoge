@@ -182,7 +182,7 @@ namespace wmoge {
         buffered_vector<Vec4f, INLINE_STACK_SIZE>   m_clip_rect_stack;//< Context stack
         buffered_vector<Mat3x3f, INLINE_STACK_SIZE> m_transform_stack;//< Context stack
         GpuStorageBuffer<GpuCanvasDrawCmdData>      m_gpu_cmd_buffer; //< Packed cmd data for gpu
-        Ref<GfxUniformBuffer>                       m_params;         //< Cached ubo to fill with const params
+        Ref<GfxBuffer>                              m_params;         //< Cached ubo to fill with const params
         Ref<GfxDescSet>                             m_params_set;     //< Cached ubo to fill with const params and draw cmds buffer
     };
 

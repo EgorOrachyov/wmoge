@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_COMPRESSION_HPP
-#define WMOGE_COMPRESSION_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/status.hpp"
@@ -75,5 +74,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_COMPRESSION_HPP

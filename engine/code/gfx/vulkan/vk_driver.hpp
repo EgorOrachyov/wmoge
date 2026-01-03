@@ -67,10 +67,12 @@ namespace wmoge {
 
         Ref<GfxQueryPool>     make_query_pool(const GfxQueryPoolDesc& desc, const Strid& name) override;
         Ref<GfxVertFormat>    make_vert_format(const GfxVertElements& elements, const Strid& name) override;
-        Ref<GfxVertBuffer>    make_vert_buffer(int size, GfxMemUsage usage, const Strid& name) override;
-        Ref<GfxIndexBuffer>   make_index_buffer(int size, GfxMemUsage usage, const Strid& name) override;
-        Ref<GfxUniformBuffer> make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name) override;
-        Ref<GfxStorageBuffer> make_storage_buffer(int size, GfxMemUsage usage, const Strid& name) override;
+        Ref<GfxBuffer>        make_buffer(const GfxBufferDesc& desc, const Strid& name) override;
+        Ref<GfxBuffer>        make_vert_buffer(int size, GfxMemUsage usage, const Strid& name) override;
+        Ref<GfxBuffer>        make_index_buffer(int size, GfxMemUsage usage, const Strid& name) override;
+        Ref<GfxBuffer>        make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name) override;
+        Ref<GfxBuffer>        make_storage_buffer(int size, GfxMemUsage usage, const Strid& name) override;
+        Ref<GfxBuffer>        make_staging_buffer(int size, const Strid& name = Strid()) override;
         Ref<GfxShader>        make_shader(GfxShaderDesc desc, const Strid& name) override;
         Ref<GfxShaderProgram> make_program(GfxShaderProgramDesc desc, const Strid& name) override;
         Ref<GfxTexture>       make_texture(const GfxTextureDesc& desc, const Strid& name) override;

@@ -129,7 +129,7 @@ namespace wmoge {
                 }
                 case GfxBindingType::UniformBuffer: {
                     VkDescriptorBufferInfo& buffer_info = buffer_infos[buffer_count++];
-                    buffer_info.buffer                  = value.resource.cast<VKUniformBuffer>()->buffer();
+                    buffer_info.buffer                  = value.resource.cast<VKBuffer>()->buffer();
                     buffer_info.offset                  = value.offset;
                     buffer_info.range                   = value.range;
                     write_info.pBufferInfo              = &buffer_info;
@@ -137,7 +137,7 @@ namespace wmoge {
                 }
                 case GfxBindingType::StorageBuffer: {
                     VkDescriptorBufferInfo& buffer_info = buffer_infos[buffer_count++];
-                    buffer_info.buffer                  = value.resource.cast<VKStorageBuffer>()->buffer();
+                    buffer_info.buffer                  = value.resource.cast<VKBuffer>()->buffer();
                     buffer_info.offset                  = value.offset;
                     buffer_info.range                   = value.range;
                     write_info.pBufferInfo              = &buffer_info;

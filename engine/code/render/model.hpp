@@ -30,7 +30,6 @@
 #include "asset/asset.hpp"
 #include "asset/asset_ref.hpp"
 #include "core/buffered_vector.hpp"
-#include "io/serialization.hpp"
 #include "material/material.hpp"
 #include "math/aabb.hpp"
 #include "mesh/mesh.hpp"

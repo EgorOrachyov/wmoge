@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ENUM_HPP
-#define WMOGE_ENUM_HPP
+#pragma once
 
 #include "core/string_id.hpp"
 
@@ -64,5 +63,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_ENUM_HPP

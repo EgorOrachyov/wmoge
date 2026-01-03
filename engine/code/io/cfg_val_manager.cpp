@@ -25,15 +25,15 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "config_manager.hpp"
+#include "cfg_val_manager.hpp"
 
 namespace wmoge {
 
-    CfgManager::CfgManager(InitValResolver resolver)
+    CfgValManager::CfgValManager(InitValResolver resolver)
         : m_init_val_resolver(std::move(resolver)) {
     }
 
-    void CfgManager::add_object(Ref<CfgValState> object) {
+    void CfgValManager::add_object(Ref<CfgValState> object) {
         if (has_object(object->name)) {
             WG_LOG_ERROR("duplicated object registration, skip " << object->name);
             return;
@@ -41,7 +41,7 @@ namespace wmoge {
         m_objects[object->name] = std::move(object);
     }
 
-    Ref<CfgValState> CfgManager::add_val(Strid name, std::string help, Var value) {
+    Ref<CfgValState> CfgValManager::add_val(Strid name, std::string help, Var value) {
         if (m_init_val_resolver) {
             Var new_value;
             if (!m_init_val_resolver(name, value.type(), new_value)) {
@@ -62,7 +62,7 @@ namespace wmoge {
         return state;
     }
 
-    Ref<CfgValState> CfgManager::add_trigger(Strid name, std::string help) {
+    Ref<CfgValState> CfgValManager::add_trigger(Strid name, std::string help) {
         auto state  = make_ref<CfgValState>();
         state->name = name;
         state->help = std::move(help);
@@ -70,7 +70,7 @@ namespace wmoge {
         return state;
     }
 
-    Ref<CfgValState> CfgManager::add_cmd(Strid name, std::string help, CfgOnCmdExecute on_execute) {
+    Ref<CfgValState> CfgValManager::add_cmd(Strid name, std::string help, CfgOnCmdExecute on_execute) {
         auto state        = make_ref<CfgValState>();
         state->name       = name;
         state->help       = std::move(help);
@@ -79,7 +79,7 @@ namespace wmoge {
         return state;
     }
 
-    Ref<CfgValState> CfgManager::add_list(Strid name, std::string help, int selected, std::vector<std::string> options) {
+    Ref<CfgValState> CfgValManager::add_list(Strid name, std::string help, int selected, std::vector<std::string> options) {
         auto state     = make_ref<CfgValState>();
         state->name    = name;
         state->help    = std::move(help);
@@ -89,7 +89,7 @@ namespace wmoge {
         return state;
     }
 
-    Status CfgManager::set_val(Strid name, Var value) {
+    Status CfgValManager::set_val(Strid name, Var value) {
         auto obj = try_find_object(name);
 
         if (!obj) {
@@ -107,7 +107,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status CfgManager::set_trigger(Strid name, bool value) {
+    Status CfgValManager::set_trigger(Strid name, bool value) {
         auto obj = try_find_object(name);
 
         if (!obj || obj->type != CfgValType::Trigger) {
@@ -124,7 +124,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status CfgManager::set_list(Strid name, int value) {
+    Status CfgValManager::set_list(Strid name, int value) {
         auto obj = try_find_object(name);
 
         if (!obj || obj->type != CfgValType::List) {
@@ -141,7 +141,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status CfgManager::exec_command(Strid name, array_view<std::string> args) {
+    Status CfgValManager::exec_command(Strid name, array_view<std::string> args) {
         auto obj = try_find_object(name);
 
         if (!obj || obj->type != CfgValType::Cmd) {
@@ -152,7 +152,7 @@ namespace wmoge {
         return obj->on_execute(args);
     }
 
-    Ref<CfgValState> CfgManager::try_find_object(Strid name) {
+    Ref<CfgValState> CfgValManager::try_find_object(Strid name) {
         auto query = m_objects.find(name);
         if (query == m_objects.end()) {
             return {};
@@ -160,19 +160,19 @@ namespace wmoge {
         return query->second;
     }
 
-    bool CfgManager::has_object(Strid name) {
+    bool CfgValManager::has_object(Strid name) {
         auto query = m_objects.find(name);
         return query != m_objects.end();
     }
 
-    void CfgManager::update() {
+    void CfgValManager::update() {
         for (const auto& trigger : m_triggered) {
             trigger->value = false;
         }
         m_triggered.clear();
     }
 
-    void CfgManager::dump_objects(std::vector<Ref<CfgValState>>& out_vals) {
+    void CfgValManager::dump_objects(std::vector<Ref<CfgValState>>& out_vals) {
         out_vals.clear();
         out_vals.reserve(m_objects.size());
 

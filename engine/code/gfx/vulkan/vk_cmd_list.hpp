@@ -58,29 +58,13 @@ namespace wmoge {
         VKCmdList(VkCommandBuffer cmd_buffer, GfxQueueType queue_type, class VKDriver& driver);
         ~VKCmdList() override;
 
-        void update_vert_buffer(GfxVertBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) override;
-        void update_index_buffer(GfxIndexBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) override;
-        void update_uniform_buffer(GfxUniformBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) override;
-        void update_storage_buffer(GfxStorageBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) override;
+        void update_buffer(GfxBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) override;
         void update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, array_view<const std::uint8_t> data) override;
         void update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, array_view<const std::uint8_t> data) override;
         void update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, array_view<const std::uint8_t> data) override;
 
-        void* map_vert_buffer(const Ref<GfxVertBuffer>& buffer) override;
-        void* map_index_buffer(const Ref<GfxIndexBuffer>& buffer) override;
-        void* map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) override;
-        void* map_storage_buffer(const Ref<GfxStorageBuffer>& buffer) override;
-
-        void unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer) override;
-        void unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer) override;
-        void unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) override;
-        void unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) override;
-
         void barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType src, GfxTexBarrierType dst) override;
-        void barrier_buffer(const Ref<GfxVertBuffer>& buffer) override;
-        void barrier_buffer(const Ref<GfxIndexBuffer>& buffer) override;
-        void barrier_buffer(const Ref<GfxUniformBuffer>& buffer) override;
-        void barrier_buffer(const Ref<GfxStorageBuffer>& buffer) override;
+        void barrier_buffer(const Ref<GfxBuffer>& buffer) override;
 
         void barrier_images(array_view<GfxTexture*> textures, GfxTexBarrierType src, GfxTexBarrierType dst) override;
         void barrier_buffers(array_view<GfxBuffer*> buffers) override;
@@ -91,8 +75,8 @@ namespace wmoge {
         void viewport(const Rect2i& viewport) override;
         void bind_pso(const Ref<GfxPsoGraphics>& pipeline) override;
         void bind_pso(const Ref<GfxPsoCompute>& pipeline) override;
-        void bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset = 0) override;
-        void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0) override;
+        void bind_vert_buffer(GfxBuffer* buffer, int index, int offset = 0) override;
+        void bind_index_buffer(const Ref<GfxBuffer>& buffer, GfxIndexType index_type, int offset = 0) override;
         void bind_desc_set(const Ref<GfxDescSet>& set, int index) override;
         void bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset = 0) override;
         void draw(int vertex_count, int base_vertex, int instance_count) override;
@@ -123,17 +107,17 @@ namespace wmoge {
         VkCommandBuffer m_cmd_buffer = VK_NULL_HANDLE;
         GfxQueueType    m_queue_type = GfxQueueType::None;
 
-        Ref<VKRenderPass>                                      m_current_pass;
-        Ref<VKFrameBuffer>                                     m_current_fbo;
-        Ref<VKWindow>                                          m_current_window;
-        Ref<VKPsoGraphics>                                     m_current_pso_graphics;
-        Ref<VKPsoCompute>                                      m_current_pso_compute;
-        Ref<VKPsoLayout>                                       m_current_pso_layout;
-        Ref<VKIndexBuffer>                                     m_current_index_buffer;
-        std::array<VKVertBuffer*, GfxLimits::MAX_VERT_BUFFERS> m_current_vert_buffers{};
-        std::array<int, GfxLimits::MAX_VERT_BUFFERS>           m_current_vert_buffers_offsets{};
-        std::array<VkDescriptorSet, GfxLimits::MAX_DESC_SETS>  m_desc_sets{};
-        Rect2i                                                 m_viewport;
+        Ref<VKRenderPass>                                     m_current_pass;
+        Ref<VKFrameBuffer>                                    m_current_fbo;
+        Ref<VKWindow>                                         m_current_window;
+        Ref<VKPsoGraphics>                                    m_current_pso_graphics;
+        Ref<VKPsoCompute>                                     m_current_pso_compute;
+        Ref<VKPsoLayout>                                      m_current_pso_layout;
+        Ref<VKBuffer>                                         m_current_index_buffer;
+        std::array<VKBuffer*, GfxLimits::MAX_VERT_BUFFERS>    m_current_vert_buffers{};
+        std::array<int, GfxLimits::MAX_VERT_BUFFERS>          m_current_vert_buffers_offsets{};
+        std::array<VkDescriptorSet, GfxLimits::MAX_DESC_SETS> m_desc_sets{};
+        Rect2i                                                m_viewport;
 
         buffered_vector<VkBufferMemoryBarrier, GfxLimits::NUM_INLINE_BARRIERS> m_barriers_buffer;
         buffered_vector<VkImageMemoryBarrier, GfxLimits::NUM_INLINE_BARRIERS>  m_barriers_image;

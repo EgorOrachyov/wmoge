@@ -32,8 +32,10 @@
 
 namespace wmoge {
 
-    namespace edt_hooks {
-        void editor(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
-    };// namespace edt_hooks
+    /** @brief Cmd line hooks for editor */
+    class EditorHooks {
+    public:
+        static void editor(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
+    };
 
 }// namespace wmoge

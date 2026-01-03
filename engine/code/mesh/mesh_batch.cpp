@@ -82,7 +82,7 @@ namespace wmoge {
                 Ref<GfxPsoGraphics> gfx_pso;
 
                 RenderCmd cmd;
-                cmd.index_setup        = batch.index_buffer;
+                //cmd.index_setup        = batch.index_buffer;
                 cmd.desc_sets[0]       = view.view_set.get();
                 cmd.desc_sets_slots[0] = 0;
                 // cmd.desc_sets[1]       = batch.material->get_desc_set().get();

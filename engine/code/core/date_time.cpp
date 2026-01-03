@@ -27,6 +27,9 @@
 
 #include "date_time.hpp"
 
+#include "io/stream.hpp"
+#include "io/tree.hpp"
+
 #include <ctime>
 #include <sstream>
 

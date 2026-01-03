@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MEM_POOL_HPP
-#define WMOGE_MEM_POOL_HPP
+#pragma once
 
 #include <mutex>
 #include <vector>
@@ -82,5 +81,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MEM_POOL_HPP

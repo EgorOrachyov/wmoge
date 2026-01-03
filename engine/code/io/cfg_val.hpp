@@ -31,6 +31,7 @@
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
+#include "io/enum.hpp"
 #include "rtti/traits.hpp"
 
 #include <functional>
@@ -147,6 +148,22 @@ namespace wmoge {
 
         [[nodiscard]] T get_value_of() const { return (T) get_value(); }
         [[nodiscard]] T get_default_value_of() const { return (T) get_defaul_value(); }
+
+        operator T() const { return get_value_of(); }
+    };
+
+    /**
+     * @class CfgValEnum
+     * @brief Typed wrapper for a config val for enums
+     */
+    template<typename T>
+    class CfgValEnum : public CfgValT<std::string> {
+    public:
+        CfgValEnum() = default;
+        CfgValEnum(Strid name, T val = T()) : CfgValT<std::string>(name, Var(Enum::to_str(val))) {}
+
+        [[nodiscard]] T get_value_of() const { return Enum::parse<T>((std::string) get_value()); }
+        [[nodiscard]] T get_default_value_of() const { return Enum::parse<T>((std::string) get_defaul_value()); }
 
         operator T() const { return get_value_of(); }
     };

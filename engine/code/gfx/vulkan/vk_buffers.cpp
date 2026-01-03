@@ -32,64 +32,42 @@
 
 namespace wmoge {
 
-    void VKBuffer::init(VkDeviceSize size, VkBufferUsageFlags flags, GfxMemUsage usage) {
-        auto queues = driver().queues();
+    VKBuffer::VKBuffer(const GfxBufferDesc& desc, const Strid& name, VKDriver& driver) : VKResource<GfxBuffer>(driver) {
+        m_name  = name;
+        m_size  = desc.size;
+        m_usage = desc.usage;
+        m_type  = desc.type;
+
+        auto queues = m_driver.queues();
+
+        VkBufferUsageFlags flags = 0;
 
         VkBufferCreateInfo buff_info{};
         buff_info.sType                 = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-        buff_info.size                  = size;
-        buff_info.usage                 = flags | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+        buff_info.size                  = m_size;
+        buff_info.usage                 = VKDefs::get_buffer_usage(m_type);
         buff_info.sharingMode           = queues->mode();
         buff_info.queueFamilyIndexCount = static_cast<uint32_t>(queues->unique_families().size());
         buff_info.pQueueFamilyIndices   = queues->unique_families().data();
 
-        m_size = size;
-        driver().mem_manager()->allocate(buff_info, usage, m_buffer, m_allocation);
+        m_driver.mem_manager()->allocate(buff_info, m_usage, m_buffer, m_allocation);
+        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, m_name);
     }
-    void VKBuffer::release() {
-        if (m_buffer) {
-            assert(m_staging_buffer == VK_NULL_HANDLE);
-            assert(m_staging_allocation == VK_NULL_HANDLE);
 
-            driver().mem_manager()->deallocate(m_buffer, m_allocation);
+    VKBuffer::~VKBuffer() {
+        if (m_buffer) {
+            m_driver.mem_manager()->deallocate(m_buffer, m_allocation);
             m_buffer     = VK_NULL_HANDLE;
             m_allocation = VK_NULL_HANDLE;
-            m_size       = 0;
         }
     }
-    void* VKBuffer::map() {
-        assert(m_staging_buffer == VK_NULL_HANDLE);
 
-        auto mem_man = driver().mem_manager();
-
-        // allocate staging buffer of required size, map it preserving buffer
-        mem_man->staging_allocate(m_size, m_staging_buffer, m_staging_allocation);
-        return mem_man->staging_map(m_staging_allocation);
-    }
-    void VKBuffer::unmap(VKCmdList* cmd) {
-        assert(m_staging_buffer != VK_NULL_HANDLE);
-
-        auto mem_man = driver().mem_manager();
-        mem_man->staging_unmap(m_staging_allocation);
-
-        // copy staging mapped buffer into our buffer
-        VkBufferCopy copy_region{};
-        copy_region.srcOffset = 0;
-        copy_region.dstOffset = 0;
-        copy_region.size      = m_size;
-
-        vkCmdCopyBuffer(cmd->get_handle(), m_staging_buffer, m_buffer, 1, &copy_region);
-        cmd->barrier(this);
-
-        m_staging_buffer     = VK_NULL_HANDLE;
-        m_staging_allocation = VK_NULL_HANDLE;
-    }
     void VKBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, array_view<const std::uint8_t> data) {
         assert(size > 0);
         assert(size <= data.size());
         assert(offset + size <= m_size);
 
-        auto mem_man = driver().mem_manager();
+        auto mem_man = m_driver.mem_manager();
 
         VkBuffer      staging_buffer;
         VmaAllocation staging_allocation;
@@ -107,58 +85,6 @@ namespace wmoge {
         copy_region.size      = size;
 
         vkCmdCopyBuffer(cmd, staging_buffer, m_buffer, 1, &copy_region);
-    }
-
-    VKVertBuffer::VKVertBuffer(VKDriver& driver) : VKResource<GfxVertBuffer>(driver) {
-    }
-    VKVertBuffer::~VKVertBuffer() {
-        release();
-    }
-    void VKVertBuffer::create(int size, GfxMemUsage usage, const Strid& name) {
-        GfxBuffer::m_size   = size;
-        GfxBuffer::m_usage  = usage;
-        GfxResource::m_name = name;
-        VKBuffer::init(size, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, name);
-    }
-
-    VKIndexBuffer::VKIndexBuffer(VKDriver& driver) : VKResource<GfxIndexBuffer>(driver) {
-    }
-    VKIndexBuffer::~VKIndexBuffer() {
-        release();
-    }
-    void VKIndexBuffer::create(int size, GfxMemUsage usage, const Strid& name) {
-        GfxBuffer::m_size   = size;
-        GfxBuffer::m_usage  = usage;
-        GfxResource::m_name = name;
-        VKBuffer::init(size, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, name);
-    }
-
-    VKUniformBuffer::VKUniformBuffer(VKDriver& driver) : VKResource<GfxUniformBuffer>(driver) {
-    }
-    VKUniformBuffer::~VKUniformBuffer() {
-        release();
-    }
-    void VKUniformBuffer::create(int size, GfxMemUsage usage, const Strid& name) {
-        GfxBuffer::m_size   = size;
-        GfxBuffer::m_usage  = usage;
-        GfxResource::m_name = name;
-        VKBuffer::init(size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, name);
-    }
-
-    VKStorageBuffer::VKStorageBuffer(VKDriver& driver) : VKResource<GfxStorageBuffer>(driver) {
-    }
-    VKStorageBuffer::~VKStorageBuffer() {
-        release();
-    }
-    void VKStorageBuffer::create(int size, GfxMemUsage usage, const Strid& name) {
-        GfxBuffer::m_size   = size;
-        GfxBuffer::m_usage  = usage;
-        GfxResource::m_name = name;
-        VKBuffer::init(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, name);
     }
 
 }// namespace wmoge

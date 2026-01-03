@@ -27,7 +27,6 @@
 
 #pragma once
 
-#include "io/serialization.hpp"
 #include "math/mat.hpp"
 #include "math/math_utils2d.hpp"
 #include "math/math_utils3d.hpp"

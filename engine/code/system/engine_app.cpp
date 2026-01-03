@@ -39,8 +39,8 @@
 #include "gfx/vulkan/vk_driver.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
 #include "io/async_file_system.hpp"
-#include "io/config.hpp"
-#include "io/config_manager.hpp"
+#include "io/cfg_storage.hpp"
+#include "io/cfg_val_manager.hpp"
 #include "io/enum.hpp"
 #include "mesh/mesh_manager.hpp"
 #include "platform/dll_manager.hpp"
@@ -57,7 +57,7 @@
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
 #include "system/engine.hpp"
-#include "system/engine_config.hpp"
+#include "system/engine_cfg.hpp"
 #include "system/engine_signals.hpp"
 #include "system/plugin_manager.hpp"
 #include "ui/ui_manager.hpp"
@@ -91,10 +91,10 @@ namespace wmoge {
         ioc->bind<EcsRegistry>();
         ioc->bind<ViewManager>();
         ioc->bind<ShaderTable>();
-        ioc->bind<EngineConfig>();
+        ioc->bind<EngineCfg>();
         ioc->bind_by_ioc<DllManager>();
         ioc->bind_by_ioc<ProfilerCapture>();
-        ioc->bind_by_ioc<Config>();
+        ioc->bind_by_ioc<CfgStorage>();
         ioc->bind_by_ioc<GlslShaderCompiler>();
         ioc->bind_by_ioc<MeshManager>();
         ioc->bind_by_ioc<RenderEngine>();
@@ -102,9 +102,9 @@ namespace wmoge {
         bind_by_ioc_game_manager(ioc);
         ioc->bind_by_ioc<Engine>();
 
-        ioc->bind_by_factory<CfgManager>([ioc]() {
-            Config* config = ioc->resolve_value<Config>();
-            return std::make_shared<CfgManager>([config](Strid name, VarType type, Var& value) {
+        ioc->bind_by_factory<CfgValManager>([ioc]() {
+            CfgStorage* config = ioc->resolve_value<CfgStorage>();
+            return std::make_shared<CfgValManager>([config](Strid name, VarType type, Var& value) {
                 return config->try_get_value_of(name, type, value);
             });
         });
@@ -176,7 +176,7 @@ namespace wmoge {
         ioc->unbind<IoAsyncFileSystem>();
         ioc->unbind<PluginManager>();
         ioc->unbind<DllManager>();
-        ioc->unbind<CfgManager>();
+        ioc->unbind<CfgValManager>();
 
         unbind_asset(ioc);
 

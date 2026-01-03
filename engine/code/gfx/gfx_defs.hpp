@@ -145,8 +145,19 @@ namespace wmoge {
         Uint16
     };
 
+    /** @brief Type of elements in index buffer */
+    enum class GfxBufferType : int {
+        Vertex,
+        Index,
+        Uniform,
+        Storage,
+        Staging
+    };
+
     /** @brief Gfx memory usage */
     enum class GfxMemUsage : int {
+        /** Cpu resident buffer (slow), copy buffer */
+        CpuCopyGpu,
         /** Cpu resident buffer (slow), which can be used on GPU as well */
         CpuVisibleGpu,
         /** Gpu resident buffer (good), which can be mapped on CPU for frequent updates */

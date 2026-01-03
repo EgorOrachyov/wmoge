@@ -135,33 +135,31 @@ namespace wmoge {
         Mesh(MeshDesc&& desc);
 
         void set_mesh_callback(CallbackRef callback);
-        void set_gfx_vertex_buffers(std::vector<Ref<GfxVertBuffer>> gfx_vertex_buffers);
-        void set_gfx_index_buffers(std::vector<Ref<GfxIndexBuffer>> gfx_index_buffers);
+        void set_gfx_vertex_buffers(std::vector<Ref<GfxBuffer>> gfx_vertex_buffers);
+        void set_gfx_index_buffers(std::vector<Ref<GfxBuffer>> gfx_index_buffers);
         void release_gfx_buffers();
 
-        [[nodiscard]] GfxVertBuffersSetup                   get_vert_buffers_setup(int chunk_id) const;
-        [[nodiscard]] GfxIndexBufferSetup                   get_index_buffer_setup(int chunk_id) const;
-        [[nodiscard]] array_view<const MeshChunk>           get_chunks() const { return m_desc.chunks; }
-        [[nodiscard]] array_view<const Ref<MeshArray>>      get_array_meshes() const { return m_desc.array_meshes; }
-        [[nodiscard]] array_view<const Ref<Data>>           get_vertex_buffers() const { return m_desc.vertex_buffers; }
-        [[nodiscard]] array_view<const Ref<Data>>           get_index_buffers() const { return m_desc.index_buffers; }
-        [[nodiscard]] array_view<const Ref<GfxVertBuffer>>  get_gfx_vertex_buffers() const { return m_gfx_vertex_buffers; }
-        [[nodiscard]] array_view<const Ref<GfxIndexBuffer>> get_gfx_index_buffers() const { return m_gfx_index_buffers; }
-        [[nodiscard]] const std::string&                    get_name() const { return m_desc.name; }
-        [[nodiscard]] const MeshChunk&                      get_chunk(int i) const;
-        [[nodiscard]] const Ref<GfxVertBuffer>&             get_gfx_vertex_buffer(int i) const;
-        [[nodiscard]] const Ref<GfxIndexBuffer>&            get_gfx_index_buffer(int i) const;
-        [[nodiscard]] const MeshVertStream&                 get_vert_stream(int i) const;
-        [[nodiscard]] const MeshIndexStream&                get_index_stream(int i) const;
-        [[nodiscard]] const Aabbf&                          get_aabb() const { return m_desc.aabb; }
-        [[nodiscard]] const MeshFlags&                      get_flags() const { return m_desc.flags; }
-        [[nodiscard]] GfxMemUsage                           get_mem_usage() const { return m_desc.mem_usage; }
+        [[nodiscard]] array_view<const MeshChunk>      get_chunks() const { return m_desc.chunks; }
+        [[nodiscard]] array_view<const Ref<MeshArray>> get_array_meshes() const { return m_desc.array_meshes; }
+        [[nodiscard]] array_view<const Ref<Data>>      get_vertex_buffers() const { return m_desc.vertex_buffers; }
+        [[nodiscard]] array_view<const Ref<Data>>      get_index_buffers() const { return m_desc.index_buffers; }
+        [[nodiscard]] array_view<const Ref<GfxBuffer>> get_gfx_vertex_buffers() const { return m_gfx_vertex_buffers; }
+        [[nodiscard]] array_view<const Ref<GfxBuffer>> get_gfx_index_buffers() const { return m_gfx_index_buffers; }
+        [[nodiscard]] const std::string&               get_name() const { return m_desc.name; }
+        [[nodiscard]] const MeshChunk&                 get_chunk(int i) const;
+        [[nodiscard]] const Ref<GfxBuffer>&            get_gfx_vertex_buffer(int i) const;
+        [[nodiscard]] const Ref<GfxBuffer>&            get_gfx_index_buffer(int i) const;
+        [[nodiscard]] const MeshVertStream&            get_vert_stream(int i) const;
+        [[nodiscard]] const MeshIndexStream&           get_index_stream(int i) const;
+        [[nodiscard]] const Aabbf&                     get_aabb() const { return m_desc.aabb; }
+        [[nodiscard]] const MeshFlags&                 get_flags() const { return m_desc.flags; }
+        [[nodiscard]] GfxMemUsage                      get_mem_usage() const { return m_desc.mem_usage; }
 
     private:
-        MeshDesc                         m_desc;
-        std::vector<Ref<GfxVertBuffer>>  m_gfx_vertex_buffers;
-        std::vector<Ref<GfxIndexBuffer>> m_gfx_index_buffers;
-        CallbackRef                      m_callback;
+        MeshDesc                    m_desc;
+        std::vector<Ref<GfxBuffer>> m_gfx_vertex_buffers;
+        std::vector<Ref<GfxBuffer>> m_gfx_index_buffers;
+        CallbackRef                 m_callback;
     };
 
     WG_RTTI_CLASS_BEGIN(Mesh) {
