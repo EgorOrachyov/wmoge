@@ -66,8 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">hooks.cpp File Reference</div>  </div>
 </div><!--header-->
@@ -75,69 +74,70 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="hooks_8hpp_source.html">hooks.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="log_8hpp_source.html">core/log.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="uuid_8hpp_source.html">core/uuid.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="config_8hpp_source.html">io/config.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cfg__storage_8hpp_source.html">io/cfg_storage.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cfg__val__manager_8hpp_source.html">io/cfg_val_manager.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="io_2enum_8hpp_source.html">io/enum.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mount__volume__physical_8hpp_source.html">platform/common/mount_volume_physical.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="file__system_8hpp_source.html">platform/file_system.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="time_8hpp_source.html">platform/time.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="profiler__capture_8hpp_source.html">profiler/profiler_capture.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="app_8hpp_source.html">system/app.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="engine__config_8hpp_source.html">system/engine_config.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="engine__cfg_8hpp_source.html">system/engine_cfg.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for hooks.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="hooks_8cpp__incl.png" border="0" usemap="#aengine_2code_2system_2hooks_8cpp" alt=""/></div>
 <map name="aengine_2code_2system_2hooks_8cpp" id="aengine_2code_2system_2hooks_8cpp">
-<area shape="rect" title=" " alt="" coords="2008,5,2147,47"/>
-<area shape="rect" href="hooks_8hpp.html" title=" " alt="" coords="1949,333,2030,360"/>
-<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="567,557,659,584"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1953,483,2045,509"/>
-<area shape="rect" href="uuid_8hpp.html" title=" " alt="" coords="260,333,359,360"/>
-<area shape="rect" href="config_8hpp.html" title=" " alt="" coords="954,169,1049,196"/>
-<area shape="rect" href="mount__volume__physical_8hpp.html" title=" " alt="" coords="3993,244,4156,285"/>
-<area shape="rect" href="file__system_8hpp.html" title=" " alt="" coords="3105,169,3268,196"/>
-<area shape="rect" href="time_8hpp.html" title=" " alt="" coords="4024,483,4147,509"/>
-<area shape="rect" href="profiler__capture_8hpp.html" title=" " alt="" coords="2211,408,2387,435"/>
-<area shape="rect" href="app_8hpp.html" title=" " alt="" coords="1718,333,1831,360"/>
-<area shape="rect" href="engine__config_8hpp.html" title=" " alt="" coords="1768,95,1939,121"/>
-<area shape="rect" href="cmd__line_8hpp.html" title=" " alt="" coords="1661,408,1787,435"/>
-<area shape="rect" href="ioc__container_8hpp.html" title=" " alt="" coords="1913,408,2065,435"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="1766,483,1877,509"/>
-<area shape="rect" title=" " alt="" coords="1825,707,1903,733"/>
-<area shape="rect" title=" " alt="" coords="2090,707,2145,733"/>
-<area shape="rect" title=" " alt="" coords="2449,557,2517,584"/>
-<area shape="rect" title=" " alt="" coords="1451,557,1509,584"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="1651,632,1775,659"/>
-<area shape="rect" title=" " alt="" coords="2938,707,3003,733"/>
-<area shape="rect" title=" " alt="" coords="3621,707,3691,733"/>
-<area shape="rect" title=" " alt="" coords="1572,707,1655,733"/>
-<area shape="rect" title=" " alt="" coords="729,632,849,659"/>
-<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="2222,483,2386,509"/>
-<area shape="rect" title=" " alt="" coords="3273,557,3340,584"/>
-<area shape="rect" title=" " alt="" coords="2367,557,2425,584"/>
-<area shape="rect" title=" " alt="" coords="1157,557,1227,584"/>
-<area shape="rect" href="stream_8hpp.html" title=" " alt="" coords="1337,408,1437,435"/>
-<area shape="rect" title=" " alt="" coords="1301,557,1376,584"/>
-<area shape="rect" href="tree_8hpp.html" title=" " alt="" coords="1179,408,1261,435"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="2741,483,2832,509"/>
-<area shape="rect" title=" " alt="" coords="2643,557,2704,584"/>
-<area shape="rect" title=" " alt="" coords="2779,557,2831,584"/>
-<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="979,333,1143,360"/>
-<area shape="rect" href="flat__map_8hpp.html" title=" " alt="" coords="1167,333,1291,360"/>
-<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="736,333,829,360"/>
-<area shape="rect" href="config__file_8hpp.html" title=" " alt="" coords="889,251,1007,278"/>
-<area shape="rect" href="mount__volume_8hpp.html" title=" " alt="" coords="3634,333,3817,360"/>
-<area shape="rect" title=" " alt="" coords="3940,408,4020,435"/>
-<area shape="rect" href="date__time_8hpp.html" title=" " alt="" coords="3819,483,3951,509"/>
-<area shape="rect" href="file_8hpp.html" title=" " alt="" coords="3275,408,3389,435"/>
-<area shape="rect" href="file__entry_8hpp.html" title=" " alt="" coords="3769,408,3917,435"/>
-<area shape="rect" title=" " alt="" coords="3972,557,4033,584"/>
-<area shape="rect" title=" " alt="" coords="4058,557,4113,584"/>
-<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="3026,251,3126,278"/>
-<area shape="rect" href="sha256_8hpp.html" title=" " alt="" coords="2821,333,2939,360"/>
-<area shape="rect" href="string__utf_8hpp.html" title=" " alt="" coords="3110,632,3239,659"/>
-<area shape="rect" title=" " alt="" coords="2819,251,2877,278"/>
-<area shape="rect" href="profiler__cpu_8hpp.html" title=" " alt="" coords="2512,483,2667,509"/>
+<area shape="rect" title=" " alt="" coords="1631,5,1769,47"/>
+<area shape="rect" href="hooks_8hpp.html" title=" " alt="" coords="543,259,625,285"/>
+<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="2095,483,2187,509"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="913,408,1005,435"/>
+<area shape="rect" href="uuid_8hpp.html" title=" " alt="" coords="311,259,409,285"/>
+<area shape="rect" href="cfg__storage_8hpp.html" title=" " alt="" coords="1921,95,2049,121"/>
+<area shape="rect" href="cfg__val__manager_8hpp.html" title=" " alt="" coords="1277,95,1435,121"/>
+<area shape="rect" href="mount__volume__physical_8hpp.html" title=" " alt="" coords="4056,169,4219,211"/>
+<area shape="rect" href="file__system_8hpp.html" title=" " alt="" coords="2903,95,3065,121"/>
+<area shape="rect" href="time_8hpp.html" title=" " alt="" coords="4165,333,4288,360"/>
+<area shape="rect" href="profiler__capture_8hpp.html" title=" " alt="" coords="4464,95,4640,121"/>
+<area shape="rect" href="app_8hpp.html" title=" " alt="" coords="649,259,762,285"/>
+<area shape="rect" href="engine__cfg_8hpp.html" title=" " alt="" coords="1097,95,1252,121"/>
+<area shape="rect" href="cmd__line_8hpp.html" title=" " alt="" coords="449,333,575,360"/>
+<area shape="rect" href="ioc__container_8hpp.html" title=" " alt="" coords="701,333,853,360"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="2091,408,2202,435"/>
+<area shape="rect" title=" " alt="" coords="633,632,711,659"/>
+<area shape="rect" title=" " alt="" coords="2718,632,2773,659"/>
+<area shape="rect" title=" " alt="" coords="1074,483,1142,509"/>
+<area shape="rect" title=" " alt="" coords="1260,483,1319,509"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="2214,557,2338,584"/>
+<area shape="rect" title=" " alt="" coords="2243,632,2309,659"/>
+<area shape="rect" title=" " alt="" coords="3341,632,3411,659"/>
+<area shape="rect" title=" " alt="" coords="1416,632,1499,659"/>
+<area shape="rect" title=" " alt="" coords="1900,557,2020,584"/>
+<area shape="rect" title=" " alt="" coords="4292,483,4359,509"/>
+<area shape="rect" title=" " alt="" coords="890,483,947,509"/>
+<area shape="rect" title=" " alt="" coords="1167,483,1236,509"/>
+<area shape="rect" href="stream_8hpp.html" title=" " alt="" coords="1846,333,1946,360"/>
+<area shape="rect" title=" " alt="" coords="1840,408,1915,435"/>
+<area shape="rect" href="tree_8hpp.html" title=" " alt="" coords="1637,333,1720,360"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="2277,408,2368,435"/>
+<area shape="rect" title=" " alt="" coords="2915,483,2976,509"/>
+<area shape="rect" title=" " alt="" coords="2417,483,2469,509"/>
+<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="1653,259,1817,285"/>
+<area shape="rect" href="flat__map_8hpp.html" title=" " alt="" coords="1923,259,2047,285"/>
+<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="1477,259,1571,285"/>
+<area shape="rect" href="cfg__file_8hpp.html" title=" " alt="" coords="2028,177,2129,203"/>
+<area shape="rect" href="cfg__val_8hpp.html" title=" " alt="" coords="1143,177,1246,203"/>
+<area shape="rect" href="mount__volume_8hpp.html" title=" " alt="" coords="3326,259,3509,285"/>
+<area shape="rect" title=" " alt="" coords="3909,333,3989,360"/>
+<area shape="rect" href="date__time_8hpp.html" title=" " alt="" coords="3427,333,3559,360"/>
+<area shape="rect" href="file_8hpp.html" title=" " alt="" coords="2630,333,2743,360"/>
+<area shape="rect" href="file__entry_8hpp.html" title=" " alt="" coords="3686,333,3834,360"/>
+<area shape="rect" title=" " alt="" coords="3789,408,3851,435"/>
+<area shape="rect" title=" " alt="" coords="3659,408,3714,435"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="3022,177,3122,203"/>
+<area shape="rect" href="sha256_8hpp.html" title=" " alt="" coords="2995,259,3112,285"/>
+<area shape="rect" href="string__utf_8hpp.html" title=" " alt="" coords="3558,557,3687,584"/>
+<area shape="rect" title=" " alt="" coords="3377,177,3434,203"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -145,21 +145,6 @@ Include dependency graph for hooks.cpp:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacewmoge"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html">wmoge</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacewmoge_1_1eng__hooks"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge_1_1eng__hooks.html">wmoge::eng_hooks</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:af94fd3ca55ad48d19b4bcfc1d00a3ce3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge_1_1eng__hooks.html#af94fd3ca55ad48d19b4bcfc1d00a3ce3">wmoge::eng_hooks::uuid_gen</a> (CmdLineOptions &amp;options, CmdLineHookList &amp;list)</td></tr>
-<tr class="separator:af94fd3ca55ad48d19b4bcfc1d00a3ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1c5a4f3e77dee71380ebc390d8a2fa2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge_1_1eng__hooks.html#aa1c5a4f3e77dee71380ebc390d8a2fa2">wmoge::eng_hooks::root_remap</a> (CmdLineOptions &amp;options, CmdLineHookList &amp;list, IocContainer *ioc)</td></tr>
-<tr class="separator:aa1c5a4f3e77dee71380ebc390d8a2fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae524b3a904e5f82bf9a9ca162534e296"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge_1_1eng__hooks.html#ae524b3a904e5f82bf9a9ca162534e296">wmoge::eng_hooks::engine</a> (CmdLineOptions &amp;options, CmdLineHookList &amp;list, IocContainer *ioc)</td></tr>
-<tr class="separator:ae524b3a904e5f82bf9a9ca162534e296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0386233215789e3593c00aebfb2e9278"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge_1_1eng__hooks.html#a0386233215789e3593c00aebfb2e9278">wmoge::eng_hooks::logs</a> (CmdLineOptions &amp;options, CmdLineHookList &amp;list, IocContainer *ioc)</td></tr>
-<tr class="separator:a0386233215789e3593c00aebfb2e9278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace02662c717061d10f18a3c363f351f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge_1_1eng__hooks.html#ace02662c717061d10f18a3c363f351f1">wmoge::eng_hooks::profiler</a> (CmdLineOptions &amp;options, CmdLineHookList &amp;list, IocContainer *ioc, ApplicationSignals *app_signals)</td></tr>
-<tr class="separator:ace02662c717061d10f18a3c363f351f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

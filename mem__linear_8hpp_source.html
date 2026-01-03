@@ -96,43 +96,40 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">/* SOFTWARE.                                                                      */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/**********************************************************************************/</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_MEM_LINEAR_HPP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_MEM_LINEAR_HPP</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="buffered__vector_8hpp.html">core/buffered_vector.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classwmoge_1_1MemLinear.html">   41</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1MemLinear.html">MemLinear</a> {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classwmoge_1_1MemLinear.html#a6a308501a6cccfbf3739259945e17342">   43</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> std::size_t <a class="code" href="classwmoge_1_1MemLinear.html#a6a308501a6cccfbf3739259945e17342">DEFAULT_CAPACITY</a>  = 1024 * 1024;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classwmoge_1_1MemLinear.html#a820215b6c344e815705981f46d482b33">   44</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> std::size_t <a class="code" href="classwmoge_1_1MemLinear.html#a820215b6c344e815705981f46d482b33">DEFAULT_ALIGNMENT</a> = 16;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classwmoge_1_1MemLinear.html#a2be0591d5c0dbae4078237c9e8b18456">MemLinear</a>(std::size_t capacity = <a class="code" href="classwmoge_1_1MemLinear.html#a6a308501a6cccfbf3739259945e17342">DEFAULT_CAPACITY</a>);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="classwmoge_1_1MemLinear.html#af91bff2fcb2c82e54c31007322a1feab">~MemLinear</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span>* <a class="code" href="classwmoge_1_1MemLinear.html#a882a932ffc8cda7767a5b932f955c4f2">allocate</a>(std::size_t size, std::size_t alignment = <a class="code" href="classwmoge_1_1MemLinear.html#a820215b6c344e815705981f46d482b33">DEFAULT_ALIGNMENT</a>);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="classwmoge_1_1MemLinear.html#a75c24d8688b80be6741c7269f3a7aadd">reset</a>();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector&lt;void*&gt;</a> m_buffers;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::size_t            m_capacity;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        std::size_t            m_allocated       = 0;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        std::size_t            m_allocated_total = 0;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        std::mutex             m_mutex;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    };</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_MEM_LINEAR_HPP</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="buffered__vector_8hpp.html">core/buffered_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classwmoge_1_1MemLinear.html">   40</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1MemLinear.html">MemLinear</a> {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classwmoge_1_1MemLinear.html#a6a308501a6cccfbf3739259945e17342">   42</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> std::size_t <a class="code" href="classwmoge_1_1MemLinear.html#a6a308501a6cccfbf3739259945e17342">DEFAULT_CAPACITY</a>  = 1024 * 1024;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classwmoge_1_1MemLinear.html#a820215b6c344e815705981f46d482b33">   43</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> std::size_t <a class="code" href="classwmoge_1_1MemLinear.html#a820215b6c344e815705981f46d482b33">DEFAULT_ALIGNMENT</a> = 16;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classwmoge_1_1MemLinear.html#a2be0591d5c0dbae4078237c9e8b18456">MemLinear</a>(std::size_t capacity = <a class="code" href="classwmoge_1_1MemLinear.html#a6a308501a6cccfbf3739259945e17342">DEFAULT_CAPACITY</a>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="classwmoge_1_1MemLinear.html#af91bff2fcb2c82e54c31007322a1feab">~MemLinear</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">void</span>* <a class="code" href="classwmoge_1_1MemLinear.html#a882a932ffc8cda7767a5b932f955c4f2">allocate</a>(std::size_t size, std::size_t alignment = <a class="code" href="classwmoge_1_1MemLinear.html#a820215b6c344e815705981f46d482b33">DEFAULT_ALIGNMENT</a>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="classwmoge_1_1MemLinear.html#a75c24d8688b80be6741c7269f3a7aadd">reset</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector&lt;void*&gt;</a> m_buffers;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        std::size_t            m_capacity;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::size_t            m_allocated       = 0;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        std::size_t            m_allocated_total = 0;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        std::mutex             m_mutex;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    };</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="abuffered__vector_8hpp_html"><div class="ttname"><a href="buffered__vector_8hpp.html">buffered_vector.hpp</a></div></div>
-<div class="ttc" id="aclasswmoge_1_1MemLinear_html"><div class="ttname"><a href="classwmoge_1_1MemLinear.html">wmoge::MemLinear</a></div><div class="ttdoc">Linear memory allocator with free at once semantic.</div><div class="ttdef"><b>Definition:</b> mem_linear.hpp:41</div></div>
+<div class="ttc" id="aclasswmoge_1_1MemLinear_html"><div class="ttname"><a href="classwmoge_1_1MemLinear.html">wmoge::MemLinear</a></div><div class="ttdoc">Linear memory allocator with free at once semantic.</div><div class="ttdef"><b>Definition:</b> mem_linear.hpp:40</div></div>
 <div class="ttc" id="aclasswmoge_1_1MemLinear_html_a2be0591d5c0dbae4078237c9e8b18456"><div class="ttname"><a href="classwmoge_1_1MemLinear.html#a2be0591d5c0dbae4078237c9e8b18456">wmoge::MemLinear::MemLinear</a></div><div class="ttdeci">MemLinear(std::size_t capacity=DEFAULT_CAPACITY)</div><div class="ttdef"><b>Definition:</b> mem_linear.cpp:38</div></div>
-<div class="ttc" id="aclasswmoge_1_1MemLinear_html_a6a308501a6cccfbf3739259945e17342"><div class="ttname"><a href="classwmoge_1_1MemLinear.html#a6a308501a6cccfbf3739259945e17342">wmoge::MemLinear::DEFAULT_CAPACITY</a></div><div class="ttdeci">static const std::size_t DEFAULT_CAPACITY</div><div class="ttdef"><b>Definition:</b> mem_linear.hpp:43</div></div>
+<div class="ttc" id="aclasswmoge_1_1MemLinear_html_a6a308501a6cccfbf3739259945e17342"><div class="ttname"><a href="classwmoge_1_1MemLinear.html#a6a308501a6cccfbf3739259945e17342">wmoge::MemLinear::DEFAULT_CAPACITY</a></div><div class="ttdeci">static const std::size_t DEFAULT_CAPACITY</div><div class="ttdef"><b>Definition:</b> mem_linear.hpp:42</div></div>
 <div class="ttc" id="aclasswmoge_1_1MemLinear_html_a75c24d8688b80be6741c7269f3a7aadd"><div class="ttname"><a href="classwmoge_1_1MemLinear.html#a75c24d8688b80be6741c7269f3a7aadd">wmoge::MemLinear::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdef"><b>Definition:</b> mem_linear.cpp:74</div></div>
-<div class="ttc" id="aclasswmoge_1_1MemLinear_html_a820215b6c344e815705981f46d482b33"><div class="ttname"><a href="classwmoge_1_1MemLinear.html#a820215b6c344e815705981f46d482b33">wmoge::MemLinear::DEFAULT_ALIGNMENT</a></div><div class="ttdeci">static const std::size_t DEFAULT_ALIGNMENT</div><div class="ttdef"><b>Definition:</b> mem_linear.hpp:44</div></div>
+<div class="ttc" id="aclasswmoge_1_1MemLinear_html_a820215b6c344e815705981f46d482b33"><div class="ttname"><a href="classwmoge_1_1MemLinear.html#a820215b6c344e815705981f46d482b33">wmoge::MemLinear::DEFAULT_ALIGNMENT</a></div><div class="ttdeci">static const std::size_t DEFAULT_ALIGNMENT</div><div class="ttdef"><b>Definition:</b> mem_linear.hpp:43</div></div>
 <div class="ttc" id="aclasswmoge_1_1MemLinear_html_a882a932ffc8cda7767a5b932f955c4f2"><div class="ttname"><a href="classwmoge_1_1MemLinear.html#a882a932ffc8cda7767a5b932f955c4f2">wmoge::MemLinear::allocate</a></div><div class="ttdeci">void * allocate(std::size_t size, std::size_t alignment=DEFAULT_ALIGNMENT)</div><div class="ttdef"><b>Definition:</b> mem_linear.cpp:54</div></div>
 <div class="ttc" id="aclasswmoge_1_1MemLinear_html_af91bff2fcb2c82e54c31007322a1feab"><div class="ttname"><a href="classwmoge_1_1MemLinear.html#af91bff2fcb2c82e54c31007322a1feab">wmoge::MemLinear::~MemLinear</a></div><div class="ttdeci">~MemLinear()</div><div class="ttdef"><b>Definition:</b> mem_linear.cpp:45</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _bind.cpp:45</div></div>

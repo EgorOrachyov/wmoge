@@ -270,13 +270,13 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKDefs.html#a19c2945bb869d079ed95852146cb3953">wmoge::VKDefs</a>
 </li>
 <li>get_bool()
-: <a class="el" href="classwmoge_1_1CmdLineParseResult.html#ade217af18c42efd5d38dfd43e1df038b">wmoge::CmdLineParseResult</a>
-, <a class="el" href="classwmoge_1_1Config.html#ad9ed222ef60407fc66e8d7c272a00c4b">wmoge::Config</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#ad4a5668cba9782808f4c7bfac42af6c2">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#ad517bc044bebf083af7be1da416a8dfa">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgStorage.html#abd04950bc82b4d52053ab7cf694da49b">wmoge::CfgStorage</a>
+, <a class="el" href="classwmoge_1_1CmdLineParseResult.html#ade217af18c42efd5d38dfd43e1df038b">wmoge::CmdLineParseResult</a>
 </li>
 <li>get_bool_or_default()
-: <a class="el" href="classwmoge_1_1Config.html#a9bf8743fdd9be502d49466b34c2c0309">wmoge::Config</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#ad7f5506b3030444e907af6c8aaabf477">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#a3e4bbb5e7719ce6b8d7f00b8987c0317">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgStorage.html#a9a7f4bbf33aa0e434d3655aabbdce804">wmoge::CfgStorage</a>
 </li>
 <li>get_border_color()
 : <a class="el" href="classwmoge_1_1VKDefs.html#a589a7cf3fb6032947d569a2520433e4d">wmoge::VKDefs</a>
@@ -291,17 +291,20 @@ $(function() {
 : <a class="el" href="classwmoge_1_1FileMemReader.html#a3820fa26803c5ec775a9e1f52d20f4df">wmoge::FileMemReader</a>
 , <a class="el" href="classwmoge_1_1FileMemWriter.html#a1a4a9ac57a51c81dd13661666f7eed15">wmoge::FileMemWriter</a>
 , <a class="el" href="classwmoge_1_1GpuBuffer.html#a7360589cd229e2da5a651561025477a2">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
-, <a class="el" href="classwmoge_1_1RdgIndexBuffer.html#a1155167c7ddefa33fa461e6595c3ffea">wmoge::RdgIndexBuffer</a>
-, <a class="el" href="classwmoge_1_1RdgStorageBuffer.html#a5fb224b73241529f8641d031dd4779f9">wmoge::RdgStorageBuffer</a>
-, <a class="el" href="classwmoge_1_1RdgUniformBuffer.html#aafc35c31ff77fbae78d9e795601a494f">wmoge::RdgUniformBuffer</a>
-, <a class="el" href="classwmoge_1_1RdgVertBuffer.html#a9982f8cab730a7c88708c4fa563291e7">wmoge::RdgVertBuffer</a>
-, <a class="el" href="classwmoge_1_1ShaderParamBlock.html#a9692d9034b917c3c0ed03f3915a6514a">wmoge::ShaderParamBlock</a>
+, <a class="el" href="classwmoge_1_1RdgIndexBuffer.html#a65be2fd0f48e57e0269858768679f504">wmoge::RdgIndexBuffer</a>
+, <a class="el" href="classwmoge_1_1RdgStorageBuffer.html#acfd381ce73438e9766bb240f3ef33c5c">wmoge::RdgStorageBuffer</a>
+, <a class="el" href="classwmoge_1_1RdgUniformBuffer.html#a4a00631301c18c7c91f0a95cc4c37a12">wmoge::RdgUniformBuffer</a>
+, <a class="el" href="classwmoge_1_1RdgVertBuffer.html#a762b4c9d8b223f0c0b3f9036ace65607">wmoge::RdgVertBuffer</a>
+, <a class="el" href="classwmoge_1_1ShaderParamBlock.html#a6f8a6c31d35db9e1932f279a2b66f200">wmoge::ShaderParamBlock</a>
 </li>
 <li>get_buffer_ref()
-: <a class="el" href="classwmoge_1_1RdgIndexBuffer.html#ade749c1ea6b23556d8c6819fd962f1a2">wmoge::RdgIndexBuffer</a>
-, <a class="el" href="classwmoge_1_1RdgStorageBuffer.html#a52c0f8894d1adfb42c0918a4e0bdd689">wmoge::RdgStorageBuffer</a>
-, <a class="el" href="classwmoge_1_1RdgUniformBuffer.html#a271c77c72848e106687d74570f6bcd5f">wmoge::RdgUniformBuffer</a>
-, <a class="el" href="classwmoge_1_1RdgVertBuffer.html#afd709dd215c4b5c582937a086735a075">wmoge::RdgVertBuffer</a>
+: <a class="el" href="classwmoge_1_1RdgIndexBuffer.html#a4aa4210a6114cc14cf59453b3eb23ac5">wmoge::RdgIndexBuffer</a>
+, <a class="el" href="classwmoge_1_1RdgStorageBuffer.html#a8136ec16158b731fe57c0158b8e8a3fb">wmoge::RdgStorageBuffer</a>
+, <a class="el" href="classwmoge_1_1RdgUniformBuffer.html#ae0456ca1b83d962195f728cfb699f960">wmoge::RdgUniformBuffer</a>
+, <a class="el" href="classwmoge_1_1RdgVertBuffer.html#ab9213b71bd9c8ee35b35a92140e366dd">wmoge::RdgVertBuffer</a>
+</li>
+<li>get_buffer_usage()
+: <a class="el" href="classwmoge_1_1VKDefs.html#aa652202394bbb8118d69f4f05a132797">wmoge::VKDefs</a>
 </li>
 <li>get_buffers()
 : <a class="el" href="classwmoge_1_1ALAudioPlayback.html#a0d31a9f9c33bba3b0ac1d6d1b7366807">wmoge::ALAudioPlayback</a>
@@ -394,12 +397,12 @@ $(function() {
 , <a class="el" href="classwmoge_1_1PfxStorage.html#a13077468189a06e1b94cbecba31cfae1">wmoge::PfxStorage</a>
 </li>
 <li>get_color4f()
-: <a class="el" href="classwmoge_1_1Config.html#a0f112d6459f8748091c610564b6706fb">wmoge::Config</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#ab0f2f249bfd0ab5a61b422ae6eac20a1">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#ad34461f70aa69f3272ab8f773765c087">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgStorage.html#a1b1dc2af0b05da69c75f52fa7b97378b">wmoge::CfgStorage</a>
 </li>
 <li>get_color4f_or_default()
-: <a class="el" href="classwmoge_1_1Config.html#ab31715583fbee0eaea841a86c603caf5">wmoge::Config</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#ab9abbf558ba3d8eb19b8be942ea771d4">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#abf3a6e71f8713646121a14bf4cfab289">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgStorage.html#aaae3224cee029ff60bd31d75a7df397f">wmoge::CfgStorage</a>
 </li>
 <li>get_color_targets()
 : <a class="el" href="classwmoge_1_1RdgPass.html#a9e0c051ccd3af598ec6c0898a0fbd6ea">wmoge::RdgPass</a>
@@ -460,7 +463,8 @@ $(function() {
 : <a class="el" href="classwmoge_1_1AudioEngine.html#aeb91758110d4511147f1aee359979546">wmoge::AudioEngine</a>
 </li>
 <li>get_default_value_of()
-: <a class="el" href="classwmoge_1_1CfgValT.html#af7ae59396cf7514dfe38b1444a364e0b">wmoge::CfgValT&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1CfgValEnum.html#a7151061bd0d3717d0a64175bd2086405">wmoge::CfgValEnum&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1CfgValT.html#af7ae59396cf7514dfe38b1444a364e0b">wmoge::CfgValT&lt; T &gt;</a>
 </li>
 <li>get_delta_time()
 : <a class="el" href="classwmoge_1_1PfxEmitter.html#ae08b49fb449afa9daee85058bbdb9985">wmoge::PfxEmitter</a>
@@ -650,12 +654,12 @@ $(function() {
 , <a class="el" href="classwmoge_1_1Texture.html#a6e5a924f6f2d5b832a7412227156b2b0">wmoge::Texture</a>
 </li>
 <li>get_float()
-: <a class="el" href="classwmoge_1_1Config.html#aa72870fdc98f46c722a4fc7912c257bc">wmoge::Config</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#a403668f8d362f0d686b23d01c1f3630c">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#a8fa9ae5887fd67003302ed37e9defe50">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgStorage.html#a02570b1aceb96050674e77c2ff0ae027">wmoge::CfgStorage</a>
 </li>
 <li>get_float_or_default()
-: <a class="el" href="classwmoge_1_1Config.html#ac93f631b895cd930d441b18408be4fa0">wmoge::Config</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#a0cbedf3ada4bd8da381c6a1a2025ef20">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#af4a289ee01369ff5eaca3bde96b3d012">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgStorage.html#a9a26ef0c4d8babb3c6cb5a8a645a3240">wmoge::CfgStorage</a>
 </li>
 <li>get_format()
 : <a class="el" href="classwmoge_1_1Texture.html#a963ced687895b3b5b9523ec54a290c81">wmoge::Texture</a>
@@ -701,10 +705,10 @@ $(function() {
 : <a class="el" href="classwmoge_1_1TextureManager.html#a2e7352a06a601805475f752e4e38799d">wmoge::TextureManager</a>
 </li>
 <li>get_gfx_index_buffer()
-: <a class="el" href="classwmoge_1_1Mesh.html#a5df5077170bb2bf89086aaf8bad6ee6d">wmoge::Mesh</a>
+: <a class="el" href="classwmoge_1_1Mesh.html#a69303d5b7c2c4b1c6ab612167bd5f77b">wmoge::Mesh</a>
 </li>
 <li>get_gfx_index_buffers()
-: <a class="el" href="classwmoge_1_1Mesh.html#af795349e8d1a3a67f0c2303aaa661ed8">wmoge::Mesh</a>
+: <a class="el" href="classwmoge_1_1Mesh.html#a27aaf890f03a73e4048a0fec35512c91">wmoge::Mesh</a>
 </li>
 <li>get_gfx_resources()
 : <a class="el" href="classwmoge_1_1ShaderParamBlock.html#a1fa5e4834c835f42718c7f71ba5c261c">wmoge::ShaderParamBlock</a>
@@ -717,10 +721,10 @@ $(function() {
 , <a class="el" href="classwmoge_1_1VKDriver.html#a7fd78567ef64b6e9d31969961ec09f6a">wmoge::VKDriver</a>
 </li>
 <li>get_gfx_vertex_buffer()
-: <a class="el" href="classwmoge_1_1Mesh.html#aae501241739482a2e445349744fccdfb">wmoge::Mesh</a>
+: <a class="el" href="classwmoge_1_1Mesh.html#afe0ca70662820bbdc4135ab23de242e3">wmoge::Mesh</a>
 </li>
 <li>get_gfx_vertex_buffers()
-: <a class="el" href="classwmoge_1_1Mesh.html#a8f5e384680367900e9546dc3d4e7c4c9">wmoge::Mesh</a>
+: <a class="el" href="classwmoge_1_1Mesh.html#aad52bd769906fd285af833ce5333d918">wmoge::Mesh</a>
 </li>
 <li>get_glyphs()
 : <a class="el" href="classwmoge_1_1Font.html#ae057a45a07c7071e9ec2ed9d4be02897">wmoge::Font</a>
@@ -771,9 +775,6 @@ $(function() {
 <li>get_includes()
 : <a class="el" href="classwmoge_1_1GlslIncludeProcessor.html#ad6daa3e56af390ab99bcb2bb32e1cddc">wmoge::GlslIncludeProcessor</a>
 </li>
-<li>get_index_buffer_setup()
-: <a class="el" href="classwmoge_1_1Mesh.html#a9813f8de08aed0d0d4738f14153a4046">wmoge::Mesh</a>
-</li>
 <li>get_index_buffers()
 : <a class="el" href="classwmoge_1_1Mesh.html#a5cc69bee14ebe1047cdf323633964ba7">wmoge::Mesh</a>
 </li>
@@ -791,13 +792,13 @@ $(function() {
 : <a class="el" href="classwmoge_1_1RttiStruct.html#acbf0a40a1554db223f9b2e9c3c3329f7">wmoge::RttiStruct</a>
 </li>
 <li>get_int()
-: <a class="el" href="classwmoge_1_1CmdLineParseResult.html#acc132174c6981b03963ca48cc84bd3d1">wmoge::CmdLineParseResult</a>
-, <a class="el" href="classwmoge_1_1Config.html#ae056cc7239a49a40e58ebe4978b2b380">wmoge::Config</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#aa8f45cc54ec5a854d8544b052fa90047">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#aae539c625a8ea8fa3a173ab49bcf38d3">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgStorage.html#a1275cdab58788ce05ec73fb9ba8ba0d8">wmoge::CfgStorage</a>
+, <a class="el" href="classwmoge_1_1CmdLineParseResult.html#acc132174c6981b03963ca48cc84bd3d1">wmoge::CmdLineParseResult</a>
 </li>
 <li>get_int_or_default()
-: <a class="el" href="classwmoge_1_1Config.html#a3cc531661ed0bd199fdd7f969cc41120">wmoge::Config</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#a52b3f64a4677172c875681fe16a11e8b">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#ac10b72a9619605856572eb0ed89f8086">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgStorage.html#a90b6cce1a6196c45af42a1fc272d94b6">wmoge::CfgStorage</a>
 </li>
 <li>get_intensity()
 : <a class="el" href="classwmoge_1_1Light.html#a3f69206140ca1d3dd071f542feb3f2e8">wmoge::Light</a>
@@ -1296,13 +1297,13 @@ $(function() {
 : <a class="el" href="classwmoge_1_1PfxStorage.html#a4b0c160da1afa2b3d5cb726d602d7603">wmoge::PfxStorage</a>
 </li>
 <li>get_string()
-: <a class="el" href="classwmoge_1_1CmdLineParseResult.html#abe785cb44ec5df6a9c544fde9f837781">wmoge::CmdLineParseResult</a>
-, <a class="el" href="classwmoge_1_1Config.html#aa961ea960fa6462e27bf367f2c5d5433">wmoge::Config</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#a36ebdedf8223d8ed9ce2d2c087df0c40">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#abb42584a4afae0d5b6861889d177e8e0">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgStorage.html#a7476668bcf62df0ec68e5384e544f028">wmoge::CfgStorage</a>
+, <a class="el" href="classwmoge_1_1CmdLineParseResult.html#abe785cb44ec5df6a9c544fde9f837781">wmoge::CmdLineParseResult</a>
 </li>
 <li>get_string_or_default()
-: <a class="el" href="classwmoge_1_1Config.html#ae309a7947bf848b67ec2f1fae4bf329b">wmoge::Config</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#a04b7a861a3c39033b54e46e2a096f40d">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#a9a083ad737fe03a9396888999246374b">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgStorage.html#a4d7982982c23a7f09cfd4f5771d00cca">wmoge::CfgStorage</a>
 </li>
 <li>get_string_size()
 : <a class="el" href="classwmoge_1_1Font.html#af25e341a8a87a1a50ca39d4a16a0c9ed">wmoge::Font</a>
@@ -1403,12 +1404,13 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Texture.html#ab94fd57bd90da15b895fdadd1ef9121f">wmoge::Texture</a>
 </li>
 <li>get_value()
-: <a class="el" href="classwmoge_1_1CfgVal.html#a5ce3979f0aa2d22649180f2b33dd6d4b">wmoge::CfgVal</a>
-, <a class="el" href="classwmoge_1_1ConfigFile.html#aed39cf5ed402eee85afbf91a5ba61439">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1CfgFile.html#a4a1596088dec04f2b7df947668649c3c">wmoge::CfgFile</a>
+, <a class="el" href="classwmoge_1_1CfgVal.html#a5ce3979f0aa2d22649180f2b33dd6d4b">wmoge::CfgVal</a>
 , <a class="el" href="classwmoge_1_1RttiAttributeBaseStringT.html#a024179d1c641e50bd4eafebc55bc7cf3">wmoge::RttiAttributeBaseStringT&lt; type &gt;</a>
 </li>
 <li>get_value_of()
-: <a class="el" href="classwmoge_1_1CfgValT.html#a452ccdf8edae52a1014641227bf5583d">wmoge::CfgValT&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1CfgValEnum.html#ae0e1f39a612593700b03b8516be5c8a1">wmoge::CfgValEnum&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1CfgValT.html#a452ccdf8edae52a1014641227bf5583d">wmoge::CfgValT&lt; T &gt;</a>
 </li>
 <li>get_value_type()
 : <a class="el" href="classwmoge_1_1CfgVal.html#ae5fe066744b2a499cde1bb7c3a573c9d">wmoge::CfgVal</a>
@@ -1427,13 +1429,10 @@ $(function() {
 </li>
 <li>get_var()
 : <a class="el" href="classwmoge_1_1ShaderParam.html#a9c39c1026666e8ff842f542490fa01b1">wmoge::ShaderParam</a>
-, <a class="el" href="classwmoge_1_1ShaderParamBlock.html#a5d544e38b2f3acab4e585fc7727e91b0">wmoge::ShaderParamBlock</a>
+, <a class="el" href="classwmoge_1_1ShaderParamBlock.html#a0fcb05d8d7b72e0ef56e652035161f44">wmoge::ShaderParamBlock</a>
 </li>
 <li>get_vel2d()
 : <a class="el" href="classwmoge_1_1PfxStorage.html#a0652be718c863d72e6926bab96d4962a">wmoge::PfxStorage</a>
-</li>
-<li>get_vert_buffers_setup()
-: <a class="el" href="classwmoge_1_1Mesh.html#adbb2b77295aee6147171c47e001386b2">wmoge::Mesh</a>
 </li>
 <li>get_vert_stream()
 : <a class="el" href="classwmoge_1_1Mesh.html#a03229c6b2e8638795f1c220c3f3ccc53">wmoge::Mesh</a>

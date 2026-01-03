@@ -1,7 +1,0 @@
-<map id="wmoge::EngineConfig" name="wmoge::EngineConfig">
-<area shape="rect" id="node1" title="Engine config params storage for loafing from .ini config storage." alt="" coords="275,101,420,127"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1EngineConfig_1_1Window.html" title=" " alt="" coords="19,5,165,47"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1EngineConfig_1_1Log.html" title=" " alt="" coords="5,71,179,98"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1EngineConfig_1_1Profiler.html" title=" " alt="" coords="19,123,165,164"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1EngineConfig_1_1Ecs.html" title=" " alt="" coords="5,189,179,215"/>
-</map>

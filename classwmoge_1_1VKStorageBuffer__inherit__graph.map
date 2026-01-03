@@ -1,9 +1,0 @@
-<map id="wmoge::VKStorageBuffer" name="wmoge::VKStorageBuffer">
-<area shape="rect" id="node1" title="Gfx vulkan storage buffer implementation." alt="" coords="87,393,253,420"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="15,304,165,345"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1GfxStorageBuffer.html" title="Gfx storage buffer." alt="" coords="5,229,175,256"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="28,155,152,181"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="17,80,163,107"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="35,5,145,32"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1VKBuffer.html" title="Base class for vulkan buffers." alt="" coords="190,311,313,338"/>
-</map>

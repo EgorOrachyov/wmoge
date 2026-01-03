@@ -161,12 +161,14 @@ $(function() {
 <code>#include &quot;<a class="el" href="texture__resize_8hpp_source.html">grc/texture_resize.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="async__file__system_8hpp_source.html">io/async_file_system.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="base64_8hpp_source.html">io/base64.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cfg__file_8hpp_source.html">io/cfg_file.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cfg__storage_8hpp_source.html">io/cfg_storage.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cfg__val_8hpp_source.html">io/cfg_val.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cfg__val__manager_8hpp_source.html">io/cfg_val_manager.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="compression_8hpp_source.html">io/compression.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="config_8hpp_source.html">io/config.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="context_8hpp_source.html">io/context.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="io_2enum_8hpp_source.html">io/enum.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ini_8hpp_source.html">io/ini.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="serialization_8hpp_source.html">io/serialization.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="stream_8hpp_source.html">io/stream.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="stream__file_8hpp_source.html">io/stream_file.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="tree_8hpp_source.html">io/tree.hpp</a>&quot;</code><br />
@@ -243,7 +245,6 @@ $(function() {
 <code>#include &quot;<a class="el" href="app_8hpp_source.html">system/app.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="system_2engine_8hpp_source.html">system/engine.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="engine__app_8hpp_source.html">system/engine_app.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="engine__config_8hpp_source.html">system/engine_config.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="engine__signals_8hpp_source.html">system/engine_signals.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="game__app_8hpp_source.html">system/game_app.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="game__plugin_8hpp_source.html">system/game_plugin.hpp</a>&quot;</code><br />
@@ -271,10 +272,58 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a500050d665fa24dab6839bfcb02bbd21"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="engine_8hpp.html#a500050d665fa24dab6839bfcb02bbd21">WG_CFG_BIND_LIST</a>(cfg,  val,  selected,  options,  help)&#160;&#160;&#160;    val.bind(cfg-&gt;add_list(val.get_name(), std::string(help), int(selected), options))</td></tr>
+<tr class="separator:a500050d665fa24dab6839bfcb02bbd21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fca38db4671d787b5491e1612f9a39e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="engine_8hpp.html#a6fca38db4671d787b5491e1612f9a39e">WG_PROFILE_GPU_SCOPE_WITH_DESC</a>(name,  cmd_list,  desc)&#160;&#160;&#160;    <a class="el" href="profiler__gpu_8hpp.html#a0302c13942e5aab8517ef18bd1b505ca">WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC</a>(name, cmd_list, gpudevice, desc)</td></tr>
 <tr class="separator:a6fca38db4671d787b5491e1612f9a39e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a500050d665fa24dab6839bfcb02bbd21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a500050d665fa24dab6839bfcb02bbd21">&#9670;&nbsp;</a></span>WG_CFG_BIND_LIST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_CFG_BIND_LIST</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cfg, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">val, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">selected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">options, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">help&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;    val.bind(cfg-&gt;add_list(val.get_name(), std::string(help), int(selected), options))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6fca38db4671d787b5491e1612f9a39e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6fca38db4671d787b5491e1612f9a39e">&#9670;&nbsp;</a></span>WG_PROFILE_GPU_SCOPE_WITH_DESC</h2>
 

@@ -231,7 +231,7 @@ $(function() {
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        buffered_vector&lt;Vec4f, INLINE_STACK_SIZE&gt;   m_clip_rect_stack;<span class="comment">//&lt; Context stack</span></div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        buffered_vector&lt;Mat3x3f, INLINE_STACK_SIZE&gt; m_transform_stack;<span class="comment">//&lt; Context stack</span></div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        GpuStorageBuffer&lt;GpuCanvasDrawCmdData&gt;      m_gpu_cmd_buffer; <span class="comment">//&lt; Packed cmd data for gpu</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        Ref&lt;GfxUniformBuffer&gt;                       m_params;         <span class="comment">//&lt; Cached ubo to fill with const params</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        Ref&lt;GfxBuffer&gt;                              m_params;         <span class="comment">//&lt; Cached ubo to fill with const params</span></div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        Ref&lt;GfxDescSet&gt;                             m_params_set;     <span class="comment">//&lt; Cached ubo to fill with const params and draw cmds buffer</span></div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    };</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
@@ -272,7 +272,7 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
 <div class="ttc" id="aclasswmoge_1_1TMatMxN_html"><div class="ttname"><a href="classwmoge_1_1TMatMxN.html">wmoge::TMatMxN&lt; float, 3, 3 &gt;</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1TVecN_html"><div class="ttname"><a href="classwmoge_1_1TVecN.html">wmoge::TVecN&lt; float, 2 &gt;</a></div></div>
-<div class="ttc" id="aclasswmoge_1_1Transform2d_html"><div class="ttname"><a href="classwmoge_1_1Transform2d.html">wmoge::Transform2d</a></div><div class="ttdoc">Utility to manage 2d space transformations.</div><div class="ttdef"><b>Definition:</b> transform.hpp:43</div></div>
+<div class="ttc" id="aclasswmoge_1_1Transform2d_html"><div class="ttname"><a href="classwmoge_1_1Transform2d.html">wmoge::Transform2d</a></div><div class="ttdoc">Utility to manage 2d space transformations.</div><div class="ttdef"><b>Definition:</b> transform.hpp:42</div></div>
 <div class="ttc" id="acolor_8hpp_html"><div class="ttname"><a href="color_8hpp.html">color.hpp</a></div></div>
 <div class="ttc" id="aflat__map_8hpp_html"><div class="ttname"><a href="flat__map_8hpp.html">flat_map.hpp</a></div></div>
 <div class="ttc" id="afont_8hpp_html"><div class="ttname"><a href="font_8hpp.html">font.hpp</a></div></div>

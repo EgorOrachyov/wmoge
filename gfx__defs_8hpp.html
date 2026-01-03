@@ -208,7 +208,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">How to bind resource to gfx pipeline.  <a href="structwmoge_1_1GfxLocation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxDrawCall.html">wmoge::GfxDrawCall</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Config.html" title="Global manager for confgiguration variable and config files.">Config</a> to dispatch a draw.  <a href="structwmoge_1_1GfxDrawCall.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Config to dispatch a draw.  <a href="structwmoge_1_1GfxDrawCall.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxDeviceCaps.html">wmoge::GfxDeviceCaps</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx device capabilities.  <a href="structwmoge_1_1GfxDeviceCaps.html#details">More...</a><br /></td></tr>
@@ -285,10 +285,25 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a4a0ea4c3fe702d4b272577a3a375334a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of elements in index buffer.  <a href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334a">More...</a><br /></td></tr>
 <tr class="separator:a4a0ea4c3fe702d4b272577a3a375334a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e9f2605a7b2960584dfe67c9618a11e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11e">wmoge::GfxMemUsage</a> : int { <a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11ead4d1dcbdc0107560cd41be7b7f427d9c">wmoge::CpuVisibleGpu</a>
+<tr class="memitem:a6892d98d1856e98e76052f1758680b0f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6892d98d1856e98e76052f1758680b0f">wmoge::GfxBufferType</a> : int { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a6892d98d1856e98e76052f1758680b0fab22b929ba52471a02d18bb3a4e4472e6">wmoge::Vertex</a>
+, <a class="el" href="namespacewmoge.html#a6892d98d1856e98e76052f1758680b0fa88fa71f0a6e0dfedbb46d91cc0b37a50">wmoge::Index</a>
+, <a class="el" href="namespacewmoge.html#a6892d98d1856e98e76052f1758680b0faf19516d11f2946f894070e92fcb56b6d">wmoge::Uniform</a>
+, <a class="el" href="namespacewmoge.html#a6892d98d1856e98e76052f1758680b0fa8c4aa541ee911e8d80451ef8cc304806">wmoge::Storage</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a6892d98d1856e98e76052f1758680b0fa1bee0d8aaede29ac319901e96850adee">wmoge::Staging</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a6892d98d1856e98e76052f1758680b0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of elements in index buffer.  <a href="namespacewmoge.html#a6892d98d1856e98e76052f1758680b0f">More...</a><br /></td></tr>
+<tr class="separator:a6892d98d1856e98e76052f1758680b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e9f2605a7b2960584dfe67c9618a11e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11e">wmoge::GfxMemUsage</a> : int { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11eabcf2e695b6cf4b9db6b9cfe238e42825">wmoge::CpuCopyGpu</a>
+, <a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11ead4d1dcbdc0107560cd41be7b7f427d9c">wmoge::CpuVisibleGpu</a>
 , <a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11ea8f158800be9de7e017ccbab6d4d29cf3">wmoge::GpuVisibleCpu</a>
 , <a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11ea15902bfe9365f33cd568996ffcae643b">wmoge::GpuLocal</a>
-, <a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11ea79648d6b7312bc15543ea72f333c9b33">wmoge::GpuDedicated</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11ea79648d6b7312bc15543ea72f333c9b33">wmoge::GpuDedicated</a>
+<br />
  }</td></tr>
 <tr class="memdesc:a9e9f2605a7b2960584dfe67c9618a11e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx memory usage.  <a href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11e">More...</a><br /></td></tr>
 <tr class="separator:a9e9f2605a7b2960584dfe67c9618a11e"><td class="memSeparator" colspan="2">&#160;</td></tr>

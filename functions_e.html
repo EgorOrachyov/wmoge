@@ -67,9 +67,6 @@ $(function() {
 <li>E
 : <a class="el" href="classwmoge_1_1Math.html#ac32e455246ad2dbb6279c2172d4dffed">wmoge::Math</a>
 </li>
-<li>ecs
-: <a class="el" href="classwmoge_1_1EngineConfig.html#ada01fec7ee0889729b2847082ef71576">wmoge::EngineConfig</a>
-</li>
 <li>ecs_registry()
 : <a class="el" href="classwmoge_1_1Engine.html#abf73894a19671d4740364ba5f8f0067c">wmoge::Engine</a>
 </li>
@@ -99,6 +96,9 @@ $(function() {
 </li>
 <li>EcsWorld()
 : <a class="el" href="classwmoge_1_1EcsWorld.html#a361341a038f54bcb803ce91f58e9ac65">wmoge::EcsWorld</a>
+</li>
+<li>editor()
+: <a class="el" href="classwmoge_1_1EditorHooks.html#a6d8b54be934be21d1304f94aaf1453cb">wmoge::EditorHooks</a>
 </li>
 <li>EdtApplication()
 : <a class="el" href="classwmoge_1_1EdtApplication.html#a820208cf50049fec19e4e11204cf5121">wmoge::EdtApplication</a>
@@ -163,7 +163,7 @@ $(function() {
 <li>enable
 : <a class="el" href="structwmoge_1_1AutoExposureSettings.html#a67d2322e341f47b456ac12b7318327c7">wmoge::AutoExposureSettings</a>
 , <a class="el" href="structwmoge_1_1BloomSettings.html#a1f8f02c91356eb9f389d082812557491">wmoge::BloomSettings</a>
-, <a class="el" href="structwmoge_1_1EngineConfig_1_1Profiler.html#aeffd656340a198a129d9877326bece06">wmoge::EngineConfig::Profiler</a>
+, <a class="el" href="structwmoge_1_1EngineCfg_1_1Profiler.html#a18592e29bceb0bb0eaac3c1969f619be">wmoge::EngineCfg::Profiler</a>
 </li>
 <li>ENABLE
 : <a class="el" href="structwmoge_1_1GpuHostData.html#ad2339db80a0bd9f61576d259cf6f8889">wmoge::GpuHostData&lt; T &gt;</a>
@@ -173,17 +173,11 @@ $(function() {
 : <a class="el" href="classwmoge_1_1ProfilerCapture.html#a47ff1ce2d5fad48f55237632330a0803">wmoge::ProfilerCapture</a>
 , <a class="el" href="classwmoge_1_1ProfilerGpu.html#a270edd54cbb921740d2389d93c6c5fbe">wmoge::ProfilerGpu</a>
 </li>
-<li>enable_cpu
-: <a class="el" href="structwmoge_1_1EngineConfig_1_1Profiler.html#adc85380e538fee1f15b5c9270b157a84">wmoge::EngineConfig::Profiler</a>
-</li>
-<li>enable_gpu
-: <a class="el" href="structwmoge_1_1EngineConfig_1_1Profiler.html#a7dccded143f80e6462152de491f17ac3">wmoge::EngineConfig::Profiler</a>
-</li>
 <li>enabled
 : <a class="el" href="classwmoge_1_1UiMenu.html#aff25838511b781f22d8416f92830f3d1">wmoge::UiMenu</a>
 </li>
 <li>encode()
-: <a class="el" href="classwmoge_1_1Base64.html#a9da76b4704f35ab9807beb58ab1c522d">wmoge::Base64</a>
+: <a class="el" href="classwmoge_1_1Base64.html#aa926eb09e18831a5482dc6f7c5de5f4a">wmoge::Base64</a>
 </li>
 <li>end()
 : <a class="el" href="classwmoge_1_1array__view.html#ab6624f4605b10846996f9a671e7768b7">wmoge::array_view&lt; T &gt;</a>
@@ -240,8 +234,11 @@ $(function() {
 <li>Engine()
 : <a class="el" href="classwmoge_1_1Engine.html#a636c3e5938d1881d9465c0d9c9b91e2b">wmoge::Engine</a>
 </li>
-<li>engine_config()
-: <a class="el" href="classwmoge_1_1Engine.html#a44035ac506c34cb79c095d80a6e3f7cc">wmoge::Engine</a>
+<li>engine()
+: <a class="el" href="classwmoge_1_1EngineHooks.html#a6bddbe1653067bbb169e975ab0dfb24a">wmoge::EngineHooks</a>
+</li>
+<li>engine_cfg()
+: <a class="el" href="classwmoge_1_1Engine.html#a88a3c9929faa83cdbf4e8809ab178b80">wmoge::Engine</a>
 </li>
 <li>engine_name
 : <a class="el" href="structwmoge_1_1VKInitInfo.html#afac712a6a875a204acb4863a79f7dc89">wmoge::VKInitInfo</a>
@@ -307,7 +304,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1UiQuery.html#a2fe5de3f800ffee130ebbf7e198a2f5f">wmoge::UiQuery</a>
 </li>
 <li>exec_command()
-: <a class="el" href="classwmoge_1_1CfgManager.html#a33157483666918d696f8ed309add29cd">wmoge::CfgManager</a>
+: <a class="el" href="classwmoge_1_1CfgValManager.html#ac53138874e787e66b6dc25c704e6c552">wmoge::CfgValManager</a>
 </li>
 <li>exectute()
 : <a class="el" href="classwmoge_1_1DeferredPipeline.html#a63b348af7d7662b681b0bc308ddb2556">wmoge::DeferredPipeline</a>
@@ -338,14 +335,8 @@ $(function() {
 , <a class="el" href="classwmoge_1_1MountVolume.html#ac8cdcffa688abff75302c91b9676534d">wmoge::MountVolume</a>
 , <a class="el" href="classwmoge_1_1MountVolumePhysical.html#a1b4cb005d5afd8c25e05bcae75d8fe81">wmoge::MountVolumePhysical</a>
 </li>
-<li>exit
-: <a class="el" href="structwmoge_1_1EngineConfig_1_1Window.html#a70a1cbac7c4400178e73d7c3fd8924c1">wmoge::EngineConfig::Window</a>
-</li>
 <li>exp()
 : <a class="el" href="classwmoge_1_1Math.html#a0757ca2fce977f96224103a9102d1cff">wmoge::Math</a>
-</li>
-<li>expand_size
-: <a class="el" href="structwmoge_1_1EngineConfig_1_1Ecs.html#aed646799b6a0ffdd01e0d7946d4c5e18">wmoge::EngineConfig::Ecs</a>
 </li>
 <li>EXPAND_SIZE
 : <a class="el" href="classwmoge_1_1MemPool.html#a2c93768b783cb1852f65ed1c324f91a7">wmoge::MemPool</a>

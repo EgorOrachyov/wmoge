@@ -1,0 +1,12 @@
+<map id="wmoge::EngineCfg" name="wmoge::EngineCfg">
+<area shape="rect" id="node1" title="Config variables collection for engine&#45;wide common sub&#45;systems." alt="" coords="123,575,253,601"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1EngineCfg_1_1Profiler.html" title=" " alt="" coords="6,485,181,512"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1CfgValT.html" title=" " alt="" coords="21,359,184,386"/>
+<area shape="rect" id="node8" href="$structwmoge_1_1EngineCfg_1_1Log.html" title=" " alt="" coords="205,485,363,512"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1CfgVal.html" title=" " alt="" coords="99,185,208,212"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1CfgValT.html" title=" " alt="" coords="192,261,339,303"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1CfgValBase.html" title="Base class for any config object." alt="" coords="84,109,223,136"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="179,13,277,39"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1CfgValEnum.html" title=" " alt="" coords="209,352,359,393"/>
+</map>
