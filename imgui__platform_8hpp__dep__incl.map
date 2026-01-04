@@ -1,11 +1,12 @@
 <map id="engine/plugins/imgui/code/imgui_platform.hpp" name="engine/plugins/imgui/code/imgui_platform.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="567,5,733,47"/>
-<area shape="rect" id="node2" href="$imgui__manager_8hpp.html" title=" " alt="" coords="469,102,639,143"/>
-<area shape="rect" id="node8" href="$imgui__platform__glfw_8hpp.html" title=" " alt="" coords="769,95,912,151"/>
+<area shape="rect" id="node1" title=" " alt="" coords="749,5,916,47"/>
+<area shape="rect" id="node2" href="$imgui__manager_8hpp.html" title=" " alt="" coords="559,102,730,143"/>
+<area shape="rect" id="node9" href="$imgui__platform__glfw_8hpp.html" title=" " alt="" coords="949,95,1092,151"/>
 <area shape="rect" id="node3" href="$imgui__controls_8cpp.html" title=" " alt="" coords="5,206,172,247"/>
-<area shape="rect" id="node4" href="$imgui__manager_8cpp.html" title=" " alt="" coords="755,206,926,247"/>
+<area shape="rect" id="node4" href="$imgui__manager_8cpp.html" title=" " alt="" coords="935,206,1106,247"/>
 <area shape="rect" id="node5" href="$imgui__plugin_8cpp.html" title=" " alt="" coords="197,206,351,247"/>
 <area shape="rect" id="node6" href="$imgui__process_8cpp.html" title=" " alt="" coords="376,206,543,247"/>
-<area shape="rect" id="node7" href="$imgui__window_8cpp.html" title=" " alt="" coords="567,206,731,247"/>
-<area shape="rect" id="node9" href="$imgui__platform__glfw_8cpp.html" title=" " alt="" coords="951,199,1093,255"/>
+<area shape="rect" id="node7" href="$imgui__views_8cpp.html" title=" " alt="" coords="567,206,722,247"/>
+<area shape="rect" id="node8" href="$imgui__window_8cpp.html" title=" " alt="" coords="747,206,911,247"/>
+<area shape="rect" id="node10" href="$imgui__platform__glfw_8cpp.html" title=" " alt="" coords="1131,199,1273,255"/>
 </map>

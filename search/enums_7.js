@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['lighttype_10262',['LightType',['../namespacewmoge.html#a177ed35420e84121d201579754c129a9',1,'wmoge']]],
-  ['loglevel_10263',['LogLevel',['../namespacewmoge.html#adb66fc860342988f88322798b80659c0',1,'wmoge']]]
+  ['lighttype_10383',['LightType',['../namespacewmoge.html#a177ed35420e84121d201579754c129a9',1,'wmoge']]],
+  ['loglevel_10384',['LogLevel',['../namespacewmoge.html#adb66fc860342988f88322798b80659c0',1,'wmoge']]]
 ];

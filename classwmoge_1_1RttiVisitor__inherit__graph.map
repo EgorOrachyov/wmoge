@@ -1,0 +1,4 @@
+<map id="wmoge::RttiVisitor" name="wmoge::RttiVisitor">
+<area shape="rect" id="node1" title="Top to bottom dfs&#45;like visitor to inspect rtti objects." alt="" coords="35,5,161,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetDepsCollectorVisitor.html" title="Visitor implementation to collect deps asset refs from a root asset." alt="" coords="5,80,191,121"/>
+</map>
