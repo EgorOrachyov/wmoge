@@ -58,5 +58,38 @@
                 <UiTextLink text="https://github.com/EgorOrachyov/wmoge"/>
             </UiStackPanel>
         </UiDockWindow>
+        <UiDockWindow title="Table" sub_style="panel">
+            <UiTableTree>
+                <columns>
+                    <UiTableColumn title="Name"/>
+                    <UiTableColumn title="Type"/>
+                    <UiTableColumn title="Size"/>
+                </columns>
+                <rows>
+                    <UiTableTreeRow>
+                        <UiText text="Face.fbx"/>
+                        <UiText text="Mesh"/>
+                        <UiText text="4325545"/>
+                        <sub_rows>
+                            <UiTableTreeRow>
+                                <UiText text="Face_material"/>
+                                <UiText text="Material"/>
+                                <UiText text="2343"/>
+                            </UiTableTreeRow>
+                            <UiTableTreeRow>
+                                <UiText text="Face_shader"/>
+                                <UiText text="Shader"/>
+                                <UiText text="1044"/>
+                            </UiTableTreeRow>
+                        </sub_rows>
+                    </UiTableTreeRow>
+                    <UiTableTreeRow>
+                        <UiText text="Image.png"/>
+                        <UiText text="Texture"/>
+                        <UiText text="12433"/>
+                    </UiTableTreeRow>
+                </rows>
+            </UiTableTree>
+        </UiDockWindow>
     </UiDockSpace>
 </UiMainWindow>

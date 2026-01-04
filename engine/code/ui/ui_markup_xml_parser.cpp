@@ -116,31 +116,59 @@ namespace wmoge {
                     WG_LOG_ERROR("no node to parse " << slot_name << " for " << m_name);
                     return StatusCode::InvalidData;
                 }
+                if (!field) {
+                    WG_LOG_ERROR("no such slot in target element " << slot_name << " of type " << cls->get_name());
+                    return StatusCode::InvalidData;
+                }
 
-                const RttiType* type = field->get_type();
+                const RttiType*       slot_type   = field->get_type();
+                const RttiType*       type        = slot_type;
+                const RttiTypeVector* type_vector = nullptr;
+
+                if (type->archetype_is(RttiArchetype::Vector)) {
+                    type_vector = static_cast<const RttiTypeVector*>(type);
+                    type        = type_vector->get_value_type();
+                }
                 if (!type->archetype_is(RttiArchetype::Ref)) {
                     WG_LOG_ERROR("unexpected type of slot " << slot_name << " for " << m_name);
                     return StatusCode::InvalidData;
                 }
 
-                const RttiType* type_ref = static_cast<const RttiTypeRef*>(type)->get_value_type();
-                if (!type_ref->archetype_is(RttiArchetype::Class)) {
+                const RttiType* value_type = static_cast<const RttiTypeRef*>(type)->get_value_type();
+                if (!value_type->archetype_is(RttiArchetype::Class)) {
                     WG_LOG_ERROR("unexpected type of slot " << slot_name << " for " << m_name);
                     return StatusCode::InvalidData;
                 }
 
-                if (!reinterpret_cast<const RttiClass*>(type_ref)->is_subtype_of(UiElement::get_class_static())) {
-                    WG_LOG_ERROR("expecting UiElement type of slot " << slot_name << " for " << m_name);
-                    return StatusCode::InvalidData;
+                if (type_vector) {
+                    for (tinyxml2::XMLElement* xml_node_iter = xml_node; xml_node_iter; xml_node_iter = xml_node_iter->NextSiblingElement()) {
+                        Ref<UiElement> slot;
+                        WG_CHECKED(parse_element(xml_node_iter, slot));
+
+                        if (!slot->get_class()->is_subtype_of(reinterpret_cast<const RttiClass*>(value_type))) {
+                            WG_LOG_ERROR("expecting " << value_type->get_name() << " type of slot " << slot_name << " for " << m_name);
+                            return StatusCode::InvalidData;
+                        }
+
+                        std::size_t   offset = field->get_byte_offset();
+                        std::uint8_t* dst    = reinterpret_cast<std::uint8_t*>(out.get()) + offset;
+
+                        type_vector->push_back(dst, &slot);
+                    }
+                } else {
+                    Ref<UiElement> slot;
+                    WG_CHECKED(parse_element(xml_node, slot));
+
+                    if (!slot->get_class()->is_subtype_of(reinterpret_cast<const RttiClass*>(value_type))) {
+                        WG_LOG_ERROR("expecting " << value_type->get_name() << " type of slot " << slot_name << " for " << m_name);
+                        return StatusCode::InvalidData;
+                    }
+
+                    std::size_t   offset = field->get_byte_offset();
+                    std::uint8_t* dst    = reinterpret_cast<std::uint8_t*>(out.get()) + offset;
+
+                    type->copy(dst, &slot);
                 }
-
-                Ref<UiElement> slot;
-                WG_CHECKED(parse_element(xml_node, slot));
-
-                std::size_t   offset = field->get_byte_offset();
-                std::uint8_t* dst    = reinterpret_cast<std::uint8_t*>(out.get()) + offset;
-
-                type->copy(dst, &slot);
             } else {
                 Ref<UiElement> child;
                 WG_CHECKED(parse_element(xml_slot, child));

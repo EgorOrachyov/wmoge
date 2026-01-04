@@ -88,6 +88,53 @@ namespace wmoge {
     /** @brief Window element flags */
     using UiWindowFlags = Mask<UiWindowFlag>;
 
+    /** @brief Flag for table element */
+    enum class UiTableFlag {
+        Resizable,
+        RowBg,
+        BordersInnerH,
+        BordersOuterH,
+        BordersInnerV,
+        BordersOuterV,
+        BordersH,
+        BordersV,
+        BordersInner,
+        BordersOuter,
+        Borders,
+        ScrollX,
+        ScrollY,
+    };
+
+    /** @brief Table element flags */
+    using UiTableFlags = Mask<UiTableFlag>;
+
+    /** @brief Table column element flag */
+    enum class UiTableColumnFlag {
+        Disabled,
+        DefaultHide,
+        DefaultSort,
+        WidthStretch,
+        WidthFixed,
+        NoResize,
+        NoReorder,
+        NoHide,
+        NoClip,
+        NoSort,
+    };
+
+    /** @brief Table column element flags */
+    using UiTableColumnFlags = Mask<UiTableColumnFlag>;
+
+    /** @brief Flag for table row element */
+    enum class UiTableTreeRowFlag {
+        Leaf,
+        Bullet,
+        LabelSpanAllColumns,
+    };
+
+    /** @brief Table row element flags */
+    using UiTableTreeRowFlags = Mask<UiTableTreeRowFlag>;
+
     /** @brief Name of param in ui style */
     enum class UiParam {
         Alpha = 0,
@@ -244,7 +291,10 @@ namespace wmoge {
         RadioButton,
         ComboBox,
         ListBox,
-        ProgressBar
+        ProgressBar,
+        TableColumn,
+        TableTreeRow,
+        TableTree,
     };
 
 }// namespace wmoge

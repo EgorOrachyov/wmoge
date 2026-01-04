@@ -50,6 +50,10 @@ namespace wmoge {
 
         bool operator==(const AssetId& other) const { return m_uuid == other.m_uuid; }
         bool operator!=(const AssetId& other) const { return m_uuid != other.m_uuid; }
+        bool operator<(const AssetId& other) const { return m_uuid < other.m_uuid; }
+        bool operator<=(const AssetId& other) const { return m_uuid <= other.m_uuid; }
+        bool operator>(const AssetId& other) const { return m_uuid > other.m_uuid; }
+        bool operator>=(const AssetId& other) const { return m_uuid >= other.m_uuid; }
 
         operator bool() const { return !is_empty(); }
         operator UUID() const { return m_uuid; }

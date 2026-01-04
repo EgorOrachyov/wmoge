@@ -51,6 +51,10 @@ namespace wmoge {
 
         bool operator==(const UUID& other) const { return m_value == other.m_value; }
         bool operator!=(const UUID& other) const { return m_value != other.m_value; }
+        bool operator<(const UUID& other) const { return m_value < other.m_value; }
+        bool operator<=(const UUID& other) const { return m_value <= other.m_value; }
+        bool operator>(const UUID& other) const { return m_value > other.m_value; }
+        bool operator>=(const UUID& other) const { return m_value >= other.m_value; }
 
         operator bool() const { return is_not_null(); }
 

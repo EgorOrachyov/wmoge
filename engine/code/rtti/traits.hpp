@@ -606,11 +606,11 @@ namespace wmoge {
     };
 
     template<typename FuncT, typename TRet, typename... TArgs>
-    class RttiTypeFunctionLambaT : public RttiTypeFunctionBaseT<FuncT, TRet, TArgs...> {
+    class RttiTypeFunctionLambdaT : public RttiTypeFunctionBaseT<FuncT, TRet, TArgs...> {
     public:
         using ParentT = RttiTypeFunctionBaseT<FuncT, TRet, TArgs...>;
 
-        RttiTypeFunctionLambaT(Strid name, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret)
+        RttiTypeFunctionLambdaT(Strid name, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret)
             : ParentT(name, stack_size, std::move(args), std::move(ret)) {
         }
 
@@ -864,7 +864,7 @@ namespace wmoge {
     template<typename TRet, typename... TArgs>
     struct RttiTypeOf<std::function<TRet(TArgs...)>> {
         using FunctionT = std::function<TRet(TArgs...)>;
-        using TraitType = RttiTypeFunctionLambaT<FunctionT, TRet, TArgs...>;
+        using TraitType = RttiTypeFunctionLambdaT<FunctionT, TRet, TArgs...>;
 
         static Strid name() {
             RttiParamInfo              ret;

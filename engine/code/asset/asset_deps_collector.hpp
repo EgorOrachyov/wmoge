@@ -30,8 +30,6 @@
 #include "asset/asset.hpp"
 #include "core/flat_set.hpp"
 #include "core/uuid.hpp"
-#include "rtti/builtin.hpp"
-#include "rtti/struct.hpp"
 
 #include <vector>
 
@@ -48,17 +46,6 @@ namespace wmoge {
         Status collect();
 
         [[nodiscard]] std::vector<UUID> to_vector() const;
-
-    private:
-        Status collect(const RttiType* rtti, std::uint8_t* src);
-        Status collect_from_optional(const RttiTypeOptional* rtti, std::uint8_t* src);
-        Status collect_from_pair(const RttiTypePair* rtti, std::uint8_t* src);
-        Status collect_from_struct(const RttiStruct* rtti, std::uint8_t* src);
-        Status collect_from_vector(const RttiTypeVector* rtti, std::uint8_t* src);
-        Status collect_from_set(const RttiTypeSet* rtti, std::uint8_t* src);
-        Status collect_from_map(const RttiTypeMap* rtti, std::uint8_t* src);
-        Status collect_from_ref(const RttiTypeRef* rtti, std::uint8_t* src);
-        Status collect_from_asset_ref(const RttiTypeAssetRef* rtti, std::uint8_t* src);
 
     private:
         Ref<Asset>     m_asset;

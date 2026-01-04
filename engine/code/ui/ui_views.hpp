@@ -31,4 +31,78 @@
 
 namespace wmoge {
 
+    /**
+     * @class UiTableColumn
+     * @brief Ui table column config
+     */
+    class UiTableColumn : public UiElement {
+    public:
+        WG_RTTI_CLASS(UiTableColumn, UiElement);
+
+        UiTableColumn() : UiElement(UiElementType::TableColumn) {}
+
+        std::string        title;
+        UiTableColumnFlags flags;
+    };
+
+    WG_RTTI_CLASS_BEGIN(UiTableColumn) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(title, {});
+        WG_RTTI_FIELD(flags, {RttiOptional});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class UiTableTreeRow
+     * @brief Ui table tree row element
+     */
+    class UiTableTreeRow : public UiElement {
+    public:
+        WG_RTTI_CLASS(UiTableTreeRow, UiElement);
+
+        UiTableTreeRow() : UiElement(UiElementType::TableTreeRow) {}
+
+        std::vector<Ref<UiElement>> sub_rows;
+        UiTableTreeRowFlags         flags;
+    };
+
+    WG_RTTI_CLASS_BEGIN(UiTableTreeRow) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(sub_rows, {RttiOptional});
+        WG_RTTI_FIELD(flags, {RttiOptional});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class UiTableTree
+     * @brief Ui table tree view
+     */
+    class UiTableTree : public UiElement {
+    public:
+        WG_RTTI_CLASS(UiTableTree, UiElement);
+
+        UiTableTree() : UiElement(UiElementType::TableTree) {}
+
+        using OnRowMoved    = std::function<void(int)>;
+        using OnRowSelected = std::function<void(int)>;
+
+        std::vector<Ref<UiTableTreeRow>> rows;
+        std::vector<Ref<UiTableColumn>>  columns;
+        std::string                      title;
+        UiTableFlags                     flags;
+        OnRowMoved                       on_row_moved;
+        OnRowMoved                       on_row_selected;
+    };
+
+    WG_RTTI_CLASS_BEGIN(UiTableTree) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(rows, {RttiOptional});
+        WG_RTTI_FIELD(columns, {RttiOptional});
+        WG_RTTI_FIELD(title, {RttiOptional});
+        WG_RTTI_FIELD(flags, {RttiOptional});
+        WG_RTTI_FIELD(on_row_moved, {RttiNoSaveLoad});
+        WG_RTTI_FIELD(on_row_selected, {RttiNoSaveLoad});
+    }
+    WG_RTTI_END;
+
 }// namespace wmoge

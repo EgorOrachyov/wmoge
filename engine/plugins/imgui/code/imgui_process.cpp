@@ -33,6 +33,7 @@
 #include "imgui_controls.hpp"
 #include "imgui_inputs.hpp"
 #include "imgui_manager.hpp"
+#include "imgui_views.hpp"
 #include "imgui_window.hpp"
 
 #include <cstring>
@@ -235,6 +236,11 @@ namespace wmoge {
             case UiElementType::InputTextExt:
                 return false;
 
+            case UiElementType::TableColumn:
+            case UiElementType::TableTreeRow:
+            case UiElementType::TableTree:
+                return false;
+
             default:
                 return false;
         }
@@ -377,6 +383,10 @@ namespace wmoge {
                 break;
             case UiElementType::InputTextExt:
                 imgui_process_input_text_ext(*this, *static_cast<UiInputTextExt*>(element));
+                break;
+
+            case UiElementType::TableTree:
+                imgui_process_table_tree(*this, *static_cast<UiTableTree*>(element));
                 break;
 
             default:
